@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>初期設定｜AIカルテ</title>
+<style>
+:root{ --bg:#f1f7fb; --navy:#26405f; --navy2:#1d3149; --pink2:#966b44; --pinkbg:#f6ecdd; --text:#4a4446; }
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:"Yu Gothic","YuGothic","游ゴシック","Hiragino Kaku Gothic ProN",sans-serif; background:var(--bg); color:var(--text); line-height:1.9;}
+.wrap{max-width:640px; margin:0 auto; padding:30px 18px 60px;}
+h1{font-size:20px; color:var(--navy2);}
+p.lead{font-size:13.5px; margin-top:8px;}
+.step{background:#fff; border-radius:16px; padding:16px 18px; margin-top:14px; box-shadow:0 6px 18px rgba(38,64,95,.08);}
+.step b{color:var(--pink2);}
+.step h3{font-size:14px; color:var(--navy2); margin-bottom:6px;}
+.step p{font-size:13px;}
+pre{background:#1d3149; color:#dce8f2; border-radius:12px; padding:14px; font-size:11.5px; line-height:1.7; overflow-x:auto; margin-top:10px;}
+.btn{border:none; background:var(--pink2); color:#fff; border-radius:999px; padding:11px 24px; font-size:13px; font-weight:800; cursor:pointer; font-family:inherit; margin-top:10px;}
+.btn.navy{background:var(--navy);}
+#result{margin-top:10px; font-size:13px; font-weight:800;}
+a{color:var(--navy);}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>AIカルテ 初期設定（1回だけ）</h1>
+  <p class="lead">Re:alizeと同じSupabaseに、カルテ用の入れ物を2つ作ります。作業は「SQLを貼って実行」の1回だけです。</p>
+
+  <div class="step">
+    <h3><b>STEP 1</b>　自分のSupabase（無料）を作る</h3>
+    <p>① <a href="https://supabase.com" target="_blank">supabase.com</a> でアカウント作成（GitHubかメールで1分）<br>
+    ② 「New project」でプロジェクトを1つ作る（名前は自由・リージョンはTokyo・無料プランでOK）<br>
+    ③ できたら左メニューの「SQL Editor」→「New query」を開く</p>
+  </div>
+
+  <div class="step">
+    <h3><b>STEP 2</b>　下のSQLをコピーして貼り付け、「Run」を押す</h3>
+    <pre id="sql">create table if not exists ailab_notes (
+  id bigserial primary key,
+  member_id text not null,
+  member_name text,
+  mood text,
+  worry text,
+  want text,
+  created_at timestamptz default now()
+);
+create table if not exists ailab_advice (
+  id bigserial primary key,
+  target_id text not null,
+  author_name text default 'はるか',
+  message text,
+  created_at timestamptz default now()
+);
+alter table ailab_notes enable row level security;
+alter table ailab_advice enable row level security;
+drop policy if exists ailab_notes_all on ailab_notes;
+create policy ailab_notes_all on ailab_notes
+  for all to anon using (true) with check (true);
+drop policy if exists ailab_advice_all on ailab_advice;
+create policy ailab_advice_all on ailab_advice
+  for all to anon using (true) with check (true);</pre>
+    <button class="btn" id="copysql">SQLをコピー</button>
+  </div>
+
+  <div class="step">
+    <h3><b>STEP 3</b>　接続テスト</h3>
+    <p>Runが終わったら、このボタンを押してください。</p>
+    <button class="btn navy" id="test">接続テストを実行</button>
+    <div id="result"></div>
+  </div>
+
+  <div class="step">
+    <h3><b>STEP 3.5</b>　接続情報をサイトに書き込む</h3>
+    <p>Supabaseの左メニュー「Settings」→「API」を開き、<b>Project URL</b> と <b>anon（publishable）キー</b> をコピーします。<br>
+    このサイトのファイル <b>supabase_config.js</b> を開いて、URLとキーを貼り付け、<b>enabled を true</b> にして保存してください。これで全ページが本番モードになります（それまでは安全なデモモードです）。</p>
+  </div>
+
+  <div class="step">
+    <h3><b>STEP 4</b>　データ保護（削除ブロック・1回だけ／おすすめ）</h3>
+    <p>このSQLを実行すると、サイトで使っている公開キーからは<b>データを消すことが不可能</b>になります（書く・読む・返信はこれまで通り）。消せるのはSupabase管理画面を開けるはるかだけになります。</p>
+    <pre id="sql2">drop policy if exists ailab_notes_all on ailab_notes;
+drop policy if exists ailab_advice_all on ailab_advice;
+drop policy if exists ailab_notes_sel on ailab_notes;
+drop policy if exists ailab_notes_ins on ailab_notes;
+drop policy if exists ailab_notes_upd on ailab_notes;
+drop policy if exists ailab_advice_sel on ailab_advice;
+drop policy if exists ailab_advice_ins on ailab_advice;
+create policy ailab_notes_sel on ailab_notes
+  for select to anon using (true);
+create policy ailab_notes_ins on ailab_notes
+  for insert to anon with check (true);
+create policy ailab_notes_upd on ailab_notes
+  for update to anon using (true) with check (true);
+create policy ailab_advice_sel on ailab_advice
+  for select to anon using (true);
+create policy ailab_advice_ins on ailab_advice
+  for insert to anon with check (true);</pre>
+    <button class="btn" id="copysql2">保護SQLをコピー</button>
+  </div>
+
+  <div class="step">
+    <h3>カスタマイズする場所（検索して書き換えるだけ）</h3>
+    <p>
+    ☐ <b>index.html</b>：カリキュラムの各週テーマ（「設定してください」で検索）／ロゴまわりの文言<br>
+    ☐ <b>ai.html</b>：AIはるかの回答（価格・日程・締切の【 】を自分のサービスに合わせる。RULESに自由に追加OK）<br>
+    ☐ <b>lp.html</b>：価格・日程・講師紹介・お申込みリンクの【 】<br>
+    ☐ <b>assets/</b>：キャラクター画像（差し替え可能）<br>
+    ☐ 公開はGitHub Pages（無料）がおすすめ。リポジトリにアップ→Settings→Pages→公開
+    </p>
+  </div>
+
+  <div class="step">
+    <h3>完了後</h3>
+    <p><a href="kanri.html">管理者ボード</a>からURLを発行して、参加者に送るだけで運用開始です。</p>
+  </div>
+</div>
+<script src="supabase_config.js"></script>
+<script>
+document.getElementById("copysql").onclick=function(){
+  var t=document.getElementById("sql").textContent, b=this;
+  function ok(){ b.textContent="コピーしました"; setTimeout(function(){b.textContent="SQLをコピー";},1600); }
+  if(navigator.clipboard&&navigator.clipboard.writeText){ navigator.clipboard.writeText(t).then(ok); }
+  else{ var ta=document.createElement("textarea"); ta.value=t; document.body.appendChild(ta); ta.select(); document.execCommand("copy"); ta.remove(); ok(); }
+};
+document.getElementById("copysql2").onclick=function(){
+  var t=document.getElementById("sql2").textContent, b=this;
+  function ok(){ b.textContent="コピーしました"; setTimeout(function(){b.textContent="保護SQLをコピー";},1600); }
+  if(navigator.clipboard&&navigator.clipboard.writeText){ navigator.clipboard.writeText(t).then(ok); }
+  else{ var ta=document.createElement("textarea"); ta.value=t; document.body.appendChild(ta); ta.select(); document.execCommand("copy"); ta.remove(); ok(); }
+};
+document.getElementById("test").onclick=function(){
+  var r=document.getElementById("result");
+  r.style.color="#8a97a5"; r.textContent="確認中…";
+  fetch(SUPABASE_CONFIG.url+"/rest/v1/ailab_notes?limit=1",{headers:{apikey:SUPABASE_CONFIG.anonKey,Authorization:"Bearer "+SUPABASE_CONFIG.anonKey}})
+    .then(function(res){
+      if(res.ok){ r.style.color="#966b44"; r.textContent="接続OKです。運用を始められます。"; }
+      else{ r.style.color="#26405f"; r.textContent="まだ設定が済んでいないようです（STEP2のSQLを実行してください）。"; }
+    })
+    .catch(function(){ r.style.color="#26405f"; r.textContent="通信できませんでした。電波を確認してもう一度どうぞ。"; });
+};
+</script>
+</body>
+</html>

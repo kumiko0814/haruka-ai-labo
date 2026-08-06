@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>AIカルテ 管理者ボード｜AI活用ラボ</title>
+<style>
+:root{
+  --bg:#fdf5f7; --bg2:#f4f7fb; --navy:#26405f; --navy2:#1d3149; --side:#232f47;
+  --pink:#b3835a; --pink2:#966b44; --pink3:#a97c50; --pinkbg:#f6ecdd; --blue:#7fb0d2; --text:#4a4446;
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+body{
+  font-family:"Yu Gothic","YuGothic","游ゴシック","Hiragino Kaku Gothic ProN","Hiragino Sans",sans-serif;
+  background:linear-gradient(160deg,#fdf3f6 0%,#f4f7fb 60%,#fdf3f6 100%); color:var(--text); line-height:1.9;
+  -webkit-font-smoothing:antialiased;
+}
+.layout{display:grid; grid-template-columns:236px 1fr; min-height:100vh;}
+
+/* ===== sidebar ===== */
+.side{background:var(--navy2); color:#cfdcea; padding:26px 0 18px; display:flex; flex-direction:column;}
+.slogo{padding:0 24px 22px;}
+.slogo .m{font-size:24px; font-weight:800; letter-spacing:.14em; color:#e79ab2;}
+.slogo .l{font-size:11px; color:#aebccb; letter-spacing:.18em; margin-top:2px;}
+.nav{flex:1;}
+.ni{display:flex; align-items:center; gap:12px; padding:13px 24px; font-size:13px; font-weight:700; color:#c3cfdc; cursor:pointer; position:relative;}
+.ni svg{width:17px; height:17px; fill:none; stroke:currentColor; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; flex:none;}
+.ni.on{background:linear-gradient(90deg,#a86a7c,#8d5a6b); color:#fff;}
+.ni .bdg{margin-left:auto; background:var(--pink); color:#fff; font-size:10.5px; font-weight:800; border-radius:999px; padding:1px 8px;}
+.sprof{margin-top:14px; padding:16px 20px 0; border-top:1px solid rgba(255,255,255,.1); display:flex; gap:10px; align-items:flex-start;}
+.sprof img{width:44px; height:44px; border-radius:50%; object-fit:cover; object-position:50% 6%; background:#fde7ee; flex:none;}
+.sprof .nm{font-size:13px; font-weight:800; color:#fff;}
+.sprof .rl{font-size:9.5px; color:#aebccb; line-height:1.6;}
+.sprof .mt{font-size:9.5px; color:#e7b6c4; margin-top:4px; line-height:1.7;}
+
+/* ===== main ===== */
+.main{padding:0 0 60px;}
+.hero{position:relative; padding:34px 36px 8px; overflow:hidden;}
+.eyebrow{font-size:11px; color:var(--pink2); font-weight:800; letter-spacing:.28em;}
+.hero h1{font-size:clamp(26px,3.4vw,38px); color:var(--navy2); letter-spacing:.04em; margin-top:4px;}
+.hero .sub{font-size:13px; margin-top:6px; max-width:520px;}
+.hero .char{position:absolute; right:220px; top:10px; width:170px;}
+.hero .script{position:absolute; right:40px; top:44px; color:#d9899d; font-weight:800; font-size:15px; letter-spacing:.14em; line-height:2.1; transform:rotate(-3deg); text-align:center;}
+.hero .spark{position:absolute; color:#e8c48b; font-size:18px;}
+.cols{display:grid; grid-template-columns:1fr 300px; gap:20px; padding:18px 36px 0; align-items:start;}
+
+/* url card */
+.card{background:#fff; border-radius:20px; padding:22px 24px; box-shadow:0 10px 30px rgba(38,64,95,.08);}
+.card .chead{display:flex; justify-content:space-between; align-items:baseline; flex-wrap:wrap; gap:8px;}
+.card h2{font-size:16px; color:var(--navy2);}
+.card .links a{font-size:11.5px; color:var(--navy); font-weight:800; margin-left:14px;}
+.frow{display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:14px;}
+label{display:block; font-size:12px; font-weight:800; color:var(--navy); margin-bottom:6px;}
+input[type=text]{width:100%; border:1.5px solid #e3e9f0; border-radius:12px; padding:11px 14px; font-size:14px; font-weight:700; color:var(--navy2); background:#fbfcfe; font-family:inherit;}
+.mode{margin-top:14px;}
+.chips{display:flex; gap:10px;}
+.chip{border:1.5px solid #e3e9f0; background:#fff; color:var(--navy); border-radius:999px; padding:8px 22px; font-size:12.5px; font-weight:800; cursor:pointer; user-select:none;}
+.chip.on{background:linear-gradient(135deg,var(--pink3),var(--pink)); border-color:transparent; color:#fff;}
+.gbtn{
+  display:flex; align-items:center; justify-content:center; gap:8px; width:100%; border:none; margin-top:16px;
+  background:linear-gradient(135deg,var(--pink3),var(--pink)); color:#fff;
+  border-radius:999px; padding:14px; font-size:15px; font-weight:800; letter-spacing:.08em;
+  box-shadow:0 8px 22px rgba(189,120,134,.35); cursor:pointer; font-family:inherit;
+}
+.gbtn svg{width:16px; height:16px; fill:#fff;}
+.note{font-size:11px; color:#9aa7b4; margin-top:10px;}
+.urlbox{display:none; margin-top:12px; background:var(--bg2); border-radius:12px; padding:11px 14px; font-size:12px; word-break:break-all; color:var(--navy2); font-weight:700;}
+
+/* hitokoto */
+.hito{background:linear-gradient(165deg,#f6ecdd,#f7dfe7); border-radius:20px; padding:20px 18px; text-align:center; box-shadow:0 10px 30px rgba(189,120,134,.14); position:relative;}
+.hito h3{font-size:14px; color:var(--pink3); letter-spacing:.06em;}
+.hito h3::before{content:"✦ "; color:#e8c48b;}
+.hito img{width:118px; margin:10px auto 8px; display:block;}
+.hito p{font-size:12.5px; font-weight:700; color:#7c5560; line-height:2; text-align:center;}
+
+/* inbox */
+.inboxwrap{padding:24px 36px 0;}
+.ihead{display:flex; align-items:center; gap:12px; flex-wrap:wrap;}
+.ihead h2{font-size:17px; color:var(--navy2);}
+.ihead .cnt{font-size:12px; color:var(--pink2); font-weight:800;}
+.ihead .rl{margin-left:auto; border:1.5px solid #e3e9f0; background:#fff; border-radius:999px; padding:8px 20px; font-size:12px; font-weight:800; color:var(--navy); cursor:pointer; font-family:inherit;}
+.ilist{background:#fff; border-radius:20px; box-shadow:0 10px 30px rgba(38,64,95,.08); margin-top:12px; overflow:hidden;}
+.item{display:flex; gap:16px; padding:18px 22px; border-top:1px solid #f0f2f6; align-items:flex-start;}
+.item:first-child{border-top:none;}
+.ava{flex:none; width:46px; height:46px; border-radius:50%; display:flex; align-items:center; justify-content:center;}
+.ava svg{width:22px; height:22px; fill:#fff;}
+.a1{background:linear-gradient(135deg,#e9a0b4,#d67d95);} .a2{background:linear-gradient(135deg,#b39ddb,#9575cd);}
+.a3{background:linear-gradient(135deg,#90bfe0,#6d9fc7);} .a4{background:linear-gradient(135deg,#f0cc7f,#e0b25c);}
+.icol{flex:none; width:88px;}
+.icol .nm{font-size:14.5px; font-weight:800; color:var(--navy2);}
+.icol .id{font-size:10px; color:#9aa7b4; font-weight:700;}
+.mood{display:inline-block; background:var(--pinkbg); color:var(--pink2); border-radius:8px; padding:1px 9px; font-size:10px; font-weight:800; margin-top:4px;}
+.reply{margin-top:10px; width:100%;}
+.reply textarea{width:100%; border:1.5px solid #e3e9f0; border-radius:12px; padding:10px 12px; font-size:13px; line-height:1.8; color:var(--navy2); background:#fbfcfe; font-family:inherit; min-height:76px; resize:vertical;}
+.reply .sbtn{border:none; background:linear-gradient(135deg,var(--pink3),var(--pink)); color:#fff; border-radius:999px; padding:9px 22px; font-size:12px; font-weight:800; cursor:pointer; font-family:inherit; margin-top:8px;}
+.reply .sentok{display:none; font-size:11.5px; color:var(--pink2); font-weight:800; margin-top:6px;}
+.advsent{margin-top:8px; background:var(--bg2); border-radius:12px; padding:9px 12px; font-size:11.5px; white-space:pre-line; width:100%;}
+.advsent b{color:var(--pink2);}
+.subbtn{border:1.5px solid #e3e9f0; background:#fff; color:var(--navy); border-radius:999px; padding:9px 18px; font-size:12px; font-weight:800; cursor:pointer; font-family:inherit; margin-top:10px; margin-right:8px;}
+.empty2{text-align:center; font-size:12.5px; color:#9aa7b4; padding:26px 0;}
+.kpis{display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin-bottom:16px;}
+.kpi{background:var(--bg2); border-radius:14px; padding:12px 8px; text-align:center;}
+.kpi .v{font-size:20px; font-weight:800; color:var(--navy2);}
+.kpi .v small{font-size:11px; font-weight:700;}
+.kpi .l{font-size:10px; color:#8a97a5; font-weight:800;}
+.kpi.warn{background:var(--pinkbg);}
+.kpi.warn .v{color:var(--pink3);}
+.th4{font-size:13px; color:var(--navy2); font-weight:800; margin:16px 0 6px;}
+.th4::before{content:"✦ "; color:#e8c48b;}
+.brow{display:grid; grid-template-columns:150px 1fr 40px; gap:10px; align-items:center; margin-top:8px; font-size:12px;}
+.brow .bl{font-weight:800; color:var(--navy); line-height:1.5;}
+.brow .btrack{display:block; background:#eef2f6; border-radius:999px; height:12px; overflow:hidden;}
+.brow .bfill{display:block; height:100%; border-radius:999px; background:linear-gradient(90deg,var(--blue),var(--pink));}
+.brow .bv{font-weight:800; color:#8a97a5; text-align:right; font-size:11px;}
+@media(max-width:900px){ .kpis{grid-template-columns:repeat(2,1fr);} .brow{grid-template-columns:104px 1fr 34px;} }
+.ibody{flex:1; min-width:0;}
+.ibody .tx{font-size:13.5px; color:var(--text);}
+.ibody .wt{font-size:11.5px; color:#9aa7b4; margin-top:2px;}
+.iright{flex:none; text-align:right; display:flex; flex-direction:column; align-items:flex-end; gap:10px;}
+.iright .dt{font-size:11px; color:#8a97a5; font-weight:700;}
+.advpill{background:var(--pinkbg); color:var(--pink2); border-radius:999px; padding:5px 14px; font-size:11px; font-weight:800; white-space:nowrap;}
+
+/* mobile */
+.mtop{display:none;}
+.mnav{display:none;}
+@media(max-width:900px){
+  .layout{grid-template-columns:1fr;}
+  .side{display:none;}
+  .mtop{display:flex; background:var(--navy2); color:#fff; padding:14px 18px 10px; align-items:center; gap:10px; position:relative;}
+  .mtop .t .m{font-size:15px; font-weight:800; letter-spacing:.1em; color:#e79ab2;}
+  .mtop .t .m small{color:#cfdcea; font-size:10px; letter-spacing:.14em; margin-left:4px;}
+  .mtop .t .h{font-size:16px; font-weight:800;}
+  .mtop img{width:64px; margin-left:auto;}
+  .mtop .burger{position:absolute; right:14px; top:12px; color:#cfdcea; font-size:20px; font-weight:800;}
+  .hero{padding:22px 18px 4px;}
+  .hero .char,.hero .script{display:none;}
+  .cols{grid-template-columns:1fr; padding:14px 18px 0;}
+  .frow{grid-template-columns:1fr;}
+  .inboxwrap{padding:20px 18px 80px;}
+  .item{flex-wrap:wrap;}
+  .icol{width:auto;}
+  .iright{flex-direction:row; width:100%; justify-content:space-between; align-items:center;}
+  .mnav{display:flex; position:fixed; bottom:0; left:0; right:0; background:#fff; border-top:1px solid #eee; justify-content:space-around; padding:8px 4px calc(8px + env(safe-area-inset-bottom)); z-index:30;}
+  .mn{text-align:center; font-size:9.5px; font-weight:800; color:#9aa7b4; position:relative;}
+  .mn svg{width:20px; height:20px; display:block; margin:0 auto 2px; fill:none; stroke:#9aa7b4; stroke-width:2; stroke-linecap:round; stroke-linejoin:round;}
+  .mn.on{color:var(--pink2);} .mn.on svg{stroke:var(--pink2);}
+  .mn .b{position:absolute; top:-4px; right:2px; background:var(--pink); color:#fff; border-radius:999px; font-size:8.5px; padding:0 5px; font-weight:800;}
+}
+.mockband{background:var(--navy2); color:#cfdcea; text-align:center; font-size:11px; padding:5px 10px; letter-spacing:.08em;}
+</style>
+</head>
+<body>
+<div id="demoband" class="mockband" style="display:none;">デモ表示（ダミーデータ）</div>
+
+<div class="mtop">
+  <div class="t">
+    <div class="m"><small>AI活用ラボ</small></div>
+    <div class="h">AIカルテ 管理者ボード</div>
+  </div>
+  <img src="assets/hk-suit.png" alt="" onerror="this.style.display='none'">
+  <span class="burger">≡</span>
+</div>
+
+<div class="layout">
+
+  <!-- sidebar -->
+  <aside class="side">
+    <div class="slogo"><div class="m"></div><div class="l">AI活用ラボ</div></div>
+    <nav class="nav">
+      <div class="ni on"><svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg>ダッシュボード</div>
+      <div class="ni"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>カルテ受信ボックス<span class="bdg">4</span></div>
+      <div class="ni"><svg viewBox="0 0 24 24"><path d="M8 6h13M8 12h13M8 18h13"/><circle cx="4" cy="6" r="1"/><circle cx="4" cy="12" r="1"/><circle cx="4" cy="18" r="1"/></svg>アドバイス管理</div>
+      <div class="ni"><svg viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></svg>テンプレート管理</div>
+      <div class="ni"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.8-3.6 3.4-5.5 6.5-5.5s5.7 1.9 6.5 5.5"/><circle cx="17.5" cy="9" r="2.5"/><path d="M15.5 14.7c2.9.2 5 1.9 5.6 4.8"/></svg>ユーザー管理</div>
+      <div class="ni"><svg viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-8M21 20H3"/></svg>分析レポート</div>
+      <div class="ni"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3.2"/><path d="M12 2.8v3M12 18.2v3M2.8 12h3M18.2 12h3M5.5 5.5l2.1 2.1M16.4 16.4l2.1 2.1M18.5 5.5l-2.1 2.1M7.6 16.4l-2.1 2.1"/></svg>設定</div>
+    </nav>
+    <div class="sprof">
+      <img src="assets/hk-desk.png" alt="" onerror="this.style.display='none'">
+      <div>
+        <div class="nm">はるか</div>
+        <div class="rl">代表<br>ウェルビーイングプランナー</div>
+        <div class="mt">女性の可能性を信じて、<br>一緒に未来をつくろう♡</div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- main -->
+  <main class="main">
+    <div class="hero">
+      <span class="spark" style="left:46%; top:26px;">✦</span>
+      <span class="spark" style="right:200px; top:120px; font-size:12px;">✦</span>
+      <div class="eyebrow">AI活用ラボ</div>
+      <h1>AIカルテ 管理者ボード</h1>
+      <p class="sub">AIがあなたの代わりに、相談者に寄り添いアドバイスをお届けします。</p>
+      <img class="char" src="assets/hk-desk.png" alt="" onerror="this.style.display='none'">
+      <div class="script">今日も一緒に<br>がんばろうね♪♡</div>
+    </div>
+
+    <div class="cols" id="sec-invite">
+      <div class="card">
+        <div class="chead">
+          <h2>参加者の招待（自動発行）</h2>
+          <div class="links"><a href="index.html?demo=1&name=%E3%83%87%E3%83%A2" target="_blank">マイページのデモ</a><a href="setup.html" target="_blank">初期設定</a></div>
+        </div>
+        <p style="font-size:12.5px; margin-top:8px;">参加者は下の入口URLから<b>自分で専用ページを作ります</b>（名前＋申込メール）。はるかの作業は、案内文を一度オープンチャットに貼るだけです。</p>
+        <div class="urlbox" style="display:block;" id="starturl"></div>
+        <button class="gbtn" id="copystart" style="margin-top:12px;"><svg viewBox="0 0 24 24"><path d="M2 21l21-9L2 3v7l15 2-15 2z"/></svg>全員向けの案内文をコピー</button>
+        <div style="margin-top:4px;">
+          <button class="subbtn" id="copystarturl">入口URLだけコピー</button>
+          <a class="subbtn" href="start.html" target="_blank" style="text-decoration:none; display:inline-block;">入口を開いて確認</a>
+        </div>
+        <details style="margin-top:14px; background:var(--bg2); border-radius:14px; padding:2px 14px 10px;">
+          <summary style="font-size:12.5px; font-weight:800; color:var(--navy); cursor:pointer; padding:10px 0 6px;">個別にURLを発行する（例外対応用）</summary>
+          <div class="frow">
+            <div><label>ID（英数字）</label><input type="text" id="gid" placeholder="例）yuki01"></div>
+            <div><label>表示名</label><input type="text" id="gname" placeholder="例）ゆき"></div>
+          </div>
+          <div class="mode">
+            <label>モード</label>
+            <div class="chips">
+              <span class="chip on">本番用</span>
+              <span class="chip">体験デモ用</span>
+            </div>
+          </div>
+          <button class="gbtn" id="gen" style="margin-top:12px;"><svg viewBox="0 0 24 24"><path d="M2 21l21-9L2 3v7l15 2-15 2z"/></svg>URLを発行</button>
+          <div class="urlbox" id="genurl"></div>
+          <div id="genbtns" style="display:none;">
+            <button class="subbtn" id="copyurl">URLをコピー</button>
+            <button class="subbtn" id="copyline">LINE送付文をコピー</button>
+            <a class="subbtn" id="openurl" target="_blank" style="text-decoration:none; display:inline-block;">動作確認で開く</a>
+          </div>
+          <p class="note">メールアドレスがわからない方など、例外時だけ使ってください。</p>
+        </details>
+      </div>
+
+      <div class="hito">
+        <h3>はるかからのひとこと</h3>
+        <img src="assets/hk-suit.png" alt="" onerror="this.style.display='none'">
+        <p>AIが24時間<br>あなたの代わりに<br>寄り添ってくれるよ♡<br><br>相談者がもっと<br>安心できる環境を<br>一緒につくろう！</p>
+      </div>
+    </div>
+
+    <div class="inboxwrap" id="sec-notice">
+      <div class="ihead"><h2>みんなへのメッセージ</h2><span class="cnt" id="ntcnt"></span></div>
+      <div style="padding:6px 22px 18px;">
+        <p style="font-size:12.5px; color:#8a97a5;">送ると、全員のカルテページを次に開いた時に、かわいい演出つきで表示されます（1人1回だけ）。</p>
+        <textarea id="ntbody" placeholder="みんなへのメッセージ（例：開講のごあいさつ、今週のひとこと）" style="width:100%; border:1.5px solid #e3e9f0; border-radius:12px; padding:11px 13px; font-size:14px; line-height:1.9; font-family:inherit; min-height:90px; margin-top:6px;"></textarea>
+        <button class="subbtn" id="ntsend" style="margin-top:8px;">みんなに送る</button>
+        <span id="ntok" style="display:none; font-size:12.5px; color:var(--pink3); font-weight:800; margin-left:10px;">送信しました。次にページを開いた人から表示されます。</span>
+        <div id="ntlist" style="margin-top:12px; font-size:12.5px; color:#8a97a5;"></div>
+      </div>
+    </div>
+
+    <div class="inboxwrap" id="sec-inbox">
+      <div class="ihead">
+        <h2>カルテ受信ボックス</h2><span class="cnt">全4件</span>
+        <button class="rl" id="doneToggle" style="margin-left:auto;">回答済みを表示</button><button class="rl" id="csvbtn" style="margin-left:8px;">CSVでダウンロード</button><button class="rl" id="bakbtn" style="margin-left:8px;">全データを保存</button><button class="rl" style="margin-left:8px;">⟳ 最新に更新</button>
+      </div>
+      <div class="ilist" id="ilist"><div class="empty2">読み込み中…</div></div>
+    </div>
+
+    <div class="inboxwrap" id="sec-progress">
+      <div class="ihead"><h2>📚 カリキュラムの進捗</h2><span class="cnt" id="prgcnt"></span></div>
+      <div style="padding:6px 22px 18px;">
+        <div id="prgtop" style="display:flex; align-items:center; gap:22px; flex-wrap:wrap; margin-top:6px;">
+          <div style="position:relative; width:92px; height:92px; flex:none;">
+            <svg width="92" height="92" viewBox="0 0 42 42">
+              <circle cx="21" cy="21" r="15.9" fill="none" stroke="#f0e9dd" stroke-width="5"/>
+              <circle id="prgArc" cx="21" cy="21" r="15.9" fill="none" stroke="#966b44" stroke-width="5" stroke-linecap="round" stroke-dasharray="0 100" stroke-dashoffset="25"/>
+            </svg>
+            <div id="prgPct" style="position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; font-weight:800; color:#26405f; font-size:17px;">–<span style="font-size:9.5px; color:#8a97a5;">全体進捗</span></div>
+          </div>
+          <div style="font-size:12.5px; line-height:2;" id="prgKpi">読み込み中…</div>
+        </div>
+        <div id="prgChaps" style="margin-top:16px;"></div>
+        <div id="prgMembers" style="margin-top:14px; border-top:1px solid #f0e9dd; padding-top:10px;"></div>
+        <div id="prgOpens" style="margin-top:12px; font-size:12px; color:#8a97a5; line-height:1.9;"></div>
+      </div>
+    </div>
+
+    <div class="inboxwrap" id="sec-trend">
+      <div class="ihead">
+        <h2>みんなの傾向</h2><span class="cnt" id="tnote"></span>
+      </div>
+      <div class="ilist" style="padding:20px 22px;" id="trend"><div class="empty2">カルテが届くと、ここに全体の傾向が表示されます。</div></div>
+    </div>
+
+    <div class="inboxwrap" id="sec-members">
+      <div class="ihead" id="memhead" style="cursor:pointer;"><h2><span id="memarrow" style="display:inline-block; transition:transform .2s; margin-right:4px;">▸</span>参加者一覧</h2><span class="cnt" id="memcnt"></span><span class="cnt" style="margin-left:auto; color:#b0a3aa;">クリックで開閉</span></div>
+      <div class="ilist" style="padding:8px 22px 16px; display:none;" id="memlist"><div class="empty2">まだ登録がありません。参加者が入口ページで専用URLを作ると、ここに並びます。</div></div>
+    </div>
+
+    <div class="inboxwrap" id="sec-bugs">
+      <div class="ihead"><h2>バグ報告</h2><span class="cnt" id="bugcnt"></span></div>
+      <div class="ilist" style="padding:8px 22px 16px;" id="buglist"><div class="empty2">報告はありません。</div></div>
+    </div>
+
+    <div class="inboxwrap" id="sec-line">
+      <div class="ihead"><h2>公式LINEの新着</h2><span class="cnt" id="linecnt"></span><button class="rl" id="lineall" style="margin-left:auto;">すべて確認済みにする</button></div>
+      <div class="ilist" style="padding:8px 22px 16px;" id="linelist"><div class="empty2">新着はありません。</div></div>
+    </div>
+  </main>
+</div>
+
+<div class="mnav">
+  <div class="mn on"><svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg>ダッシュボード</div>
+  <div class="mn"><span class="b">4</span><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>受信ボックス</div>
+  <div class="mn"><svg viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></svg>アドバイス管理</div>
+  <div class="mn"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3.2"/><path d="M12 2.8v3M12 18.2v3M2.8 12h3M18.2 12h3M5.5 5.5l2.1 2.1M16.4 16.4l2.1 2.1M18.5 5.5l-2.1 2.1M7.6 16.4l-2.1 2.1"/></svg>設定</div>
+</div>
+
+<script src="supabase_config.js"></script>
+<script>
+(function(){
+var P=new URLSearchParams(location.search);
+var DEMO=P.get("demo")==="1"||!(typeof SUPABASE_CONFIG!=="undefined"&&SUPABASE_CONFIG.enabled);
+if(DEMO) document.getElementById("demoband").style.display="block";
+
+function sb(path,opts){
+  return fetch(SUPABASE_CONFIG.url+"/rest/v1/"+path,Object.assign({
+    headers:{apikey:SUPABASE_CONFIG.anonKey,Authorization:"Bearer "+SUPABASE_CONFIG.anonKey,
+    "Content-Type":"application/json",Prefer:"return=representation"}},opts||{}));
+}
+function fmt(d){ var x=new Date(d); return (x.getMonth()+1)+"/"+x.getDate()+" "+("0"+x.getHours()).slice(-2)+":"+("0"+x.getMinutes()).slice(-2); }
+function esc(s){ var d=document.createElement("div"); d.textContent=s||""; return d.innerHTML; }
+function copy(t,btn,label){
+  function ok(){ btn.textContent="コピーしました"; setTimeout(function(){btn.textContent=label;},1600); }
+  if(navigator.clipboard&&navigator.clipboard.writeText){ navigator.clipboard.writeText(t).then(ok,fb); }else fb();
+  function fb(){ var ta=document.createElement("textarea"); ta.value=t; document.body.appendChild(ta); ta.select(); try{document.execCommand("copy");}catch(e){} ta.remove(); ok(); }
+}
+function base(){ return location.href.replace(/[^/]*(\?.*)?$/,""); }
+
+/* mode chips */
+var gmode="live";
+document.querySelectorAll(".chips .chip").forEach(function(c){
+  c.onclick=function(){
+    gmode=(c.textContent.indexOf("デモ")>=0)?"demo":"live";
+    c.parentNode.querySelectorAll(".chip").forEach(function(x){x.classList.remove("on");});
+    c.classList.add("on");
+  };
+});
+
+/* URL発行（例外対応用） */
+document.getElementById("gen").onclick=function(){
+  var id=(document.getElementById("gid").value||"").replace(/[^a-zA-Z0-9_\-]/g,"");
+  var nm=(document.getElementById("gname").value||"").trim();
+  if(!id||!nm){ alert("IDと表示名を入れてください"); return; }
+  var url=base()+"index.html?u="+id+"&name="+encodeURIComponent(nm)+(gmode==="demo"?"&demo=1":"");
+  var box=document.getElementById("genurl"); box.style.display="block"; box.textContent=url;
+  document.getElementById("genbtns").style.display="block";
+  document.getElementById("openurl").href=url;
+  document.getElementById("copyurl").onclick=function(){ copy(url,this,"URLをコピー"); };
+  document.getElementById("copyline").onclick=function(){
+    copy(nm+"さん\nAI活用ラボの「AIカルテ」、"+nm+"さん専用ページができました☺️\n\n▼専用URL\n"+url+"\n\nいま困っていること・感じていることを、そのまま書いて送ってください。はるかが読んで、アドバイスをお返しします。",this,"LINE送付文をコピー");
+  };
+};
+
+/* 入口URL表示・コピー */
+document.getElementById("starturl").textContent=base()+"start.html";
+document.getElementById("copystarturl").onclick=function(){ copy(base()+"start.html",this,"入口URLだけコピー"); };
+
+/* 全員向け案内文 */
+document.getElementById("copystart").onclick=function(){
+  copy("【AI活用ラボ】あなた専用の「AIカルテ」ページができました☺️\n\n▼こちらから30秒で作れます\n"+base()+"start.html\n\nお名前と、お申込みのメールアドレスを入れるだけです。\n困ったこと・感じていることを書いて送ってもらえたら、\nはるかが読んで、あなたに合うAIの使い方をお返しします。",this,"全員向けの案内文をコピー");
+};
+
+/* inbox */
+var demoNotes=[
+{member_id:"yuki01",member_name:"ゆき",mood:"ちょっと不安",worry:"出品までに時間がかかりすぎて、心も体も疲れてしまいました。AIで楽になるなら使いたいのですが、何から始めればいいのか…",want:"説明文づくりの時短、在庫の管理",created_at:new Date(Date.now()-7200000).toISOString()},
+{member_id:"mariko02",member_name:"まりこ",mood:"迷子ぎみ",worry:"ChatGPTとGeminiを入れてはみたものの、答えがふわっとしていて結局使わなくなりました。頼み方が悪いのだと思います。",want:"1週間の献立と買い物リストづくり",created_at:new Date(Date.now()-10800000).toISOString()},
+{member_id:"shiho03",member_name:"しほ",mood:"いそがしい",worry:"リサーチに毎回20〜30分かかっています。子どもが寝たあとの時間しかないので、ここを短くしたいです。",want:"リサーチの時短",created_at:new Date(Date.now()-86400000).toISOString()},
+{member_id:"kanako04",member_name:"かなこ",mood:"ワクワク",worry:"自分の講座を販売するためにSNS発信を始めたいです。投稿づくりにAIを使ってみたいのですが、自分に合うやり方が知りたいです。",want:"SNS投稿づくりの仕組み化",created_at:new Date(Date.now()-172800000).toISOString()}
+];
+var demoRegs=[
+{member_id:"moe05",member_name:"もえ",mood:"登録",created_at:new Date(Date.now()-3600000).toISOString()},
+{member_id:"rina06",member_name:"りな",mood:"登録",created_at:new Date(Date.now()-5400000).toISOString()},
+{member_id:"yuki01",member_name:"ゆき",mood:"登録",created_at:new Date(Date.now()-90000000).toISOString()}
+];
+var demoApps=[
+{member_id:"aya07",member_name:"あや",mood:"申込",want:"申込サイトで決済確認（受付番号 M12345678）",created_at:new Date(Date.now()-1800000).toISOString()},
+{member_id:"rina06",member_name:"りな",mood:"申込",want:"申込サイトで決済確認（受付番号 M12345679）",created_at:new Date(Date.now()-7200000).toISOString()},
+{member_id:"yuki01",member_name:"ゆき",mood:"申込",want:"申込サイトで決済確認（受付番号 M12345680）",created_at:new Date(Date.now()-100000000).toISOString()}
+];
+var demoDrafts={mariko02:{id:0,message:"まりこさん、頼み方が悪いなんてことはありません。ふわっと返ってくるのは、渡す情報がまだ少ないだけです。今夜は献立だけ、「家族の人数・好き嫌い・冷蔵庫にあるもの」の3つを添えてClaudeにお願いしてみてください。5分で変わります。"}};
+var demoAdv={yuki01:[{message:"ゆきさん、まずは説明文だけAIに渡しましょう。特典テンプレ②に商品情報を貼るだけ。今夜1本だけ試してみてください。",created_at:new Date(Date.now()-3600000).toISOString()}]};
+
+var CATS=[
+["じかん・余裕",["時間","忙し","追われ","時短","間に合","バタバタ","焦"]],
+["やり方・入口",["わからない","分からない","何から","どうすれ","使い方","初めて","はじめて","迷"]],
+["質・仕上がり",["質","安定","ふわっと","うまくいか","完成度","精度","仕上"]],
+["くり返し作業",["自動","仕組み","毎回","繰り返","面倒","手間","めんど"]],
+["お仕事（出品・発信）",["出品","説明文","リサーチ","在庫","SNS","発信","投稿","販売","売上","仕事"]],
+["暮らし・家族",["献立","家事","子ど","育児","買い物","家族","ごはん","メニュー"]],
+["気持ち・自信",["自信","疲れ","私には","不安","苦手","無理","ぐったり","しんど"]]
+];
+var HABITS=[["ブレーキ先行タイプ",["できない","無理","苦手","難しい","私には"]],["時間圧迫タイプ",["時間がな","忙し","追われ","バタバタ","焦"]],["完璧準備タイプ",["わからない","分からない","調べて","ちゃんと","全部","何から"]],["前向き挑戦タイプ",["やってみたい","楽しみ","挑戦","ワクワク","知りたい"]]];
+function countHits(text,words){ var n=0; words.forEach(function(w){ var i=-1; while((i=text.indexOf(w,i+1))>=0){ n++; } }); return n; }
+var lastNotesA=[];
+var regIds=[];
+function renderMembers(apps,regs,karte,advMap){
+  var box=document.getElementById("memlist");
+  var m={};
+  function touch(n,kind){
+    if(!m[n.member_id]) m[n.member_id]={name:n.member_name||n.member_id, at:n.created_at, last:n.created_at, k:0, app:false, reg:false, rno:""};
+    var v=m[n.member_id];
+    if(n.member_name) v.name=n.member_name;
+    if(new Date(n.created_at)<new Date(v.at)) v.at=n.created_at;
+    if(new Date(n.created_at)>new Date(v.last)) v.last=n.created_at;
+    if(kind==="app"){ v.app=true; var mt=(n.want||"").match(/受付番号\s*([A-Za-z0-9]+)/); if(mt) v.rno=mt[1]; }
+    if(kind==="reg") v.reg=true;
+    if(kind==="karte") v.k++;
+  }
+  apps.forEach(function(n){ touch(n,"app"); });
+  regs.forEach(function(n){ touch(n,"reg"); });
+  karte.forEach(function(n){ touch(n,"karte"); });
+  var ids=Object.keys(m);
+  regIds=ids;
+  var noPage=ids.filter(function(id){ return m[id].app && !m[id].reg && m[id].k===0; }).length;
+  var noKarte=ids.filter(function(id){ return (m[id].reg||m[id].k>0) && m[id].k===0; }).length;
+  var parts=[];
+  if(ids.length){ parts.push("全"+ids.length+"人");
+    if(noPage) parts.push("カルテ未開設 "+noPage+"人");
+    if(noKarte) parts.push("カルテ未提出 "+noKarte+"人"); }
+  document.getElementById("memcnt").textContent=parts.join("／");
+  if(!ids.length){ box.innerHTML='<div class="empty2">まだ登録がありません。申込またはカルテ入口の利用があると、ここに並びます。</div>'; return; }
+  function rank(id){ var v=m[id]; if(v.app&&!v.reg&&v.k===0) return 0; if(v.k===0) return 1; return 2; }
+  ids.sort(function(a,b){
+    if(rank(a)!==rank(b)) return rank(a)-rank(b);
+    return new Date(m[b].at)-new Date(m[a].at);
+  });
+  box.innerHTML="";
+  ids.forEach(function(id,idx){
+    var v=m[id];
+    var advs=(advMap[id]||[]).length;
+    var e=document.createElement("div"); e.className="item";
+    var right="";
+    if(v.app) right+='<span class="advpill" style="background:#e8f0e9; color:#3f7d63;">申込✓'+(v.rno?(" "+v.rno):"")+'</span>';
+    if(v.app&&!v.reg&&v.k===0) right+='<span class="mood" style="background:var(--pinkbg); color:var(--pink3); font-weight:800;">カルテ未開設</span>';
+    else if(v.k===0) right+='<span class="mood" style="background:var(--pinkbg); color:var(--pink3);">カルテ未提出</span>';
+    else right+='<span class="advpill">カルテ'+v.k+'件</span>';
+    if(advs) right+='<span class="advpill" style="background:#e8f3ee; color:#3f7d63;">返信'+advs+'件</span>';
+    if(v.k>0 && (Date.now()-new Date(v.last).getTime())>14*86400000) right+='<span class="mood" style="background:#fdf3e0; color:#9a6b1f;">2週間動きなし</span>';
+    e.innerHTML='<span class="ava a'+(idx%4+1)+'"><svg viewBox="0 0 24 24"><circle cx="12" cy="8.5" r="4"/><path d="M4 20c1-4 4.2-6 8-6s7 2 8 6z"/></svg></span>'+
+      '<div class="icol"><div class="nm">'+esc(v.name)+'</div><div class="id">'+esc(id)+'</div></div>'+
+      '<div class="ibody" style="align-self:center;"><div class="wt">'+(v.app?"申込":"登録")+'：'+fmt(v.at)+'</div></div>'+
+      '<div class="iright" style="display:flex; gap:6px; flex-wrap:wrap; justify-content:flex-end;">'+right+'</div>';
+    box.appendChild(e);
+  });
+}
+function renderTrend(notes,advMap){
+  var t=document.getElementById("trend");
+  document.getElementById("tnote").textContent=notes.length?("カルテ"+notes.length+"件から自動集計"):"";
+  if(!notes.length){ t.innerHTML='<div class="empty2">カルテが届くと、ここに全体の傾向が表示されます。</div>'; return; }
+  var members={};
+  notes.forEach(function(n){ (members[n.member_id]=members[n.member_id]||[]).push(n); });
+  var ids=Object.keys(members);
+  var allP={}; ids.forEach(function(i){allP[i]=1;}); regIds.forEach(function(i){allP[i]=1;});
+  var totalP=Object.keys(allP).length;
+  var week=notes.filter(function(n){ return (Date.now()-new Date(n.created_at).getTime())<7*86400000; }).length;
+  var noreply=ids.filter(function(id){ return !(advMap[id]&&advMap[id].length); }).length;
+  var h='<div class="kpis">'+
+    '<div class="kpi"><div class="v">'+totalP+'<small>人</small></div><div class="l">参加者</div></div>'+
+    '<div class="kpi"><div class="v">'+notes.length+'<small>件</small></div><div class="l">カルテ総数</div></div>'+
+    '<div class="kpi"><div class="v">'+week+'<small>件</small></div><div class="l">直近7日</div></div>'+
+    '<div class="kpi warn"><div class="v">'+noreply+'<small>人</small></div><div class="l">未返信の方</div></div>'+
+  '</div>';
+  var all=notes.map(function(n){ return (n.worry||"")+" "+(n.want||""); }).join(" ");
+  var scored=CATS.map(function(c){ return [c[0],countHits(all,c[1])]; }).filter(function(x){return x[1]>0;});
+  scored.sort(function(a,b){return b[1]-a[1];});
+  var top=scored.slice(0,5), max=top.length?top[0][1]:1;
+  h+='<div class="th4">みんなの悩みTOP</div>';
+  top.forEach(function(x){ h+='<div class="brow"><span class="bl">'+x[0]+'</span><span class="btrack"><span class="bfill" style="width:'+Math.round(x[1]/max*100)+'%"></span></span><span class="bv">'+x[1]+'</span></div>'; });
+  var dist={};
+  ids.forEach(function(id){
+    var txt=members[id].map(function(n){ return (n.worry||"")+" "+(n.want||""); }).join(" ");
+    var best=null,bs=0;
+    HABITS.forEach(function(hb){ var s=countHits(txt,hb[1]); if(s>bs){bs=s;best=hb[0];} });
+    if(best){ dist[best]=(dist[best]||0)+1; }
+  });
+  var dk=Object.keys(dist);
+  if(dk.length){
+    dk.sort(function(a,b){return dist[b]-dist[a];});
+    var dmax=dist[dk[0]];
+    h+='<div class="th4">思考のくせの分布（人数）</div>';
+    dk.forEach(function(k){ h+='<div class="brow"><span class="bl">'+k+'</span><span class="btrack"><span class="bfill" style="width:'+Math.round(dist[k]/dmax*100)+'%"></span></span><span class="bv">'+dist[k]+'人</span></div>'; });
+  }
+  t.innerHTML=h;
+}
+function renderBugs(bugs){
+  var box=document.getElementById("buglist");
+  var open=bugs.filter(function(b){return b.mood!=="対応済み";}).length;
+  document.getElementById("bugcnt").textContent=bugs.length?("未対応 "+open+"件／全"+bugs.length+"件"):"";
+  if(!bugs.length){ box.innerHTML='<div class="empty2">報告はありません。</div>'; return; }
+  box.innerHTML="";
+  bugs.forEach(function(b){
+    var done=b.mood==="対応済み";
+    var e=document.createElement("div"); e.className="item"; e.style.flexWrap="wrap"; if(done) e.style.opacity=".5";
+    e.innerHTML='<div class="ibody"><div class="tx"><b style="color:var(--pink3);">'+esc(b.member_name||"")+'</b>　'+esc(b.worry)+'</div>'+
+      (b.want?'<div class="wt">'+esc(b.want)+'</div>':'')+'</div>'+
+      '<div class="iright"><span class="dt">'+fmt(b.created_at)+'</span>'+
+      (done?'<span class="advpill" style="background:#e8f3ee; color:#3f7d63;">対応済み</span>':'<button class="subbtn bugdone" style="margin:0;">対応済みにする</button>')+'</div>';
+    var btn=e.querySelector(".bugdone");
+    if(btn){
+      btn.onclick=function(){
+        btn.disabled=true;
+        if(DEMO){ e.style.opacity=".5"; btn.outerHTML='<span class="advpill" style="background:#e8f3ee; color:#3f7d63;">対応済み</span>'; return; }
+        sb("ailab_notes?id=eq."+b.id,{method:"PATCH",body:JSON.stringify({mood:"対応済み"})})
+          .then(function(){ e.style.opacity=".5"; btn.outerHTML='<span class="advpill" style="background:#e8f3ee; color:#3f7d63;">対応済み</span>'; })
+          .catch(function(){ btn.disabled=false; });
+      };
+    }
+    box.appendChild(e);
+  });
+}
+function renderLine(items){
+  var box=document.getElementById("linelist");
+  var open=items.filter(function(b){ return b.mood==="LINE新着"; });
+  document.getElementById("linecnt").textContent=items.length?("未確認 "+open.length+"件"):"";
+  document.getElementById("lineall").style.display=open.length?"":"none";
+  if(!items.length){ return; }
+  if(!open.length){ box.innerHTML='<div class="empty2">未確認の新着はありません。</div>'; return; }
+  box.innerHTML="";
+  open.forEach(function(b){
+    var e=document.createElement("div"); e.className="item"; e.style.flexWrap="wrap";
+    e.innerHTML='<div class="ibody"><div class="tx"><b style="color:var(--navy2);">'+esc(b.member_name||"")+'</b>　'+esc(b.worry||"")+'</div>'+
+      (b.want?'<div class="wt">'+esc(b.want)+'</div>':'')+'</div>'+
+      '<div class="iright"><span class="dt">'+fmt(b.created_at)+'</span>'+
+      '<button class="subbtn linedone" style="margin:0;">確認済みにする</button></div>';
+    e.querySelector(".linedone").onclick=function(){
+      this.disabled=true; var el=e;
+      sb("ailab_notes?id=eq."+b.id,{method:"PATCH",body:JSON.stringify({mood:"確認済み"})})
+        .then(function(){ el.style.opacity=".45"; el.querySelector(".linedone").outerHTML='<span class="advpill" style="background:#e8f3ee; color:#3f7d63;">確認済み</span>'; })
+        .catch(function(){});
+    };
+    box.appendChild(e);
+  });
+  document.getElementById("lineall").onclick=function(){
+    var btn=this; btn.disabled=true;
+    Promise.all(open.map(function(b){ return sb("ailab_notes?id=eq."+b.id,{method:"PATCH",body:JSON.stringify({mood:"確認済み"})}); }))
+      .then(function(){ loadInbox(); btn.disabled=false; }).catch(function(){ btn.disabled=false; });
+  };
+}
+function downloadCSV(){
+  if(!lastNotesA.length){ alert("データがありません"); return; }
+  var rows=[["日時","ID","名前","気分","困りごと","AIでやりたいこと"]];
+  lastNotesA.forEach(function(n){
+    rows.push([n.created_at||"",n.member_id||"",n.member_name||"",n.mood||"",(n.worry||"").replace(/\n/g," "),(n.want||"").replace(/\n/g," ")]);
+  });
+  var csv=rows.map(function(r){ return r.map(function(c){ return '"'+String(c).replace(/"/g,'""')+'"'; }).join(","); }).join("\n");
+  var blob=new Blob(["\ufeff"+csv],{type:"text/csv"});
+  var a=document.createElement("a"); a.href=URL.createObjectURL(blob);
+  a.download="ai-karte.csv"; a.click();
+}
+function isDone(n,advMap){
+  if(n.mood==="対応済み") return true;
+  return (advMap[n.member_id]||[]).some(function(a){ return new Date(a.created_at)>new Date(n.created_at); });
+}
+var showDone=false;
+function renderInbox(notes,advMap,drafts){
+  drafts=drafts||{};
+  renderInbox._last={notes:notes,advMap:advMap,drafts:drafts};
+  var box=document.getElementById("ilist"); box.innerHTML="";
+  var open=notes.filter(function(n){ return !isDone(n,advMap); }).length;
+  document.querySelector("#sec-inbox .ihead .cnt").textContent=notes.length?("未対応 "+open+"件／全"+notes.length+"件"):"";
+  var b1=document.querySelector('.ni .bdg'); if(b1) b1.textContent=open;
+  var b2=document.querySelector('.mn .b'); if(b2) b2.textContent=open;
+  if(!notes.length){ box.innerHTML='<div class="empty2">まだカルテは届いていません。参加者が送信すると、ここに並びます。</div>'; return; }
+  var arr=notes.slice().sort(function(a,b){
+    var da=isDone(a,advMap), db=isDone(b,advMap);
+    if(da!==db) return da?1:-1;
+    return new Date(b.created_at)-new Date(a.created_at);
+  });
+  if(!showDone){
+    var nDone=arr.length;
+    arr=arr.filter(function(n){ return !isDone(n,advMap); });
+    nDone-=arr.length;
+    if(!arr.length){
+      box.innerHTML='<div class="empty2">未対応はありません。すべて回答済みです（'+nDone+'件は「回答済みを表示」で見られます）。</div>';
+      return;
+    }
+  }
+  arr.forEach(function(n,idx){
+    var e=document.createElement("div"); e.className="item"; e.style.flexWrap="wrap";
+    var advs=(advMap[n.member_id]||[]);
+    var done=isDone(n,advMap);
+    if(done) e.style.opacity=".55";
+    e.innerHTML='<span class="ava a'+(idx%4+1)+'"><svg viewBox="0 0 24 24"><circle cx="12" cy="8.5" r="4"/><path d="M4 20c1-4 4.2-6 8-6s7 2 8 6z"/></svg></span>'+
+      '<div class="icol"><div class="nm">'+esc(n.member_name||n.member_id)+'</div><div class="id">'+esc(n.member_id)+'</div>'+(n.mood&&n.mood!=="対応済み"?'<span class="mood">'+esc(n.mood)+'</span>':'')+'</div>'+
+      '<div class="ibody"><div class="tx">'+esc(n.worry)+'</div>'+(n.want?'<div class="wt">やってみたい：'+esc(n.want)+'</div>':'')+'</div>'+
+      '<div class="iright"><span class="dt">'+fmt(n.created_at)+'</span>'+
+      (done?'<span class="advpill" style="background:#e8f3ee; color:#3f7d63;">完了</span>':'')+
+      (advs.length?'<span class="advpill">'+advs.length+'件のアドバイス</span>':'')+'</div>'+
+      (advs.length?'<div class="advsent"><b>直近のアドバイス</b>\n'+esc(advs[0].message)+'</div>':'')+
+      '<div class="reply"><textarea placeholder="'+esc(n.member_name||"")+'さんへのアドバイス（どんなAIとの付き合い方がよいか・どのAIが合うか・最初の一歩）"></textarea>'+
+      '<button class="sbtn">アドバイスを送る</button><div class="sentok">送信しました。本人のページと分析に反映されます。</div></div>';
+    var ta=e.querySelector("textarea"), sbtn=e.querySelector(".sbtn"), okm=e.querySelector(".sentok");
+    var dft=(!done && drafts[n.member_id])||null;
+    if(dft){
+      ta.value=dft.message||"";
+      sbtn.textContent="承認して送信";
+      var dbg=document.createElement("span"); dbg.className="advpill";
+      dbg.style.cssText="background:#eef2fb; color:#3b5b9a; margin-left:10px;";
+      dbg.textContent="AI下書き（編集できます）";
+      sbtn.parentNode.insertBefore(dbg, sbtn.nextSibling);
+    }
+    sbtn.onclick=function(){
+      var msg=ta.value.trim(); if(!msg){ ta.focus(); return; }
+      sbtn.disabled=true;
+      function markDone(){
+        e.style.opacity=".55";
+        var right=e.querySelector(".iright");
+        if(right && !right.querySelector(".donebdg")){
+          var s=document.createElement("span"); s.className="advpill donebdg";
+          s.style.background="#e8f3ee"; s.style.color="#3f7d63"; s.textContent="完了";
+          right.appendChild(s);
+        }
+      }
+      function done(){ okm.style.display="block"; ta.value=""; sbtn.disabled=false; markDone(); setTimeout(function(){okm.style.display="none";},3000); }
+      if(DEMO){ done(); return; }
+      sb("ailab_advice",{method:"POST",body:JSON.stringify({target_id:n.member_id,author_name:"はるか",message:msg})})
+        .then(function(){
+          done();
+          if(n.id) sb("ailab_notes?id=eq."+n.id,{method:"PATCH",body:JSON.stringify({mood:"対応済み"})}).catch(function(){});
+          if(dft && dft.id) sb("ailab_advice?id=eq."+dft.id,{method:"PATCH",body:JSON.stringify({author_name:"draft_used"})}).catch(function(){});
+        })
+        .catch(function(){ sbtn.disabled=false; alert("送信できませんでした。通信環境を確認してください。"); });
+    };
+    box.appendChild(e);
+  });
+}
+function loadInbox(){
+  if(DEMO){ lastNotesA=demoNotes.slice(); renderMembers(demoApps,demoRegs,demoNotes,demoAdv); renderInbox(demoNotes,demoAdv,demoDrafts); renderTrend(demoNotes,demoAdv); renderBugs([{id:0,member_name:"マイページ｜demo",mood:"バグ報告",worry:"（デモ）送信ボタンの反応が遅い気がします",want:"https://…／iPhone Safari",created_at:new Date().toISOString()}]); return; }
+  Promise.all([
+    sb("ailab_notes?order=created_at.desc&limit=1000").then(function(r){return r.json();}),
+    sb("ailab_advice?order=created_at.desc&limit=1000").then(function(r){return r.json();})
+  ]).then(function(res){
+    var all=Array.isArray(res[0])?res[0]:[];
+    var bugs=all.filter(function(n){ return (n.member_id||"").indexOf("bug_")===0; });
+    var lines=all.filter(function(n){ return (n.member_id||"").indexOf("line_")===0; });
+    var rest=all.filter(function(n){ var m=(n.member_id||""); return m.indexOf("bug_")!==0 && m.indexOf("line_")!==0 && m.indexOf("svy_")!==0 && m.indexOf("notice_")!==0 && m.indexOf("read_")!==0; });
+    var apps=rest.filter(function(n){ return n.mood==="申込"; });
+    var regs=rest.filter(function(n){ return n.mood==="登録"; });
+    var notes=rest.filter(function(n){ return n.mood!=="登録" && n.mood!=="申込"; });
+    var advMap={}, drafts={};
+    (Array.isArray(res[1])?res[1]:[]).forEach(function(a){
+      var an=String(a.author_name||"");
+      if(an==="draft"){ if(!drafts[a.target_id]) drafts[a.target_id]=a; return; }
+      if(an.indexOf("draft")===0) return;
+      (advMap[a.target_id]=advMap[a.target_id]||[]).push(a);
+    });
+    lastNotesA=notes; renderMembers(apps,regs,notes,advMap); renderInbox(notes,advMap,drafts); renderTrend(notes,advMap); renderBugs(bugs); renderLine(lines);
+  }).catch(function(){
+    document.getElementById("ilist").innerHTML='<div class="empty2">読み込めませんでした。初期設定（setup.html）がまだの可能性があります。</div>';
+  });
+}
+/* サイドバー・下部ナビを機能化 */
+function scrollToSec(id){ var el=document.getElementById(id); if(el) el.scrollIntoView({behavior:"smooth",block:"start"}); }
+var NAVMAP={
+  "ダッシュボード":function(){ window.scrollTo({top:0,behavior:"smooth"}); },
+  "カルテ受信ボックス":function(){ scrollToSec("sec-inbox"); },
+  "受信ボックス":function(){ scrollToSec("sec-inbox"); },
+  "アドバイス管理":function(){ scrollToSec("sec-inbox"); },
+  "テンプレート管理":function(){ alert("テンプレート集は準備中です"); },
+  "ユーザー管理":function(){ scrollToSec("sec-members"); },
+  "分析レポート":function(){ scrollToSec("sec-trend"); },
+  "設定":function(){ window.open("setup.html","_blank"); }
+};
+document.querySelectorAll(".ni,.mn").forEach(function(n){
+  var label=n.textContent.replace(/[0-9]/g,"").trim();
+  if(NAVMAP[label]){
+    n.style.cursor="pointer";
+    n.onclick=function(){
+      NAVMAP[label]();
+      var group=n.classList.contains("ni")?".ni":".mn";
+      if(label!=="テンプレート管理"&&label!=="設定"){
+        document.querySelectorAll(group).forEach(function(x){x.classList.remove("on");});
+        n.classList.add("on");
+      }
+    };
+  }
+});
+
+document.getElementById("ntsend").onclick=function(){
+  var t=(document.getElementById("ntbody").value||"").trim();
+  if(!t){ document.getElementById("ntbody").focus(); return; }
+  var b=this; b.disabled=true;
+  if(DEMO){ document.getElementById("ntok").style.display="inline"; b.disabled=false; return; }
+  sb("ailab_notes",{method:"POST",body:JSON.stringify({member_id:"notice_all",member_name:"はるか",mood:"おしらせ",worry:t})})
+    .then(function(){ document.getElementById("ntok").style.display="inline"; document.getElementById("ntbody").value=""; b.disabled=false; loadNotices(); })
+    .catch(function(){ b.disabled=false; alert("送信できませんでした"); });
+};
+function loadNotices(){
+  if(DEMO) return;
+  sb("ailab_notes?member_id=eq.notice_all&mood=eq.おしらせ&order=created_at.desc&limit=3").then(function(r){return r.json();})
+    .then(function(j){
+      if(!Array.isArray(j)||!j.length) return;
+      document.getElementById("ntcnt").textContent="これまで"+j.length+"件以上";
+      var ids=j.map(function(n){ return n.id; });
+      sb("ailab_notes?mood=eq.既読&member_id=in.("+ids.map(function(i){return "read_"+i;}).join(",")+")&select=member_id,want").then(function(r){return r.json();})
+        .then(function(reads){
+          var byN={};
+          if(Array.isArray(reads)) reads.forEach(function(x){
+            var nid=(x.member_id||"").replace("read_","");
+            byN[nid]=byN[nid]||{}; if(x.want) byN[nid][x.want]=1;
+          });
+          document.getElementById("ntlist").innerHTML="直近："+j.map(function(n){
+            var c=byN[n.id]?Object.keys(byN[n.id]).length:0;
+            return "「"+esc((n.worry||"").slice(0,30))+"…」("+fmt(n.created_at)+"・既読"+c+"名)";
+          }).join("　");
+        }).catch(function(){
+          document.getElementById("ntlist").innerHTML="直近："+j.map(function(n){ return "「"+esc((n.worry||"").slice(0,30))+"…」("+fmt(n.created_at)+")"; }).join("　");
+        });
+    }).catch(function(){});
+}
+loadNotices();
+/* 回答済みトグル */
+(function(){
+  var t=document.getElementById("doneToggle");
+  if(t) t.onclick=function(){
+    showDone=!showDone;
+    t.textContent=showDone?"回答済みを隠す":"回答済みを表示";
+    var L=renderInbox._last;
+    if(L) renderInbox(L.notes,L.advMap,L.drafts);
+  };
+})();
+/* 参加者一覧の開閉 */
+(function(){
+  var h=document.getElementById("memhead"), l=document.getElementById("memlist"), a=document.getElementById("memarrow");
+  if(h&&l) h.onclick=function(){
+    var openNow=l.style.display==="none";
+    l.style.display=openNow?"":"none";
+    if(a) a.style.transform=openNow?"rotate(90deg)":"";
+  };
+})();
+var CHAPS=[["CH1","第1章"],["CH2","第2章"],["CH3","第3章"],["CH4","第4章"],["CH5","第5章"],["CH6","第6章"],["CH7","第7章"],["CH8","第8章"]];
+function loadProgress(){
+  if(!document.getElementById("prgChaps")) return;
+  if(DEMO){
+    document.getElementById("prgKpi").innerHTML="（デモ表示）スタート済み <b>12名</b>／読まれた章 のべ<b>38章</b>";
+    return;
+  }
+  sb("ailab_notes?mood=eq.既読&select=member_id,member_name,worry,want&order=created_at.asc&limit=2000").then(function(r){return r.json();})
+    .then(function(j){
+      if(!Array.isArray(j)) j=[];
+      var byUser={}, names={}, letter={}, curOpen={}, bookOpen={};
+      j.forEach(function(x){
+        if(!x.want) return;
+        var m=x.member_id||"";
+        names[x.want]=x.member_name||x.want;
+        if(m==="read_ch"){
+          var ch=(x.worry||"").trim();
+          byUser[x.want]=byUser[x.want]||{}; byUser[x.want][ch]=1;
+        } else if(m==="read_cur"){ curOpen[x.want]=1; }
+        else if(m==="read_book"){ bookOpen[x.want]=1; }
+        else if(m.indexOf("read_")===0){ letter[x.want]=1; }
+      });
+      var starters={};
+      Object.keys(byUser).forEach(function(u){ starters[u]=1; });
+      Object.keys(bookOpen).forEach(function(u){ starters[u]=1; });
+      Object.keys(curOpen).forEach(function(u){ starters[u]=1; });
+      var nStart=Object.keys(starters).length;
+      var totalRead=0; Object.keys(byUser).forEach(function(u){ totalRead+=Object.keys(byUser[u]).length; });
+      var pct = nStart ? Math.round(totalRead/(CHAPS.length*nStart)*100) : 0;
+      document.getElementById("prgArc").setAttribute("stroke-dasharray", pct+" "+(100-pct));
+      document.getElementById("prgPct").innerHTML=pct+"%<span style='font-size:9.5px; color:#8a97a5;'>全体進捗</span>";
+      document.getElementById("prgKpi").innerHTML=
+        "カリキュラムをスタート：<b style='color:#966b44;'>"+nStart+"名</b><br>読まれた章：のべ<b style='color:#966b44;'>"+totalRead+"章</b>（全"+CHAPS.length+"章×スタート人数で計算）";
+      /* 章別 */
+      var chHtml="<div style='font-size:12px; font-weight:800; color:#26405f; margin-bottom:4px;'>章ごとの読了人数</div>";
+      CHAPS.forEach(function(c,i){
+        var n=0; Object.keys(byUser).forEach(function(u){ if(byUser[u][c[0]]) n++; });
+        var w = nStart ? Math.round(n/nStart*100) : 0;
+        chHtml+="<div style='display:flex; align-items:center; gap:8px; font-size:12px; margin-top:5px;'>"
+          +"<span style='flex:none; width:150px; color:#4a4446;'>"+(i+1)+"/8　"+esc(c[1])+"</span>"
+          +"<span style='flex:1; height:9px; background:#f0e9dd; border-radius:99px; overflow:hidden;'><span style='display:block; height:100%; width:"+w+"%; background:linear-gradient(90deg,#b39274,#b3835a); border-radius:99px;'></span></span>"
+          +"<span style='flex:none; width:44px; text-align:right; font-weight:800; color:#966b44;'>"+n+"名</span></div>";
+      });
+      document.getElementById("prgChaps").innerHTML=chHtml;
+      /* 生徒別 */
+      var users=Object.keys(starters).map(function(u){
+        var n=byUser[u]?Object.keys(byUser[u]).length:0;
+        return {u:u, n:n, name:names[u]||u};
+      }).sort(function(a,b){ return b.n-a.n; });
+      var mHtml="<div style='font-size:12px; font-weight:800; color:#26405f; margin-bottom:4px;'>生徒ごとの進み具合</div>";
+      if(!users.length){ mHtml+="<div style='font-size:12px; color:#8a97a5;'>まだ記録がありません。教科書の各章の「ここまで読んだ！」ボタンで記録されます。</div>"; }
+      users.forEach(function(x){
+        var w=Math.round(x.n/CHAPS.length*100);
+        mHtml+="<div style='display:flex; align-items:center; gap:8px; font-size:12px; margin-top:5px;'>"
+          +"<span style='flex:none; width:150px; color:#4a4446; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;'>"+esc(x.name)+"</span>"
+          +"<span style='flex:1; height:9px; background:#f0e9dd; border-radius:99px; overflow:hidden;'><span style='display:block; height:100%; width:"+w+"%; background:linear-gradient(90deg,#b3835a,#966b44); border-radius:99px;'></span></span>"
+          +"<span style='flex:none; width:52px; text-align:right; font-weight:800; color:#26405f;'>"+x.n+"/"+CHAPS.length+"章</span></div>";
+      });
+      document.getElementById("prgMembers").innerHTML=mHtml;
+      document.getElementById("prgOpens").innerHTML=
+        "💌 レターを読んだ "+Object.keys(letter).length+"名　📚 カリキュラムを開いた "+Object.keys(curOpen).length+"名　📖 教科書を開いた "+Object.keys(bookOpen).length+"名";
+      var pc=document.getElementById("prgcnt"); if(pc) pc.textContent=nStart?("スタート"+nStart+"名"):"";
+    }).catch(function(){ document.getElementById("prgKpi").textContent="読み込めませんでした。リロードしてください。"; });
+}
+loadProgress();
+document.getElementById("csvbtn").onclick=downloadCSV;
+document.getElementById("bakbtn").onclick=function(){
+  var b=this;
+  if(DEMO){ alert("デモ表示中です。本番ボードで押すと、カルテ・登録・アドバイス・バグ報告の全データが1ファイルで保存されます。"); return; }
+  b.disabled=true; b.textContent="保存中…";
+  Promise.all([
+    sb("ailab_notes?order=id.asc&limit=100000").then(function(r){return r.json();}),
+    sb("ailab_advice?order=id.asc&limit=100000").then(function(r){return r.json();})
+  ]).then(function(res){
+    var data={backed_up_at:new Date().toISOString(), ailab_notes:res[0]||[], ailab_advice:res[1]||[]};
+    var blob=new Blob([JSON.stringify(data,null,1)],{type:"application/json"});
+    var a=document.createElement("a"); a.href=URL.createObjectURL(blob);
+    var d=new Date(), p=function(n){return (n<10?"0":"")+n;};
+    a.download="ailabo_backup_"+d.getFullYear()+p(d.getMonth()+1)+p(d.getDate())+".json"; a.click();
+    b.disabled=false; b.textContent="全データを保存";
+  }).catch(function(){ b.disabled=false; b.textContent="全データを保存"; alert("読み込めませんでした。通信環境をご確認ください。"); });
+};
+document.querySelectorAll(".ihead .rl").forEach(function(b){ if(b.id!=="csvbtn") b.onclick=loadInbox; });
+loadInbox();
+})();
+</script>
+</body>
+</html>

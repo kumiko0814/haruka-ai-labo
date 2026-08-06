@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI活用ラボ｜ご案内</title>
+<style>
+:root{ --bg:#f8f4ec; --navy:#2c3a55; --navy2:#22304a; --camel:#b3835a; --camel2:#966b44; --camelbg:#f6ecdd; --text:#4a4440; --muted:#8f887d; --line:#e6ddcf; }
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:"Yu Gothic","YuGothic","游ゴシック","Hiragino Kaku Gothic ProN","Hiragino Sans",sans-serif; background:linear-gradient(168deg,#f5eee1 0%,#fbf8f2 46%,#f7efe4 100%); color:var(--text); line-height:2.05; -webkit-font-smoothing:antialiased; padding-bottom:86px;}
+.wrap{max-width:640px; margin:0 auto; padding:0 18px;}
+header{background:var(--navy2); color:#fff; padding:13px 18px; text-align:center;}
+header .lg{font-size:13px; font-weight:800; letter-spacing:.14em; color:#ead9c0;}
+
+.hero{text-align:center; padding:34px 0 10px;}
+.hero .chars{display:flex; justify-content:center; align-items:flex-end; gap:6px;}
+.hero .chars img{height:170px;}
+.hero h1{font-size:clamp(24px,7vw,34px); color:var(--navy2); line-height:1.6; margin-top:12px;}
+.hero h1 .grad{background:linear-gradient(90deg,#a97c50,#c29a6d); -webkit-background-clip:text; background-clip:text; color:transparent;}
+.hero .badge{display:inline-block; background:var(--navy2); color:#fff; font-size:11.5px; font-weight:800; border-radius:999px; padding:6px 16px; margin-top:12px; letter-spacing:.06em;}
+.hero .lead{font-size:13.8px; margin-top:14px; text-align:left; background:#fff; border-radius:16px; padding:16px 18px; box-shadow:0 6px 20px rgba(44,58,85,.07);}
+.hero .lead b{color:var(--camel2);}
+
+.sec{margin-top:36px;}
+.sec .eyebrow{font-size:11.5px; font-weight:800; color:#b39274; letter-spacing:.18em; text-align:center;}
+.sec h2{font-size:clamp(18px,5.4vw,22px); color:var(--navy2); text-align:center; line-height:1.7; margin-top:2px;}
+.card{background:#fff; border-radius:18px; padding:20px; margin-top:16px; box-shadow:0 6px 20px rgba(44,58,85,.07);}
+.card p{font-size:13.8px; margin-top:8px;}
+.card b{color:var(--navy2);}
+.card ul{font-size:13.8px; padding-left:20px; margin-top:8px;}
+.card li{margin-top:7px;}
+.ph{color:var(--camel2); font-weight:800;}
+
+.worry{display:flex; gap:10px; align-items:flex-start; background:#fff; border-radius:14px; padding:13px 15px; margin-top:10px; font-size:13.5px; box-shadow:0 4px 14px rgba(44,58,85,.05);}
+.worry::before{content:"💭"; flex:none;}
+
+.feature{display:flex; gap:12px; background:#fff; border-radius:16px; padding:16px; margin-top:12px; box-shadow:0 6px 20px rgba(44,58,85,.07);}
+.feature .ic{flex:none; width:44px; height:44px; border-radius:12px; background:var(--camelbg); display:flex; align-items:center; justify-content:center; font-size:21px;}
+.feature h3{font-size:14.5px; color:var(--navy2);}
+.feature p{font-size:12.8px; margin-top:4px;}
+
+.mock{background:#fff; border-radius:18px; padding:20px; margin-top:14px; box-shadow:0 6px 20px rgba(44,58,85,.07); display:flex; gap:14px; align-items:center;}
+.mock img{width:96px; flex:none;}
+.mock p{font-size:13px;}
+
+.price{background:linear-gradient(165deg,#fff 0%,#faf3e8 100%); border:2px solid #e0cdb0; border-radius:22px; padding:26px 20px; margin-top:16px; text-align:center;}
+.price .pb{display:inline-block; background:var(--navy2); color:#fff; font-size:11px; font-weight:800; border-radius:999px; padding:5px 14px;}
+.price .yen{font-size:clamp(30px,9vw,40px); font-weight:800; color:var(--navy2); margin-top:10px;}
+.price .yen small{font-size:14px;}
+.price .note{font-size:12.5px; color:var(--muted); margin-top:8px; line-height:1.9;}
+
+.cta{display:block; text-align:center; background:linear-gradient(135deg,#a97c50,#c29a6d); color:#fff; border-radius:999px; padding:16px; font-size:15.5px; font-weight:800; text-decoration:none; margin-top:18px; box-shadow:0 10px 26px rgba(169,124,80,.35);}
+.fixbar{position:fixed; left:0; right:0; bottom:0; background:rgba(255,255,255,.95); border-top:1px solid var(--line); padding:10px 14px calc(10px + env(safe-area-inset-bottom)); z-index:40;}
+.fixbar a{display:block; text-align:center; background:linear-gradient(135deg,#a97c50,#c29a6d); color:#fff; border-radius:999px; padding:13px; font-size:14px; font-weight:800; text-decoration:none;}
+
+.faqq{background:#fff; border-radius:14px; margin-top:10px; box-shadow:0 4px 14px rgba(44,58,85,.05); overflow:hidden;}
+.faqq summary{list-style:none; cursor:pointer; padding:13px 16px; font-size:13.5px; font-weight:800; color:var(--navy2);}
+.faqq summary::-webkit-details-marker{display:none;}
+.faqq summary::before{content:"Q. "; color:var(--camel2);}
+.faqq .a{padding:0 16px 14px; font-size:13px;}
+footer{text-align:center; font-size:11px; color:#a89f92; margin-top:44px; line-height:2;}
+
+#bugL{position:fixed; left:12px; bottom:76px; z-index:59; background:rgba(255,255,255,.92); border:1px solid #e2d8c6; color:#8f887d; font-size:10.5px; font-weight:800; border-radius:999px; padding:5px 12px; cursor:pointer; letter-spacing:.04em; font-family:inherit;}
+#bugM{position:fixed; inset:0; background:rgba(34,48,74,.55); display:none; align-items:center; justify-content:center; z-index:70; padding:24px;}
+#bugM.on{display:flex;}
+#bugM .bx{background:#fff; border-radius:20px; padding:22px 20px; max-width:360px; width:100%;}
+#bugM h3{font-size:14.5px; color:var(--navy2); margin-bottom:8px;}
+#bugM textarea{width:100%; border:1.5px solid #e3e0d8; border-radius:12px; padding:11px 13px; font-size:14px; line-height:1.8; font-family:inherit; min-height:100px; resize:vertical;}
+#bugM .bb{display:flex; gap:8px; margin-top:12px;}
+#bugM button{flex:1; border:none; border-radius:999px; padding:11px; font-size:13px; font-weight:800; cursor:pointer; font-family:inherit;}
+#bugM .c{background:#f0ede6; color:#6d675e;}
+#bugM .s{background:linear-gradient(135deg,#a97c50,#c29a6d); color:#fff;}
+#bugM .done{display:none; font-size:13px; color:#2e7d32; font-weight:800; margin-top:10px; text-align:center;}
+</style>
+</head>
+<body>
+<header><span class="lg">AI活用ラボ</span></header>
+
+<div class="wrap">
+
+  <div class="hero">
+    <div class="chars">
+      <img src="assets/hk-desk.png" alt="">
+      <img src="assets/hk-suit.png" alt="">
+    </div>
+    <h1>毎日の「めんどう」を任せられる<br><span class="grad">AIの相棒</span>を育てよう</h1>
+    <span class="badge">【対象・定員を設定してください（例：受講生限定・◯名）】</span>
+    <div class="lead">
+      AIに使われる人ではなく、<b>AIを使いこなす人</b>へ。むずかしい専門知識はいりません。あなたの毎日の悩みからスタートして、<b>自分だけのAI活用</b>を身につける実践プログラムです。
+    </div>
+  </div>
+
+  <section class="sec">
+    <div class="eyebrow">WORRIES</div>
+    <h2>こんなお悩み、ありませんか？</h2>
+    <div class="worry">毎日やることに追われて、自分の時間がまったくない</div>
+    <div class="worry">AIが流行っているのは知ってるけど、何から始めればいいかわからない</div>
+    <div class="worry">ChatGPTを入れてみたけど、結局使わなくなってしまった</div>
+    <div class="worry">仕事や家事をもっと効率化したいのに、やり方を調べる時間すらない</div>
+  </section>
+
+  <section class="sec">
+    <div class="eyebrow">SUPPORT</div>
+    <h2>このラボでできること</h2>
+    <div class="feature"><div class="ic">📋</div><div><h3>あなた専用のAIカルテ</h3><p>困りごとを2問書くだけで、はるかから直接アドバイスが届きます。悩みの傾向も自動で分析されます。</p></div></div>
+    <div class="feature"><div class="ic">💬</div><div><h3>AIはるかが24時間サポート</h3><p>ちょっとした質問は、AIはるかがいつでもお答えします。夜中でも気軽にどうぞ。</p></div></div>
+    <div class="feature"><div class="ic">🎓</div><div><h3>勉強会＋カリキュラム</h3><p>【勉強会の回数・アーカイブの有無を設定してください】。週ごとのカリキュラムに沿って、迷わず進めます。</p></div></div>
+    <div class="feature"><div class="ic">📱</div><div><h3>最終ミッション：自分のアプリ</h3><p>ゴールは「自分の暮らしを助けるアプリ」を自分の手で作ること。プログラミング知識は不要です。</p></div></div>
+  </section>
+
+  <section class="sec">
+    <div class="eyebrow">MYPAGE</div>
+    <h2>専用ページは、こんな感じ</h2>
+    <div class="mock">
+      <img src="assets/hk-casual.png" alt="">
+      <p>ひとりずつ<b>専用のマイページ</b>をお渡しします。カルテ・アドバイス・カリキュラム・分析レポートが、ぜんぶこの1ページに。スマホだけでOKです。<br><a href="index.html?demo=1" style="color:var(--camel2); font-weight:800;">→ デモ画面をさわってみる</a></p>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="eyebrow">INSTRUCTOR</div>
+    <h2>ナビゲーター</h2>
+    <div class="card" style="text-align:center;">
+      <img src="assets/hk-cake.png" alt="" style="width:120px;">
+      <p><b>はるか</b></p>
+      <p style="text-align:left;">【講師プロフィールを設定してください：経歴・実績・ひとことメッセージ】</p>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="eyebrow">PRICE</div>
+    <h2>受講料</h2>
+    <div class="price">
+      <span class="pb">【限定性を設定してください（例：一般募集なし）】</span>
+      <div class="yen">【価格】<small>（税込）</small></div>
+      <div class="note">【支払い方法・分割の有無・締切日を設定してください】</div>
+    </div>
+    <a class="cta" href="#apply">【お申込みリンクを設定してください】</a>
+  </section>
+
+  <section class="sec">
+    <div class="eyebrow">FAQ</div>
+    <h2>よくあるご質問</h2>
+    <details class="faqq"><summary>AIをさわったことがなくても大丈夫ですか？</summary><div class="a">大丈夫です。「はじめて」の方を前提に、スマホの画面つきでひとつずつ進めます。</div></details>
+    <details class="faqq"><summary>スマホだけで受講できますか？</summary><div class="a">できます。アプリづくりの一部はパソコンがあると快適ですが、なくても完走できる設計です。</div></details>
+    <details class="faqq"><summary>AIの利用料はかかりますか？</summary><div class="a">無料プランで進められる設計です。有料が必要な場面があれば「このタイミングで・この理由で」を必ずご案内します。</div></details>
+    <details class="faqq"><summary>【よくある質問を追加してください】</summary><div class="a">【回答を書いてください】</div></details>
+  </section>
+
+  <footer>AI活用ラボ<br>【運営者情報・特定商取引法に基づく表記へのリンクを設定してください】</footer>
+</div>
+
+<div class="fixbar"><a href="#apply">【お申込みリンクを設定してください】</a></div>
+
+<button id="bugL">不具合を報告</button>
+<div id="bugM"><div class="bx">
+  <h3>不具合・気になったことを教えてください</h3>
+  <textarea id="bugT" placeholder="例）ボタンが反応しませんでした（iPhone/Safari）"></textarea>
+  <div class="bb"><button class="c" id="bugC">閉じる</button><button class="s" id="bugS">送信する</button></div>
+  <div class="done" id="bugD">届きました。ありがとうございます。すぐ確認します。</div>
+</div></div>
+
+<script src="supabase_config.js"></script>
+<script>
+(function(){
+var U=(typeof SUPABASE_CONFIG!=="undefined"&&SUPABASE_CONFIG.enabled)?SUPABASE_CONFIG.url+"/rest/v1/ailab_notes":"";
+var K=(typeof SUPABASE_CONFIG!=="undefined"&&SUPABASE_CONFIG.anonKey)||"";
+var M=document.getElementById("bugM");
+document.getElementById("bugL").onclick=function(){ M.classList.add("on"); };
+document.getElementById("bugC").onclick=function(){ M.classList.remove("on"); document.getElementById("bugD").style.display="none"; };
+document.getElementById("bugS").onclick=function(){
+  var t=document.getElementById("bugT").value.trim();
+  if(!t){ document.getElementById("bugT").focus(); return; }
+  var btn=this; btn.disabled=true;
+  function done(){
+    document.getElementById("bugD").style.display="block";
+    document.getElementById("bugT").value=""; btn.disabled=false;
+    setTimeout(function(){ M.classList.remove("on"); document.getElementById("bugD").style.display="none"; },1800);
+  }
+  if(!U){ done(); return; }
+  fetch(U,{method:"POST",headers:{apikey:K,Authorization:"Bearer "+K,"Content-Type":"application/json"},
+    body:JSON.stringify({member_id:"bug_LP",member_name:"LP",mood:"バグ報告",worry:t,want:location.href.slice(0,180)+" ／ "+navigator.userAgent.slice(0,140)})})
+    .then(function(){ done(); }).catch(function(){ btn.disabled=false; alert("送信できませんでした。通信環境をご確認ください。"); });
+};
+})();
+</script>
+</body>
+</html>

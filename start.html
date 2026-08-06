@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>専用ページを作る｜AI活用ラボ</title>
+<style>
+:root{
+  --bg:#fdf5f7; --navy:#26405f; --navy2:#1d3149;
+  --pink:#b3835a; --pink2:#966b44; --pink3:#a97c50; --pinkbg:#f6ecdd; --blue:#7fb0d2; --text:#4a4446;
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+html,body{overflow-x:hidden;}
+body{
+  font-family:"Yu Gothic","YuGothic","游ゴシック","Hiragino Kaku Gothic ProN","Hiragino Sans",sans-serif;
+  background:linear-gradient(160deg,#fdf3f6 0%,#f4f7fb 60%,#fdf3f6 100%); color:var(--text); line-height:1.9;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:440px; margin:0 auto; padding:0 18px 60px;}
+.top{background:var(--navy2); color:#fff; padding:16px 20px; text-align:center;}
+.top .m{font-size:13px; font-weight:800; letter-spacing:.16em; color:#e79ab2;}
+.top .m small{color:#cfdcea; font-size:10px; margin-left:6px; letter-spacing:.14em;}
+.hero{background:linear-gradient(160deg,#faf3e8,#f6ecdd); margin:0 -18px; padding:20px 22px 10px; display:flex; align-items:center; justify-content:space-between; gap:8px;}
+.hero img{width:118px; flex:none;}
+.speech{position:relative; background:#fff; border-radius:16px; padding:11px 15px; font-size:13px; font-weight:800; color:var(--navy2); box-shadow:0 6px 18px rgba(38,64,95,.12); line-height:1.9;}
+.speech::after{content:""; position:absolute; right:-8px; top:18px; border:8px solid transparent; border-left-color:#fff; border-right:none;}
+h1{font-size:21px; color:var(--navy2); margin:22px 2px 4px; letter-spacing:.04em;}
+.lead{font-size:12.5px; color:#8a97a5;}
+.card{background:#fff; border-radius:20px; padding:22px 20px; margin-top:14px; box-shadow:0 10px 30px rgba(38,64,95,.08);}
+label{display:block; font-size:12.5px; font-weight:800; color:var(--navy); margin:14px 0 6px;}
+label:first-child{margin-top:0;}
+label small{font-weight:700; color:#9aa7b4;}
+input{width:100%; border:1.5px solid #e3e9f0; border-radius:13px; padding:12px 14px; font-size:15px; font-weight:700; color:var(--navy2); background:#fbfcfe; font-family:inherit;}
+input:focus{outline:none; border-color:var(--pink);}
+.gbtn{
+  display:flex; align-items:center; justify-content:center; gap:8px; width:100%; border:none; margin-top:18px;
+  background:linear-gradient(135deg,var(--pink3),var(--pink)); color:#fff;
+  border-radius:999px; padding:14px; font-size:15px; font-weight:800; letter-spacing:.06em;
+  box-shadow:0 8px 22px rgba(189,120,134,.35); cursor:pointer; font-family:inherit;
+}
+.gbtn svg{width:15px; height:15px; fill:#fff; flex:none;}
+.gbtn.navy{background:var(--navy); box-shadow:0 8px 22px rgba(38,64,95,.25); text-decoration:none;}
+.ghost{display:block; width:100%; border:1.5px solid #e3e9f0; background:#fff; color:var(--navy); border-radius:999px; padding:12px; font-size:13px; font-weight:800; cursor:pointer; font-family:inherit; margin-top:10px; text-align:center; text-decoration:none;}
+.note{font-size:11px; color:#9aa7b4; margin-top:10px; line-height:1.9;}
+.err{display:none; font-size:12px; color:var(--pink3); font-weight:800; margin-top:8px;}
+.result{display:none;}
+.urlbox{background:var(--pinkbg); border-radius:13px; padding:12px 14px; font-size:11.5px; word-break:break-all; color:var(--navy2); font-weight:700; margin-top:6px;}
+.steps{margin-top:16px;}
+.st{display:flex; gap:10px; margin-top:10px; font-size:12px; align-items:flex-start;}
+.st i{font-style:normal; flex:none; width:22px; height:22px; border-radius:50%; background:var(--pinkbg); color:var(--pink2); font-weight:800; display:flex; align-items:center; justify-content:center; font-size:11px; margin-top:4px;}
+.back{display:none;}
+footer{text-align:center; font-size:10.5px; color:#9aa7b4; margin-top:26px; letter-spacing:.06em; line-height:2;}
+</style>
+</head>
+<body>
+<div class="top"><span class="m"><small>AI活用ラボ</small></span></div>
+
+<div class="wrap">
+  <div class="hero">
+    <div class="speech">じぶん専用ページを<br>いっしょに作ろう♪</div>
+    <img src="assets/hk-suit.png" alt="" onerror="this.style.display='none'">
+  </div>
+
+  <!-- returning -->
+  <div class="back" id="back">
+    <h1>おかえりなさい！</h1>
+    <p class="lead">このスマホで作った専用ページがあります。</p>
+    <div class="card">
+      <a class="gbtn navy" id="goback" href="#"><svg viewBox="0 0 24 24"><path d="M2 21l21-9L2 3v7l15 2-15 2z"/></svg>わたしの専用ページを開く</a>
+      <a class="ghost" id="newone" href="#">別の人として作りなおす</a>
+    </div>
+  </div>
+
+  <!-- create -->
+  <div id="create">
+    <h1>あなた専用の「AIカルテ」を作る</h1>
+    <p class="lead">30秒で完成します。作れるのはAI活用ラボの受講生のみです。</p>
+    <div class="card">
+      <label>呼ばれたい名前<small>（ひらがな・ニックネームOK）</small></label>
+      <input type="text" id="nm" maxlength="15" placeholder="例）ゆき">
+      <label>お申込みのメールアドレス<small>（あなた専用ページの鍵になります）</small></label>
+      <input type="email" id="em" placeholder="例）example@gmail.com" autocapitalize="none">
+      <div class="err" id="err"></div>
+      <button class="gbtn" id="make"><svg viewBox="0 0 24 24"><path d="M2 21l21-9L2 3v7l15 2-15 2z"/></svg>わたしの専用ページを作る</button>
+      <p class="note">メールアドレスはページの鍵として使うだけで、画面やURLにそのまま表示されることはありません。</p>
+    </div>
+  </div>
+
+  <!-- result -->
+  <div class="result" id="result">
+    <div class="card">
+      <p style="font-size:14px; font-weight:800; color:var(--navy2); text-align:center;">できました！これがあなたの専用ページです</p>
+      <div class="urlbox" id="myurl"></div>
+      <a class="gbtn navy" id="open" href="#" style="margin-top:14px;"><svg viewBox="0 0 24 24"><path d="M2 21l21-9L2 3v7l15 2-15 2z"/></svg>専用ページを開く</a>
+      <button class="ghost" id="copy">URLをコピー（自分のLINEに送っておくと安心）</button>
+      <div class="steps">
+        <div class="st"><i>1</i>専用ページを開いて、ブックマーク（ホーム画面に追加）してください</div>
+        <div class="st"><i>2</i>URLを失くしても大丈夫。このページで同じメールアドレスを入れると、いつでも同じページに戻れます</div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    AI活用ラボ｜AIの力で、あなたの毎日をもっと豊かに。</footer>
+</div>
+
+<script src="supabase_config.js"></script>
+<script>
+(function(){
+var KEY="ailab_my";
+var SB_U=(typeof SUPABASE_CONFIG!=="undefined"&&SUPABASE_CONFIG.enabled)?SUPABASE_CONFIG.url+"/rest/v1/ailab_notes":"";
+var SB_K=(typeof SUPABASE_CONFIG!=="undefined"&&SUPABASE_CONFIG.anonKey)||"";
+function regTouroku(id,nm){
+  try{
+    if(localStorage.getItem("ailab_reg_"+id)) return;
+    if(SB_U) fetch(SB_U,{method:"POST",headers:{apikey:SB_K,Authorization:"Bearer "+SB_K,"Content-Type":"application/json"},
+      body:JSON.stringify({member_id:id,member_name:nm,mood:"登録",worry:"",want:"入口ページで専用URLを発行"})})
+      .then(function(r){ if(r.ok){ try{localStorage.setItem("ailab_reg_"+id,"1");}catch(e){} } })
+      .catch(function(){});
+  }catch(e){}
+}
+function load(){ try{return JSON.parse(localStorage.getItem(KEY));}catch(e){return null;} }
+
+/* メールアドレス→固定ID（同じメールなら必ず同じIDになる） */
+function hid(s){
+  s=s.trim().toLowerCase();
+  var h=5381; for(var i=0;i<s.length;i++){ h=(((h<<5)+h)+s.charCodeAt(i))>>>0; }
+  var h2=2166136261; for(var j=s.length-1;j>=0;j--){ h2=((h2^s.charCodeAt(j))*16777619)>>>0; }
+  return "m"+h.toString(36)+h2.toString(36).slice(0,4);
+}
+function pageUrl(id,nm){
+  var base=location.href.replace(/[^/]*(\?.*)?$/,"");
+  return base+"index.html?u="+id+"&name="+encodeURIComponent(nm);
+}
+
+var saved=load();
+if(saved&&saved.url){
+  document.getElementById("back").style.display="block";
+  document.getElementById("create").style.display="none";
+  document.getElementById("goback").href=saved.url;
+  document.getElementById("newone").onclick=function(e){
+    e.preventDefault();
+    document.getElementById("back").style.display="none";
+    document.getElementById("create").style.display="block";
+  };
+}
+
+document.getElementById("make").onclick=function(){
+  var nm=document.getElementById("nm").value.trim();
+  var em=document.getElementById("em").value.trim();
+  var err=document.getElementById("err");
+  err.style.display="none";
+  if(!nm){ err.textContent="呼ばれたい名前を入れてください。"; err.style.display="block"; return; }
+  if(!em||em.indexOf("@")<1||em.indexOf(".")<0){ err.textContent="メールアドレスの形式をご確認ください。"; err.style.display="block"; return; }
+  var id=hid(em);
+  var url=pageUrl(id,nm);
+  try{ localStorage.setItem(KEY,JSON.stringify({id:id,name:nm,url:url,t:Date.now()})); }catch(e){}
+  regTouroku(id,nm);
+  document.getElementById("create").style.display="none";
+  document.getElementById("myurl").textContent=url;
+  document.getElementById("open").href=url;
+  document.getElementById("result").style.display="block";
+  window.scrollTo(0,0);
+};
+document.getElementById("copy").onclick=function(){
+  var t=document.getElementById("myurl").textContent, b=this;
+  function ok(){ b.textContent="コピーしました ♡"; setTimeout(function(){ b.textContent="URLをコピー（自分のLINEに送っておくと安心）"; },2000); }
+  if(navigator.clipboard&&navigator.clipboard.writeText){ navigator.clipboard.writeText(t).then(ok,fb); }else fb();
+  function fb(){ var ta=document.createElement("textarea"); ta.value=t; document.body.appendChild(ta); ta.select(); try{document.execCommand("copy");}catch(e){} ta.remove(); ok(); }
+};
+})();
+</script>
+
+<!-- バグ報告ツール -->
+<style>
+#bugL{position:fixed; left:12px; bottom:16px; z-index:59; background:rgba(255,255,255,.92); border:1px solid #dfe7ee; color:#8a97a5; font-size:10.5px; font-weight:800; border-radius:999px; padding:5px 12px; cursor:pointer; letter-spacing:.04em;}
+#bugM{position:fixed; inset:0; background:rgba(29,49,73,.55); display:none; align-items:center; justify-content:center; z-index:70; padding:24px;}
+#bugM.on{display:flex;}
+#bugM .bx{background:#fff; border-radius:20px; padding:22px 20px; max-width:360px; width:100%;}
+#bugM h3{font-size:14.5px; color:#1d3149; margin-bottom:8px;}
+#bugM textarea{width:100%; border:1.5px solid #e3e9f0; border-radius:12px; padding:11px 13px; font-size:14px; line-height:1.8; color:#1d3149; font-family:inherit; min-height:100px; resize:vertical;}
+#bugM .bb{display:flex; gap:8px; margin-top:12px;}
+#bugM button{flex:1; border:none; border-radius:999px; padding:11px; font-size:13px; font-weight:800; cursor:pointer; font-family:inherit;}
+#bugM .s{background:linear-gradient(135deg,#a97c50,#b3835a); color:#fff;}
+#bugM .c{background:#eef2f6; color:#26405f;}
+#bugM .done{display:none; font-size:12.5px; color:#966b44; font-weight:800; margin-top:8px; text-align:center;}
+@media(max-width:900px){ #bugL{bottom:84px;} }
+</style>
+<div id="bugL">不具合を報告</div>
+<div id="bugM"><div class="bx">
+  <h3>不具合・気になったことを教えてください</h3>
+  <textarea id="bugT" placeholder="例）送信ボタンを押しても反応しませんでした（iPhone/Safari）"></textarea>
+  <div class="bb"><button class="c" id="bugC">閉じる</button><button class="s" id="bugS">送信する</button></div>
+  <div class="done" id="bugD">届きました。ありがとうございます。すぐ確認します。</div>
+</div></div>
+<script>
+(function(){
+var U=(typeof SUPABASE_CONFIG!=="undefined"&&SUPABASE_CONFIG.enabled)?SUPABASE_CONFIG.url+"/rest/v1/ailab_notes":"";
+var K=(typeof SUPABASE_CONFIG!=="undefined"&&SUPABASE_CONFIG.anonKey)||"";
+var P=new URLSearchParams(location.search);
+var uid=(P.get("u")||"guest").replace(/[^a-zA-Z0-9_\-]/g,"");
+var demo=P.get("demo")==="1";
+var M=document.getElementById("bugM");
+document.getElementById("bugL").onclick=function(){ M.classList.add("on"); };
+document.getElementById("bugC").onclick=function(){ M.classList.remove("on"); document.getElementById("bugD").style.display="none"; };
+document.getElementById("bugS").onclick=function(){
+  var t=document.getElementById("bugT").value.trim();
+  if(!t){ document.getElementById("bugT").focus(); return; }
+  var btn=this; btn.disabled=true;
+  function done(){
+    document.getElementById("bugD").style.display="block";
+    document.getElementById("bugT").value=""; btn.disabled=false;
+    setTimeout(function(){ M.classList.remove("on"); document.getElementById("bugD").style.display="none"; },1800);
+  }
+  if(demo){ done(); return; }
+  if(!U){ done&&done(); } else fetch(U,{method:"POST",headers:{apikey:K,Authorization:"Bearer "+K,"Content-Type":"application/json"},
+    body:JSON.stringify({member_id:"bug_入口ページ",member_name:"入口ページ｜"+uid,mood:"バグ報告",worry:t,want:location.href.slice(0,180)+" ／ "+navigator.userAgent.slice(0,140)})})
+    .then(function(){ done(); }).catch(function(){ btn.disabled=false; alert("送信できませんでした。通信環境をご確認ください。"); });
+};
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>AIはるか｜AI活用ラボ</title>
+<style>
+:root{
+  --bg:#f1f7fb; --navy:#26405f; --navy2:#1d3149;
+  --pink:#b3835a; --pink2:#966b44; --pink3:#a97c50; --pinkbg:#f6ecdd; --blue:#7fb0d2; --text:#4a4446;
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+html,body{overflow-x:hidden;}
+body{
+  font-family:"Yu Gothic","YuGothic","游ゴシック","Hiragino Kaku Gothic ProN","Hiragino Sans",sans-serif;
+  background:linear-gradient(160deg,#fdf3f6 0%,#f1f7fb 60%,#fdf3f6 100%);
+  color:var(--text); min-height:100vh; line-height:1.8; -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:520px; margin:0 auto; padding:20px 16px 50px;}
+
+/* hero */
+.hero{text-align:center; padding:10px 8px 14px;}
+.avatar{
+  width:112px; height:112px; margin:0 auto 10px; border-radius:50%; overflow:hidden;
+  border:4px solid #fff; box-shadow:0 8px 24px rgba(189,120,134,.3); background:#fde7ee;
+  animation:pop .8s ease;
+}
+@keyframes pop{0%{transform:scale(.6);opacity:0;}60%{transform:scale(1.06);}100%{transform:scale(1);}}
+.avatar img{width:100%; height:100%; object-fit:cover; object-position:50% 4%;}
+.hero h1{font-size:24px; color:var(--navy2); letter-spacing:.06em;}
+.hero .sub{font-size:11.5px; color:var(--pink2); font-weight:800; letter-spacing:.18em; margin-top:2px;}
+.hero p.desc{font-size:12.5px; color:#8a97a5; margin-top:8px;}
+
+/* chat card */
+.chatcard{
+  background:#fff; border-radius:24px; box-shadow:0 12px 34px rgba(38,64,95,.1);
+  overflow:hidden; margin-top:14px;
+}
+.chathead{
+  background:linear-gradient(135deg,var(--navy2),var(--navy)); color:#fff;
+  padding:12px 18px; display:flex; align-items:center; gap:10px;
+}
+.chathead img{width:34px; height:34px; border-radius:50%; object-fit:cover; object-position:50% 4%; background:#fde7ee;}
+.chathead .nm{font-size:14px; font-weight:800;}
+.chathead .st{font-size:10px; color:#bcd0e2;}
+.chathead .st::before{content:"●"; color:#7fd6a4; margin-right:4px; font-size:8px;}
+#chat-box{
+  height:430px; overflow-y:auto; padding:16px 14px;
+  background:linear-gradient(180deg,#f4f8fb,#fdf5f7);
+}
+.msg{display:flex; gap:8px; margin-top:10px; align-items:flex-end;}
+.msg .face{flex:none; width:32px; height:32px; border-radius:50%; overflow:hidden; background:#fde7ee;}
+.msg .face img{width:100%; height:100%; object-fit:cover; object-position:50% 4%;}
+.msg .b{
+  background:#fff; border-radius:4px 16px 16px 16px; padding:9px 13px;
+  font-size:13.5px; line-height:1.85; max-width:80%;
+  box-shadow:0 2px 8px rgba(38,64,95,.07); white-space:pre-line; word-break:break-word;
+}
+.msg.user{justify-content:flex-end;}
+.msg.user .b{background:var(--pinkbg); border-radius:16px 4px 16px 16px; color:var(--navy2); font-weight:700;}
+.typing i{display:inline-block; width:6px; height:6px; border-radius:50%; background:#9db4c6; margin:0 2px; animation:tp 1s infinite;}
+.typing i:nth-child(2){animation-delay:.15s;} .typing i:nth-child(3){animation-delay:.3s;}
+@keyframes tp{0%,60%,100%{transform:translateY(0);}30%{transform:translateY(-4px);}}
+
+.b a{color:#26405f; font-weight:800; word-break:break-all;}
+/* chips */
+#chips{display:flex; gap:8px; overflow-x:auto; padding:10px 14px 4px; scrollbar-width:none;}
+#chips::-webkit-scrollbar{display:none;}
+.chip{
+  flex:none; border:1.5px solid #ecd7dd; background:#fff; color:var(--pink2);
+  border-radius:999px; padding:7px 14px; font-size:12px; font-weight:800; cursor:pointer; user-select:none;
+}
+/* input */
+.inrow{display:flex; gap:8px; padding:10px 14px 14px;}
+.inrow textarea{
+  flex:1; min-width:0; border:1.5px solid #e3e9f0; border-radius:18px; padding:10px 14px;
+  font-size:14px; line-height:1.7; color:var(--navy2); background:#fbfcfe; font-family:inherit;
+  resize:none; height:44px; max-height:96px;
+}
+.inrow textarea:focus{outline:none; border-color:var(--pink);}
+.inrow button{
+  flex:none; border:none; background:linear-gradient(135deg,var(--pink3),var(--pink)); color:#fff;
+  border-radius:50%; width:44px; height:44px; cursor:pointer; display:flex; align-items:center; justify-content:center;
+  box-shadow:0 4px 12px rgba(189,120,134,.35);
+}
+.inrow button svg{width:18px; height:18px; fill:#fff;}
+.clearrow{text-align:center; margin-top:12px;}
+.clearrow a{font-size:11px; color:#9aa7b4; text-decoration:underline; cursor:pointer;}
+.note{
+  margin-top:16px; background:#fff; border-radius:16px; padding:13px 16px;
+  font-size:11.5px; color:#8a97a5; line-height:1.9; box-shadow:0 4px 14px rgba(38,64,95,.06);
+}
+.note b{color:var(--navy);}
+.note a{color:var(--pink2); font-weight:800;}
+footer{text-align:center; font-size:10px; color:#9aa7b4; margin-top:18px; letter-spacing:.1em; line-height:2;}
+
+/* name modal */
+.modal{position:fixed; inset:0; background:rgba(29,49,73,.55); display:none; align-items:center; justify-content:center; z-index:50; padding:24px;}
+.modal.show{display:flex;}
+.mbox{background:#fff; border-radius:22px; padding:26px 22px; max-width:340px; width:100%; text-align:center; animation:pop .4s ease;}
+.mbox img{width:88px; margin:0 auto 6px; display:block;}
+.mbox h3{color:var(--navy2); font-size:15.5px; margin-bottom:10px; line-height:1.7;}
+.mbox input{width:100%; border:1.5px solid #e3e9f0; border-radius:12px; padding:11px 14px; font-size:15px; font-weight:700; color:var(--navy2); background:#fbfcfe; font-family:inherit; text-align:center;}
+.mbox button{margin-top:12px; width:100%; border:none; background:linear-gradient(135deg,var(--pink3),var(--pink)); color:#fff; border-radius:999px; padding:12px; font-size:14px; font-weight:800; cursor:pointer; font-family:inherit;}
+.mbox .skip{margin-top:8px; font-size:11px; color:#9aa7b4; text-decoration:underline; cursor:pointer;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="hero">
+    <div class="avatar"><img src="assets/hk-desk.png" alt="AIはるか"></div>
+    <h1>AIはるか</h1>
+    <div class="sub">AI活用ラボ</div>
+    <p class="desc">24時間、ここにいます。悩みでも、雑談でも、なんでもどうぞ。</p>
+  </div>
+
+  <div class="chatcard">
+    <div class="chathead">
+      <img src="assets/hk-desk.png" alt="">
+      <div><div class="nm">AIはるか</div><div class="st">オンライン</div></div>
+    </div>
+    <div id="chat-box"></div>
+    <div id="chips">
+      <span class="chip">よくある質問</span>
+      <span class="chip">何から始めればいい？</span>
+      <span class="chip">時間がない</span>
+      <span class="chip">お金の不安</span>
+      <span class="chip">家族に反対されそう</span>
+      <span class="chip">自信がない</span>
+      <span class="chip">AIの使い分けは？</span>
+      <span class="chip">つかれた…</span>
+    </div>
+    <div class="inrow">
+      <textarea id="user-input" placeholder="メッセージを入力" rows="1"></textarea>
+      <button id="send-btn" aria-label="送信"><svg viewBox="0 0 24 24"><path d="M2 21l21-9L2 3v7l15 2-15 2z"/></svg></button>
+    </div>
+  </div>
+
+  <div class="clearrow"><a id="clear-btn">会話をリセットする</a></div>
+
+  <div class="note">
+    <b>AIはるかについて：</b>これは、はるかの考え方を学習した自動返信です。<br>
+    本物のはるかに相談したいときは、<a href="start.html">AIカルテ</a>から送ってください。ひとつずつ、ちゃんと読んでお返しします。
+  </div>
+
+  <footer>AI活用ラボ｜AIの相棒を育成しよう</footer>
+</div>
+
+<div class="modal" id="modal">
+  <div class="mbox">
+    <img src="assets/hk-suit.png" alt="">
+    <h3>はじめまして、AIはるかです。<br>なんて呼んだらいいですか？</h3>
+    <input type="text" id="name-input" maxlength="10" placeholder="例）ゆき">
+    <button id="name-ok">よろしくね！</button>
+    <div class="skip" id="name-skip">あとで教える</div>
+  </div>
+</div>
+
+<script>
+(function(){
+/* ================= AIはるか 人格エンジン =================
+   はるかの答え方の型：
+   ①まず受け止める（ねぎらい・共感。圧ゼロ）
+   ②本質をやさしくズバッと（自分軸への問い直し）
+   ③実体験・生徒さんの実例で背中を支える
+   ④「小さな1歩」を具体的に置いて締める
+========================================================= */
+var LS_KEY="ai-haruka-chat", NM_KEY="ai-haruka-name";
+function nm(){ try{return localStorage.getItem(NM_KEY)||"";}catch(e){return "";} }
+function dispName(){ var n=nm(); return n?n+"さん":"あなた"; }
+function fill(t){ return t.replace(/\{name\}/g,dispName()); }
+function pick(a){ return a[Math.floor(Math.random()*a.length)]; }
+
+var RULES=[
+{ re:/死にたい|消えたい|いなくなりたい|生きてる意味/, replies:[
+  ["それだけ、つらい毎日をがんばってきたということですよね。まずここで話してくれて、ありがとうございます。",
+   "{name}の代わりは、どこにもいません。私でよければ何度でも聞きます。そして、信頼できる身近な人や相談窓口にも、どうか声をかけてくださいね。",
+   "ひとりで抱えないことが、いちばんの勇気です。私はずっと味方です☺️"]
+]},
+{ re:/締め切り|締切|しめきり|いつまで|期限|まだ申し込め|まだ間に合/, replies:[
+  ["お申込みの締切は【締切日を設定してください】です☺️",
+   "くわしい流れは、ご案内ページを見てくださいね✨"]
+]},
+{ re:/よくある質問|FAQ|faq|質問集|どこで聞け/, replies:[
+  ["気になることは、そのまま私に聞いてくださいね☺️",
+   "答えられなかったことは、AIカルテからはるかに直接送れます✨"]
+]},
+{ re:/受講料|料金|金額|いくら|支払|決済|振込|振り込|ペイパル|paypal|PayPal|クレジット|申込|申し込/, replies:[
+  ["受講料は【価格を設定してください】です☺️",
+   "お申込みの流れは、ご案内ページでご確認くださいね✨"]
+]},
+{ re:/スクショ|スクリーンショット|確認できま|確認されな|はじかれ|弾かれ/, replies:[
+  ["お支払いの確認でうまくいかない時は、『どんな画面が出たか』を運営のLINEに送ってください☺️",
+   "個別にしっかり確認しますね✨"]
+]},
+{ re:/オープンチャット|オプチャ|参加ボタン|入れない|入れません|参加できな/, replies:[
+  ["オープンチャットは、決済確認のあとの画面で『規約をいちばん下までスクロール→同意にチェック→緑のボタン』の順で入れます☺️",
+   "ボタンが押せない時は、規約を最後までスクロールできているか見てみてください✨"]
+]},
+{ re:/URL|ブックマーク|専用ページ|ページ.*(忘れ|わから|なくし)|カルテ.*(どこ|開け|作り)/, replies:[
+  ["専用ページのURLがわからなくなっても大丈夫☺️ 入口ページでもう一度『同じメールアドレス』を入れると、まったく同じページに戻れます。書いた内容もぜんぶ残っています。",
+   "戻れたら、今度こそブックマーク（ホーム画面に追加）しておいてくださいね✨"]
+]},
+{ re:/勉強会|日程|いつから|開講|アーカイブ|録画/, replies:[
+  ["開講日・勉強会の日程は【日程を設定してください】です☺️",
+   "アーカイブ（録画）の有無や参加方法も、あわせてご案内しますね✨"]
+]},
+{ re:/キャンセル|返金/, replies:[
+  ["ごめんなさい。役務という性質上、お支払い後のキャンセル・返金はできない決まりです（受講規約をご確認ください）。",
+   "そのぶん、払った以上のものを持ち帰ってもらえるように、私も本気で伴走します🔥"]
+]},
+{ re:/領収書/, replies:[
+  ["領収書の個別発行はしていません。PayPalの完了メールや振込明細が、お支払いの証明になりますよ☺️",
+   "どうしても必要な時は、LINEで相談してくださいね✨"]
+]},
+{ re:/スマホだけ|パソコン|PC|pc必要/, replies:[
+  ["スマホ中心で大丈夫です☺️ アプリづくりの一部はパソコンがあると快適だけど、なくても進められる設計にしています✨"]
+]},
+{ re:/無料プラン|有料プラン|課金/, replies:[
+  ["まずは無料プランでOKです☺️ 有料が必要になる場面があれば、講座の中で『このタイミングで、この理由で』とご案内しますね✨"]
+]},
+{ re:/ありがと|感謝/, replies:[
+  ["こちらこそです☺️ {name}とお話できてうれしいです。","また いつでも来てくださいね✨"],
+  ["いえいえ！そう言ってもらえるのがいちばんのごほうびです☺️ 一緒にがんばりましょ🔥"]
+]},
+{ re:/おはよ/, replies:[
+  ["おはようございます☺️ 今日も{name}のペースでいきましょ✨","朝いちばんに1つだけ、AIに『めんどう』を渡してみてください。それだけで今日の景色が変わります🔥"],
+  ["おはようございます！今日は何をAIにサボらせますか？☺️"]
+]},
+{ re:/おやすみ|寝ます|ねます/, replies:[
+  ["今日も1日、ほんとうにおつかれさまでした☺️","がんばった日ほど、早めのおふとんが正解です。ゆっくり休んでくださいね🌙"],
+  ["おやすみなさい🌙 明日の{name}のために、今日はもう店じまいです☺️"]
+]},
+{ re:/何から|なにから|始めれば|はじめれば|最初の一歩|スタート/, replies:[
+  ["いい質問です☺️ 迷っているなら、答えはひとつ。",
+   "今夜、頼み方テンプレ②に商品情報を貼って、説明文を1本だけ作ってみてください。5分で終わります✨",
+   "完璧じゃなくていいんです。私がこれまで数千人の女性を見てきて言えるのは、人生が変わるのは『見ているだけの人』ではなく『見て、1歩動いた人』だということ🔥"],
+  ["まず、全部やろうとしなくて大丈夫です☺️",
+   "『説明文』か『献立』、どちらかひとつだけAIに渡してみてください。それだけで週2時間は浮きます。",
+   "浮いた時間は、{name}の大事な人とどうぞ❤️"]
+]},
+{ re:/時間がな|忙し|いそがし|バタバタ|余裕がな/, replies:[
+  ["毎日、ほんとうにおつかれさまです🥹",
+   "厳しいことを言うようですが…時間は『空く』ものではなくて『作る』ものです。時間が空くなんてことは、死後になるのでね笑",
+   "だからこそAIです。まず15分だけ、いちばん面倒な作業をAIに渡しましょ。私はそうやって253時間分をAIにサボらせました🔥"],
+  ["わかります。私も経営10年、時間がないの連続でした。",
+   "でも副業で結果を出す方は、時間の使い方が上手な人ではなくて『完璧じゃないままスタートを切った人』なんです☺️",
+   "今日の15分、何をAIに渡しますか？✨"]
+]},
+{ re:/お金がな|お金の不安|支払い|ローン|貯金|家計|赤字|経費/, replies:[
+  ["お金の不安、ちゃんと向き合っていてえらいです。まずそこからです☺️",
+   "ただ、私はいつも生徒さんにこう伝えています。お金はあくまで『手段』。大事なのは『自分がどうなりたいか、どんな生活をしたいか』という軸のほうです。",
+   "その軸さえ見失わなければ、お金を失うことはないですよ。家計を守りたいなら、まず小さくプラスを作る行動から。一緒にいきましょ🔥"],
+  ["正直にお伝えしますね。つらいのが『支出』なら、我慢だけでなく『プラスになる行動』が必要です🤔",
+   "稼げばいいわけではなくて、『時給単価高く』が大事。磨いたスキルは誰にも奪われない、一生のお財布のお守りになります✨",
+   "まずはAIで時間を浮かせて、その時間で小さな収入の入口を作る。この順番がおすすめです☺️"]
+]},
+{ re:/反対|夫が|旦那|パートナー|親に|家族が/, replies:[
+  ["それ、すごくよくわかります。",
+   "何か新しいことをやろうとすると、だいたい反対されるんですよね。だって、ほとんどの人が『やらない』から☺️",
+   "私の生徒さんにも、最初はご家族に反対されて、いまは過去最高利益を更新中の方がいます。言葉で説得するより、小さな結果で見せるのがいちばん早いです🔥"],
+  ["家族の反応って、いちばん気になりますよね🥹",
+   "でも思い出してほしいのは、反対は『心配』の裏返しでもあるということ。",
+   "だから戦わなくていいんです。こっそり小さく始めて、『ちょっとできた』を積んでから見せましょ☺️ 結果は最強の説得材料です✨"]
+]},
+{ re:/自信がな|私にはできない|わたしにはできない|無理かも|不安で|こわい|怖い/, replies:[
+  ["その不安、大事にしていいものですよ。慎重さは誠実さの証拠です☺️",
+   "ただ、私が数千人の女性を見てきて言えるのは——結局『自分がどうなりたいか？』『今の自分で自分を好きになれるか？』『今死んでしまったら後悔はないか？』この問いが全てだということ。",
+   "みんな最初は素人です。差は才能ではなくて、1歩踏み出したかどうかだけ。{name}にもぜんぶ揃っています🔥"],
+  ["大丈夫。『できないかも』と思えている人ほど、実は丁寧に進めるので伸びます☺️",
+   "AIのいいところは、失敗してもだれにも見られないこと。準備ゼロで1回だけ、こっそり試してみてください✨",
+   "5分の成功体験が、ブレーキをそっと外してくれますよ❤️"]
+]},
+{ re:/続かない|三日坊主|サボって|やる気|モチベ/, replies:[
+  ["続かないのは、意志が弱いからじゃないです☺️",
+   "『完璧にやろう』の設定が高すぎるだけ。私の生徒さんでも『完璧じゃなくていい、ゆるくていい』で続けた方ほど、大きな結果を得ています✨",
+   "今日は1個だけ。それで100点にしましょ🔥"],
+  ["モチベに頼ると、モチベがない日に止まります。だから仕組みです☺️",
+   "『朝のコーヒーのあとにAIに1個渡す』みたいに、時間とセットにしてみてください。",
+   "ちなみに、続いた日は自分をちゃんと褒めていますか？{name}、そこ大事ですよ❤️"]
+]},
+{ re:/AI.*(こわい|怖い|不安)|思考力|依存|使われる/, replies:[
+  ["その感覚、むしろ正しいです☺️",
+   "合言葉は『あなたが社長、AIは秘書』。たたき台はAI、仕上げと決断はわたし。ここさえ守れば、AIは思考力を奪うどころか、考える時間を増やしてくれます。",
+   "怖がりながら正しく使う人が、いちばん上手になりますよ✨"]
+]},
+{ re:/使い分け|どのAI|ChatGPT|チャットGPT|Gemini|ジェミニ|Claude|クロード/i, replies:[
+  ["3人の秘書だと思うと簡単です☺️",
+   "ChatGPT＝画像もLPも作れる万能係。Gemini＝Googleの中の作業係。Claude＝長文と『作る』が得意な右腕。私の一番の相棒はClaudeです🔥",
+   "まずは無料でOK。迷ったら、今日やりたいことを私に言ってみてください。どの子が合うか答えます✨"]
+]},
+{ re:/メルカリ|出品|説明文|物販|売れない|リサーチ|在庫/, replies:[
+  ["出品まわりは、AIのいちばんの得意分野です☺️",
+   "説明文はテンプレ②に商品情報を貼るだけで1本5分。リサーチのたたき台も、値付けの比較もAIに任せられます。",
+   "そして忘れないでほしいのは、物販は素敵な商品を必要な人に繋ぐ立派なお仕事だということ。誇りを持っていきましょ🔥"],
+  ["売れない時期、ありますよね。私も中国輸入時代、家が倉庫みたいになりました🤣",
+   "見直す順番は『写真→1行目→価格』です。説明文の書き直しはAIに任せて、{name}は写真に集中。",
+   "ちょっとのコツで、結果は大きく変わりますよ✨"]
+]},
+{ re:/献立|ごはん|夕飯|夕食|料理|買い物リスト/, replies:[
+  ["毎日の献立、実はいちばん大変なお仕事です☺️",
+   "『今週の献立と買い物リストを予算内で』とAIに話しかけてみてください。家事の相談相手は、24時間文句を言いません✨",
+   "こんだてを決める脳みそを空けて、その分やさしいお母さんでいられたら、それが最高の時短です❤️"]
+]},
+{ re:/疲れた|つかれた|しんどい|限界|眠い|ねむい/, replies:[
+  ["毎日、ほんとうにおつかれさまです🥹",
+   "今日はもう、がんばらない日にしましょう。休むのも立派な戦略です。",
+   "元気が戻ったら、いちばん面倒なことを1個だけAIに渡してみてください。{name}の代わりに働かせましょ☺️"],
+  ["それだけ疲れているのは、それだけ動いた証拠です。",
+   "がんばった日ほど早めのおふとんへ。明日の私に任せて、今日は店じまいです🌙"]
+]},
+{ re:/迷って|決められない|悩んで|どうしたら|どうすれば/, replies:[
+  ["迷えるのは、真剣な証拠です☺️",
+   "私の答えはいつも同じ。『リスクはあるかも』と知った上でトライすることが、実は1番大事なんです。",
+   "3つだけ自分に聞いてみてください。①自分がどうなりたい？②どんな生活がしたい？③今のままでいい？——答えはもう{name}の中にありますよ✨"],
+  ["うんうん、ちゃんと悩んでいてえらいです。",
+   "ただ、ずっと迷っている時間がいちばん高くつきます。どちらでも大丈夫だから、決めて動いて、あとで直しましょ🔥",
+   "ちなみに、いちばん引っかかっているのはどこですか？☺️"]
+]},
+{ re:/はるかさん|会いたい|本物/, replies:[
+  ["わ、うれしいです🥹 本物のはるかは、AI活用ラボの勉強会とオープンチャットにいます！",
+   "じっくり相談したいときは、AIカルテから送ってくださいね。ひとつずつ、ちゃんと読んでお返ししています❤️"]
+]},
+{ re:/ラボ|講座|カルテ|勉強会|申込|受講/, replies:[
+  ["AI活用ラボのことですね☺️ 開講日は【日程を設定してください】です！",
+   "最初は講義ではなく、あなたの課題の炙り出し（AIカルテ）から始めます。",
+   "わからないことがあれば、オープンチャットでもカルテでも、遠慮なくどうぞ✨"]
+]},
+{ re:/稼ぎたい|収入|副業|儲け/, replies:[
+  ["いいですね、その気持ちが入口です🔥",
+   "ただ『稼げばいい』ではなくて『時給単価高く』が私の考えです。すり減らして稼ぐのではなく、スキルを磨いて、少ない時間で価値を出す。",
+   "磨いたスキルは誰にも奪われません。一生のお財布のお守りです✨ まずはAIで時間を作るところから始めましょ☺️"]
+]}
+];
+
+var FB_ASK=[
+ ["うんうん、聞かせてくれてありがとうございます☺️","ちなみに、いちばん引っかかっているのはどの部分ですか？もう少しだけ詳しく教えてください✨"],
+ ["なるほど…！{name}なりに、ちゃんと考えている証拠ですね☺️","それって『時間』『お金』『自信』でいうと、どれがいちばん近いですか？"],
+ ["ふむふむ。もう少し聞かせてください☺️","その状況、いつ頃からですか？きっかけも教えてもらえると、ぴったりの一歩を出せます🔥"]
+];
+var FB_CLOSE=[
+ ["話してくれてありがとうございます🥹",
+  "私の答えはいつも同じです。『自分がどうなりたいか？今の自分で自分を好きになれるか？』——ここに戻ると、道は必ず見えます。",
+  "答えを急がなくて大丈夫。また続きを聞かせてくださいね。私は24時間ここにいます☺️"]
+];
+var fbCount=0;
+function reply(text){
+  for(var i=0;i<RULES.length;i++){
+    if(RULES[i].re.test(text)){ fbCount=0; return pick(RULES[i].replies); }
+  }
+  fbCount++;
+  if(fbCount>=2){ fbCount=0; return pick(FB_CLOSE); }
+  return pick(FB_ASK);
+}
+
+/* ================= chat UI ================= */
+var box=document.getElementById("chat-box");
+var input=document.getElementById("user-input");
+var history=[];
+function save(){ try{localStorage.setItem(LS_KEY,JSON.stringify(history.slice(-40)));}catch(e){} }
+function addMsg(who,text,skipSave){
+  var m=document.createElement("div"); m.className="msg"+(who==="user"?" user":"");
+  m.innerHTML=(who==="user"?"":'<span class="face"><img src="assets/hk-desk.png" alt=""></span>')+
+    '<span class="b"></span>';
+  (function(bEl){
+    String(text).split(/(https?:\/\/[^\s]+)/g).forEach(function(p){
+      if(/^https?:\/\//.test(p)){ var a=document.createElement("a"); a.href=p; a.target="_blank"; a.rel="noopener"; a.textContent=p.replace(/^https?:\/\//,""); bEl.appendChild(a); }
+      else if(p){ bEl.appendChild(document.createTextNode(p)); }
+    });
+  })(m.querySelector(".b"));
+  box.appendChild(m); box.scrollTop=box.scrollHeight;
+  if(!skipSave){ history.push({who:who,text:text}); save(); }
+}
+var typingEl=null;
+function showTyping(){
+  typingEl=document.createElement("div"); typingEl.className="msg";
+  typingEl.innerHTML='<span class="face"><img src="assets/hk-desk.png" alt=""></span><span class="b typing"><i></i><i></i><i></i></span>';
+  box.appendChild(typingEl); box.scrollTop=box.scrollHeight;
+}
+function hideTyping(){ if(typingEl){ typingEl.remove(); typingEl=null; } }
+var busy=false;
+function send(forced){
+  var t=(forced!==undefined?forced:input.value).trim();
+  if(!t||busy) return;
+  input.value="";
+  addMsg("user",t);
+  busy=true;
+  var bubbles=reply(t).map(fill);
+  var delay=600;
+  showTyping();
+  bubbles.forEach(function(b,idx){
+    setTimeout(function(){
+      hideTyping();
+      addMsg("haruka",b);
+      if(idx<bubbles.length-1){ showTyping(); }
+      else{ busy=false; }
+    }, delay + idx*1100);
+  });
+}
+document.getElementById("send-btn").addEventListener("click",function(){ send(); });
+input.addEventListener("keydown",function(e){
+  if(e.key==="Enter"&&!e.shiftKey&&!e.isComposing){ e.preventDefault(); send(); }
+});
+document.getElementById("chips").addEventListener("click",function(e){
+  if(e.target.classList.contains("chip")){ send(e.target.textContent); }
+});
+document.getElementById("clear-btn").addEventListener("click",function(){
+  history=[]; save(); box.innerHTML=""; welcome();
+});
+
+function welcome(){
+  var msgs=[
+    "こんにちは、AIはるかです☺️ 本物のはるかの考え方を学習した、24時間の相談相手です。",
+    fill("{name}のいま困っていること、感じていること、なんでも話してくださいね。下のボタンからでもどうぞ✨")
+  ];
+  showTyping();
+  msgs.forEach(function(b,idx){
+    setTimeout(function(){
+      hideTyping(); addMsg("haruka",b,true);
+      if(idx<msgs.length-1) showTyping();
+    },500+idx*900);
+  });
+}
+
+/* name modal */
+var modal=document.getElementById("modal");
+document.getElementById("name-ok").addEventListener("click",function(){
+  var v=document.getElementById("name-input").value.trim();
+  if(v){ try{localStorage.setItem(NM_KEY,v);}catch(e){} }
+  modal.classList.remove("show"); welcome();
+});
+document.getElementById("name-skip").addEventListener("click",function(){
+  modal.classList.remove("show"); welcome();
+});
+document.getElementById("name-input").addEventListener("keydown",function(e){
+  if(e.key==="Enter"){ document.getElementById("name-ok").click(); }
+});
+
+/* init */
+try{
+  var saved=JSON.parse(localStorage.getItem(LS_KEY)||"[]");
+  if(saved.length){
+    history=saved;
+    saved.forEach(function(m){ addMsg(m.who,m.text,true); });
+  }else if(!nm()){
+    modal.classList.add("show");
+  }else{
+    welcome();
+  }
+}catch(e){ welcome(); }
+})();
+</script>
+<!-- バグ報告ツール -->
+<style>
+#bugL{position:fixed; left:12px; bottom:16px; z-index:59; background:rgba(255,255,255,.92); border:1px solid #dfe7ee; color:#8a97a5; font-size:10.5px; font-weight:800; border-radius:999px; padding:5px 12px; cursor:pointer; letter-spacing:.04em;}
+#bugM{position:fixed; inset:0; background:rgba(29,49,73,.55); display:none; align-items:center; justify-content:center; z-index:70; padding:24px;}
+#bugM.on{display:flex;}
+#bugM .bx{background:#fff; border-radius:20px; padding:22px 20px; max-width:360px; width:100%;}
+#bugM h3{font-size:14.5px; color:#1d3149; margin-bottom:8px;}
+#bugM textarea{width:100%; border:1.5px solid #e3e9f0; border-radius:12px; padding:11px 13px; font-size:14px; line-height:1.8; color:#1d3149; font-family:inherit; min-height:100px; resize:vertical;}
+#bugM .bb{display:flex; gap:8px; margin-top:12px;}
+#bugM button{flex:1; border:none; border-radius:999px; padding:11px; font-size:13px; font-weight:800; cursor:pointer; font-family:inherit;}
+#bugM .s{background:linear-gradient(135deg,#a97c50,#b3835a); color:#fff;}
+#bugM .c{background:#eef2f6; color:#26405f;}
+#bugM .done{display:none; font-size:12.5px; color:#966b44; font-weight:800; margin-top:8px; text-align:center;}
+@media(max-width:900px){ #bugL{bottom:84px;} }
+</style>
+<div id="bugL">不具合を報告</div>
+<div id="bugM"><div class="bx">
+  <h3>不具合・気になったことを教えてください</h3>
+  <textarea id="bugT" placeholder="例）送信ボタンを押しても反応しませんでした（iPhone/Safari）"></textarea>
+  <div class="bb"><button class="c" id="bugC">閉じる</button><button class="s" id="bugS">送信する</button></div>
+  <div class="done" id="bugD">届きました。ありがとうございます。すぐ確認します。</div>
+</div></div>
+<script src="supabase_config.js"></script>
+<script>
+(function(){
+var U=(typeof SUPABASE_CONFIG!=="undefined"&&SUPABASE_CONFIG.enabled)?SUPABASE_CONFIG.url+"/rest/v1/ailab_notes":"";
+var K=(typeof SUPABASE_CONFIG!=="undefined"&&SUPABASE_CONFIG.anonKey)||"";
+var P=new URLSearchParams(location.search);
+var uid=(P.get("u")||"guest").replace(/[^a-zA-Z0-9_\-]/g,"");
+var demo=P.get("demo")==="1";
+var M=document.getElementById("bugM");
+document.getElementById("bugL").onclick=function(){ M.classList.add("on"); };
+document.getElementById("bugC").onclick=function(){ M.classList.remove("on"); document.getElementById("bugD").style.display="none"; };
+document.getElementById("bugS").onclick=function(){
+  var t=document.getElementById("bugT").value.trim();
+  if(!t){ document.getElementById("bugT").focus(); return; }
+  var btn=this; btn.disabled=true;
+  function done(){
+    document.getElementById("bugD").style.display="block";
+    document.getElementById("bugT").value=""; btn.disabled=false;
+    setTimeout(function(){ M.classList.remove("on"); document.getElementById("bugD").style.display="none"; },1800);
+  }
+  if(demo||!U){ done(); return; }
+  fetch(U,{method:"POST",headers:{apikey:K,Authorization:"Bearer "+K,"Content-Type":"application/json"},
+    body:JSON.stringify({member_id:"bug_AIはるか",member_name:"AIはるか｜"+uid,mood:"バグ報告",worry:t,want:location.href.slice(0,180)+" ／ "+navigator.userAgent.slice(0,140)})})
+    .then(function(){ done(); }).catch(function(){ btn.disabled=false; alert("送信できませんでした。通信環境をご確認ください。"); });
+};
+})();
+</script>
+</body>
+</html>
