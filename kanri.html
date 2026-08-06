@@ -8,7 +8,7 @@
 <style>
 :root{
   --bg:#fdf5f7; --bg2:#f4f7fb; --navy:#26405f; --navy2:#1d3149; --side:#232f47;
-  --pink:#b3835a; --pink2:#966b44; --pink3:#a97c50; --pinkbg:#f6ecdd; --blue:#7fb0d2; --text:#4a4446;
+  --pink:#c77fce; --pink2:#a75da9; --pink3:#8fa8e6; --pinkbg:#fde6ff; --blue:#7fb0d2; --text:#4a4446;
 }
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
 body{
@@ -68,7 +68,7 @@ input[type=text]{width:100%; border:1.5px solid #e3e9f0; border-radius:12px; pad
 .urlbox{display:none; margin-top:12px; background:var(--bg2); border-radius:12px; padding:11px 14px; font-size:12px; word-break:break-all; color:var(--navy2); font-weight:700;}
 
 /* hitokoto */
-.hito{background:linear-gradient(165deg,#f6ecdd,#f7dfe7); border-radius:20px; padding:20px 18px; text-align:center; box-shadow:0 10px 30px rgba(189,120,134,.14); position:relative;}
+.hito{background:linear-gradient(165deg,#fde6ff,#f7dfe7); border-radius:20px; padding:20px 18px; text-align:center; box-shadow:0 10px 30px rgba(189,120,134,.14); position:relative;}
 .hito h3{font-size:14px; color:var(--pink3); letter-spacing:.06em;}
 .hito h3::before{content:"✦ "; color:#e8c48b;}
 .hito img{width:118px; margin:10px auto 8px; display:block;}
@@ -267,15 +267,15 @@ input[type=text]{width:100%; border:1.5px solid #e3e9f0; border-radius:12px; pad
         <div id="prgtop" style="display:flex; align-items:center; gap:22px; flex-wrap:wrap; margin-top:6px;">
           <div style="position:relative; width:92px; height:92px; flex:none;">
             <svg width="92" height="92" viewBox="0 0 42 42">
-              <circle cx="21" cy="21" r="15.9" fill="none" stroke="#f0e9dd" stroke-width="5"/>
-              <circle id="prgArc" cx="21" cy="21" r="15.9" fill="none" stroke="#966b44" stroke-width="5" stroke-linecap="round" stroke-dasharray="0 100" stroke-dashoffset="25"/>
+              <circle cx="21" cy="21" r="15.9" fill="none" stroke="#edeffa" stroke-width="5"/>
+              <circle id="prgArc" cx="21" cy="21" r="15.9" fill="none" stroke="#a75da9" stroke-width="5" stroke-linecap="round" stroke-dasharray="0 100" stroke-dashoffset="25"/>
             </svg>
             <div id="prgPct" style="position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; font-weight:800; color:#26405f; font-size:17px;">–<span style="font-size:9.5px; color:#8a97a5;">全体進捗</span></div>
           </div>
           <div style="font-size:12.5px; line-height:2;" id="prgKpi">読み込み中…</div>
         </div>
         <div id="prgChaps" style="margin-top:16px;"></div>
-        <div id="prgMembers" style="margin-top:14px; border-top:1px solid #f0e9dd; padding-top:10px;"></div>
+        <div id="prgMembers" style="margin-top:14px; border-top:1px solid #edeffa; padding-top:10px;"></div>
         <div id="prgOpens" style="margin-top:12px; font-size:12px; color:#8a97a5; line-height:1.9;"></div>
       </div>
     </div>
@@ -766,7 +766,7 @@ function loadProgress(){
       document.getElementById("prgArc").setAttribute("stroke-dasharray", pct+" "+(100-pct));
       document.getElementById("prgPct").innerHTML=pct+"%<span style='font-size:9.5px; color:#8a97a5;'>全体進捗</span>";
       document.getElementById("prgKpi").innerHTML=
-        "カリキュラムをスタート：<b style='color:#966b44;'>"+nStart+"名</b><br>読まれた章：のべ<b style='color:#966b44;'>"+totalRead+"章</b>（全"+CHAPS.length+"章×スタート人数で計算）";
+        "カリキュラムをスタート：<b style='color:#a75da9;'>"+nStart+"名</b><br>読まれた章：のべ<b style='color:#a75da9;'>"+totalRead+"章</b>（全"+CHAPS.length+"章×スタート人数で計算）";
       /* 章別 */
       var chHtml="<div style='font-size:12px; font-weight:800; color:#26405f; margin-bottom:4px;'>章ごとの読了人数</div>";
       CHAPS.forEach(function(c,i){
@@ -774,8 +774,8 @@ function loadProgress(){
         var w = nStart ? Math.round(n/nStart*100) : 0;
         chHtml+="<div style='display:flex; align-items:center; gap:8px; font-size:12px; margin-top:5px;'>"
           +"<span style='flex:none; width:150px; color:#4a4446;'>"+(i+1)+"/8　"+esc(c[1])+"</span>"
-          +"<span style='flex:1; height:9px; background:#f0e9dd; border-radius:99px; overflow:hidden;'><span style='display:block; height:100%; width:"+w+"%; background:linear-gradient(90deg,#b39274,#b3835a); border-radius:99px;'></span></span>"
-          +"<span style='flex:none; width:44px; text-align:right; font-weight:800; color:#966b44;'>"+n+"名</span></div>";
+          +"<span style='flex:1; height:9px; background:#edeffa; border-radius:99px; overflow:hidden;'><span style='display:block; height:100%; width:"+w+"%; background:linear-gradient(90deg,#8ea6e0,#c77fce); border-radius:99px;'></span></span>"
+          +"<span style='flex:none; width:44px; text-align:right; font-weight:800; color:#a75da9;'>"+n+"名</span></div>";
       });
       document.getElementById("prgChaps").innerHTML=chHtml;
       /* 生徒別 */
@@ -789,7 +789,7 @@ function loadProgress(){
         var w=Math.round(x.n/CHAPS.length*100);
         mHtml+="<div style='display:flex; align-items:center; gap:8px; font-size:12px; margin-top:5px;'>"
           +"<span style='flex:none; width:150px; color:#4a4446; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;'>"+esc(x.name)+"</span>"
-          +"<span style='flex:1; height:9px; background:#f0e9dd; border-radius:99px; overflow:hidden;'><span style='display:block; height:100%; width:"+w+"%; background:linear-gradient(90deg,#b3835a,#966b44); border-radius:99px;'></span></span>"
+          +"<span style='flex:1; height:9px; background:#edeffa; border-radius:99px; overflow:hidden;'><span style='display:block; height:100%; width:"+w+"%; background:linear-gradient(90deg,#c77fce,#a75da9); border-radius:99px;'></span></span>"
           +"<span style='flex:none; width:52px; text-align:right; font-weight:800; color:#26405f;'>"+x.n+"/"+CHAPS.length+"章</span></div>";
       });
       document.getElementById("prgMembers").innerHTML=mHtml;

@@ -8,7 +8,7 @@
 <style>
 :root{
   --bg:#fdf5f7; --bg2:#f4f7fb; --navy:#26405f; --navy2:#1d3149;
-  --pink:#b3835a; --pink2:#966b44; --pink3:#a97c50; --pinkbg:#f6ecdd; --blue:#7fb0d2; --text:#4a4446;
+  --pink:#c77fce; --pink2:#a75da9; --pink3:#8fa8e6; --pinkbg:#fde6ff; --blue:#7fb0d2; --text:#4a4446;
 }
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
 html,body{overflow-x:hidden;}
@@ -91,7 +91,7 @@ textarea:focus{outline:none; border-color:var(--pink);}
 .ok{display:none; background:var(--pinkbg); border-radius:14px; padding:13px 16px; margin-top:12px; font-size:13px; font-weight:700; color:var(--navy2); text-align:center;}
 
 /* right column */
-.aican{background:linear-gradient(165deg,#f6ecdd,#f9f0f3); border-radius:20px; padding:20px 20px; box-shadow:0 10px 30px rgba(189,120,134,.12);}
+.aican{background:linear-gradient(165deg,#fde6ff,#f9f0f3); border-radius:20px; padding:20px 20px; box-shadow:0 10px 30px rgba(189,120,134,.12);}
 .aican h3{font-size:14px; color:var(--pink3); letter-spacing:.04em; margin-bottom:12px;}
 .aican h3::before{content:"✦ "; color:#e8c48b;}
 .fi{display:flex; gap:12px; margin-top:12px;}
@@ -99,7 +99,7 @@ textarea:focus{outline:none; border-color:var(--pink);}
 .fi .ic svg{width:18px; height:18px; fill:none; stroke:var(--pink2); stroke-width:2; stroke-linecap:round; stroke-linejoin:round;}
 .fi b{font-size:12.5px; color:var(--navy2); display:block;}
 .fi p{font-size:11px; line-height:1.8; color:#7c6a70;}
-.wink{background:linear-gradient(165deg,#f6ecdd,#f7dfe7); border-radius:20px; padding:18px 14px 8px; text-align:center; margin-top:18px; box-shadow:0 10px 30px rgba(189,120,134,.12);}
+.wink{background:linear-gradient(165deg,#fde6ff,#f7dfe7); border-radius:20px; padding:18px 14px 8px; text-align:center; margin-top:18px; box-shadow:0 10px 30px rgba(189,120,134,.12);}
 .wink .scr{color:#d9899d; font-weight:800; font-size:13.5px; letter-spacing:.1em; line-height:2; transform:rotate(-2deg);}
 .wink img{width:130px; margin-top:4px;}
 
@@ -137,7 +137,7 @@ textarea:focus{outline:none; border-color:var(--pink);}
 .habit p b{color:var(--pink3);}
 .trline{display:flex; gap:10px; align-items:flex-start; margin-top:8px; font-size:12.5px;}
 .trline i{font-style:normal; flex:none; background:#eef2f6; color:var(--navy); border-radius:8px; padding:1px 10px; font-size:11px; font-weight:800; margin-top:4px; white-space:nowrap;}
-.plan{background:linear-gradient(165deg,#f6ecdd,#f9f0f3); border-radius:18px; padding:16px 18px; margin-top:10px;}
+.plan{background:linear-gradient(165deg,#fde6ff,#f9f0f3); border-radius:18px; padding:16px 18px; margin-top:10px;}
 .plan .prow{display:flex; gap:10px; margin-top:8px; font-size:12.5px; align-items:baseline;}
 .plan .prow:first-child{margin-top:0;}
 .plan .pk{flex:none; width:96px; font-size:11px; font-weight:800; color:var(--pink3);}
@@ -155,7 +155,7 @@ footer{text-align:center; font-size:11px; color:#9aa7b4; padding:34px 16px 10px;
   .mtop .m small{color:#cfdcea; font-size:10px; margin-left:6px; letter-spacing:.14em;}
   .mtop h1{font-size:20px; font-weight:800; letter-spacing:.06em; margin-top:2px;}
   .mtop .burger{position:absolute; right:16px; top:14px; color:#cfdcea; font-size:20px; font-weight:800;}
-  .mhero{background:linear-gradient(160deg,#faf3e8,#f6ecdd); padding:14px 18px 6px; display:flex; align-items:center; justify-content:space-between; gap:6px;}
+  .mhero{background:linear-gradient(160deg,#faf0fc,#fde6ff); padding:14px 18px 6px; display:flex; align-items:center; justify-content:space-between; gap:6px;}
   .mhero img{width:108px; flex:none;}
   .mspeech{position:relative; background:#fff; border-radius:16px; padding:10px 14px; font-size:12.5px; font-weight:800; color:var(--navy2); box-shadow:0 6px 18px rgba(38,64,95,.12); line-height:1.8;}
   .mspeech::after{content:""; position:absolute; right:-8px; top:16px; border:8px solid transparent; border-left-color:#fff; border-right:none;}
@@ -169,16 +169,16 @@ footer{text-align:center; font-size:11px; color:#9aa7b4; padding:34px 16px 10px;
   .mnav{display:grid; grid-template-columns:repeat(6,minmax(0,1fr)); position:fixed; bottom:0; left:0; right:0; background:#fff; border-top:1px solid #eee; padding:8px 2px calc(8px + env(safe-area-inset-bottom)); z-index:30;}
   .mn{position:relative; border:none; background:none; font-family:inherit; text-align:center; font-size:9px; letter-spacing:0; font-weight:800; color:#b0a3aa; cursor:pointer; padding:7px 0 0; width:100%; white-space:nowrap; overflow:hidden;}
   .mn svg{width:23px; height:23px; display:block; margin:0 auto 2px;}
-  .mn svg .b{fill:#e2cfae;} .mn svg .a{fill:#c19a6b;} .mn svg .w{fill:#fff;}
-  .mn svg .s{fill:none; stroke:#c19a6b; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round;}
+  .mn svg .b{fill:#cdd9f6;} .mn svg .a{fill:#dc9ade;} .mn svg .w{fill:#fff;}
+  .mn svg .s{fill:none; stroke:#dc9ade; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round;}
   .mn.on{color:var(--pink2);}
-  .mn.on svg .b{fill:#b3835a;} .mn.on svg .a{fill:#966b44;} .mn.on svg .s{stroke:#966b44;}
-  .mn.on::before{content:""; position:absolute; top:0; left:50%; transform:translateX(-50%); width:34px; height:3px; border-radius:99px; background:linear-gradient(90deg,#b3835a,#966b44);}
+  .mn.on svg .b{fill:#c77fce;} .mn.on svg .a{fill:#a75da9;} .mn.on svg .s{stroke:#a75da9;}
+  .mn.on::before{content:""; position:absolute; top:0; left:50%; transform:translateX(-50%); width:34px; height:3px; border-radius:99px; background:linear-gradient(90deg,#c77fce,#a75da9);}
   #bugL{display:none;}
   #bugBar.on{display:block;}
   .mhero{position:relative;}
-  .mhero::after{content:"♡"; position:absolute; right:10px; top:8px; color:#cfae83; font-size:17px; font-weight:800;}
-  .mhero::before{content:"✦"; position:absolute; right:36px; top:28px; color:#e3ceac; font-size:11px;}
+  .mhero::after{content:"♡"; position:absolute; right:10px; top:8px; color:#cfa3dc; font-size:17px; font-weight:800;}
+  .mhero::before{content:"✦"; position:absolute; right:36px; top:28px; color:#e3c6ec; font-size:11px;}
 }
 
 /* カリキュラム常設 */
@@ -191,17 +191,17 @@ footer{text-align:center; font-size:11px; color:#9aa7b4; padding:34px 16px 10px;
 .curwk{display:flex; gap:10px; padding:9px 0; border-top:1px dashed #f0e6ee; font-size:12.5px; line-height:1.7; align-items:flex-start;}
 .curwk .wn{flex:none; width:64px; font-weight:800; color:#9aa7b4; font-size:11px; padding-top:2px;}
 .curwk .wt b{color:var(--navy2); display:block; font-size:13px;}
-.curwk.now{background:linear-gradient(90deg,#f6ecdd,transparent); margin:0 -18px; padding:9px 18px; border-radius:8px;}
+.curwk.now{background:linear-gradient(90deg,#fde6ff,transparent); margin:0 -18px; padding:9px 18px; border-radius:8px;}
 .curwk.now .wn{color:var(--pink2);}
 /* はるかからのメッセージ */
 #ntcOv{position:fixed; inset:0; background:rgba(29,49,73,.5); display:none; align-items:center; justify-content:center; z-index:80; padding:22px;}
 #ntcOv.on{display:flex;}
-#ntcCard{position:relative; background:linear-gradient(165deg,#fff 0%,#fbf5ea 100%); border:2px solid #e8d5ba; border-radius:24px; padding:26px 22px 22px; max-width:360px; width:100%; text-align:center; box-shadow:0 20px 60px rgba(29,49,73,.3); animation:ntcPop .5s cubic-bezier(.2,1.4,.4,1);}
+#ntcCard{position:relative; background:linear-gradient(165deg,#fff 0%,#fbf2fd 100%); border:2px solid #e6d5f0; border-radius:24px; padding:26px 22px 22px; max-width:360px; width:100%; text-align:center; box-shadow:0 20px 60px rgba(29,49,73,.3); animation:ntcPop .5s cubic-bezier(.2,1.4,.4,1);}
 @keyframes ntcPop{0%{transform:scale(.7); opacity:0;} 100%{transform:scale(1); opacity:1;}}
 #ntcCard img{width:92px; margin-top:-64px; filter:drop-shadow(0 6px 14px rgba(189,120,134,.3));}
 #ntcCard h3{font-size:13px; color:var(--pink2); letter-spacing:.14em; font-weight:800; margin-top:6px;}
 #ntcMsg{font-size:14px; color:var(--navy2); line-height:2; margin-top:10px; text-align:left; white-space:pre-wrap;}
-#ntcClose{border:none; background:linear-gradient(135deg,#a97c50,#b3835a); color:#fff; border-radius:999px; padding:12px 34px; font-size:13.5px; font-weight:800; cursor:pointer; font-family:inherit; margin-top:16px; box-shadow:0 8px 22px rgba(189,120,134,.35);}
+#ntcClose{border:none; background:linear-gradient(135deg,#8fa8e6,#c77fce); color:#fff; border-radius:999px; padding:12px 34px; font-size:13.5px; font-weight:800; cursor:pointer; font-family:inherit; margin-top:16px; box-shadow:0 8px 22px rgba(189,120,134,.35);}
 .ntcFx{position:absolute; inset:0; pointer-events:none; overflow:visible;}
 .ntcFx span{position:absolute; bottom:-10px; font-size:16px; opacity:0; animation:ntcFloat 3.2s ease-in infinite;}
 @keyframes ntcFloat{0%{transform:translateY(0) scale(.7) rotate(0deg); opacity:0;} 15%{opacity:.9;} 100%{transform:translateY(-330px) scale(1.15) rotate(18deg); opacity:0;}}
@@ -341,11 +341,11 @@ footer{text-align:center; font-size:11px; color:#9aa7b4; padding:34px 16px 10px;
             <h3 style="font-size:13.5px; color:var(--pink2); margin-bottom:6px;">呼ばれたい名前の変更</h3>
             <p style="font-size:12.5px;">ニックネームで登録してしまった場合など、いつでも変えられます。これまでに書いたカルテはそのまま残ります。</p>
             <input type="text" id="nmchg" maxlength="20" placeholder="新しい名前" style="width:100%; border:1.5px solid #e3e9f0; border-radius:12px; padding:11px 13px; font-size:14px; font-family:inherit; margin-top:8px;">
-            <button id="nmsave" style="border:none; background:linear-gradient(135deg,#a97c50,#b3835a); color:#fff; border-radius:999px; padding:11px 26px; font-size:13px; font-weight:800; cursor:pointer; font-family:inherit; margin-top:10px;">この名前に変更する</button>
+            <button id="nmsave" style="border:none; background:linear-gradient(135deg,#8fa8e6,#c77fce); color:#fff; border-radius:999px; padding:11px 26px; font-size:13px; font-weight:800; cursor:pointer; font-family:inherit; margin-top:10px;">この名前に変更する</button>
             <p id="nmok" style="display:none; font-size:12.5px; color:var(--pink2); font-weight:800; margin-top:6px;">変更しました。次のカルテから新しい名前で届きます。</p>
             <h3 style="font-size:13.5px; color:var(--pink2); margin:22px 0 6px;">不具合のご報告</h3>
             <p style="font-size:12.5px;">うまく動かないところがあったら、こちらから教えてください。すぐ直します。</p>
-            <button id="bugOpen2" style="border:1.5px solid #dcc3a1; background:#fff; color:var(--pink2); border-radius:999px; padding:10px 24px; font-size:13px; font-weight:800; cursor:pointer; font-family:inherit; margin-top:8px;">不具合を報告する</button>
+            <button id="bugOpen2" style="border:1.5px solid #dcc3ea; background:#fff; color:var(--pink2); border-radius:999px; padding:10px 24px; font-size:13px; font-weight:800; cursor:pointer; font-family:inherit; margin-top:8px;">不具合を報告する</button>
             <p style="margin-top:18px;">書いた内容は、はるかだけが見られます。データはこの専用ページとはるかの管理画面の間だけでやりとりされます。</p>
             <p style="margin-top:12px;"><a id="reset" href="javascript:void(0)">プロフィールをリセットする</a></p>
           </div>
@@ -402,7 +402,7 @@ if(!UID && P.get("demo")!=="1" && (typeof SUPABASE_CONFIG!=="undefined"&&SUPABAS
         +'<div style="font-size:30px;">🔑</div>'
         +'<h3 style="font-size:15px;color:#1d3149;margin-top:8px;line-height:1.8;">あなた専用ページの鍵が<br>このリンクに入っていません</h3>'
         +'<p style="font-size:12.5px;color:#6b7684;line-height:2;margin-top:10px;">このまま使うと自分のカルテが表示されません。下のボタンから<b>申込のときと同じメールアドレス</b>を入れると、いつものカルテにそのまま戻れます（新しいページは作られません）。</p>'
-        +'<a href="start.html" style="display:block;margin-top:14px;background:linear-gradient(135deg,#a97c50,#b3835a);color:#fff;border-radius:999px;padding:13px;font-size:14px;font-weight:800;text-decoration:none;">自分のページに戻る</a>'
+        +'<a href="start.html" style="display:block;margin-top:14px;background:linear-gradient(135deg,#8fa8e6,#c77fce);color:#fff;border-radius:999px;padding:13px;font-size:14px;font-weight:800;text-decoration:none;">自分のページに戻る</a>'
         +'</div>';
       document.body.appendChild(ov);
     }
@@ -518,7 +518,7 @@ function loadAll(){
       if(/^https?:\/\//.test(part)){
         var a=document.createElement("a");
         a.href=part; a.target="_blank"; a.rel="noopener";
-        a.textContent=part; a.style.cssText="color:#966b44;font-weight:800;word-break:break-all;";
+        a.textContent=part; a.style.cssText="color:#a75da9;font-weight:800;word-break:break-all;";
         box.appendChild(a);
       } else if(part){ box.appendChild(document.createTextNode(part)); }
     });
@@ -782,7 +782,7 @@ loadAll();
 #aikW{position:fixed; right:12px; bottom:18px; z-index:60; text-align:center; user-select:none;}
 #aikW img{width:52px; height:52px; border-radius:50%; object-fit:cover; object-position:50% 6%; background:#fde7ee; border:2px solid #fff; box-shadow:0 4px 14px rgba(38,64,95,.28); display:block; margin:0 auto; cursor:pointer; transition:transform .15s;}
 #aikW img:active{transform:scale(.94);}
-#aikW .pl{margin-top:3px; background:rgba(255,255,255,.96); border:1px solid #f0d9df; border-radius:999px; padding:2px 9px; font-size:9px; font-weight:800; color:#966b44; cursor:pointer; box-shadow:0 3px 8px rgba(38,64,95,.1); line-height:1.5;}
+#aikW .pl{margin-top:3px; background:rgba(255,255,255,.96); border:1px solid #f0d9df; border-radius:999px; padding:2px 9px; font-size:9px; font-weight:800; color:#a75da9; cursor:pointer; box-shadow:0 3px 8px rgba(38,64,95,.1); line-height:1.5;}
 #aikP{position:fixed; right:14px; bottom:20px; z-index:61; width:min(370px,calc(100vw - 28px)); height:min(600px,calc(100vh - 60px)); background:#fff; border-radius:20px; box-shadow:0 18px 50px rgba(29,49,73,.35); display:none; flex-direction:column; overflow:hidden;}
 #aikP.on{display:flex;}
 #aikP .ph{background:linear-gradient(135deg,#1d3149,#26405f); color:#fff; padding:10px 16px; font-size:13.5px; font-weight:800; display:flex; align-items:center; justify-content:space-between;}
@@ -825,8 +825,8 @@ document.getElementById("aikX").onclick=closeP;
 <!-- バグ報告ツール -->
 <style>
 #bugL{position:fixed; left:12px; bottom:16px; z-index:59; background:rgba(255,255,255,.92); border:1px solid #dfe7ee; color:#8a97a5; font-size:10.5px; font-weight:800; border-radius:999px; padding:5px 12px; cursor:pointer; letter-spacing:.04em;}
-#bugBar{display:none; position:fixed; left:10px; right:10px; bottom:calc(68px + env(safe-area-inset-bottom)); background:#fff; border:1.5px solid #e8d5ba; color:#966b44; font-size:11.5px; font-weight:800; border-radius:999px; padding:10px 42px 10px 16px; z-index:29; box-shadow:0 8px 22px rgba(189,120,134,.2); line-height:1.6;}
-#bugBar .x{position:absolute; right:4px; top:50%; transform:translateY(-50%); border:none; background:none; color:#966b44; font-size:14px; font-weight:800; padding:8px 12px; cursor:pointer; font-family:inherit;}
+#bugBar{display:none; position:fixed; left:10px; right:10px; bottom:calc(68px + env(safe-area-inset-bottom)); background:#fff; border:1.5px solid #e6d5f0; color:#a75da9; font-size:11.5px; font-weight:800; border-radius:999px; padding:10px 42px 10px 16px; z-index:29; box-shadow:0 8px 22px rgba(189,120,134,.2); line-height:1.6;}
+#bugBar .x{position:absolute; right:4px; top:50%; transform:translateY(-50%); border:none; background:none; color:#a75da9; font-size:14px; font-weight:800; padding:8px 12px; cursor:pointer; font-family:inherit;}
 #bugM{position:fixed; inset:0; background:rgba(29,49,73,.55); display:none; align-items:center; justify-content:center; z-index:70; padding:24px;}
 #bugM.on{display:flex;}
 #bugM .bx{background:#fff; border-radius:20px; padding:22px 20px; max-width:360px; width:100%;}
@@ -834,9 +834,9 @@ document.getElementById("aikX").onclick=closeP;
 #bugM textarea{width:100%; border:1.5px solid #e3e9f0; border-radius:12px; padding:11px 13px; font-size:14px; line-height:1.8; color:#1d3149; font-family:inherit; min-height:100px; resize:vertical;}
 #bugM .bb{display:flex; gap:8px; margin-top:12px;}
 #bugM button{flex:1; border:none; border-radius:999px; padding:11px; font-size:13px; font-weight:800; cursor:pointer; font-family:inherit;}
-#bugM .s{background:linear-gradient(135deg,#a97c50,#b3835a); color:#fff;}
+#bugM .s{background:linear-gradient(135deg,#8fa8e6,#c77fce); color:#fff;}
 #bugM .c{background:#eef2f6; color:#26405f;}
-#bugM .done{display:none; font-size:12.5px; color:#966b44; font-weight:800; margin-top:8px; text-align:center;}
+#bugM .done{display:none; font-size:12.5px; color:#a75da9; font-weight:800; margin-top:8px; text-align:center;}
 @media(max-width:900px){ #bugL{bottom:84px;} }
 </style>
 <div id="bugL">不具合を報告</div>

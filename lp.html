@@ -5,24 +5,24 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AI活用ラボ｜ご案内</title>
 <style>
-:root{ --bg:#f8f4ec; --navy:#2c3a55; --navy2:#22304a; --camel:#b3835a; --camel2:#966b44; --camelbg:#f6ecdd; --text:#4a4440; --muted:#8f887d; --line:#e6ddcf; }
+:root{ --bg:#f0f4ff; --navy:#2c3a55; --navy2:#22304a; --camel:#c77fce; --camel2:#a75da9; --camelbg:#fde6ff; --text:#4a4440; --muted:#8b8a9b; --line:#e4e2f2; }
 *{margin:0;padding:0;box-sizing:border-box;}
-body{font-family:"Yu Gothic","YuGothic","游ゴシック","Hiragino Kaku Gothic ProN","Hiragino Sans",sans-serif; background:linear-gradient(168deg,#f5eee1 0%,#fbf8f2 46%,#f7efe4 100%); color:var(--text); line-height:2.05; -webkit-font-smoothing:antialiased; padding-bottom:86px;}
+body{font-family:"Yu Gothic","YuGothic","游ゴシック","Hiragino Kaku Gothic ProN","Hiragino Sans",sans-serif; background:linear-gradient(168deg,#e2ebff 0%,#fdf9ff 46%,#fde6ff 100%); color:var(--text); line-height:2.05; -webkit-font-smoothing:antialiased; padding-bottom:86px;}
 .wrap{max-width:640px; margin:0 auto; padding:0 18px;}
 header{background:var(--navy2); color:#fff; padding:13px 18px; text-align:center;}
-header .lg{font-size:13px; font-weight:800; letter-spacing:.14em; color:#ead9c0;}
+header .lg{font-size:13px; font-weight:800; letter-spacing:.14em; color:#f3d9f5;}
 
 .hero{text-align:center; padding:34px 0 10px;}
 .hero .chars{display:flex; justify-content:center; align-items:flex-end; gap:6px;}
 .hero .chars img{height:170px;}
 .hero h1{font-size:clamp(24px,7vw,34px); color:var(--navy2); line-height:1.6; margin-top:12px;}
-.hero h1 .grad{background:linear-gradient(90deg,#a97c50,#c29a6d); -webkit-background-clip:text; background-clip:text; color:transparent;}
+.hero h1 .grad{background:linear-gradient(90deg,#8fa8e6,#e0a1e6); -webkit-background-clip:text; background-clip:text; color:transparent;}
 .hero .badge{display:inline-block; background:var(--navy2); color:#fff; font-size:11.5px; font-weight:800; border-radius:999px; padding:6px 16px; margin-top:12px; letter-spacing:.06em;}
 .hero .lead{font-size:13.8px; margin-top:14px; text-align:left; background:#fff; border-radius:16px; padding:16px 18px; box-shadow:0 6px 20px rgba(44,58,85,.07);}
 .hero .lead b{color:var(--camel2);}
 
 .sec{margin-top:36px;}
-.sec .eyebrow{font-size:11.5px; font-weight:800; color:#b39274; letter-spacing:.18em; text-align:center;}
+.sec .eyebrow{font-size:11.5px; font-weight:800; color:#8ea6e0; letter-spacing:.18em; text-align:center;}
 .sec h2{font-size:clamp(18px,5.4vw,22px); color:var(--navy2); text-align:center; line-height:1.7; margin-top:2px;}
 .card{background:#fff; border-radius:18px; padding:20px; margin-top:16px; box-shadow:0 6px 20px rgba(44,58,85,.07);}
 .card p{font-size:13.8px; margin-top:8px;}
@@ -43,33 +43,33 @@ header .lg{font-size:13px; font-weight:800; letter-spacing:.14em; color:#ead9c0;
 .mock img{width:96px; flex:none;}
 .mock p{font-size:13px;}
 
-.price{background:linear-gradient(165deg,#fff 0%,#faf3e8 100%); border:2px solid #e0cdb0; border-radius:22px; padding:26px 20px; margin-top:16px; text-align:center;}
+.price{background:linear-gradient(165deg,#fff 0%,#faf0fc 100%); border:2px solid #d9cdf0; border-radius:22px; padding:26px 20px; margin-top:16px; text-align:center;}
 .price .pb{display:inline-block; background:var(--navy2); color:#fff; font-size:11px; font-weight:800; border-radius:999px; padding:5px 14px;}
 .price .yen{font-size:clamp(30px,9vw,40px); font-weight:800; color:var(--navy2); margin-top:10px;}
 .price .yen small{font-size:14px;}
 .price .note{font-size:12.5px; color:var(--muted); margin-top:8px; line-height:1.9;}
 
-.cta{display:block; text-align:center; background:linear-gradient(135deg,#a97c50,#c29a6d); color:#fff; border-radius:999px; padding:16px; font-size:15.5px; font-weight:800; text-decoration:none; margin-top:18px; box-shadow:0 10px 26px rgba(169,124,80,.35);}
+.cta{display:block; text-align:center; background:linear-gradient(135deg,#8fa8e6,#e0a1e6); color:#fff; border-radius:999px; padding:16px; font-size:15.5px; font-weight:800; text-decoration:none; margin-top:18px; box-shadow:0 10px 26px rgba(143,122,200,.35);}
 .fixbar{position:fixed; left:0; right:0; bottom:0; background:rgba(255,255,255,.95); border-top:1px solid var(--line); padding:10px 14px calc(10px + env(safe-area-inset-bottom)); z-index:40;}
-.fixbar a{display:block; text-align:center; background:linear-gradient(135deg,#a97c50,#c29a6d); color:#fff; border-radius:999px; padding:13px; font-size:14px; font-weight:800; text-decoration:none;}
+.fixbar a{display:block; text-align:center; background:linear-gradient(135deg,#8fa8e6,#e0a1e6); color:#fff; border-radius:999px; padding:13px; font-size:14px; font-weight:800; text-decoration:none;}
 
 .faqq{background:#fff; border-radius:14px; margin-top:10px; box-shadow:0 4px 14px rgba(44,58,85,.05); overflow:hidden;}
 .faqq summary{list-style:none; cursor:pointer; padding:13px 16px; font-size:13.5px; font-weight:800; color:var(--navy2);}
 .faqq summary::-webkit-details-marker{display:none;}
 .faqq summary::before{content:"Q. "; color:var(--camel2);}
 .faqq .a{padding:0 16px 14px; font-size:13px;}
-footer{text-align:center; font-size:11px; color:#a89f92; margin-top:44px; line-height:2;}
+footer{text-align:center; font-size:11px; color:#a3a2b5; margin-top:44px; line-height:2;}
 
-#bugL{position:fixed; left:12px; bottom:76px; z-index:59; background:rgba(255,255,255,.92); border:1px solid #e2d8c6; color:#8f887d; font-size:10.5px; font-weight:800; border-radius:999px; padding:5px 12px; cursor:pointer; letter-spacing:.04em; font-family:inherit;}
+#bugL{position:fixed; left:12px; bottom:76px; z-index:59; background:rgba(255,255,255,.92); border:1px solid #dcd8ee; color:#8b8a9b; font-size:10.5px; font-weight:800; border-radius:999px; padding:5px 12px; cursor:pointer; letter-spacing:.04em; font-family:inherit;}
 #bugM{position:fixed; inset:0; background:rgba(34,48,74,.55); display:none; align-items:center; justify-content:center; z-index:70; padding:24px;}
 #bugM.on{display:flex;}
 #bugM .bx{background:#fff; border-radius:20px; padding:22px 20px; max-width:360px; width:100%;}
 #bugM h3{font-size:14.5px; color:var(--navy2); margin-bottom:8px;}
-#bugM textarea{width:100%; border:1.5px solid #e3e0d8; border-radius:12px; padding:11px 13px; font-size:14px; line-height:1.8; font-family:inherit; min-height:100px; resize:vertical;}
+#bugM textarea{width:100%; border:1.5px solid #e0dfee; border-radius:12px; padding:11px 13px; font-size:14px; line-height:1.8; font-family:inherit; min-height:100px; resize:vertical;}
 #bugM .bb{display:flex; gap:8px; margin-top:12px;}
 #bugM button{flex:1; border:none; border-radius:999px; padding:11px; font-size:13px; font-weight:800; cursor:pointer; font-family:inherit;}
-#bugM .c{background:#f0ede6; color:#6d675e;}
-#bugM .s{background:linear-gradient(135deg,#a97c50,#c29a6d); color:#fff;}
+#bugM .c{background:#eeedf6; color:#6d675e;}
+#bugM .s{background:linear-gradient(135deg,#8fa8e6,#e0a1e6); color:#fff;}
 #bugM .done{display:none; font-size:13px; color:#2e7d32; font-weight:800; margin-top:10px; text-align:center;}
 </style>
 </head>
@@ -80,7 +80,6 @@ footer{text-align:center; font-size:11px; color:#a89f92; margin-top:44px; line-h
 
   <div class="hero">
     <div class="chars">
-      <img src="assets/hk-desk.png" alt="">
       <img src="assets/hk-suit.png" alt="">
     </div>
     <h1>毎日の「めんどう」を任せられる<br><span class="grad">AIの相棒</span>を育てよう</h1>

@@ -6,7 +6,7 @@
 <meta name="robots" content="noindex">
 <title>初期設定｜AIカルテ</title>
 <style>
-:root{ --bg:#f1f7fb; --navy:#26405f; --navy2:#1d3149; --pink2:#966b44; --pinkbg:#f6ecdd; --text:#4a4446; }
+:root{ --bg:#f1f7fb; --navy:#26405f; --navy2:#1d3149; --pink2:#a75da9; --pinkbg:#fde6ff; --text:#4a4446; }
 *{margin:0;padding:0;box-sizing:border-box;}
 body{font-family:"Yu Gothic","YuGothic","游ゴシック","Hiragino Kaku Gothic ProN",sans-serif; background:var(--bg); color:var(--text); line-height:1.9;}
 .wrap{max-width:640px; margin:0 auto; padding:30px 18px 60px;}
@@ -135,7 +135,7 @@ document.getElementById("test").onclick=function(){
   r.style.color="#8a97a5"; r.textContent="確認中…";
   fetch(SUPABASE_CONFIG.url+"/rest/v1/ailab_notes?limit=1",{headers:{apikey:SUPABASE_CONFIG.anonKey,Authorization:"Bearer "+SUPABASE_CONFIG.anonKey}})
     .then(function(res){
-      if(res.ok){ r.style.color="#966b44"; r.textContent="接続OKです。運用を始められます。"; }
+      if(res.ok){ r.style.color="#a75da9"; r.textContent="接続OKです。運用を始められます。"; }
       else{ r.style.color="#26405f"; r.textContent="まだ設定が済んでいないようです（STEP2のSQLを実行してください）。"; }
     })
     .catch(function(){ r.style.color="#26405f"; r.textContent="通信できませんでした。電波を確認してもう一度どうぞ。"; });
