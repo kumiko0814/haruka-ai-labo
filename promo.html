@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>プロモーション資材ハブ｜AI活用ラボ（LiLi版）</title>
+<style>
+:root{
+  --bg:#f0f4ff; --navy:#2c3a55; --navy2:#22304a; --deep:#a75da9; --pinkbg:#fde6ff;
+  --blue:#8fa8e6; --pink:#e0a1e6; --text:#4a4440; --muted:#8b8a9b; --line:#e4e2f2;
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+html,body{overflow-x:hidden;}
+body{
+  font-family:"Yu Gothic","YuGothic","游ゴシック","Hiragino Kaku Gothic ProN","Hiragino Sans",sans-serif;
+  background:linear-gradient(168deg,#e2ebff 0%,#fdf9ff 46%,#fde6ff 100%);
+  color:var(--text); line-height:1.95; -webkit-font-smoothing:antialiased; min-height:100vh; padding-bottom:80px;
+}
+.wrap{max-width:760px; margin:0 auto; padding:0 18px;}
+header{background:var(--navy2); color:#fff; padding:13px 18px; text-align:center;}
+header .lg{font-size:13px; font-weight:800; letter-spacing:.14em; color:#f3d9f5;}
+
+/* hero */
+.hero{text-align:center; padding:30px 0 6px;}
+.hero img{height:150px; filter:drop-shadow(0 10px 20px rgba(44,58,85,.14));}
+.hero h1{font-size:clamp(22px,6.2vw,30px); color:var(--navy2); line-height:1.55; margin-top:8px;}
+.hero h1 .grad{background:linear-gradient(90deg,var(--blue),var(--pink)); -webkit-background-clip:text; background-clip:text; color:transparent;}
+.hero .badge{display:inline-block; background:var(--navy2); color:#fff; font-size:11px; font-weight:800; border-radius:999px; padding:6px 16px; margin-top:12px; letter-spacing:.06em;}
+.hero .lead{font-size:13.5px; margin:14px auto 0; max-width:560px; text-align:left; background:#fff; border-radius:16px; padding:15px 18px; box-shadow:0 6px 20px rgba(44,58,85,.07);}
+.hero .lead b{color:var(--deep);}
+
+/* section */
+.sec{margin-top:34px;}
+.sec .st{display:flex; align-items:center; gap:9px; margin-bottom:14px;}
+.sec .st .no{flex:none; width:26px; height:26px; border-radius:50%; background:linear-gradient(135deg,var(--blue),var(--pink)); color:#fff; font-size:13px; font-weight:800; display:flex; align-items:center; justify-content:center;}
+.sec .st h2{font-size:16.5px; color:var(--navy2); letter-spacing:.02em;}
+.sec .st .sub{font-size:11.5px; color:var(--muted); margin-left:2px;}
+
+/* flow map */
+.flow{display:flex; gap:8px; overflow-x:auto; padding:4px 2px 12px; scrollbar-width:thin;}
+.flow .step{flex:none; min-width:96px; background:#fff; border-radius:14px; padding:12px 10px; text-align:center; box-shadow:0 4px 14px rgba(44,58,85,.07); position:relative;}
+.flow .step .ic{font-size:20px;}
+.flow .step .t{font-size:11.5px; font-weight:800; color:var(--navy2); margin-top:4px; line-height:1.5;}
+.flow .step .d{font-size:10px; color:var(--muted); margin-top:2px; line-height:1.45;}
+.flow .arw{flex:none; align-self:center; color:var(--blue); font-weight:900; font-size:15px;}
+.flow .step.hot{background:linear-gradient(135deg,#eef2ff,#fdeffd); border:1.5px solid #e6d3ee;}
+
+/* asset cards */
+.grid{display:grid; grid-template-columns:1fr 1fr; gap:12px;}
+@media(max-width:560px){ .grid{grid-template-columns:1fr;} }
+.card{background:#fff; border-radius:18px; padding:16px 16px 14px; box-shadow:0 6px 20px rgba(44,58,85,.08); display:flex; flex-direction:column;}
+.card .hd{display:flex; align-items:center; gap:8px;}
+.card .hd .ic{font-size:20px;}
+.card .hd .nm{font-size:14.5px; font-weight:800; color:var(--navy2);}
+.card .stt{font-size:10px; font-weight:800; border-radius:999px; padding:2px 9px; margin-left:auto;}
+.card .stt.done{background:#e7f6ee; color:#2e9c63;}
+.card .stt.new{background:#fdeffd; color:var(--deep);}
+.card p{font-size:12px; color:var(--muted); margin:8px 0 12px; line-height:1.75; flex:1;}
+.card .go{display:inline-flex; align-items:center; justify-content:center; gap:6px; background:linear-gradient(135deg,var(--blue),var(--pink)); color:#fff; font-size:12.5px; font-weight:800; text-decoration:none; border-radius:999px; padding:9px 14px;}
+.card .go.ghost{background:#fff; color:var(--deep); border:1.5px solid #ecd7ee;}
+.card .links{display:flex; gap:8px; flex-wrap:wrap;}
+
+/* checklist */
+.check{background:#fff; border-radius:18px; padding:6px 4px; box-shadow:0 6px 20px rgba(44,58,85,.08);}
+.check .row{display:flex; gap:11px; align-items:flex-start; padding:11px 16px; border-bottom:1px solid var(--line);}
+.check .row:last-child{border-bottom:none;}
+.check .bx{flex:none; width:19px; height:19px; border:2px solid #d6cfe6; border-radius:6px; margin-top:2px;}
+.check .row.ready .bx{background:linear-gradient(135deg,var(--blue),var(--pink)); border-color:transparent; position:relative;}
+.check .row.ready .bx::after{content:"✓"; color:#fff; font-size:12px; font-weight:900; position:absolute; left:3px; top:-2px;}
+.check .tx{font-size:13px; color:var(--navy2); line-height:1.65;}
+.check .tx .tag{display:inline-block; font-size:10px; font-weight:800; border-radius:999px; padding:1px 8px; margin-left:6px; vertical-align:middle;}
+.check .tx .tag.h{background:#fde6ee; color:#c65a86;}
+.check .tx .tag.m{background:#eef2ff; color:#5a6fc6;}
+.check .tx small{display:block; color:var(--muted); font-size:11px; font-weight:400; margin-top:1px;}
+
+.note{margin-top:16px; background:rgba(255,255,255,.7); border:1px dashed #d8d1ea; border-radius:14px; padding:14px 16px; font-size:12px; color:#6f6a7d; line-height:1.85;}
+.note b{color:var(--navy2);}
+footer{text-align:center; font-size:10.5px; color:var(--muted); margin:30px 0 10px; letter-spacing:.08em; line-height:2;}
+</style>
+</head>
+<body>
+<header><div class="lg">AI活用ラボ ✕ LiLi</div></header>
+
+<div class="wrap">
+
+  <div class="hero">
+    <img src="assets/hk-suit.png" alt="はるか">
+    <h1>プロモーションに必要なもの、<br><span class="grad">ぜんぶ、ここに。</span></h1>
+    <div class="badge">AI活用ラボ（LiLi版）｜資材ハブ</div>
+    <div class="lead">
+      集客からご成約までの導線に沿って、<b>すでに完成しているもの</b>と、<b>これから決めるだけのもの</b>を1枚に整理しました。
+      各カードの「デモを見る」で、実際の画面をそのまま確認できます☺️
+    </div>
+  </div>
+
+  <!-- ① 導線マップ -->
+  <div class="sec">
+    <div class="st"><span class="no">1</span><h2>プロモーション導線マップ</h2><span class="sub">集客 → ご成約</span></div>
+    <div class="flow">
+      <div class="step"><div class="ic">📣</div><div class="t">集客</div><div class="d">SNS・LINE告知</div></div>
+      <div class="arw">›</div>
+      <div class="step hot"><div class="ic">💁‍♀️</div><div class="t">LP</div><div class="d">興味づけ・申込</div></div>
+      <div class="arw">›</div>
+      <div class="step"><div class="ic">✉️</div><div class="t">登録</div><div class="d">メールで入口</div></div>
+      <div class="arw">›</div>
+      <div class="step hot"><div class="ic">📋</div><div class="t">AIカルテ</div><div class="d">課題の炙り出し</div></div>
+      <div class="arw">›</div>
+      <div class="step hot"><div class="ic">💬</div><div class="t">AIはるか</div><div class="d">24時間伴走</div></div>
+      <div class="arw">›</div>
+      <div class="step"><div class="ic">🎓</div><div class="t">勉強会</div><div class="d">カリキュラム</div></div>
+      <div class="arw">›</div>
+      <div class="step"><div class="ic">🌸</div><div class="t">継続・ご成約</div><div class="d">アプリ完成</div></div>
+    </div>
+  </div>
+
+  <!-- ② 完成済み資材 -->
+  <div class="sec">
+    <div class="st"><span class="no">2</span><h2>完成している資材</h2><span class="sub">すべてライブ公開中</span></div>
+    <div class="grid">
+
+      <div class="card">
+        <div class="hd"><span class="ic">💁‍♀️</span><span class="nm">LP（ご案内）</span><span class="stt done">完成</span></div>
+        <p>お悩み→できること→カルテ→AIはるか→勉強会→受講料→FAQの1ページ。ここに集客を流し込みます。</p>
+        <div class="links"><a class="go" href="lp.html" target="_blank">デモを見る</a></div>
+      </div>
+
+      <div class="card">
+        <div class="hd"><span class="ic">✉️</span><span class="nm">カルテ入口</span><span class="stt done">完成</span></div>
+        <p>メールアドレスを入れると、その人だけの専用カルテページを自動発行。再訪しても同じページに戻れます。</p>
+        <div class="links"><a class="go" href="start.html?demo=1" target="_blank">デモを見る</a></div>
+      </div>
+
+      <div class="card">
+        <div class="hd"><span class="ic">📋</span><span class="nm">AIカルテ（受講生画面）</span><span class="stt done">完成</span></div>
+        <p>悩みの傾向・思考のくせ・こころの天気を可視化。カリキュラム進捗、AI活用プランまで1画面に。</p>
+        <div class="links"><a class="go" href="index.html?demo=1" target="_blank">デモを見る</a></div>
+      </div>
+
+      <div class="card">
+        <div class="hd"><span class="ic">💬</span><span class="nm">AIはるかチャット</span><span class="stt new">人格v4実装済</span></div>
+        <p>はるかさん本人の思考プロセス・口調・持論（ポスティング理論・基準値・時給思考ほか）を再現した24時間相談相手。</p>
+        <div class="links"><a class="go" href="ai.html" target="_blank">デモを見る</a></div>
+      </div>
+
+      <div class="card">
+        <div class="hd"><span class="ic">🗂️</span><span class="nm">管理者ボード</span><span class="stt done">完成</span></div>
+        <p>招待リンク発行・カルテ受信ボックス・進捗・みんなの傾向・バグ報告を、はるかさん側で一元管理。</p>
+        <div class="links"><a class="go" href="kanri.html?demo=1" target="_blank">デモを見る</a></div>
+      </div>
+
+      <div class="card">
+        <div class="hd"><span class="ic">🛠️</span><span class="nm">初期設定ガイド</span><span class="stt done">完成</span></div>
+        <p>はるかさん側で無料のデータベース（Supabase）を作り、本番化するまでの手順書。約10分。</p>
+        <div class="links"><a class="go ghost" href="setup.html" target="_blank">手順を見る</a></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ③ これから決めるもの -->
+  <div class="sec">
+    <div class="st"><span class="no">3</span><h2>プロモーション実行に必要なもの</h2><span class="sub">＝これから決める・作る</span></div>
+    <div class="check">
+      <div class="row"><span class="bx"></span><span class="tx">受講料・支払い方法・締切<span class="tag h">はるかさん確定待ち</span><small>LP内のプレースホルダーに反映します</small></span></div>
+      <div class="row"><span class="bx"></span><span class="tx">勉強会の日程・回数・アーカイブの有無<span class="tag h">はるかさん確定待ち</span></span></div>
+      <div class="row"><span class="bx"></span><span class="tx">講師プロフィール（経歴・実績・ひとこと）<span class="tag h">はるかさん確定待ち</span></span></div>
+      <div class="row"><span class="bx"></span><span class="tx">対象・定員・限定性<span class="tag h">はるかさん確定待ち</span></span></div>
+      <div class="row"><span class="bx"></span><span class="tx">申込（決済）リンク・特商法／運営者情報<span class="tag h">はるかさん確定待ち</span></span></div>
+      <div class="row"><span class="bx"></span><span class="tx">ラボ名・呼び名の最終確定（カルテ／管理画面）<span class="tag m">要すり合わせ</span></span></div>
+      <div class="row"><span class="bx"></span><span class="tx">本番化：はるかさん側のデータベース作成<span class="tag m">設置ガイドで完結</span><small>それまでは全ページ安全なデモモードで動作</small></span></div>
+      <div class="row"><span class="bx"></span><span class="tx">告知配信文（SNS／LINE）のたたき台<span class="tag m">こちらで制作可</span><small>指示があれば次に作成します</small></span></div>
+      <div class="row"><span class="bx"></span><span class="tx">告知バナー（LiLiトンマナ）<span class="tag m">こちらで制作可</span><small>指示があれば次に作成します</small></span></div>
+    </div>
+  </div>
+
+  <div class="note">
+    <b>今の状態：</b>システム一式（6ページ）はすべて完成・ライブ公開中です。デモモードなので、はるかさんの情報や実データは一切含まれていません。
+    上の「これから決めるもの」が埋まれば、そのまま募集を開始できます☺️
+  </div>
+
+  <footer>AI活用ラボ（LiLi版）｜プロモーション資材ハブ<br>Powered by Merone</footer>
+</div>
+
+<!-- バグ報告ツール -->
+<style>
+#bugL{position:fixed; left:12px; bottom:16px; z-index:59; background:rgba(255,255,255,.92); border:1px solid #dfe7ee; color:#8a97a5; font-size:10.5px; font-weight:800; border-radius:999px; padding:5px 12px; cursor:pointer; letter-spacing:.04em;}
+#bugM{position:fixed; inset:0; background:rgba(34,48,74,.55); display:none; align-items:center; justify-content:center; z-index:70; padding:24px;}
+#bugM.on{display:flex;}
+#bugM .bx{background:#fff; border-radius:20px; padding:22px 20px; max-width:360px; width:100%;}
+#bugM h3{font-size:14.5px; color:#22304a; margin-bottom:8px;}
+#bugM textarea{width:100%; border:1.5px solid #e3e9f0; border-radius:12px; padding:11px 13px; font-size:14px; line-height:1.8; color:#22304a; font-family:inherit; min-height:100px; resize:vertical;}
+#bugM .bb{display:flex; gap:8px; margin-top:12px;}
+#bugM button{flex:1; border:none; border-radius:999px; padding:11px; font-size:13px; font-weight:800; cursor:pointer; font-family:inherit;}
+#bugM .s{background:linear-gradient(135deg,#8fa8e6,#e0a1e6); color:#fff;}
+#bugM .c{background:#eef2f6; color:#22304a;}
+#bugM .done{display:none; font-size:12.5px; color:#a75da9; font-weight:800; margin-top:8px; text-align:center;}
+</style>
+<div id="bugL">不具合を報告</div>
+<div id="bugM"><div class="bx">
+  <h3>不具合・気になったことを教えてください</h3>
+  <textarea id="bugT" placeholder="例）デモを見るボタンを押しても開きませんでした（iPhone/Safari）"></textarea>
+  <div class="bb"><button class="c" id="bugC">閉じる</button><button class="s" id="bugS">送信する</button></div>
+  <div class="done" id="bugD">届きました。ありがとうございます。すぐ確認します。</div>
+</div></div>
+<script src="supabase_config.js"></script>
+<script>
+(function(){
+var U=(typeof SUPABASE_CONFIG!=="undefined"&&SUPABASE_CONFIG.enabled)?SUPABASE_CONFIG.url+"/rest/v1/ailab_notes":"";
+var K=(typeof SUPABASE_CONFIG!=="undefined"&&SUPABASE_CONFIG.anonKey)||"";
+var demo=new URLSearchParams(location.search).get("demo")==="1";
+var M=document.getElementById("bugM");
+document.getElementById("bugL").onclick=function(){ M.classList.add("on"); };
+document.getElementById("bugC").onclick=function(){ M.classList.remove("on"); document.getElementById("bugD").style.display="none"; };
+document.getElementById("bugS").onclick=function(){
+  var t=document.getElementById("bugT").value.trim();
+  if(!t){ document.getElementById("bugT").focus(); return; }
+  var btn=this; btn.disabled=true;
+  function done(){
+    document.getElementById("bugD").style.display="block";
+    document.getElementById("bugT").value=""; btn.disabled=false;
+    setTimeout(function(){ M.classList.remove("on"); document.getElementById("bugD").style.display="none"; },1800);
+  }
+  if(demo||!U){ done(); return; }
+  fetch(U,{method:"POST",headers:{apikey:K,Authorization:"Bearer "+K,"Content-Type":"application/json"},
+    body:JSON.stringify({member_id:"bug_promo",member_name:"プロモハブ",mood:"バグ報告",worry:t,want:location.href.slice(0,180)+" ／ "+navigator.userAgent.slice(0,140)})})
+    .then(function(){ done(); }).catch(function(){ btn.disabled=false; alert("送信できませんでした。通信環境をご確認ください。"); });
+};
+})();
+</script>
+</body>
+</html>
