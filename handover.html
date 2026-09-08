@@ -61,6 +61,12 @@ header .lg{font-size:13px; font-weight:800; letter-spacing:.14em; color:#f3d9f5;
 .lvl li{font-size:12.5px; color:var(--text); margin-top:7px; padding-left:20px; position:relative; line-height:1.75;}
 .lvl li::before{content:"○"; position:absolute; left:0; top:0; font-size:9px; color:var(--pink); top:5px;}
 
+/* auto-flow pipeline (受講生→pending→Claude→…) */
+.pipe{display:flex; flex-wrap:wrap; align-items:center; gap:5px; margin-top:10px;}
+.pipe .pv{background:#eef2ff; color:var(--navy2); font-size:11px; font-weight:800; padding:6px 11px; border-radius:999px; white-space:nowrap;}
+.pipe .pa{color:var(--muted); font-size:11px;}
+.lvl p.note2{font-size:12.5px; color:var(--text); margin-top:10px; line-height:1.85;}
+
 /* generic bullet list (reassurance / info) */
 .ilist{list-style:none; padding-left:0; margin-top:10px;}
 .ilist li{font-size:12.5px; color:var(--text); margin-top:9px; padding-left:20px; position:relative; line-height:1.85;}
@@ -152,7 +158,7 @@ footer{text-align:center; font-size:10.5px; color:var(--muted); margin:30px 0 10
     <h1>引き継ぎ書</h1>
     <div class="badge"><span class="grad" data-cfg="labo_name">AI活用ラボ</span>　運用マニュアル</div>
     <div class="lead">
-      覚えていただくのは、<b>4つの呪文</b>だけです。あとは Claude（クロード。文章の作成やファイルの書き換えを手伝ってくれるAI）に日本語で話しかけていただくだけで、設定の変更・告知文づくり・カルテへの返信・公開までを、代わりにやってくれます。<b>プログラムの知識は必要ありません。</b>
+      毎日のお仕事は、<b>管理者ボードを開いて、下書きを読み、必要なら直して「承認して送信」を押すだけ</b>です。カルテへの返信の下書きは自動で入り、気づいた不具合も自動のパトロールで直っていきます。<b>Claudeのインストールは必要ありません。</b>募集条件の変更や告知文づくりなど、たまに発生する作業には、Claude Code（クロード。ファイルの書き換えや公開作業まで頼めるAI）という道具も使えますが、こちらは使ってもお使いいただかなくても大丈夫です。
     </div>
   </div>
 
@@ -170,34 +176,37 @@ footer{text-align:center; font-size:10.5px; color:var(--muted); margin:30px 0 10
     </div>
   </div>
 
-  <!-- 2. 運用は「話しかけるだけ」 -->
+  <!-- 2. 運用は「承認して送信」だけ -->
   <div class="sec">
-    <div class="st"><span class="no">2</span><h2>運用は「話しかけるだけ」</h2><span class="sub">3つのレベルに分かれています</span></div>
-    <p class="desc">日々のことのほとんどは、Claudeに日本語で話しかけていただくだけで進みます。むずかしい操作を覚えていただく必要はありません。</p>
+    <div class="st"><span class="no">2</span><h2>運用は「承認して送信」だけ</h2><span class="sub">3つのレベルに分かれています</span></div>
+    <p class="desc">毎日のお仕事は、管理者ボードを開いて下書きを読み、「承認して送信」を押すことです。それ以外の変更が必要になった時だけ、Meroneに頼むか、Claude Codeという道具を使います。むずかしい操作を覚えていただく必要はありません。</p>
 
     <div class="lvl">
-      <div class="hd"><span class="tag l0">レベル0</span><h3>毎日〜毎週の運用</h3><span class="freq">管理画面＋Claudeへひと声</span></div>
+      <div class="hd"><span class="tag l0">レベル0</span><h3>毎日の運用</h3><span class="freq">管理者ボードだけ・Claude不要</span></div>
       <ul>
-        <li>管理画面で、受講生の招待・進捗・バグ報告を確認します</li>
-        <li>カルテへの返信は <code>/karte</code> にお任せください。Claudeが講師ご本人の文体で下書きを作り、あなたが「OK」を出してから送信します。品質は人格設計資料の模範回答が基準です</li>
-        <li>週1回は必ず管理画面を開いてください（Supabaseの無料プランは、1週間まったくアクセスがないと自動で休止する仕組みのためです）</li>
+        <li>管理者ボード（ブラウザで開き、合言葉でログインします）を開きます</li>
+        <li>「カルテ受信ボックス」を開き、返信欄に自動で入っている下書きを読みます</li>
+        <li>そのまま送ってよければそのまま、直したいところがあれば直してから、「承認して送信」を押します。押すまでは受講生に届きません</li>
+        <li>招待リンクの発行、進捗の確認、バグ報告の確認も、同じ管理者ボードで行えます</li>
+        <li>週1回は必ず管理者ボードを開いてください（Supabaseの無料プランは、1週間まったくアクセスがないと自動で休止する仕組みのためです）</li>
       </ul>
     </div>
 
     <div class="lvl">
-      <div class="hd"><span class="tag l1">レベル1</span><h3>募集期ごとの更新</h3><span class="freq"><code>/boshu</code>と伝えるだけ</span></div>
+      <div class="hd"><span class="tag l1">レベル1</span><h3>募集期ごとの更新</h3><span class="freq">価格・締切・日程の変更</span></div>
       <ul>
-        <li>価格・締切・開講日・週ごとの日程を、思ったままの言葉で伝えるだけです</li>
-        <li>例）「第2期 10月6日開講 58,000円 締切9月28日」</li>
-        <li>Claudeが変更点をお見せし、「OK」のあとは公開まで自動で進みます</li>
+        <li>やりやすい方法を、次の3つからお選びください</li>
+        <li>①　Meroneに「第2期の価格と締切を変えてほしい」と頼む</li>
+        <li>②　Claude Codeをお使いなら、<code>/boshu</code>と話しかける（例：「第2期 10月6日開講 58,000円 締切9月28日」）</li>
+        <li>③　GitHub（このシステム一式を保管している場所）をブラウザで開き、<code>labo_config.js</code>を直接編集する</li>
       </ul>
     </div>
 
     <div class="lvl">
-      <div class="hd"><span class="tag l2">レベル2</span><h3>数ヶ月に1回の変更</h3><span class="freq">頼むだけで完結</span></div>
+      <div class="hd"><span class="tag l2">レベル2</span><h3>数ヶ月に1回の変更</h3><span class="freq">告知文・LP修正・AI回答の追加</span></div>
       <ul>
-        <li>「LPの文章を直して」</li>
-        <li>「AIチャットの回答を増やして」</li>
+        <li>「告知文がほしい」「LPの文章を直して」「AIチャットの回答を増やして」</li>
+        <li>Meroneに頼むか、Claude Codeで話しかけるか、やりやすい方をお選びください</li>
         <li>講師プロフィールやキャラクター画像の差し替えも、同じように頼めます</li>
       </ul>
     </div>
@@ -205,10 +214,39 @@ footer{text-align:center; font-size:10.5px; color:var(--muted); margin:30px 0 10
     <div class="warn"><b>Claudeが使えない時は</b>このページの後ろにある「Claude Codeが使えない時だけ」の章に、代わりの手順をまとめてあります。ふだんはここまで読んでいただければ十分です。</div>
   </div>
 
-  <!-- 3. 最初の1回だけ：Claude Codeを入れる -->
+  <!-- 3. 自動で動いているもの -->
   <div class="sec">
-    <div class="st"><span class="no">3</span><h2>最初の1回だけ：Claude Codeを入れる</h2><span class="sub">ここだけ準備が必要です</span></div>
-    <p class="desc">Claude Codeは、Claudeにファイルの読み書きや公開作業までお願いできるアプリです。最初の準備さえ済めば、以降は日本語で話しかけるだけになります。</p>
+    <div class="st"><span class="no">3</span><h2>自動で動いているもの</h2><span class="sub">運営者が何もしなくても動く3つの仕組み</span></div>
+    <p class="desc">裏側では、次の3つが自動で動いています。仕組みを覚えていただく必要はありませんが、止まった時に気づけるよう、簡単にご紹介します。</p>
+
+    <div class="lvl">
+      <div class="hd"><span class="tag l0">①</span><h3>カルテ下書きの自動作成</h3><span class="freq">2時間おき（毎日7:40〜21:40・1日8回）</span></div>
+      <div class="pipe">
+        <span class="pv">受講生</span><span class="pa">→</span>
+        <span class="pv">pending</span><span class="pa">→</span>
+        <span class="pv">Claude</span><span class="pa">→</span>
+        <span class="pv">下書き</span><span class="pa">→</span>
+        <span class="pv">承認して送信</span><span class="pa">→</span>
+        <span class="pv">受講生</span>
+      </div>
+      <p class="note2">止まると、管理者ボードに新しい下書きが増えなくなります。数日たっても下書きが出ない時や、<code>/check</code>の報告で気づけます。気づいたらMeroneまでご連絡ください。</p>
+    </div>
+
+    <div class="lvl">
+      <div class="hd"><span class="tag l1">②</span><h3>バグ報告の自動修正パトロール</h3><span class="freq">毎時</span></div>
+      <p class="note2">止まると、送っていただいた不具合がそのまま直らずに残ります。同じ不具合が何時間も直らない時に気づけます。気づいたらMeroneまでご連絡ください。</p>
+    </div>
+
+    <div class="lvl">
+      <div class="hd"><span class="tag l2">③</span><h3>データの自動バックアップ</h3><span class="freq">毎朝・Merone側</span></div>
+      <p class="note2">止まると、万一の時に復元できるデータが古いままになります。この作業はMerone側の仕組みで行っているため、運営者が気づく必要はありません。気になる時はMeroneまでご確認ください。</p>
+    </div>
+  </div>
+
+  <!-- 4. Claude Codeを使いたい場合（任意） -->
+  <div class="sec">
+    <div class="st"><span class="no">4</span><h2>Claude Codeを使いたい場合（任意）</h2><span class="sub">使う場合だけ、ここの準備が必要です</span></div>
+    <p class="desc">Claude Codeは、Claudeにファイルの読み書きや公開作業までお願いできるアプリです。無くても運営はここまでの仕組みで回りますが、募集条件の変更や告知文づくりを自分の言葉で頼みたい時に使える道具です。最初の準備さえ済めば、以降は日本語で話しかけるだけになります。</p>
     <div class="steps">
       <p>①　Anthropic（Claudeを作っている会社）のアカウントを作り、<b>Claude Pro以上のプラン</b>（Claude Codeが使えるプラン）にご登録ください。</p>
       <p>②　<b>Claude Code</b>（パソコンにインストールするアプリ、またはVS Codeという編集ソフトの拡張機能）をインストールしてください。</p>
@@ -223,10 +261,10 @@ footer{text-align:center; font-size:10.5px; color:var(--muted); margin:30px 0 10
     </div>
   </div>
 
-  <!-- 4. 4つの呪文 -->
+  <!-- 5. 4つの呪文 -->
   <div class="sec">
-    <div class="st"><span class="no">4</span><h2>4つの呪文</h2><span class="sub">これだけ覚えれば大丈夫です</span></div>
-    <p class="desc">Claude Codeの画面に、そのまま打って送信していただくだけです。呪文の形にせず、ふつうの言葉で話しかけても同じように動きます。</p>
+    <div class="st"><span class="no">5</span><h2>4つの呪文</h2><span class="sub">これだけ覚えれば大丈夫です</span></div>
+    <p class="desc"><b>使わなくても運営できます。</b>Claude Codeを使いたい時だけ、画面にそのまま打って送信していただくだけです。呪文の形にせず、ふつうの言葉で話しかけても同じように動きます。</p>
 
     <div class="spellgrid">
       <div class="spellcard">
@@ -252,14 +290,14 @@ footer{text-align:center; font-size:10.5px; color:var(--muted); margin:30px 0 10
       </div>
 
       <div class="spellcard">
-        <div class="cmdrow"><code>/karte</code><span class="when">カルテが届いた時（週2〜3回ほど）</span></div>
+        <div class="cmdrow"><code>/karte</code><span class="when">自動下書きを待たずに、今すぐ作りたい時</span></div>
         <div class="lbl">打つ言葉の例</div>
         <pre id="sp3">/karte</pre>
         <div class="copybar"><button class="copybtn" data-copy="sp3">コピーする</button></div>
         <div class="lbl">Claudeがやること</div>
-        <div class="val">未返信のカルテを新しい順に、1件ずつ「相談内容→返信案」の形でお見せします。「OK」で送信、「直して」で書き直し、「下書きにして」で管理画面への保存に切り替えます。送信すると、受講生の画面に「<span data-cfg="instructor_nick">はるか</span>からのアドバイス」として届きます。</div>
+        <div class="val">普段は2時間おきに自動で下書きが入りますが、これはその「今すぐ版」です。未返信のカルテを新しい順に、1件ずつ「相談内容→返信案」の形でお見せします。「OK」で送信、「直して」で書き直し、「下書きにして」で管理者ボードへの保存に切り替えます。送信すると、受講生の画面に「<span data-cfg="instructor_nick">はるか</span>からのアドバイス」として届きます。</div>
         <div class="lbl">あなたがやること</div>
-        <div class="val">内容を読んで、返事をお伝えいただくだけです。<b>確認をいただく前に送信されることはありません。</b></div>
+        <div class="val">内容を読んで、返事をお伝えいただくだけです。<b>確認をいただく前に送信されることはありません。</b>ふだんは、この呪文を使わず管理者ボードで「承認して送信」を押すだけでも大丈夫です。</div>
       </div>
 
       <div class="spellcard">
@@ -277,22 +315,23 @@ footer{text-align:center; font-size:10.5px; color:var(--muted); margin:30px 0 10
     <div class="spellnote"><b>呪文の形でなくても大丈夫です。</b>「価格を変えて」「告知文をちょうだい」「カルテを見て」と、ふだんの言葉で話しかけていただいても、同じ手順でClaudeが動きます。</div>
   </div>
 
-  <!-- 5. カルテ返信の品質について -->
+  <!-- 6. カルテ返信の品質について -->
   <div class="sec">
-    <div class="st"><span class="no">5</span><h2>カルテ返信の品質について</h2><span class="sub">安心してお使いいただくために</span></div>
+    <div class="st"><span class="no">6</span><h2>カルテ返信の品質について</h2><span class="sub">安心してお使いいただくために</span></div>
     <div class="promptbox">
       <ul class="ilist">
-        <li>返信案は、人格設計資料の「返信文体の6つの手順」と、講師ご本人が書かれた模範回答3本を基準に作られます。</li>
-        <li>どんな返信案も、必ずあなたが読んで「OK」を出したあとに送信されます。Claudeが確認なしで送ることはありません。</li>
-        <li>「死にたい」「消えたい」など心配な内容の相談は、自動では返信を作らず、あなたに直接声をかけていただくよう促す仕組みになっています。</li>
+        <li>下書きは、2時間おきの自動ルーティンで作っても、<code>/karte</code>で今すぐ作っても、人格設計資料の「返信文体の6つの手順」と、講師ご本人が書かれた模範回答3本を基準に作られます。</li>
+        <li>講師が下書きを直して送ると、その直し方が次回から学習され、同じような直しを先回りして反映するようになります。数件直していただくうちに、だんだんご本人らしい文体に近づいていきます。</li>
+        <li>どんな下書きも、必ずあなたが読んで「承認して送信」を押したあとに届きます。確認なしで受講生に届くことはありません。</li>
+        <li>「死にたい」「消えたい」など心配な内容の相談は、自動では下書きを作らず、管理者ボードに「本人対応」としてお知らせします。運営者ご本人から、直接声をかけてください。</li>
         <li>医療・法律・投資について断定的な言い方をしたり、収入を保証するような表現をすることはありません。</li>
       </ul>
     </div>
   </div>
 
-  <!-- 6. Claude Codeが使えない時だけ（予備手順） -->
+  <!-- 7. Claude Codeが使えない時だけ（予備手順） -->
   <div class="sec">
-    <div class="st"><span class="no">6</span><h2>Claude Codeが使えない時だけ</h2><span class="sub">予備の手順です・ふだんは不要です</span></div>
+    <div class="st"><span class="no">7</span><h2>Claude Codeが使えない時だけ</h2><span class="sub">予備の手順です・ふだんは不要です</span></div>
     <p class="desc">通常はここを読んでいただく必要はありません。Claude Codeが使えない状況になった時のための、予備の手順です。</p>
 
     <details>
@@ -407,13 +446,15 @@ weeks          日程が決まった週から、順番に書き換え</code></pr
     </details>
   </div>
 
-  <!-- 7. トラブル対応Q&A -->
+  <!-- 8. トラブル対応Q&A -->
   <div class="sec">
-    <div class="st"><span class="no">7</span><h2>トラブル対応Q&amp;A</h2></div>
+    <div class="st"><span class="no">8</span><h2>トラブル対応Q&amp;A</h2></div>
     <div class="qa">
       <div class="item"><div class="q"><span class="m">Q.</span>管理者ボードを開いたら「合言葉」を聞かれました</div><div class="a">本番の管理者ボードは、運営者だけが開けるように合言葉で守られています（受講生の相談内容が入っているためです）。合言葉は引き継ぎの時に個別にお伝えします。一度入れれば、そのブラウザでは次回から聞かれません。別のスマホやパソコンで開く時は、もう一度入力してください。合言葉を変えたい時は、Claudeに「管理者ボードの合言葉を〇〇に変えて」と話しかけるだけで変更できます（変えた後は、全員がもう一度入力する形になります）。</div></div>
       <div class="item"><div class="q"><span class="m">Q.</span>画面が表示されません</div><div class="a">GitHub Pagesは、ファイルを更新してから反映まで1〜2分ほどかかることがあります。少し待ってから再読み込みしてください。それでも直らない時は、URLのつづりが正しいかをご確認ください。</div></div>
       <div class="item"><div class="q"><span class="m">Q.</span>カルテの内容が管理者ボードに届きません</div><div class="a"><code>supabase_config.js</code> を開き、<code>enabled</code> が <code>true</code> になっているかをご確認ください。<code>false</code> のままだと、送信内容が保存されない確認用の状態のままになります。あわせて、Supabaseが休止していないかもご確認ください。</div></div>
+      <div class="item"><div class="q"><span class="m">Q.</span>下書きが入っていません</div><div class="a">下書きは2時間おき（毎日7:40〜21:40）にしか作られないので、まずは少し待ってみてください。それでも入らない時は、本番化されているか（<code>supabase_config.js</code>の<code>enabled</code>）、Supabaseが休止していないか、自動下書きルーティンが登録されているかの順にご確認ください。それでも解決しない時はMeroneまでご連絡ください。</div></div>
+      <div class="item"><div class="q"><span class="m">Q.</span>下書きが自分らしくありません</div><div class="a">そのまま直して「承認して送信」を押してください。直していただいた内容は次回から学習され、以降の下書きに反映されます。数件直していただくうちに、だんだんご本人らしい文体に近づいていきます。</div></div>
       <div class="item"><div class="q"><span class="m">Q.</span>Supabase（データベース）が休止してしまいました</div><div class="a">無料プランは、1週間まったくアクセスがないと自動的に休止する仕組みになっています。Supabaseのダッシュボードを開き、「Restore」ボタンを押していただくと数分で元に戻ります。心配な時は <code>/check</code> と話しかけていただければ、状態を確認してお伝えします。</div></div>
       <div class="item"><div class="q"><span class="m">Q.</span>決済リンクが開かない・エラーになります</div><div class="a">UnivaPay側の決済リンクの設定をご確認ください。あわせて、<code>labo_config.js</code> の <code>apply_url</code> が正しいリンクになっているかもご確認ください。</div></div>
       <div class="item"><div class="q"><span class="m">Q.</span>受講生の方が、自分の専用ページに戻れなくなりました</div><div class="a">カルテ入口のページに、登録した時と同じメールアドレスをもう一度入力していただいてください。書いた内容がそのまま残った、同じ専用ページに戻ることができます。</div></div>
@@ -422,9 +463,9 @@ weeks          日程が決まった週から、順番に書き換え</code></pr
     </div>
   </div>
 
-  <!-- 8. 別の会社で使うとき -->
+  <!-- 9. 別の会社で使うとき -->
   <div class="sec">
-    <div class="st"><span class="no">8</span><h2>別の会社で使うとき</h2><span class="sub">複製手順の要約</span></div>
+    <div class="st"><span class="no">9</span><h2>別の会社で使うとき</h2><span class="sub">複製手順の要約</span></div>
     <div class="steps">
       <p>①　リポジトリを複製します（GitHubの「Fork」を使うか、zipでダウンロードして新しいリポジトリにアップロードします）。</p>
       <p>②　<code>labo_config.js</code> のブランド項目（ラボ名・会社名・講師名・受講料など）をすべて書き換えます。</p>
@@ -437,14 +478,16 @@ weeks          日程が決まった週から、順番に書き換え</code></pr
     <div class="map"><div class="maprow"><span class="ic">🛠️</span><div class="body"><div class="nm">初期設定ガイド</div><div class="ds">Supabaseの作成からGitHub Pagesの公開まで、番号つきで手順をまとめています。</div></div><a class="go" href="setup.html" target="_blank">見る</a></div></div>
   </div>
 
-  <!-- 9. 引き継ぎチェックリスト -->
+  <!-- 10. 引き継ぎチェックリスト -->
   <div class="sec">
-    <div class="st"><span class="no">9</span><h2>引き継ぎチェックリスト</h2><span class="sub">Merone　→　運営者</span></div>
+    <div class="st"><span class="no">10</span><h2>引き継ぎチェックリスト</h2><span class="sub">Merone　→　運営者</span></div>
     <div class="check">
       <div class="row"><span class="bx"></span><span class="tx">GitHubリポジトリの所有権（譲渡、またはコラボレーターとして追加）</span></div>
       <div class="row"><span class="bx"></span><span class="tx">GitHub Pagesの公開設定</span></div>
       <div class="row"><span class="bx"></span><span class="tx">Supabaseプロジェクトの所有権</span></div>
       <div class="row"><span class="bx"></span><span class="tx">supabase_config.js の本番化（enabled を true にし、接続情報を設定）</span></div>
+      <div class="row"><span class="bx"></span><span class="tx">自動下書きルーティンの登録（Merone側で登録済み／またはご自身で登録）</span></div>
+      <div class="row"><span class="bx"></span><span class="tx">バグ自動修正パトロールへの登録</span></div>
       <div class="row"><span class="bx"></span><span class="tx">管理者ボードの合言葉を受け取り、実際に開けることを確認した（合言葉は書面に残さず口頭・個別で）</span></div>
       <div class="row"><span class="bx"></span><span class="tx">UnivaPay決済リンクの動作確認</span></div>
       <div class="row"><span class="bx"></span><span class="tx">特定商取引法・プライバシーポリシー・利用規約の設置（<span data-cfg="company">合同会社Li-Li</span>側で対応）</span></div>
@@ -452,13 +495,13 @@ weeks          日程が決まった週から、順番に書き換え</code></pr
       <div class="row"><span class="bx"></span><span class="tx">管理者ボードのログイン確認</span></div>
       <div class="row"><span class="bx"></span><span class="tx">キャラクター画像・素材一式の受け渡し</span></div>
       <div class="row"><span class="bx"></span><span class="tx">人格設計資料（persona_haruka.md）の受け渡し</span></div>
-      <div class="row"><span class="bx"></span><span class="tx">Claude Codeの初期設定完了（<code>/check</code>が通ること）</span></div>
+      <div class="row"><span class="bx"></span><span class="tx">Claude Codeの初期設定完了（使う場合のみ・<code>/check</code>が通ること）</span></div>
     </div>
   </div>
 
-  <!-- 10. サポート範囲 -->
+  <!-- 11. サポート範囲 -->
   <div class="sec">
-    <div class="st"><span class="no">10</span><h2>サポート範囲</h2><span class="sub">引き継ぎ後にMeroneが対応すること</span></div>
+    <div class="st"><span class="no">11</span><h2>サポート範囲</h2><span class="sub">引き継ぎ後にMeroneが対応すること</span></div>
     <div class="phbox">
       <p>引き継ぎ後、株式会社Meroneがどこまで対応するかについては、以下のとおりです。</p>
       <div class="ph">【サポート範囲：くみこ確定】</div>
@@ -466,7 +509,7 @@ weeks          日程が決まった週から、順番に書き換え</code></pr
   </div>
 
   <div class="note">
-    <b>この1枚について：</b>最初にClaude Codeの準備さえ済めば、あとは4つの呪文を軸に、日本語で話しかけていただくだけで、日々の運用から募集期の切替、別の会社での複製までこの1ページで進めていただけます。ご不明点があれば、いつでもMeroneまでご連絡ください。
+    <b>この1枚について：</b>毎日のお仕事は、管理者ボードで下書きを読んで「承認して送信」を押すだけです。募集期の切替や告知文づくりなど、たまの作業でClaude Codeを使いたい時は、4つの呪文を軸に日本語で話しかけていただけます。別の会社での複製までこの1ページで進めていただけます。ご不明点があれば、いつでもMeroneまでご連絡ください。
   </div>
 
   <footer><span data-cfg="labo_name">AI活用ラボ</span>｜運用引き継ぎ書<br>Powered by Merone</footer>

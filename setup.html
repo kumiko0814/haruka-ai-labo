@@ -42,7 +42,7 @@ a{color:var(--navy);}
 <div class="wrap">
   <h1><span data-cfg="labo_name">AI活用ラボ</span> 設置ガイド</h1>
   <p class="lead">このガイド1枚で、別の会社様・別の講師の方でも、同じ仕組みをゼロから立ち上げていただけます。全体の所要時間の目安は約1時間です（このうちSupabaseの作成にかかる時間は10分ほどです）。</p>
-  <p class="lead" style="border-left:4px solid #a75da9;">Claude Code をお使いなら、このフォルダを開いて「設置ガイド（setup.html）に沿って進めて」と話しかけるだけで、STEP1〜5 を Claude が案内・代行します。設定ファイルの書き換え・人格の差し替え・公開まで、コードを触る必要はありません。運用の仕方は <a href="handover.html">引き継ぎ書</a> をご覧ください。</p>
+  <p class="lead" style="border-left:4px solid #a75da9;">Claude Code をお使いなら、このフォルダを開いて「設置ガイド（setup.html）に沿って進めて」と話しかけるだけで、STEP1〜6 を Claude が案内・代行します。設定ファイルの書き換え・人格の差し替え・公開まで、コードを触る必要はありません。運用の仕方は <a href="handover.html">引き継ぎ書</a> をご覧ください。</p>
 
   <div class="jump">
     <a href="#step0">全体の流れ</a>
@@ -51,18 +51,20 @@ a{color:var(--navy);}
     <a href="#step3">STEP3 差し替え</a>
     <a href="#step4">STEP4 本番化</a>
     <a href="#step5">STEP5 公開</a>
+    <a href="#step6">STEP6 自動下書き</a>
     <a href="#checklist">チェックリスト</a>
   </div>
 
   <div class="step" id="step0">
     <h3><b>STEP 0</b>　全体の流れ</h3>
-    <p>複製から公開まで、次の5つの作業だけで完了します。順番に進めてください。</p>
+    <p>複製から公開まで、次の6つの作業だけで完了します。順番に進めてください。</p>
     <ol class="flow">
       <li>リポジトリを複製する（GitHub上でコードを丸ごとコピーします）</li>
       <li>labo_config.js を書き換える（サービス名・講師名・価格・日程・リンクなど）</li>
       <li>キャラクター画像とAIの人格を差し替える</li>
       <li>Supabase（無料のデータ保存先）を作って本番化する</li>
       <li>GitHub Pagesで公開する</li>
+      <li>自動下書きルーティンを登録する（Meroneが運用代行する場合は不要です）</li>
     </ol>
   </div>
 
@@ -243,6 +245,31 @@ create policy ailab_advice_ins on ailab_advice
     <p>独自ドメインをお持ちの場合は、同じ「Pages」の設定画面からご自身のドメインを追加することもできます（任意です）。</p>
   </div>
 
+  <div class="step" id="step6">
+    <h3><b>STEP 6</b>　自動下書きルーティンを登録する</h3>
+    <p>受講生から届くカルテに、講師本人の文体で返信の下書きを自動で入れる仕組みです。登録すると、運営者は管理者ボードで下書きを読み、「承認して送信」を押すだけで運用できるようになります。手順の全文は <code>scripts/ailabo-draft/ROUTINE.md</code> にあります。</p>
+
+    <h4>6-1　プロンプトに人格設計資料を貼る</h4>
+    <p><code>scripts/ailabo-draft/ROUTINE.md</code> を開き、講師の人格設計資料（<code>persona/persona_〇〇.md</code>）の本文をコピーして、文中の <code>{{PERSONA}}</code> の位置に貼り付けます。あわせて <code>{{LABO_NAME}}</code> をサービス名に、<code>{{NOTIFY}}</code> を報告先（不要なら空欄のまま）に置き換えます。</p>
+
+    <h4>6-2　Claude Code の /schedule で登録する</h4>
+    <p>Claude Codeで「<code>/schedule</code>」と話しかけ、次の内容を伝えます。</p>
+    <div class="tablewrap">
+    <table>
+      <tr><th>項目</th><th>内容</th></tr>
+      <tr><td>名前</td><td>カルテ自動下書き（〇〇ラボ）</td></tr>
+      <tr><td>間隔</td><td>毎日 7:40〜21:40 の2時間おき（JST・1日8回）</td></tr>
+      <tr><td>ソース</td><td>このリポジトリのGitHub URL</td></tr>
+      <tr><td>プロンプト</td><td>6-1で作った本文</td></tr>
+    </table>
+    </div>
+
+    <h4>6-3　動作の確認</h4>
+    <p>登録後、しばらく待ってから管理者ボードのカルテ受信ボックスを開きます。返信欄に「AI下書き（編集できます）」というバッジが出ていれば、正しく動作中です。</p>
+
+    <div class="note">Meroneが運用を代行する場合、この登録はMerone側のアカウントで行います。運営者ご自身の作業はありません。ご自身で登録したい場合だけ、この手順をお使いください。</div>
+  </div>
+
   <div class="step" id="checklist">
     <h3>公開前チェックリスト</h3>
     <p class="check">
@@ -256,7 +283,9 @@ create policy ailab_advice_ins on ailab_advice
     ☐ 特定商取引法に基づく表記のリンク（tokutei_url）が正しいページに繋がっている<br>
     ☐ スマートフォンでLP（lp.html）の見え方を確認した<br>
     ☐ 実際に登録・入力してみて、管理者ボード（kanri.html）にカルテが届くことを確認した<br>
-    ☐ 管理者ボードの「バグ報告」欄に、テスト送信した内容が届くことを確認した
+    ☐ 管理者ボードの「バグ報告」欄に、テスト送信した内容が届くことを確認した<br>
+    ☐ 自動下書きルーティンを登録した（またはMeroneに依頼した）<br>
+    ☐ 管理者ボードに「AI下書き」バッジが出ることを確認した
     </p>
   </div>
 

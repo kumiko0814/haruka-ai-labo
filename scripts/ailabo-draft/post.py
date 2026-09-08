@@ -11,11 +11,14 @@
 import sys, json, re
 from labo_env import load, get_all, rest
 
+CHECK_ONLY = "--check" in sys.argv          # 投入せず、禁止語の検査だけ行う（ネット通信なし）
+args = [a for a in sys.argv[1:] if not a.startswith("--")]
+path = args[0] if args else "drafts.json"
+
 env = load()
-if not env["enabled"]:
+if not env["enabled"] and not CHECK_ONLY:
     print("DEMO_MODE: 本番化されていないため投入しません。"); sys.exit(2)
 
-path = sys.argv[1] if len(sys.argv) > 1 else "drafts.json"
 drafts = json.load(open(path, encoding="utf-8"))
 
 ALWAYS_NG = [re.compile(p) for p in (r"絶対(に)?(\u7a3c|儲|成功|できます)", r"必ず.{0,6}万円", r"保証(し|でき)ます")]
@@ -29,6 +32,8 @@ if bad:
     print("❌ 投入中止：使ってはいけない表現があります。直してから再実行してください。")
     for t, h in bad: print(f"  target={t}: {h}")
     sys.exit(1)
+if CHECK_ONLY:
+    print(f"check OK: {len(drafts)}件、禁止表現なし"); sys.exit(0)
 
 open_drafts = set(a["target_id"] for a in get_all(env, "ailab_advice") if a.get("author_name") == "draft")
 ok = skip = 0
