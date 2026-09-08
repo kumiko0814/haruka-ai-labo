@@ -78,16 +78,17 @@ header .lg{font-size:13px; font-weight:800; letter-spacing:.14em; color:#f3d9f5;
 .note b{color:var(--navy2);}
 footer{text-align:center; font-size:10.5px; color:var(--muted); margin:30px 0 10px; letter-spacing:.08em; line-height:2;}
 </style>
+<script src="labo_config.js"></script>
 </head>
 <body>
-<header><div class="lg">AI活用ラボ ✕ LiLi</div></header>
+<header><div class="lg"><span data-cfg="labo_name">AI活用ラボ</span> ✕ LiLi</div></header>
 
 <div class="wrap">
 
   <div class="hero">
     <img src="assets/hk-suit.png" alt="はるか">
     <h1>プロモーションに必要なもの、<br><span class="grad">ぜんぶ、ここに。</span></h1>
-    <div class="badge">AI活用ラボ（LiLi版）｜資材ハブ</div>
+    <div class="badge"><span data-cfg="labo_name">AI活用ラボ</span>（LiLi版）｜資材ハブ</div>
     <div class="lead">
       集客からご成約までの導線に沿って、<b>すでに完成しているもの</b>と、<b>これから決めるだけのもの</b>を1枚に整理しました。
       各カードの「デモを見る」で、実際の画面をそのまま確認できます☺️
@@ -150,9 +151,21 @@ footer{text-align:center; font-size:10.5px; color:var(--muted); margin:30px 0 10
       </div>
 
       <div class="card">
-        <div class="hd"><span class="ic">🛠️</span><span class="nm">初期設定ガイド</span><span class="stt done">完成</span></div>
-        <p>はるかさん側で無料のデータベース（Supabase）を作り、本番化するまでの手順書。約10分。</p>
+        <div class="hd"><span class="ic">🛠️</span><span class="nm">設置ガイド（別会社でも複製可）</span><span class="stt done">完成</span></div>
+        <p>リポジトリ複製→設定ファイル書き換え→キャラ・AI人格差し替え→データベース作成→公開、までの手順書。別の会社・講師でもゼロから立ち上げられます。</p>
         <div class="links"><a class="go ghost" href="setup.html" target="_blank">手順を見る</a></div>
+      </div>
+
+      <div class="card">
+        <div class="hd"><span class="ic">📘</span><span class="nm">引き継ぎ書（運用マニュアル）</span><span class="stt new">新規</span></div>
+        <p>毎日の運用から募集期の更新、Claudeに頼むときのコピペ用プロンプトまで。Claudeに詳しくなくても運営できる3レベル設計。</p>
+        <div class="links"><a class="go" href="handover.html" target="_blank">引き継ぎ書を見る</a></div>
+      </div>
+
+      <div class="card">
+        <div class="hd"><span class="ic">⚙️</span><span class="nm">設定ファイル labo_config.js</span><span class="stt new">新規</span></div>
+        <p>価格・締切・開講日・週日程・申込リンク・ブランド名を1ファイルに集約。ここの「 」の中を書き換えるだけで全ページが変わります。</p>
+        <div class="links"><a class="go ghost" href="labo_config.js" target="_blank">中身を見る</a></div>
       </div>
 
     </div>
@@ -179,7 +192,7 @@ footer{text-align:center; font-size:10.5px; color:var(--muted); margin:30px 0 10
     上の「これから決めるもの」が埋まれば、そのまま募集を開始できます☺️
   </div>
 
-  <footer>AI活用ラボ（LiLi版）｜プロモーション資材ハブ<br>Powered by Merone</footer>
+  <footer><span data-cfg="labo_name">AI活用ラボ</span>（LiLi版）｜プロモーション資材ハブ<br>Powered by Merone</footer>
 </div>
 
 <!-- バグ報告ツール -->

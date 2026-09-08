@@ -11,6 +11,7 @@
   --pink:#c77fce; --pink2:#a75da9; --pink3:#8fa8e6; --pinkbg:#fde6ff; --blue:#7fb0d2; --text:#4a4446;
 }
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+html,body{overflow-x:hidden;}
 body{
   font-family:"Yu Gothic","YuGothic","游ゴシック","Hiragino Kaku Gothic ProN","Hiragino Sans",sans-serif;
   background:linear-gradient(160deg,#fdf3f6 0%,#f4f7fb 60%,#fdf3f6 100%); color:var(--text); line-height:1.9;
@@ -149,13 +150,14 @@ input[type=text]{width:100%; border:1.5px solid #e3e9f0; border-radius:12px; pad
 }
 .mockband{background:var(--navy2); color:#cfdcea; text-align:center; font-size:11px; padding:5px 10px; letter-spacing:.08em;}
 </style>
+<script src="labo_config.js"></script>
 </head>
 <body>
 <div id="demoband" class="mockband" style="display:none;">デモ表示（ダミーデータ）</div>
 
 <div class="mtop">
   <div class="t">
-    <div class="m"><small>AI活用ラボ</small></div>
+    <div class="m"><small><span data-cfg="labo_name">AI活用ラボ</span></small></div>
     <div class="h">AIカルテ 管理者ボード</div>
   </div>
   <img src="assets/hk-suit.png" alt="" onerror="this.style.display='none'">
@@ -166,7 +168,7 @@ input[type=text]{width:100%; border:1.5px solid #e3e9f0; border-radius:12px; pad
 
   <!-- sidebar -->
   <aside class="side">
-    <div class="slogo"><div class="m"></div><div class="l">AI活用ラボ</div></div>
+    <div class="slogo"><div class="m"></div><div class="l"><span data-cfg="labo_name">AI活用ラボ</span></div></div>
     <nav class="nav">
       <div class="ni on"><svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg>ダッシュボード</div>
       <div class="ni"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>カルテ受信ボックス<span class="bdg">4</span></div>
@@ -191,7 +193,7 @@ input[type=text]{width:100%; border:1.5px solid #e3e9f0; border-radius:12px; pad
     <div class="hero">
       <span class="spark" style="left:46%; top:26px;">✦</span>
       <span class="spark" style="right:200px; top:120px; font-size:12px;">✦</span>
-      <div class="eyebrow">AI活用ラボ</div>
+      <div class="eyebrow"><span data-cfg="labo_name">AI活用ラボ</span></div>
       <h1>AIカルテ 管理者ボード</h1>
       <p class="sub">AIがあなたの代わりに、相談者に寄り添いアドバイスをお届けします。</p>
       <img class="char" src="assets/hk-desk.png" alt="" onerror="this.style.display='none'">
@@ -314,6 +316,7 @@ input[type=text]{width:100%; border:1.5px solid #e3e9f0; border-radius:12px; pad
 <script src="supabase_config.js"></script>
 <script>
 (function(){
+var CF=window.cfg||function(k,d){return d;};
 var P=new URLSearchParams(location.search);
 var DEMO=P.get("demo")==="1"||!(typeof SUPABASE_CONFIG!=="undefined"&&SUPABASE_CONFIG.enabled);
 if(DEMO) document.getElementById("demoband").style.display="block";
@@ -353,7 +356,7 @@ document.getElementById("gen").onclick=function(){
   document.getElementById("openurl").href=url;
   document.getElementById("copyurl").onclick=function(){ copy(url,this,"URLをコピー"); };
   document.getElementById("copyline").onclick=function(){
-    copy(nm+"さん\nAI活用ラボの「AIカルテ」、"+nm+"さん専用ページができました☺️\n\n▼専用URL\n"+url+"\n\nいま困っていること・感じていることを、そのまま書いて送ってください。はるかが読んで、アドバイスをお返しします。",this,"LINE送付文をコピー");
+    copy(nm+"さん\n"+CF("labo_name","AI活用ラボ")+"の「AIカルテ」、"+nm+"さん専用ページができました☺️\n\n▼専用URL\n"+url+"\n\nいま困っていること・感じていることを、そのまま書いて送ってください。はるかが読んで、アドバイスをお返しします。",this,"LINE送付文をコピー");
   };
 };
 
@@ -363,7 +366,7 @@ document.getElementById("copystarturl").onclick=function(){ copy(base()+"start.h
 
 /* 全員向け案内文 */
 document.getElementById("copystart").onclick=function(){
-  copy("【AI活用ラボ】あなた専用の「AIカルテ」ページができました☺️\n\n▼こちらから30秒で作れます\n"+base()+"start.html\n\nお名前と、お申込みのメールアドレスを入れるだけです。\n困ったこと・感じていることを書いて送ってもらえたら、\nはるかが読んで、あなたに合うAIの使い方をお返しします。",this,"全員向けの案内文をコピー");
+  copy("【"+CF("labo_name","AI活用ラボ")+"】あなた専用の「AIカルテ」ページができました☺️\n\n▼こちらから30秒で作れます\n"+base()+"start.html\n\nお名前と、お申込みのメールアドレスを入れるだけです。\n困ったこと・感じていることを書いて送ってもらえたら、\nはるかが読んで、あなたに合うAIの使い方をお返しします。",this,"全員向けの案内文をコピー");
 };
 
 /* inbox */

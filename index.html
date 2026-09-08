@@ -206,13 +206,14 @@ footer{text-align:center; font-size:11px; color:#9aa7b4; padding:34px 16px 10px;
 .ntcFx span{position:absolute; bottom:-10px; font-size:16px; opacity:0; animation:ntcFloat 3.2s ease-in infinite;}
 @keyframes ntcFloat{0%{transform:translateY(0) scale(.7) rotate(0deg); opacity:0;} 15%{opacity:.9;} 100%{transform:translateY(-330px) scale(1.15) rotate(18deg); opacity:0;}}
 </style>
+<script src="labo_config.js"></script>
 </head>
 <body>
 <div id="demoband" class="demoband" style="display:none;">デモ画面です（実際の画面イメージ）</div>
 
 <!-- mobile header -->
 <div class="mtop">
-  <div class="m"><small>AI活用ラボ</small></div>
+  <div class="m"><small><span data-cfg="labo_name">AI活用ラボ</span></small></div>
   <h1>AIカルテ</h1>
   <span class="burger">≡</span>
   <div style="height:12px;"></div>
@@ -229,7 +230,7 @@ footer{text-align:center; font-size:11px; color:#9aa7b4; padding:34px 16px 10px;
 
   <!-- sidebar -->
   <aside class="side">
-    <div class="slogo"><div class="m"></div><div class="l">AI活用ラボ</div></div>
+    <div class="slogo"><div class="m"></div><div class="l"><span data-cfg="labo_name">AI活用ラボ</span></div></div>
     <nav class="nav">
       <div class="ni" data-v="v_new"><svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg>ダッシュボード</div>
       <div class="ni on"><svg viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8"/></svg>カルテ管理</div>
@@ -253,7 +254,7 @@ footer{text-align:center; font-size:11px; color:#9aa7b4; padding:34px 16px 10px;
   <!-- main -->
   <main class="main">
     <div class="hero">
-      <div class="eyebrow">AI活用ラボ</div>
+      <div class="eyebrow"><span data-cfg="labo_name">AI活用ラボ</span></div>
       <h1>AIカルテ</h1>
       <p class="sub">あなた専用のカルテを作成して、AIの力で解決のヒントを見つけましょう。</p>
       <div class="who" id="who"></div>
@@ -368,7 +369,7 @@ footer{text-align:center; font-size:11px; color:#9aa7b4; padding:34px 16px 10px;
       </div>
     </div>
 
-    <footer>AI活用ラボ｜AIの力で、あなたの毎日をもっと豊かに。</footer>
+    <footer><span data-cfg="labo_name">AI活用ラボ</span>｜AIの力で、あなたの毎日をもっと豊かに。</footer>
   </main>
 </div>
 
@@ -474,19 +475,21 @@ function loadAll(){
 
 /* ===== カリキュラム常設（オープン準備中） ===== */
 (function(){
+  var cfgWeek=window.cfgWeek||function(i,d){return d||"日程調整中";};
+  var CF=window.cfg||function(k,d){return d;};
   var opened=true;  // 公開前に隠したい場合は false に
   var WEEKS=[
-    ["第1週","日程調整中","AIを“デザインの相棒”にする","STEP1",
+    ["第1週",cfgWeek(0),"AIを“デザインの相棒”にする","STEP1",
       ["AIへの頼み方の型（前提→依頼→出したい形）を身につける","得意ジャンル・作風をAIに覚えさせて“自分専用”に育てる","声に出して相談する“壁打ち”の基本"]],
-    ["第2週","日程調整中","案件を“取る”①　提案文とポートフォリオ","STEP2",
+    ["第2週",cfgWeek(1),"案件を“取る”①　提案文とポートフォリオ","STEP2",
       ["提案文・応募文のたたき台を生成（クラウドソーシング向けにテンプレ化）","ポートフォリオの自己紹介文・実績説明文をブラッシュアップ"]],
-    ["第3週","日程調整中","案件を“取る”②　リサーチと要件整理","STEP3",
+    ["第3週",cfgWeek(2),"案件を“取る”②　リサーチと要件整理","STEP3",
       ["クライアントのHP・SNSをAIに読ませて事前リサーチ→提案の質を上げる","ヒアリング項目リストの自動生成と、ヒアリング後の要件整理"]],
-    ["第4週","日程調整中","制作を“速く・良く”する","STEP4",
+    ["第4週",cfgWeek(3),"制作を“速く・良く”する","STEP4",
       ["参考デザインの分析・言語化（なぜ良いかをAIと分解する）","キャッチコピー・LP構成案の生成／ラフ・ワイヤーのアイデア出し","配色・フォント選定の壁打ち／画像生成でダミー・FV素材を作る"]],
-    ["第5週","日程調整中","事務作業を“5分”に","STEP5",
+    ["第5週",cfgWeek(4),"事務作業を“5分”に","STEP5",
       ["見積書・請求書・契約書のたたき台をAIで作る","返信・リマインドメール、議事録の音声文字起こし→自動要約","タスク整理・週間スケジュールの壁打ち／確定申告前の経費カテゴリ整理"]],
-    ["第6週","日程調整中","最終ミッション：言いにくい連絡＋自分専用ツール化","STEP6",
+    ["第6週",cfgWeek(5),"最終ミッション：言いにくい連絡＋自分専用ツール化","STEP6",
       ["単価交渉・お断りメールなど「言いにくい連絡」の文面相談","納品前セルフチェックリストの運用","学んだ頼み方を“自分専用のプロンプト集/ツール”にまとめる"]]
   ];
   var starts=[new Date("2099-01-01"),new Date("2099-01-08"),new Date("2099-01-15"),new Date("2099-01-22"),new Date("2099-01-29"),new Date("2099-02-05"),new Date("2099-02-12")];
@@ -500,7 +503,7 @@ function loadAll(){
       var items=(w[4]||[]).map(function(it){return '<li>'+it+'</li>';}).join("");
       htmlFull+=head+(items?'<ul style="margin:2px 0 14px 2px; padding-left:18px; font-size:12.5px; color:#5a6b7d; line-height:1.9;">'+items+'</ul>':"");
     });
-    var sem='<div class="curwk"><span class="wn">勉強会</span><span class="wt"><b>2026年10月上旬 開講予定（日程調整中）</b>アーカイブ（録画）あり</span></div>';
+    var sem='<div class="curwk"><span class="wn">勉強会</span><span class="wt"><b>'+CF("start_date","2026年10月上旬（予定・詳細日程は調整中）")+'</b>アーカイブ（録画）あり</span></div>';
     html+=sem; htmlFull+=sem;
   } else {
     html='<div style="text-align:center; padding:26px 10px;">'
@@ -522,6 +525,7 @@ function loadAll(){
 
 /* ===== はるかからのメッセージ（1人1回表示） ===== */
 (function(){
+  var CF=window.cfg||function(k,d){return d;};
   function show(msg){
     var box=document.getElementById("ntcMsg");
     box.textContent="";
@@ -537,7 +541,7 @@ function loadAll(){
   }
   function init(){
   document.getElementById("ntcClose").onclick=function(){ document.getElementById("ntcOv").classList.remove("on"); };
-  if(DEMO){ setTimeout(function(){ show("（デモ表示）ようこそ、AI活用ラボへ。ここに、はるかからのメッセージがかわいい演出つきで届きます。"); },800); return; }
+  if(DEMO){ setTimeout(function(){ show("（デモ表示）ようこそ、"+CF("labo_name","AI活用ラボ")+"へ。ここに、はるかからのメッセージがかわいい演出つきで届きます。"); },800); return; }
   sb("ailab_notes?member_id=eq.notice_all&mood=eq.おしらせ&order=created_at.desc&limit=1").then(function(r){return r.json();})
     .then(function(j){
       if(!Array.isArray(j)||!j.length) return;

@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>引き継ぎ書｜AI活用ラボ 運用マニュアル（LiLi版）</title>
+<script src="labo_config.js"></script>
+<style>
+:root{
+  --bg:#f0f4ff; --navy:#2c3a55; --navy2:#22304a; --deep:#a75da9; --pinkbg:#fde6ff;
+  --blue:#8fa8e6; --pink:#e0a1e6; --text:#4a4440; --muted:#8b8a9b; --line:#e4e2f2;
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+html,body{overflow-x:hidden;}
+body{
+  font-family:"Yu Gothic","YuGothic","游ゴシック","Hiragino Kaku Gothic ProN","Hiragino Sans",sans-serif;
+  background:linear-gradient(168deg,#e2ebff 0%,#fdf9ff 46%,#fde6ff 100%);
+  color:var(--text); line-height:1.95; -webkit-font-smoothing:antialiased; min-height:100vh; padding-bottom:80px;
+}
+.wrap{max-width:760px; margin:0 auto; padding:0 18px;}
+header{background:var(--navy2); color:#fff; padding:13px 18px; text-align:center;}
+header .lg{font-size:13px; font-weight:800; letter-spacing:.14em; color:#f3d9f5;}
+
+/* hero */
+.hero{text-align:center; padding:30px 0 6px;}
+.hero img{height:150px; filter:drop-shadow(0 10px 20px rgba(44,58,85,.14));}
+.hero h1{font-size:clamp(24px,7vw,34px); color:var(--navy2); line-height:1.4; margin-top:10px; font-weight:800;}
+.hero .badge{display:inline-block; background:var(--navy2); color:#fff; font-size:11px; font-weight:800; border-radius:999px; padding:6px 16px; margin-top:12px; letter-spacing:.06em;}
+.hero .badge .grad{background:linear-gradient(90deg,#cdd9ff,#ffd9f7); -webkit-background-clip:text; background-clip:text; color:transparent;}
+.hero .lead{font-size:13.5px; margin:14px auto 0; max-width:600px; text-align:left; background:#fff; border-radius:16px; padding:16px 18px; box-shadow:0 6px 20px rgba(44,58,85,.07);}
+.hero .lead b{color:var(--deep);}
+
+/* section */
+.sec{margin-top:34px;}
+.sec .st{display:flex; align-items:center; gap:9px; margin-bottom:14px; flex-wrap:wrap;}
+.sec .st .no{flex:none; width:26px; height:26px; border-radius:50%; background:linear-gradient(135deg,var(--blue),var(--pink)); color:#fff; font-size:13px; font-weight:800; display:flex; align-items:center; justify-content:center;}
+.sec .st h2{font-size:16.5px; color:var(--navy2); letter-spacing:.02em;}
+.sec .st .sub{font-size:11.5px; color:var(--muted); margin-left:2px;}
+.sec p.desc{font-size:12.5px; color:var(--muted); line-height:1.85; margin:-6px 0 14px;}
+
+/* overview map rows */
+.map{display:flex; flex-direction:column; gap:10px;}
+.maprow{background:#fff; border-radius:16px; padding:14px 16px; display:flex; align-items:center; gap:12px; box-shadow:0 6px 18px rgba(44,58,85,.07);}
+.maprow .ic{flex:none; font-size:22px; width:34px; text-align:center;}
+.maprow .body{flex:1; min-width:0;}
+.maprow .nm{font-size:13.5px; font-weight:800; color:var(--navy2);}
+.maprow .ds{font-size:11.5px; color:var(--muted); margin-top:3px; line-height:1.7;}
+.maprow a.go{flex:none; display:inline-flex; align-items:center; justify-content:center; background:linear-gradient(135deg,var(--blue),var(--pink)); color:#fff; font-size:11.5px; font-weight:800; text-decoration:none; border-radius:999px; padding:8px 14px; white-space:nowrap;}
+
+/* level cards */
+.lvl{background:#fff; border-radius:18px; padding:16px 18px; margin-top:12px; box-shadow:0 6px 20px rgba(44,58,85,.08);}
+.lvl .hd{display:flex; align-items:center; gap:10px; flex-wrap:wrap;}
+.lvl .tag{flex:none; font-size:11px; font-weight:800; border-radius:999px; padding:4px 12px;}
+.lvl .tag.l0{background:#e7f6ee; color:#2e9c63;}
+.lvl .tag.l1{background:#eef2ff; color:#5a6fc6;}
+.lvl .tag.l2{background:#fde6ee; color:#c65a86;}
+.lvl h3{font-size:14.5px; color:var(--navy2);}
+.lvl .freq{font-size:11px; color:var(--muted); margin-left:auto;}
+.lvl ul{margin-top:10px; padding-left:0; list-style:none;}
+.lvl li{font-size:12.5px; color:var(--text); margin-top:7px; padding-left:20px; position:relative; line-height:1.75;}
+.lvl li::before{content:"○"; position:absolute; left:0; top:0; font-size:9px; color:var(--pink); top:5px;}
+
+/* guide list (numbered steps) */
+.glist{background:#fff; border-radius:18px; padding:6px 4px; box-shadow:0 6px 20px rgba(44,58,85,.08);}
+.glist .row{display:flex; gap:12px; padding:13px 16px; border-bottom:1px solid var(--line); align-items:flex-start;}
+.glist .row:last-child{border-bottom:none;}
+.glist .num{flex:none; width:23px; height:23px; border-radius:50%; background:var(--navy2); color:#fff; font-size:11px; font-weight:800; display:flex; align-items:center; justify-content:center; margin-top:1px;}
+.glist .tx b{display:block; color:var(--navy2); font-size:13px; font-weight:800;}
+.glist .tx span{display:block; font-size:12px; color:var(--muted); margin-top:3px; line-height:1.8;}
+
+/* plain circled-number step paragraphs */
+.steps p{font-size:13px; color:var(--navy2); background:#fff; border-radius:14px; padding:12px 14px; margin-top:8px; box-shadow:0 4px 14px rgba(44,58,85,.06); line-height:1.85;}
+.steps p b{color:var(--deep);}
+
+/* code / pre */
+pre{background:var(--navy2); color:#eaf0ff; border-radius:14px; padding:15px 16px; font-size:11.5px; line-height:1.85; overflow-x:auto; margin-top:10px; font-family:"SFMono-Regular",Consolas,"Courier New",monospace;}
+code{font-family:"SFMono-Regular",Consolas,"Courier New",monospace; background:#eef2ff; color:var(--navy2); padding:1px 6px; border-radius:6px; font-size:12px;}
+.copybar{display:flex; justify-content:flex-end; margin-top:6px;}
+.copybtn{border:none; background:#fff; color:var(--deep); border:1.5px solid #ecd7ee; border-radius:999px; padding:6px 14px; font-size:11px; font-weight:800; cursor:pointer; font-family:inherit;}
+.promptbox{background:#fff; border-radius:18px; padding:16px 18px; margin-top:14px; box-shadow:0 6px 20px rgba(44,58,85,.08);}
+.promptbox h3{font-size:13.5px; color:var(--navy2);}
+.promptbox .pd{font-size:11.5px; color:var(--muted); margin-top:4px; line-height:1.8;}
+
+/* warn / tip box */
+.warn{margin-top:14px; background:#fff6fb; border:1px dashed #eccbe6; border-radius:14px; padding:14px 16px; font-size:12px; color:#6f6a7d; line-height:1.9;}
+.warn b{color:var(--deep); display:block; font-size:12.5px; margin-bottom:6px;}
+.warn ul{padding-left:18px; margin-top:2px;}
+.warn li{margin-top:5px;}
+
+/* Q&A */
+.qa{background:#fff; border-radius:18px; padding:6px 4px; box-shadow:0 6px 20px rgba(44,58,85,.08);}
+.qa .item{padding:14px 16px; border-bottom:1px solid var(--line);}
+.qa .item:last-child{border-bottom:none;}
+.qa .q{font-size:13px; font-weight:800; color:var(--navy2); display:flex; gap:8px;}
+.qa .q .m{flex:none; color:var(--deep); font-weight:900;}
+.qa .a{font-size:12px; color:var(--muted); margin-top:7px; line-height:1.85; padding-left:21px;}
+
+/* checklist (from promo.html) */
+.check{background:#fff; border-radius:18px; padding:6px 4px; box-shadow:0 6px 20px rgba(44,58,85,.08);}
+.check .row{display:flex; gap:11px; align-items:flex-start; padding:11px 16px; border-bottom:1px solid var(--line);}
+.check .row:last-child{border-bottom:none;}
+.check .bx{flex:none; width:19px; height:19px; border:2px solid #d6cfe6; border-radius:6px; margin-top:2px;}
+.check .tx{font-size:13px; color:var(--navy2); line-height:1.65;}
+
+/* placeholder box */
+.phbox{margin-top:12px; background:#fff; border-radius:16px; padding:16px 18px; box-shadow:0 6px 20px rgba(44,58,85,.08);}
+.phbox p{font-size:12.5px; color:var(--muted); line-height:1.85;}
+.ph{display:inline-block; margin-top:10px; background:var(--pinkbg); color:var(--deep); font-weight:800; font-size:13px; border-radius:10px; padding:8px 14px; border:1.5px dashed #e6b8ea;}
+
+.note{margin-top:16px; background:rgba(255,255,255,.7); border:1px dashed #d8d1ea; border-radius:14px; padding:14px 16px; font-size:12px; color:#6f6a7d; line-height:1.85;}
+.note b{color:var(--navy2);}
+footer{text-align:center; font-size:10.5px; color:var(--muted); margin:30px 0 10px; letter-spacing:.08em; line-height:2;}
+</style>
+</head>
+<body>
+<header><div class="lg">AI活用ラボ ✕ LiLi</div></header>
+
+<div class="wrap">
+
+  <div class="hero">
+    <img src="assets/hk-laptop.png" alt="はるか">
+    <h1>引き継ぎ書</h1>
+    <div class="badge"><span class="grad" data-cfg="labo_name">AI活用ラボ</span>　運用マニュアル</div>
+    <div class="lead">
+      このページ1枚で、毎日の運用のやり方から、別の会社でこのしくみをそのまま複製する方法まで、すべてがわかるようになっています。
+      <b>プログラムの知識やClaudeへの慣れは必要ありません。</b>読みながらそのまま操作していただける形にまとめました。
+    </div>
+  </div>
+
+  <!-- 1. 全体図 -->
+  <div class="sec">
+    <div class="st"><span class="no">1</span><h2>システム全体図</h2><span class="sub">ページは全部で6つ</span></div>
+    <p class="desc">それぞれのページがどんな役割を持っているかを、まず1つずつご紹介します。名前をタップすると、実際の画面をそのまま確認できます。</p>
+    <div class="map">
+      <div class="maprow"><span class="ic">💁‍♀️</span><div class="body"><div class="nm">LP（募集ページ）</div><div class="ds">集客した方が最初に見るご案内ページです。お悩み・できること・受講料・お申込みボタンをまとめています。</div></div><a class="go" href="lp.html" target="_blank">見る</a></div>
+      <div class="maprow"><span class="ic">✉️</span><div class="body"><div class="nm">カルテ入口</div><div class="ds">メールアドレスを入れていただくと、その方だけの専用ページが自動でできます。</div></div><a class="go" href="start.html?demo=1" target="_blank">見る</a></div>
+      <div class="maprow"><span class="ic">📋</span><div class="body"><div class="nm">AIカルテ（受講生の画面）</div><div class="ds">困りごとを書いて送ると、<span data-cfg="instructor_nick">はるか</span>からのアドバイスが届く、受講生ご本人の画面です。</div></div><a class="go" href="index.html?demo=1" target="_blank">見る</a></div>
+      <div class="maprow"><span class="ic">💬</span><div class="body"><div class="nm">AIはるか（24時間の自動応答）</div><div class="ds">よくある質問に、<span data-cfg="instructor_nick">はるか</span>さんの口調でいつでも答えるチャット画面です。</div></div><a class="go" href="ai.html" target="_blank">見る</a></div>
+      <div class="maprow"><span class="ic">🗂️</span><div class="body"><div class="nm">管理者ボード（運営者の画面）</div><div class="ds">招待リンクの発行、カルテへの返信、進捗の確認などを行う、運営者専用の画面です。</div></div><a class="go" href="kanri.html?demo=1" target="_blank">見る</a></div>
+      <div class="maprow"><span class="ic">🛠️</span><div class="body"><div class="nm">初期設定ガイド</div><div class="ds">データベース（Supabase）をつなげて、確認用の画面から本番のご案内に切り替えるための手順書です。</div></div><a class="go" href="setup.html" target="_blank">見る</a></div>
+    </div>
+  </div>
+
+  <!-- 2. Claudeが使えなくても大丈夫 -->
+  <div class="sec">
+    <div class="st"><span class="no">2</span><h2>Claudeが使えなくても大丈夫です</h2><span class="sub">運用は3つのレベルに分かれています</span></div>
+    <p class="desc">「AIを使いこなさないと運用できない」というものではありません。日々のことのほとんどは管理画面の操作だけで完結します。Claude（AIチャット）を使うのは、数ヶ月に一度あるかどうかの場面だけです。</p>
+
+    <div class="lvl">
+      <div class="hd"><span class="tag l0">レベル0</span><h3>毎日〜毎週の運用</h3><span class="freq">Claude不要・管理画面だけ</span></div>
+      <ul>
+        <li>受講生の招待リンク発行</li>
+        <li>カルテ受信ボックスの確認と返信</li>
+        <li>進捗・傾向の確認</li>
+        <li>みんなへのメッセージ更新</li>
+        <li>バグ報告の確認</li>
+        <li>週1回は必ず管理画面を開く（Supabase無料プランは1週間アクセスがないと自動的に止まってしまうため）</li>
+      </ul>
+    </div>
+
+    <div class="lvl">
+      <div class="hd"><span class="tag l1">レベル1</span><h3>募集期ごとの更新</h3><span class="freq">Claude不要・ファイルを1つ編集</span></div>
+      <ul>
+        <li>受講料の変更</li>
+        <li>締切日の変更</li>
+        <li>開講日の変更</li>
+        <li>週ごとの日程の変更</li>
+        <li>お申込みリンクの変更</li>
+        <li>第2期への切替</li>
+      </ul>
+    </div>
+
+    <div class="lvl">
+      <div class="hd"><span class="tag l2">レベル2</span><h3>数ヶ月に1回の変更</h3><span class="freq">Claudeに頼むと楽にできます</span></div>
+      <ul>
+        <li>AIはるかの回答を増やす・直す（ai.htmlのRULES）</li>
+        <li>LPの文章やデザインの変更</li>
+        <li>講師プロフィールの変更（lp.htmlのナビゲーター欄）</li>
+        <li>キャラクター画像の差し替え（assetsフォルダ）</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 3. 毎日の運用 手順（レベル0） -->
+  <div class="sec">
+    <div class="st"><span class="no">3</span><h2>毎日の運用 手順</h2><span class="sub">レベル0・管理者ボードだけでできます</span></div>
+    <p class="desc"><a href="kanri.html?demo=1" target="_blank" style="color:var(--deep); font-weight:800;">管理者ボードのデモ画面</a>を開きながら読み進めていただくとわかりやすいです。</p>
+    <div class="glist">
+      <div class="row"><span class="num">1</span><div class="tx"><b>受講生の招待リンクを発行する</b><span>「参加者の招待」に名前を入れて発行ボタンを押すと、その方専用のURLができます。LINEやメールでご本人に送ってください。</span></div></div>
+      <div class="row"><span class="num">2</span><div class="tx"><b>カルテ受信ボックスを確認して返信する</b><span>届いた内容を読み、返信欄にアドバイスを書いて送信ボタンを押します。送った内容は、その方の「AIカルテ」画面に「<span data-cfg="instructor_nick">はるか</span>からのアドバイス」として自動で届きます。</span></div></div>
+      <div class="row"><span class="num">3</span><div class="tx"><b>進捗・傾向を確認する</b><span>「カリキュラムの進捗」「みんなの傾向」で、全体の状況をひと目で確認できます。</span></div></div>
+      <div class="row"><span class="num">4</span><div class="tx"><b>みんなへのメッセージを更新する</b><span>「みんなへのメッセージ」の欄を書き換えて保存すると、参加者全員の画面に表示されます。開講のごあいさつや、その週のひとことにご利用ください。</span></div></div>
+      <div class="row"><span class="num">5</span><div class="tx"><b>バグ報告を確認する</b><span>「バグ報告」に届いた内容を確認し、必要であれば対応します。</span></div></div>
+      <div class="row"><span class="num">6</span><div class="tx"><b>週1回は必ず管理画面を開く</b><span>無料のデータベース（Supabase）は、1週間まったくアクセスがないと自動的に停止してしまいます。曜日を決めて、週に1回はこのページを開く習慣をつけてください。</span></div></div>
+    </div>
+  </div>
+
+  <!-- 4. 募集期の更新 手順（レベル1） -->
+  <div class="sec">
+    <div class="st"><span class="no">4</span><h2>募集期の更新 手順</h2><span class="sub">レベル1・labo_config.js を1つ編集するだけ</span></div>
+    <p class="desc"><code>labo_config.js</code> は、ラボ名・受講料・締切・お申込みリンクなど、各ページに表示される文字を1か所にまとめた設定ファイルです。この中の値を書き換えて保存するだけで、ご案内ページ・AIはるか・カルテ・管理画面の表示がまとめて変わります。</p>
+    <pre><code>var LABO_CONFIG = {
+  labo_name: "AI活用ラボ",
+  company: "合同会社Li-Li",
+  instructor_name: "菅野 春香",
+  instructor_nick: "はるか",
+  instructor_title: "合同会社Li-Li 代表・lilisコンサル 主宰",
+  ai_name: "AIはるか",
+  term_label: "第1期",
+  target: "lilisコンサル 受講生・卒業生 限定",
+  price: "45,000円",
+  price_badge: "第1期 特別価格｜受講生・卒業生 限定",
+  price_note: "第2期以降の一般募集では58,000円（税込）を予定しています。第1期は特別価格でご案内します。",
+  payment: "クレジットカード決済（分割のご相談も可能）／銀行振込",
+  start_date: "2026年10月上旬（予定・詳細日程は調整中）",
+  deadline: "2026年9月15日（火）",
+  archive_note: "毎回の勉強会はアーカイブ（録画）が残るので、当日参加できなくても後から視聴できます。",
+  apply_url: "https://univa.cc/zgpD3J",
+  apply_label: "クレジットカードで申し込む",
+  tokutei_url: "https://www.lilisconsul.com/tokutei",
+  weeks: ["日程調整中","日程調整中","日程調整中","日程調整中","日程調整中","日程調整中"]
+};</code></pre>
+
+    <div class="steps" style="margin-top:16px;">
+      <p>①　github.com を開き、このリポジトリを開きます。</p>
+      <p>②　ファイル一覧から <code>labo_config.js</code> をクリックします。</p>
+      <p>③　右上の鉛筆マーク（Edit）を押します。</p>
+      <p>④　<b>" "（引用符）の中の文字だけ</b>書き換えます。前後の記号や <code>,</code>（カンマ）は消さないでください。</p>
+      <p>⑤　右上の緑色のボタン「Commit changes」を押し、出てきた画面でもう一度「Commit changes」を押します。</p>
+      <p>⑥　1〜2分待ってからページを再読み込みします。反映されない時は、URLの末尾に <code>?v=2</code> を付けて開いてみてください。</p>
+    </div>
+
+    <div class="warn">
+      <b>つまずきやすいポイントと対処</b>
+      <ul>
+        <li><b>引用符（" "）ごと消してしまう</b>　→　前後の " " は残したまま、中の文字だけを書き換えてください。</li>
+        <li><b>行の最後の ,（カンマ）を消してしまう</b>　→　1行ごとの末尾の <code>,</code> はそのまま残してください（いちばん最後の行だけカンマなしでOKです）。</li>
+        <li><b>全角の引用符（" "）になってしまう</b>　→　半角の <code>"</code> のまま書き換えてください。日本語入力中に変換されて全角になっていないか、保存前にご確認ください。</li>
+      </ul>
+    </div>
+
+    <p class="desc" style="margin-top:16px;">第2期に切り替える時は、主に次の項目を書き換えます。</p>
+    <pre><code>term_label     "第1期"        →  "第2期"
+price          "45,000円"     →  新しい受講料
+price_badge    "第1期 特別価格｜受講生・卒業生 限定"  →  次期の案内文
+price_note     一般募集の告知に合わせて書き換え（不要なら空文字 "" でも可）
+target         "lilisコンサル 受講生・卒業生 限定"  →  次期の対象者
+deadline       "2026年9月15日（火）"  →  新しい締切日
+weeks          日程が決まった週から、順番に書き換え</code></pre>
+  </div>
+
+  <!-- 5. Claudeに頼むとき（レベル2） -->
+  <div class="sec">
+    <div class="st"><span class="no">5</span><h2>Claudeに頼むとき</h2><span class="sub">レベル2・数ヶ月に1回</span></div>
+    <p class="desc">claude.ai を開き、該当するファイル（例：ai.html）をチャット画面にドラッグ＆ドロップまたは添付してから、下のプロンプトの〇〇や『　』の中をご自身の内容に書き換えて、そのまま貼って送信してください。</p>
+
+    <div class="promptbox">
+      <h3>① AIはるかの回答を追加する</h3>
+      <div class="pd">添付するファイル：ai.html／あわせて人格設計資料（Googleドキュメント）も貼るとより精度が上がります。</div>
+      <pre id="pr1">添付するai.htmlのRULES配列に、新しい質問と回答を1件追加してください。
+
+追加したい相談内容：
+『（ここに追加したい質問を書いてください。例：オープンチャットに入れない時はどうすればいいですか）』
+
+条件：
+・はるかさんの口調（☺️や✨を使った、やわらかい話し方）で、3つの吹き出しに分けて回答してください
+・RULES配列の他の項目とまったく同じ書き方（re: 正規表現, replies: [[...]] の形）に合わせてください
+・「必ず」「絶対に」など、保証をするような言い方は避けてください
+・書き換えたファイル全体を返してください</pre>
+      <div class="copybar"><button class="copybtn" data-copy="pr1">コピーする</button></div>
+    </div>
+
+    <div class="promptbox">
+      <h3>② LPの文章を直す</h3>
+      <div class="pd">添付するファイル：lp.html</div>
+      <pre id="pr2">添付するlp.htmlの中の、〇〇の文章を直してください。
+
+直したい内容：
+『（ここに直したい箇所と、どう直したいかを書いてください。例：受講料の説明をもっと簡潔にしたい）』
+
+条件：
+・すでにあるデザイン（色・フォント・レイアウト）はそのまま変えないでください
+・文章のトーンは、やわらかい敬体（です・ます）のままにしてください
+・書き換えたファイル全体を返してください</pre>
+      <div class="copybar"><button class="copybtn" data-copy="pr2">コピーする</button></div>
+    </div>
+
+    <div class="promptbox">
+      <h3>③ 表示が崩れた・動かない時の修正依頼</h3>
+      <div class="pd">添付するファイル：症状が出ているファイル（例：index.html）</div>
+      <pre id="pr3">添付するファイル（〇〇.html）で、下記の不具合が起きています。原因を調べて直してください。
+
+起きていること：
+『（ここに症状を書いてください。例：スマホで見るとボタンがはみ出す／申し込みボタンを押しても反応しない）』
+
+環境：
+・スマートフォン／パソコンのどちらか（わかれば機種やブラウザも）
+
+条件：
+・デザインや他の機能は変えず、不具合の原因だけを直してください
+・直した箇所と理由を、最後に簡単に説明してください
+・書き換えたファイル全体を返してください</pre>
+      <div class="copybar"><button class="copybtn" data-copy="pr3">コピーする</button></div>
+    </div>
+  </div>
+
+  <!-- 6. トラブル対応Q&A -->
+  <div class="sec">
+    <div class="st"><span class="no">6</span><h2>トラブル対応Q&amp;A</h2></div>
+    <div class="qa">
+      <div class="item"><div class="q"><span class="m">Q.</span>画面が表示されません</div><div class="a">GitHub Pagesは、ファイルを更新してから反映まで1〜2分ほどかかることがあります。少し待ってから再読み込みしてください。それでも直らない時は、URLのつづりが正しいかをご確認ください。</div></div>
+      <div class="item"><div class="q"><span class="m">Q.</span>カルテの内容が管理者ボードに届きません</div><div class="a"><code>supabase_config.js</code> を開き、<code>enabled</code> が <code>true</code> になっているかをご確認ください。<code>false</code> のままだと、送信内容が保存されない確認用の状態のままになります。あわせて、Supabaseが停止していないかもご確認ください。</div></div>
+      <div class="item"><div class="q"><span class="m">Q.</span>Supabase（データベース）が停止してしまいました</div><div class="a">無料プランは、1週間まったくアクセスがないと自動的に停止する仕組みになっています。Supabaseのダッシュボードを開き、「Restore」ボタンを押していただくと数分で元に戻ります。</div></div>
+      <div class="item"><div class="q"><span class="m">Q.</span>決済リンクが開かない・エラーになります</div><div class="a">UnivaPay側の決済リンクの設定をご確認ください。あわせて、<code>labo_config.js</code> の <code>apply_url</code> が正しいリンクになっているかもご確認ください。</div></div>
+      <div class="item"><div class="q"><span class="m">Q.</span>受講生の方が、自分の専用ページに戻れなくなりました</div><div class="a">カルテ入口のページに、登録した時と同じメールアドレスをもう一度入力していただいてください。書いた内容がそのまま残った、同じ専用ページに戻ることができます。</div></div>
+    </div>
+  </div>
+
+  <!-- 7. 別の会社で使うとき -->
+  <div class="sec">
+    <div class="st"><span class="no">7</span><h2>別の会社で使うとき</h2><span class="sub">複製手順の要約</span></div>
+    <div class="steps">
+      <p>①　リポジトリを複製します（GitHubの「Fork」を使うか、zipでダウンロードして新しいリポジトリにアップロードします）。</p>
+      <p>②　<code>labo_config.js</code> のブランド項目（ラボ名・会社名・講師名・受講料など）をすべて書き換えます。</p>
+      <p>③　キャラクター画像（<code>assets/hk-*.png</code>）を、その会社のキャラクターに差し替えます。</p>
+      <p>④　AIの人格（ai.html の RULES）を、その会社の講師の人格設計資料をもとに書き直します（Claudeに依頼するとスムーズです）。</p>
+      <p>⑤　新しくSupabase（無料のデータベース）を作り、<code>supabase_config.js</code> を本番用に書き換えます（setup.htmlの手順のとおりです）。</p>
+      <p>⑥　GitHub Pagesを有効にして公開します。</p>
+    </div>
+    <p class="desc" style="margin-top:14px;">くわしい手順は、初期設定ガイドをご覧ください。</p>
+    <div class="map"><div class="maprow"><span class="ic">🛠️</span><div class="body"><div class="nm">初期設定ガイド</div><div class="ds">Supabaseの作成からGitHub Pagesの公開まで、番号つきで手順をまとめています。</div></div><a class="go" href="setup.html" target="_blank">見る</a></div></div>
+  </div>
+
+  <!-- 8. 引き継ぎチェックリスト -->
+  <div class="sec">
+    <div class="st"><span class="no">8</span><h2>引き継ぎチェックリスト</h2><span class="sub">Merone　→　運営者</span></div>
+    <div class="check">
+      <div class="row"><span class="bx"></span><span class="tx">GitHubリポジトリの所有権（譲渡、またはコラボレーターとして追加）</span></div>
+      <div class="row"><span class="bx"></span><span class="tx">GitHub Pagesの公開設定</span></div>
+      <div class="row"><span class="bx"></span><span class="tx">Supabaseプロジェクトの所有権</span></div>
+      <div class="row"><span class="bx"></span><span class="tx">supabase_config.js の本番化（enabled を true にし、接続情報を設定）</span></div>
+      <div class="row"><span class="bx"></span><span class="tx">UnivaPay決済リンクの動作確認</span></div>
+      <div class="row"><span class="bx"></span><span class="tx">特定商取引法・プライバシーポリシー・利用規約の設置（<span data-cfg="company">合同会社Li-Li</span>側で対応）</span></div>
+      <div class="row"><span class="bx"></span><span class="tx">labo_config.js の内容確認</span></div>
+      <div class="row"><span class="bx"></span><span class="tx">管理者ボードのログイン確認</span></div>
+      <div class="row"><span class="bx"></span><span class="tx">キャラクター画像・素材一式の受け渡し</span></div>
+      <div class="row"><span class="bx"></span><span class="tx">人格設計資料（Googleドキュメント）の共有</span></div>
+    </div>
+  </div>
+
+  <!-- 9. サポート範囲 -->
+  <div class="sec">
+    <div class="st"><span class="no">9</span><h2>サポート範囲</h2><span class="sub">引き継ぎ後にMeroneが対応すること</span></div>
+    <div class="phbox">
+      <p>引き継ぎ後、株式会社Meroneがどこまで対応するかについては、以下のとおりです。</p>
+      <div class="ph">【サポート範囲：くみこ確定】</div>
+    </div>
+  </div>
+
+  <div class="note">
+    <b>この1枚について：</b>ここまでの内容がすべて揃えば、Claudeに詳しくない方でも、日々の運用から募集期の切替、別の会社での複製まで、この1ページだけで進めていただけます。ご不明点があれば、いつでもMeroneまでご連絡ください。
+  </div>
+
+  <footer><span data-cfg="labo_name">AI活用ラボ</span>｜運用引き継ぎ書<br>Powered by Merone</footer>
+</div>
+
+<!-- バグ報告ツール -->
+<style>
+#bugL{position:fixed; left:12px; bottom:16px; z-index:59; background:rgba(255,255,255,.92); border:1px solid #dfe7ee; color:#8a97a5; font-size:10.5px; font-weight:800; border-radius:999px; padding:5px 12px; cursor:pointer; letter-spacing:.04em;}
+#bugM{position:fixed; inset:0; background:rgba(34,48,74,.55); display:none; align-items:center; justify-content:center; z-index:70; padding:24px;}
+#bugM.on{display:flex;}
+#bugM .bx{background:#fff; border-radius:20px; padding:22px 20px; max-width:360px; width:100%;}
+#bugM h3{font-size:14.5px; color:#22304a; margin-bottom:8px;}
+#bugM textarea{width:100%; border:1.5px solid #e3e9f0; border-radius:12px; padding:11px 13px; font-size:14px; line-height:1.8; color:#22304a; font-family:inherit; min-height:100px; resize:vertical;}
+#bugM .bb{display:flex; gap:8px; margin-top:12px;}
+#bugM button{flex:1; border:none; border-radius:999px; padding:11px; font-size:13px; font-weight:800; cursor:pointer; font-family:inherit;}
+#bugM .s{background:linear-gradient(135deg,#8fa8e6,#e0a1e6); color:#fff;}
+#bugM .c{background:#eef2f6; color:#22304a;}
+#bugM .done{display:none; font-size:12.5px; color:#a75da9; font-weight:800; margin-top:8px; text-align:center;}
+</style>
+<div id="bugL">不具合を報告</div>
+<div id="bugM"><div class="bx">
+  <h3>不具合・気になったことを教えてください</h3>
+  <textarea id="bugT" placeholder="例）コピーするボタンを押しても反応しませんでした（iPhone/Safari）"></textarea>
+  <div class="bb"><button class="c" id="bugC">閉じる</button><button class="s" id="bugS">送信する</button></div>
+  <div class="done" id="bugD">届きました。ありがとうございます。すぐ確認します。</div>
+</div></div>
+<script src="supabase_config.js"></script>
+<script>
+(function(){
+// labo_config.js の値をページに反映（ファイルが無い/読めない時は元のテキストのまま表示されます）
+try{
+  if(typeof LABO_CONFIG!=="undefined"){
+    var els=document.querySelectorAll("[data-cfg]");
+    for(var i=0;i<els.length;i++){
+      var k=els[i].getAttribute("data-cfg");
+      if(LABO_CONFIG[k]!==undefined) els[i].textContent=LABO_CONFIG[k];
+    }
+  }
+}catch(e){}
+
+// コピー用ボタン
+var copyBtns=document.querySelectorAll(".copybtn");
+for(var j=0;j<copyBtns.length;j++){
+  copyBtns[j].onclick=function(){
+    var id=this.getAttribute("data-copy"), t=document.getElementById(id).textContent, b=this;
+    function ok(){ b.textContent="コピーしました"; setTimeout(function(){b.textContent="コピーする";},1600); }
+    if(navigator.clipboard&&navigator.clipboard.writeText){ navigator.clipboard.writeText(t).then(ok); }
+    else{ var ta=document.createElement("textarea"); ta.value=t; document.body.appendChild(ta); ta.select(); document.execCommand("copy"); ta.remove(); ok(); }
+  };
+}
+
+var U=(typeof SUPABASE_CONFIG!=="undefined"&&SUPABASE_CONFIG.enabled)?SUPABASE_CONFIG.url+"/rest/v1/ailab_notes":"";
+var K=(typeof SUPABASE_CONFIG!=="undefined"&&SUPABASE_CONFIG.anonKey)||"";
+var demo=new URLSearchParams(location.search).get("demo")==="1";
+var M=document.getElementById("bugM");
+document.getElementById("bugL").onclick=function(){ M.classList.add("on"); };
+document.getElementById("bugC").onclick=function(){ M.classList.remove("on"); document.getElementById("bugD").style.display="none"; };
+document.getElementById("bugS").onclick=function(){
+  var t=document.getElementById("bugT").value.trim();
+  if(!t){ document.getElementById("bugT").focus(); return; }
+  var btn=this; btn.disabled=true;
+  function done(){
+    document.getElementById("bugD").style.display="block";
+    document.getElementById("bugT").value=""; btn.disabled=false;
+    setTimeout(function(){ M.classList.remove("on"); document.getElementById("bugD").style.display="none"; },1800);
+  }
+  if(demo||!U){ done(); return; }
+  fetch(U,{method:"POST",headers:{apikey:K,Authorization:"Bearer "+K,"Content-Type":"application/json"},
+    body:JSON.stringify({member_id:"bug_handover",member_name:"引き継ぎ書",mood:"バグ報告",worry:t,want:location.href.slice(0,180)+" ／ "+navigator.userAgent.slice(0,140)})})
+    .then(function(){ done(); }).catch(function(){ btn.disabled=false; alert("送信できませんでした。通信環境をご確認ください。"); });
+};
+})();
+</script>
+</body>
+</html>

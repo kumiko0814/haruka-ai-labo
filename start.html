@@ -52,9 +52,10 @@ input:focus{outline:none; border-color:var(--pink);}
 .back{display:none;}
 footer{text-align:center; font-size:10.5px; color:#9aa7b4; margin-top:26px; letter-spacing:.06em; line-height:2;}
 </style>
+<script src="labo_config.js"></script>
 </head>
 <body>
-<div class="top"><span class="m"><small>AI活用ラボ</small></span></div>
+<div class="top"><span class="m"><small><span data-cfg="labo_name">AI活用ラボ</span></small></span></div>
 
 <div class="wrap">
   <div class="hero">
@@ -75,7 +76,7 @@ footer{text-align:center; font-size:10.5px; color:#9aa7b4; margin-top:26px; lett
   <!-- create -->
   <div id="create">
     <h1>あなた専用の「AIカルテ」を作る</h1>
-    <p class="lead">30秒で完成します。作れるのはAI活用ラボの受講生のみです。</p>
+    <p class="lead">30秒で完成します。作れるのは<span data-cfg="labo_name">AI活用ラボ</span>の受講生のみです。</p>
     <div class="card">
       <label>呼ばれたい名前<small>（ひらがな・ニックネームOK）</small></label>
       <input type="text" id="nm" maxlength="15" placeholder="例）ゆき">
@@ -102,7 +103,7 @@ footer{text-align:center; font-size:10.5px; color:#9aa7b4; margin-top:26px; lett
   </div>
 
   <footer>
-    AI活用ラボ｜AIの力で、あなたの毎日をもっと豊かに。</footer>
+    <span data-cfg="labo_name">AI活用ラボ</span>｜AIの力で、あなたの毎日をもっと豊かに。</footer>
 </div>
 
 <script src="supabase_config.js"></script>

@@ -105,6 +105,7 @@ footer{text-align:center; font-size:10px; color:#9aa7b4; margin-top:18px; letter
 .mbox button{margin-top:12px; width:100%; border:none; background:linear-gradient(135deg,var(--pink3),var(--pink)); color:#fff; border-radius:999px; padding:12px; font-size:14px; font-weight:800; cursor:pointer; font-family:inherit;}
 .mbox .skip{margin-top:8px; font-size:11px; color:#9aa7b4; text-decoration:underline; cursor:pointer;}
 </style>
+<script src="labo_config.js"></script>
 </head>
 <body>
 <div class="wrap">
@@ -112,7 +113,7 @@ footer{text-align:center; font-size:10px; color:#9aa7b4; margin-top:18px; letter
   <div class="hero">
     <div class="avatar"><img src="assets/hk-desk.png" alt="AIはるか"></div>
     <h1>AIはるか</h1>
-    <div class="sub">AI活用ラボ</div>
+    <div class="sub"><span data-cfg="labo_name">AI活用ラボ</span></div>
     <p class="desc">24時間、ここにいます。悩みでも、雑談でも、なんでもどうぞ。</p>
   </div>
 
@@ -147,7 +148,7 @@ footer{text-align:center; font-size:10px; color:#9aa7b4; margin-top:18px; letter
     本物のはるかに相談したいときは、<a href="start.html">AIカルテ</a>から送ってください。ひとつずつ、ちゃんと読んでお返しします。
   </div>
 
-  <footer>AI活用ラボ｜AIの相棒を育成しよう</footer>
+  <footer><span data-cfg="labo_name">AI活用ラボ</span>｜AIの相棒を育成しよう</footer>
 </div>
 
 <div class="modal" id="modal">
@@ -174,6 +175,7 @@ footer{text-align:center; font-size:10px; color:#9aa7b4; margin-top:18px; letter
         🥲=自己開示・寄り添い／🙌=行動提案／❤️‍🔥=気合い／＾＾！！=締め（毎回は使わない）
    NG(v4 §13)：収入・成果の「保証」はしない／他スク・他者を批判しない／医療・法律・投資の断定はしない
 ========================================================= */
+var CF=window.cfg||function(k,d){return d;};
 var LS_KEY="ai-haruka-chat", NM_KEY="ai-haruka-name";
 function nm(){ try{return localStorage.getItem(NM_KEY)||"";}catch(e){return "";} }
 function dispName(){ var n=nm(); return n?n+"さん":"あなた"; }
@@ -187,7 +189,7 @@ var RULES=[
    "ひとりで抱えないことが、いちばんの勇気です。私はずっと味方です🤍"]
 ]},
 { re:/締め切り|締切|しめきり|いつまで|期限|まだ申し込め|まだ間に合/, replies:[
-  ["お申込みの締切は2026年9月15日（火）です☺️ 第1期は受講生・卒業生の方限定です！",
+  ["お申込みの締切は"+CF("deadline","2026年9月15日（火）")+"です☺️ "+CF("term_label","第1期")+"は受講生・卒業生の方限定です！",
    "くわしい流れは、ご案内ページを見てくださいね✨"]
 ]},
 { re:/よくある質問|FAQ|faq|質問集|どこで聞け/, replies:[
@@ -195,8 +197,8 @@ var RULES=[
    "答えられなかったことは、AIカルテからはるかに直接送れます✨"]
 ]},
 { re:/受講料|料金|お値段|お支払|支払い|決済|振込|振り込|ペイパル|paypal|PayPal|クレジット|申込|申し込/, replies:[
-  ["受講料は45,000円（税込）です☺️ 第1期は受講生・卒業生向けの特別価格です（第2期以降は58,000円の予定）✨",
-   "お支払いはクレジットカード（分割のご相談も可能）と銀行振込に対応しています。お申込みの流れはご案内ページでどうぞ🙌"]
+  ["受講料は"+CF("price","45,000円")+"（税込）です☺️ "+CF("term_label","第1期")+"は受講生・卒業生向けの特別価格です✨"+(CF("price_note","")?" "+CF("price_note",""):""),
+   "お支払いは"+CF("payment","クレジットカード決済（分割のご相談も可能）／銀行振込")+"に対応しています。お申込みの流れはご案内ページでどうぞ🙌"]
 ]},
 { re:/スクショ|スクリーンショット|確認できま|確認されな|はじかれ|弾かれ/, replies:[
   ["お支払いの確認でうまくいかない時は、『どんな画面が出たか』を運営のLINEに送ってください☺️",
@@ -211,8 +213,8 @@ var RULES=[
    "戻れたら、今度こそブックマーク（ホーム画面に追加）しておいてくださいね✨"]
 ]},
 { re:/勉強会|日程|いつから|開講|アーカイブ|録画/, replies:[
-  ["開講は2026年10月上旬の予定です（詳しい日程はいま調整中です）☺️",
-   "勉強会はアーカイブ（録画）が残るので、当日参加できなくても後から見られますよ✨"]
+  ["開講は"+CF("start_date","2026年10月上旬（予定・詳細日程は調整中）")+"です☺️",
+   CF("archive_note","勉強会はアーカイブ（録画）が残るので、当日参加できなくても後から見られますよ✨")]
 ]},
 { re:/キャンセル|返金/, replies:[
   ["ごめんなさい。役務という性質上、お支払い後のキャンセル・返金はできない決まりです（受講規約をご確認ください）。",
@@ -368,11 +370,11 @@ var RULES=[
    "ちなみに、いちばん引っかかっているのはどこですか？そこ、一緒に整理しましょ🙌"]
 ]},
 { re:/はるかさん|会いたい|本物|直接話/, replies:[
-  ["わ、うれしいです🥺✨ 本物のはるかは、AI活用ラボの勉強会とオープンチャットにいます！",
+  ["わ、うれしいです🥺✨ 本物の"+CF("instructor_nick","はるか")+"は、"+CF("labo_name","AI活用ラボ")+"の勉強会とオープンチャットにいます！",
    "じっくり相談したいときは、AIカルテから送ってくださいね。ひとつずつ、ちゃんと読んでお返ししています🤍"]
 ]},
 { re:/ラボ|講座|カルテ|受講|入りたい|参加したい/, replies:[
-  ["AI活用ラボのことですね☺️ 開講は2026年10月上旬の予定です（詳しい日程は調整中）！",
+  [CF("labo_name","AI活用ラボ")+"のことですね☺️ 開講は"+CF("start_date","2026年10月上旬（予定・詳細日程は調整中）")+"です！",
    "最初は講義じゃなくて、あなたの課題の炙り出し（AIカルテ）から始めます。自分の現在地が見えると、一歩目がすごく軽くなりますよ🤍",
    "わからないことがあれば、オープンチャットでもカルテでも、遠慮なくどうぞ✨"]
 ]},
