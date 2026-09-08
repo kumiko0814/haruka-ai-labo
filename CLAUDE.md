@@ -36,7 +36,7 @@
 | `ai.html` | AIチャット。`var RULES=[` 以下が自動応答 | 回答の追加・修正を頼まれた時だけ |
 | `index.html` | 受講生のカルテ画面 | 原則触らない |
 | `kanri.html` | 運営者の管理画面 | 原則触らない |
-| `start.html` / `setup.html` / `handover.html` / `promo.html` | 入口・設置ガイド・引き継ぎ書・資材一覧 | 原則触らない |
+| `start.html` / `setup.html` / `handover.html` / `manual.html` / `promo.html` | 入口・設置ガイド・引き継ぎ書（運営者宛の短い版）・運用マニュアル（詳細）・資材一覧 | 原則触らない |
 | `supabase_config.js` | データベース接続（url / anonKey / enabled） | 本番化の時だけ |
 | `assets/hk-*.png` | キャラクター画像5点 | 差し替えを頼まれた時だけ（同名で上書き） |
 
