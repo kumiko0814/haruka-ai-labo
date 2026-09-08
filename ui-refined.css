@@ -52,7 +52,7 @@ body.page-lp{background:#f0f4ff;color:#22304a;padding-bottom:88px;font-family:"H
 .page-lp .ui-primary:after{content:'→';font-size:19px}
 .page-lp .ui-secondary{background:none;border:0;border-bottom:1px solid #22304a;border-radius:0;padding:10px 0;min-height:44px;font-size:13px;font-weight:500;box-shadow:none}
 .page-lp .ui-primary:hover{background:#2c3a55;transform:none;box-shadow:none}.page-lp .ui-secondary:hover{color:#a75da9;transform:none;box-shadow:none}
-.page-lp .sec{position:relative;display:grid;grid-template-columns:220px minmax(0,1fr);gap:0 52px;padding:76px 0;margin:0;border:0;border-bottom:1px solid #22304a30}
+.page-lp .sec{position:relative;display:grid;grid-template-columns:220px minmax(0,1fr);grid-template-rows:30px auto;gap:0 52px;padding:76px 0;margin:0;border:0;border-bottom:1px solid #22304a30}
 .page-lp .sec>.eyebrow{grid-column:1;color:#a75da9;text-align:left;font:italic 17px Georgia,serif;letter-spacing:0;margin-bottom:12px}
 .page-lp .sec>h2{grid-column:1;text-align:left;font-family:"Hiragino Mincho ProN","Yu Mincho",serif;font-size:26px;line-height:1.75;font-weight:600;letter-spacing:.015em;margin:0;align-self:start;overflow-wrap:anywhere}
 .page-lp .sec>div:not(.eyebrow),.page-lp .sec>.faqq{grid-column:2}
