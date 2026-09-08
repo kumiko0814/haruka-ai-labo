@@ -61,6 +61,11 @@ header .lg{font-size:13px; font-weight:800; letter-spacing:.14em; color:#f3d9f5;
 .lvl li{font-size:12.5px; color:var(--text); margin-top:7px; padding-left:20px; position:relative; line-height:1.75;}
 .lvl li::before{content:"○"; position:absolute; left:0; top:0; font-size:9px; color:var(--pink); top:5px;}
 
+/* generic bullet list (reassurance / info) */
+.ilist{list-style:none; padding-left:0; margin-top:10px;}
+.ilist li{font-size:12.5px; color:var(--text); margin-top:9px; padding-left:20px; position:relative; line-height:1.85;}
+.ilist li::before{content:"○"; position:absolute; left:0; top:5px; font-size:9px; color:var(--pink);}
+
 /* guide list (numbered steps) */
 .glist{background:#fff; border-radius:18px; padding:6px 4px; box-shadow:0 6px 20px rgba(44,58,85,.08);}
 .glist .row{display:flex; gap:12px; padding:13px 16px; border-bottom:1px solid var(--line); align-items:flex-start;}
@@ -82,11 +87,35 @@ code{font-family:"SFMono-Regular",Consolas,"Courier New",monospace; background:#
 .promptbox h3{font-size:13.5px; color:var(--navy2);}
 .promptbox .pd{font-size:11.5px; color:var(--muted); margin-top:4px; line-height:1.8;}
 
+/* spell cards (4 magic phrases) */
+.spellgrid{display:flex; flex-direction:column; gap:14px;}
+.spellcard{background:#fff; border-radius:18px; padding:18px 18px 16px; box-shadow:0 6px 20px rgba(44,58,85,.08); border-top:4px solid var(--blue);}
+.spellcard:nth-child(2){border-top-color:var(--pink);}
+.spellcard:nth-child(3){border-top-color:var(--deep);}
+.spellcard:nth-child(4){border-top-color:var(--navy2);}
+.spellcard .cmdrow{display:flex; align-items:center; gap:10px; flex-wrap:wrap;}
+.spellcard .cmdrow code{font-size:15.5px; padding:5px 14px; background:var(--pinkbg); color:var(--deep);}
+.spellcard .cmdrow .when{font-size:11px; color:var(--muted); font-weight:800;}
+.spellcard .lbl{font-size:11px; font-weight:800; color:var(--navy2); margin-top:14px; letter-spacing:.03em;}
+.spellcard .val{font-size:12.5px; color:var(--text); margin-top:5px; line-height:1.85;}
+.spellcard pre{margin-top:6px; margin-bottom:0;}
+.spellnote{margin-top:14px; background:rgba(255,255,255,.7); border:1px dashed #d8d1ea; border-radius:14px; padding:13px 15px; font-size:12px; color:#6f6a7d; line-height:1.9;}
+.spellnote b{color:var(--navy2);}
+
 /* warn / tip box */
 .warn{margin-top:14px; background:#fff6fb; border:1px dashed #eccbe6; border-radius:14px; padding:14px 16px; font-size:12px; color:#6f6a7d; line-height:1.9;}
 .warn b{color:var(--deep); display:block; font-size:12.5px; margin-bottom:6px;}
 .warn ul{padding-left:18px; margin-top:2px;}
 .warn li{margin-top:5px;}
+
+/* collapsible fallback sections */
+details{background:#fff; border-radius:18px; margin-top:12px; box-shadow:0 6px 20px rgba(44,58,85,.08); overflow:hidden;}
+details summary{cursor:pointer; list-style:none; padding:15px 18px; font-size:13.5px; font-weight:800; color:var(--navy2); display:flex; align-items:center; gap:10px;}
+details summary::-webkit-details-marker{display:none;}
+details summary::after{content:"▼"; margin-left:auto; font-size:9px; color:var(--muted); transition:transform .2s ease;}
+details[open] summary::after{transform:rotate(180deg);}
+details .dtbody{padding:0 18px 18px;}
+details .dtbody p.desc{margin-top:0;}
 
 /* Q&A */
 .qa{background:#fff; border-radius:18px; padding:6px 4px; box-shadow:0 6px 20px rgba(44,58,85,.08);}
@@ -123,8 +152,7 @@ footer{text-align:center; font-size:10.5px; color:var(--muted); margin:30px 0 10
     <h1>引き継ぎ書</h1>
     <div class="badge"><span class="grad" data-cfg="labo_name">AI活用ラボ</span>　運用マニュアル</div>
     <div class="lead">
-      このページ1枚で、毎日の運用のやり方から、別の会社でこのしくみをそのまま複製する方法まで、すべてがわかるようになっています。
-      <b>プログラムの知識やClaudeへの慣れは必要ありません。</b>読みながらそのまま操作していただける形にまとめました。
+      覚えていただくのは、<b>4つの呪文</b>だけです。あとは Claude（クロード。文章の作成やファイルの書き換えを手伝ってくれるAI）に日本語で話しかけていただくだけで、設定の変更・告知文づくり・カルテへの返信・公開までを、代わりにやってくれます。<b>プログラムの知識は必要ありません。</b>
     </div>
   </div>
 
@@ -142,65 +170,136 @@ footer{text-align:center; font-size:10.5px; color:var(--muted); margin:30px 0 10
     </div>
   </div>
 
-  <!-- 2. Claudeが使えなくても大丈夫 -->
+  <!-- 2. 運用は「話しかけるだけ」 -->
   <div class="sec">
-    <div class="st"><span class="no">2</span><h2>Claudeが使えなくても大丈夫です</h2><span class="sub">運用は3つのレベルに分かれています</span></div>
-    <p class="desc">「AIを使いこなさないと運用できない」というものではありません。日々のことのほとんどは管理画面の操作だけで完結します。Claude（AIチャット）を使うのは、数ヶ月に一度あるかどうかの場面だけです。</p>
+    <div class="st"><span class="no">2</span><h2>運用は「話しかけるだけ」</h2><span class="sub">3つのレベルに分かれています</span></div>
+    <p class="desc">日々のことのほとんどは、Claudeに日本語で話しかけていただくだけで進みます。むずかしい操作を覚えていただく必要はありません。</p>
 
     <div class="lvl">
-      <div class="hd"><span class="tag l0">レベル0</span><h3>毎日〜毎週の運用</h3><span class="freq">Claude不要・管理画面だけ</span></div>
+      <div class="hd"><span class="tag l0">レベル0</span><h3>毎日〜毎週の運用</h3><span class="freq">管理画面＋Claudeへひと声</span></div>
       <ul>
-        <li>受講生の招待リンク発行</li>
-        <li>カルテ受信ボックスの確認と返信</li>
-        <li>進捗・傾向の確認</li>
-        <li>みんなへのメッセージ更新</li>
-        <li>バグ報告の確認</li>
-        <li>週1回は必ず管理画面を開く（Supabase無料プランは1週間アクセスがないと自動的に止まってしまうため）</li>
+        <li>管理画面で、受講生の招待・進捗・バグ報告を確認します</li>
+        <li>カルテへの返信は <code>/karte</code> にお任せください。Claudeが講師ご本人の文体で下書きを作り、あなたが「OK」を出してから送信します。品質は人格設計資料の模範回答が基準です</li>
+        <li>週1回は必ず管理画面を開いてください（Supabaseの無料プランは、1週間まったくアクセスがないと自動で休止する仕組みのためです）</li>
       </ul>
     </div>
 
     <div class="lvl">
-      <div class="hd"><span class="tag l1">レベル1</span><h3>募集期ごとの更新</h3><span class="freq">Claude不要・ファイルを1つ編集</span></div>
+      <div class="hd"><span class="tag l1">レベル1</span><h3>募集期ごとの更新</h3><span class="freq"><code>/boshu</code>と伝えるだけ</span></div>
       <ul>
-        <li>受講料の変更</li>
-        <li>締切日の変更</li>
-        <li>開講日の変更</li>
-        <li>週ごとの日程の変更</li>
-        <li>お申込みリンクの変更</li>
-        <li>第2期への切替</li>
+        <li>価格・締切・開講日・週ごとの日程を、思ったままの言葉で伝えるだけです</li>
+        <li>例）「第2期 10月6日開講 58,000円 締切9月28日」</li>
+        <li>Claudeが変更点をお見せし、「OK」のあとは公開まで自動で進みます</li>
       </ul>
     </div>
 
     <div class="lvl">
-      <div class="hd"><span class="tag l2">レベル2</span><h3>数ヶ月に1回の変更</h3><span class="freq">Claudeに頼むと楽にできます</span></div>
+      <div class="hd"><span class="tag l2">レベル2</span><h3>数ヶ月に1回の変更</h3><span class="freq">頼むだけで完結</span></div>
       <ul>
-        <li>AIはるかの回答を増やす・直す（ai.htmlのRULES）</li>
-        <li>LPの文章やデザインの変更</li>
-        <li>講師プロフィールの変更（lp.htmlのナビゲーター欄）</li>
-        <li>キャラクター画像の差し替え（assetsフォルダ）</li>
+        <li>「LPの文章を直して」</li>
+        <li>「AIチャットの回答を増やして」</li>
+        <li>講師プロフィールやキャラクター画像の差し替えも、同じように頼めます</li>
+      </ul>
+    </div>
+
+    <div class="warn"><b>Claudeが使えない時は</b>このページの後ろにある「Claude Codeが使えない時だけ」の章に、代わりの手順をまとめてあります。ふだんはここまで読んでいただければ十分です。</div>
+  </div>
+
+  <!-- 3. 最初の1回だけ：Claude Codeを入れる -->
+  <div class="sec">
+    <div class="st"><span class="no">3</span><h2>最初の1回だけ：Claude Codeを入れる</h2><span class="sub">ここだけ準備が必要です</span></div>
+    <p class="desc">Claude Codeは、Claudeにファイルの読み書きや公開作業までお願いできるアプリです。最初の準備さえ済めば、以降は日本語で話しかけるだけになります。</p>
+    <div class="steps">
+      <p>①　Anthropic（Claudeを作っている会社）のアカウントを作り、<b>Claude Pro以上のプラン</b>（Claude Codeが使えるプラン）にご登録ください。</p>
+      <p>②　<b>Claude Code</b>（パソコンにインストールするアプリ、またはVS Codeという編集ソフトの拡張機能）をインストールしてください。</p>
+      <p>③　<b>GitHub</b>（このシステム一式を保管している場所）のアカウントでログインします。初回だけの操作で、ブラウザの画面で「許可」ボタンを押していただくだけです。手順はClaudeが画面に沿ってご案内します。</p>
+      <p>④　<b>このリポジトリ</b>（このシステム一式が入ったフォルダのことです）を、Claude Codeで開きます。まだお手元にフォルダが無い場合は、複製の方法を初期設定ガイド（<code>setup.html</code>）でご案内しています。</p>
+      <p>⑤　引き継ぎの際にお渡しした<b>人格設計資料のファイル</b>を、<code>persona</code>という名前のフォルダに入れてください（このファイルはGitHub上には公開されない仕組みになっています）。</p>
+      <p>⑥　<code>/check</code> と入力して送信し、「表示OK」という報告が出れば、準備は完了です。</p>
+    </div>
+    <div class="warn">
+      <b>費用の目安</b>
+      Claude Proは月額制のご利用料金です。詳しい金額はAnthropicの料金ページでご確認ください。それ以外に追加でかかる費用はありません（SupabaseとGitHub Pagesは、どちらも無料の範囲でご利用いただけます）。
+    </div>
+  </div>
+
+  <!-- 4. 4つの呪文 -->
+  <div class="sec">
+    <div class="st"><span class="no">4</span><h2>4つの呪文</h2><span class="sub">これだけ覚えれば大丈夫です</span></div>
+    <p class="desc">Claude Codeの画面に、そのまま打って送信していただくだけです。呪文の形にせず、ふつうの言葉で話しかけても同じように動きます。</p>
+
+    <div class="spellgrid">
+      <div class="spellcard">
+        <div class="cmdrow"><code>/boshu</code><span class="when">募集期ごとに使います</span></div>
+        <div class="lbl">打つ言葉の例</div>
+        <pre id="sp1">/boshu 第2期 10月6日開講 58,000円 締切9月28日</pre>
+        <div class="copybar"><button class="copybtn" data-copy="sp1">コピーする</button></div>
+        <div class="lbl">Claudeがやること</div>
+        <div class="val">変更前と変更後を表にしてお見せします。「OK」をいただいたら、<code>labo_config.js</code>の書き換えから公開まで続けて行います。</div>
+        <div class="lbl">あなたがやること</div>
+        <div class="val">内容をご確認いただき、「OK」とお伝えいただくだけです。終わると確認用のURLが届きます。</div>
+      </div>
+
+      <div class="spellcard">
+        <div class="cmdrow"><code>/kokuchi</code><span class="when">告知が必要な時に</span></div>
+        <div class="lbl">打つ言葉の例</div>
+        <pre id="sp2">/kokuchi LINE用の告知文がほしいです</pre>
+        <div class="copybar"><button class="copybtn" data-copy="sp2">コピーする</button></div>
+        <div class="lbl">Claudeがやること</div>
+        <div class="val">講師ご本人の文体をまねて、トーン違いの案を2つ作ります。</div>
+        <div class="lbl">あなたがやること</div>
+        <div class="val">気に入った案を選び、ご自身の手で送信してください（<b>Claudeは送信いたしません</b>）。</div>
+      </div>
+
+      <div class="spellcard">
+        <div class="cmdrow"><code>/karte</code><span class="when">カルテが届いた時（週2〜3回ほど）</span></div>
+        <div class="lbl">打つ言葉の例</div>
+        <pre id="sp3">/karte</pre>
+        <div class="copybar"><button class="copybtn" data-copy="sp3">コピーする</button></div>
+        <div class="lbl">Claudeがやること</div>
+        <div class="val">未返信のカルテを新しい順に、1件ずつ「相談内容→返信案」の形でお見せします。「OK」で送信、「直して」で書き直し、「下書きにして」で管理画面への保存に切り替えます。送信すると、受講生の画面に「<span data-cfg="instructor_nick">はるか</span>からのアドバイス」として届きます。</div>
+        <div class="lbl">あなたがやること</div>
+        <div class="val">内容を読んで、返事をお伝えいただくだけです。<b>確認をいただく前に送信されることはありません。</b></div>
+      </div>
+
+      <div class="spellcard">
+        <div class="cmdrow"><code>/check</code><span class="when">不安な時・週1回の確認に</span></div>
+        <div class="lbl">打つ言葉の例</div>
+        <pre id="sp4">/check</pre>
+        <div class="copybar"><button class="copybtn" data-copy="sp4">コピーする</button></div>
+        <div class="lbl">Claudeがやること</div>
+        <div class="val">画面の表示、設定の反映、データベースの状態、未返信の件数、締切までの日数を、5行にまとめて報告します。</div>
+        <div class="lbl">あなたがやること</div>
+        <div class="val">報告を読んでいただくだけです。気になる点があれば、そのまま続けて聞いていただけます。</div>
+      </div>
+    </div>
+
+    <div class="spellnote"><b>呪文の形でなくても大丈夫です。</b>「価格を変えて」「告知文をちょうだい」「カルテを見て」と、ふだんの言葉で話しかけていただいても、同じ手順でClaudeが動きます。</div>
+  </div>
+
+  <!-- 5. カルテ返信の品質について -->
+  <div class="sec">
+    <div class="st"><span class="no">5</span><h2>カルテ返信の品質について</h2><span class="sub">安心してお使いいただくために</span></div>
+    <div class="promptbox">
+      <ul class="ilist">
+        <li>返信案は、人格設計資料の「返信文体の6つの手順」と、講師ご本人が書かれた模範回答3本を基準に作られます。</li>
+        <li>どんな返信案も、必ずあなたが読んで「OK」を出したあとに送信されます。Claudeが確認なしで送ることはありません。</li>
+        <li>「死にたい」「消えたい」など心配な内容の相談は、自動では返信を作らず、あなたに直接声をかけていただくよう促す仕組みになっています。</li>
+        <li>医療・法律・投資について断定的な言い方をしたり、収入を保証するような表現をすることはありません。</li>
       </ul>
     </div>
   </div>
 
-  <!-- 3. 毎日の運用 手順（レベル0） -->
+  <!-- 6. Claude Codeが使えない時だけ（予備手順） -->
   <div class="sec">
-    <div class="st"><span class="no">3</span><h2>毎日の運用 手順</h2><span class="sub">レベル0・管理者ボードだけでできます</span></div>
-    <p class="desc"><a href="kanri.html?demo=1" target="_blank" style="color:var(--deep); font-weight:800;">管理者ボードのデモ画面</a>を開きながら読み進めていただくとわかりやすいです。</p>
-    <div class="glist">
-      <div class="row"><span class="num">1</span><div class="tx"><b>受講生の招待リンクを発行する</b><span>「参加者の招待」に名前を入れて発行ボタンを押すと、その方専用のURLができます。LINEやメールでご本人に送ってください。</span></div></div>
-      <div class="row"><span class="num">2</span><div class="tx"><b>カルテ受信ボックスを確認して返信する</b><span>届いた内容を読み、返信欄にアドバイスを書いて送信ボタンを押します。送った内容は、その方の「AIカルテ」画面に「<span data-cfg="instructor_nick">はるか</span>からのアドバイス」として自動で届きます。</span></div></div>
-      <div class="row"><span class="num">3</span><div class="tx"><b>進捗・傾向を確認する</b><span>「カリキュラムの進捗」「みんなの傾向」で、全体の状況をひと目で確認できます。</span></div></div>
-      <div class="row"><span class="num">4</span><div class="tx"><b>みんなへのメッセージを更新する</b><span>「みんなへのメッセージ」の欄を書き換えて保存すると、参加者全員の画面に表示されます。開講のごあいさつや、その週のひとことにご利用ください。</span></div></div>
-      <div class="row"><span class="num">5</span><div class="tx"><b>バグ報告を確認する</b><span>「バグ報告」に届いた内容を確認し、必要であれば対応します。</span></div></div>
-      <div class="row"><span class="num">6</span><div class="tx"><b>週1回は必ず管理画面を開く</b><span>無料のデータベース（Supabase）は、1週間まったくアクセスがないと自動的に停止してしまいます。曜日を決めて、週に1回はこのページを開く習慣をつけてください。</span></div></div>
-    </div>
-  </div>
+    <div class="st"><span class="no">6</span><h2>Claude Codeが使えない時だけ</h2><span class="sub">予備の手順です・ふだんは不要です</span></div>
+    <p class="desc">通常はここを読んでいただく必要はありません。Claude Codeが使えない状況になった時のための、予備の手順です。</p>
 
-  <!-- 4. 募集期の更新 手順（レベル1） -->
-  <div class="sec">
-    <div class="st"><span class="no">4</span><h2>募集期の更新 手順</h2><span class="sub">レベル1・labo_config.js を1つ編集するだけ</span></div>
-    <p class="desc"><code>labo_config.js</code> は、ラボ名・受講料・締切・お申込みリンクなど、各ページに表示される文字を1か所にまとめた設定ファイルです。この中の値を書き換えて保存するだけで、ご案内ページ・AIはるか・カルテ・管理画面の表示がまとめて変わります。</p>
-    <pre><code>var LABO_CONFIG = {
+    <details>
+      <summary>予備手順①　募集期の更新をブラウザだけで行う</summary>
+      <div class="dtbody">
+        <p class="desc"><code>labo_config.js</code> は、ラボ名・受講料・締切・お申込みリンクなど、各ページに表示される文字を1か所にまとめた設定ファイルです。この中の値を書き換えて保存するだけで、ご案内ページ・AIはるか・カルテ・管理画面の表示がまとめて変わります。</p>
+        <pre><code>var LABO_CONFIG = {
   labo_name: "AI活用ラボ",
   company: "合同会社Li-Li",
   instructor_name: "菅野 春香",
@@ -222,43 +321,44 @@ footer{text-align:center; font-size:10.5px; color:var(--muted); margin:30px 0 10
   weeks: ["日程調整中","日程調整中","日程調整中","日程調整中","日程調整中","日程調整中"]
 };</code></pre>
 
-    <div class="steps" style="margin-top:16px;">
-      <p>①　github.com を開き、このリポジトリを開きます。</p>
-      <p>②　ファイル一覧から <code>labo_config.js</code> をクリックします。</p>
-      <p>③　右上の鉛筆マーク（Edit）を押します。</p>
-      <p>④　<b>" "（引用符）の中の文字だけ</b>書き換えます。前後の記号や <code>,</code>（カンマ）は消さないでください。</p>
-      <p>⑤　右上の緑色のボタン「Commit changes」を押し、出てきた画面でもう一度「Commit changes」を押します。</p>
-      <p>⑥　1〜2分待ってからページを再読み込みします。反映されない時は、URLの末尾に <code>?v=2</code> を付けて開いてみてください。</p>
-    </div>
+        <div class="steps" style="margin-top:16px;">
+          <p>①　github.com を開き、このリポジトリを開きます。</p>
+          <p>②　ファイル一覧から <code>labo_config.js</code> をクリックします。</p>
+          <p>③　右上の鉛筆マーク（Edit）を押します。</p>
+          <p>④　<b>" "（引用符）の中の文字だけ</b>書き換えます。前後の記号や <code>,</code>（カンマ）は消さないでください。</p>
+          <p>⑤　右上の緑色のボタン「Commit changes」を押し、出てきた画面でもう一度「Commit changes」を押します。これが push（インターネットに公開する操作）にあたります。</p>
+          <p>⑥　1〜2分待ってからページを再読み込みします。反映されない時は、URLの末尾に <code>?v=2</code> を付けて開いてみてください。</p>
+        </div>
 
-    <div class="warn">
-      <b>つまずきやすいポイントと対処</b>
-      <ul>
-        <li><b>引用符（" "）ごと消してしまう</b>　→　前後の " " は残したまま、中の文字だけを書き換えてください。</li>
-        <li><b>行の最後の ,（カンマ）を消してしまう</b>　→　1行ごとの末尾の <code>,</code> はそのまま残してください（いちばん最後の行だけカンマなしでOKです）。</li>
-        <li><b>全角の引用符（" "）になってしまう</b>　→　半角の <code>"</code> のまま書き換えてください。日本語入力中に変換されて全角になっていないか、保存前にご確認ください。</li>
-      </ul>
-    </div>
+        <div class="warn">
+          <b>つまずきやすいポイントと対処</b>
+          <ul>
+            <li><b>引用符（" "）ごと消してしまう</b>　→　前後の " " は残したまま、中の文字だけを書き換えてください。</li>
+            <li><b>行の最後の ,（カンマ）を消してしまう</b>　→　1行ごとの末尾の <code>,</code> はそのまま残してください（いちばん最後の行だけカンマなしでOKです）。</li>
+            <li><b>全角の引用符（" "）になってしまう</b>　→　半角の <code>"</code> のまま書き換えてください。日本語入力中に変換されて全角になっていないか、保存前にご確認ください。</li>
+          </ul>
+        </div>
 
-    <p class="desc" style="margin-top:16px;">第2期に切り替える時は、主に次の項目を書き換えます。</p>
-    <pre><code>term_label     "第1期"        →  "第2期"
+        <p class="desc" style="margin-top:16px;">第2期に切り替える時は、主に次の項目を書き換えます。</p>
+        <pre><code>term_label     "第1期"        →  "第2期"
 price          "45,000円"     →  新しい受講料
 price_badge    "第1期 特別価格｜受講生・卒業生 限定"  →  次期の案内文
 price_note     一般募集の告知に合わせて書き換え（不要なら空文字 "" でも可）
 target         "lilisコンサル 受講生・卒業生 限定"  →  次期の対象者
 deadline       "2026年9月15日（火）"  →  新しい締切日
 weeks          日程が決まった週から、順番に書き換え</code></pre>
-  </div>
+      </div>
+    </details>
 
-  <!-- 5. Claudeに頼むとき（レベル2） -->
-  <div class="sec">
-    <div class="st"><span class="no">5</span><h2>Claudeに頼むとき</h2><span class="sub">レベル2・数ヶ月に1回</span></div>
-    <p class="desc">claude.ai を開き、該当するファイル（例：ai.html）をチャット画面にドラッグ＆ドロップまたは添付してから、下のプロンプトの〇〇や『　』の中をご自身の内容に書き換えて、そのまま貼って送信してください。</p>
+    <details>
+      <summary>予備手順②　コピペ用プロンプト（claude.ai のチャット画面に貼る）</summary>
+      <div class="dtbody">
+        <p class="desc">claude.ai を開き、該当するファイル（例：ai.html）をチャット画面にドラッグ＆ドロップまたは添付してから、下のプロンプトの〇〇や『　』の中をご自身の内容に書き換えて、そのまま貼って送信してください。</p>
 
-    <div class="promptbox">
-      <h3>① AIはるかの回答を追加する</h3>
-      <div class="pd">添付するファイル：ai.html／あわせて人格設計資料（Googleドキュメント）も貼るとより精度が上がります。</div>
-      <pre id="pr1">添付するai.htmlのRULES配列に、新しい質問と回答を1件追加してください。
+        <div class="promptbox">
+          <h3>① AIはるかの回答を追加する</h3>
+          <div class="pd">添付するファイル：ai.html／あわせて人格設計資料も貼るとより精度が上がります。</div>
+          <pre id="pr1">添付するai.htmlのRULES配列に、新しい質問と回答を1件追加してください。
 
 追加したい相談内容：
 『（ここに追加したい質問を書いてください。例：オープンチャットに入れない時はどうすればいいですか）』
@@ -268,13 +368,13 @@ weeks          日程が決まった週から、順番に書き換え</code></pr
 ・RULES配列の他の項目とまったく同じ書き方（re: 正規表現, replies: [[...]] の形）に合わせてください
 ・「必ず」「絶対に」など、保証をするような言い方は避けてください
 ・書き換えたファイル全体を返してください</pre>
-      <div class="copybar"><button class="copybtn" data-copy="pr1">コピーする</button></div>
-    </div>
+          <div class="copybar"><button class="copybtn" data-copy="pr1">コピーする</button></div>
+        </div>
 
-    <div class="promptbox">
-      <h3>② LPの文章を直す</h3>
-      <div class="pd">添付するファイル：lp.html</div>
-      <pre id="pr2">添付するlp.htmlの中の、〇〇の文章を直してください。
+        <div class="promptbox">
+          <h3>② LPの文章を直す</h3>
+          <div class="pd">添付するファイル：lp.html</div>
+          <pre id="pr2">添付するlp.htmlの中の、〇〇の文章を直してください。
 
 直したい内容：
 『（ここに直したい箇所と、どう直したいかを書いてください。例：受講料の説明をもっと簡潔にしたい）』
@@ -283,13 +383,13 @@ weeks          日程が決まった週から、順番に書き換え</code></pr
 ・すでにあるデザイン（色・フォント・レイアウト）はそのまま変えないでください
 ・文章のトーンは、やわらかい敬体（です・ます）のままにしてください
 ・書き換えたファイル全体を返してください</pre>
-      <div class="copybar"><button class="copybtn" data-copy="pr2">コピーする</button></div>
-    </div>
+          <div class="copybar"><button class="copybtn" data-copy="pr2">コピーする</button></div>
+        </div>
 
-    <div class="promptbox">
-      <h3>③ 表示が崩れた・動かない時の修正依頼</h3>
-      <div class="pd">添付するファイル：症状が出ているファイル（例：index.html）</div>
-      <pre id="pr3">添付するファイル（〇〇.html）で、下記の不具合が起きています。原因を調べて直してください。
+        <div class="promptbox">
+          <h3>③ 表示が崩れた・動かない時の修正依頼</h3>
+          <div class="pd">添付するファイル：症状が出ているファイル（例：index.html）</div>
+          <pre id="pr3">添付するファイル（〇〇.html）で、下記の不具合が起きています。原因を調べて直してください。
 
 起きていること：
 『（ここに症状を書いてください。例：スマホで見るとボタンがはみ出す／申し込みボタンを押しても反応しない）』
@@ -301,25 +401,29 @@ weeks          日程が決まった週から、順番に書き換え</code></pr
 ・デザインや他の機能は変えず、不具合の原因だけを直してください
 ・直した箇所と理由を、最後に簡単に説明してください
 ・書き換えたファイル全体を返してください</pre>
-      <div class="copybar"><button class="copybtn" data-copy="pr3">コピーする</button></div>
-    </div>
+          <div class="copybar"><button class="copybtn" data-copy="pr3">コピーする</button></div>
+        </div>
+      </div>
+    </details>
   </div>
 
-  <!-- 6. トラブル対応Q&A -->
+  <!-- 7. トラブル対応Q&A -->
   <div class="sec">
-    <div class="st"><span class="no">6</span><h2>トラブル対応Q&amp;A</h2></div>
+    <div class="st"><span class="no">7</span><h2>トラブル対応Q&amp;A</h2></div>
     <div class="qa">
       <div class="item"><div class="q"><span class="m">Q.</span>画面が表示されません</div><div class="a">GitHub Pagesは、ファイルを更新してから反映まで1〜2分ほどかかることがあります。少し待ってから再読み込みしてください。それでも直らない時は、URLのつづりが正しいかをご確認ください。</div></div>
-      <div class="item"><div class="q"><span class="m">Q.</span>カルテの内容が管理者ボードに届きません</div><div class="a"><code>supabase_config.js</code> を開き、<code>enabled</code> が <code>true</code> になっているかをご確認ください。<code>false</code> のままだと、送信内容が保存されない確認用の状態のままになります。あわせて、Supabaseが停止していないかもご確認ください。</div></div>
-      <div class="item"><div class="q"><span class="m">Q.</span>Supabase（データベース）が停止してしまいました</div><div class="a">無料プランは、1週間まったくアクセスがないと自動的に停止する仕組みになっています。Supabaseのダッシュボードを開き、「Restore」ボタンを押していただくと数分で元に戻ります。</div></div>
+      <div class="item"><div class="q"><span class="m">Q.</span>カルテの内容が管理者ボードに届きません</div><div class="a"><code>supabase_config.js</code> を開き、<code>enabled</code> が <code>true</code> になっているかをご確認ください。<code>false</code> のままだと、送信内容が保存されない確認用の状態のままになります。あわせて、Supabaseが休止していないかもご確認ください。</div></div>
+      <div class="item"><div class="q"><span class="m">Q.</span>Supabase（データベース）が休止してしまいました</div><div class="a">無料プランは、1週間まったくアクセスがないと自動的に休止する仕組みになっています。Supabaseのダッシュボードを開き、「Restore」ボタンを押していただくと数分で元に戻ります。心配な時は <code>/check</code> と話しかけていただければ、状態を確認してお伝えします。</div></div>
       <div class="item"><div class="q"><span class="m">Q.</span>決済リンクが開かない・エラーになります</div><div class="a">UnivaPay側の決済リンクの設定をご確認ください。あわせて、<code>labo_config.js</code> の <code>apply_url</code> が正しいリンクになっているかもご確認ください。</div></div>
       <div class="item"><div class="q"><span class="m">Q.</span>受講生の方が、自分の専用ページに戻れなくなりました</div><div class="a">カルテ入口のページに、登録した時と同じメールアドレスをもう一度入力していただいてください。書いた内容がそのまま残った、同じ専用ページに戻ることができます。</div></div>
+      <div class="item"><div class="q"><span class="m">Q.</span>Claudeが「personaフォルダに資料がありません」と言います</div><div class="a">引き継ぎの際にお渡しした人格設計資料のファイルを、<code>persona</code>という名前のフォルダに入れてください。ファイルが無いままでは、Claudeは講師の人格を作り話しにしない仕組みになっています。</div></div>
+      <div class="item"><div class="q"><span class="m">Q.</span>push（公開する操作）に失敗しました</div><div class="a">GitHub（このシステム一式を保管している場所）への初回ログインがまだの状態です。Claudeの案内どおりに、ブラウザでログインボタンを押してください。一度ログインすれば、次回からは自動で進みます。</div></div>
     </div>
   </div>
 
-  <!-- 7. 別の会社で使うとき -->
+  <!-- 8. 別の会社で使うとき -->
   <div class="sec">
-    <div class="st"><span class="no">7</span><h2>別の会社で使うとき</h2><span class="sub">複製手順の要約</span></div>
+    <div class="st"><span class="no">8</span><h2>別の会社で使うとき</h2><span class="sub">複製手順の要約</span></div>
     <div class="steps">
       <p>①　リポジトリを複製します（GitHubの「Fork」を使うか、zipでダウンロードして新しいリポジトリにアップロードします）。</p>
       <p>②　<code>labo_config.js</code> のブランド項目（ラボ名・会社名・講師名・受講料など）をすべて書き換えます。</p>
@@ -328,13 +432,13 @@ weeks          日程が決まった週から、順番に書き換え</code></pr
       <p>⑤　新しくSupabase（無料のデータベース）を作り、<code>supabase_config.js</code> を本番用に書き換えます（setup.htmlの手順のとおりです）。</p>
       <p>⑥　GitHub Pagesを有効にして公開します。</p>
     </div>
-    <p class="desc" style="margin-top:14px;">くわしい手順は、初期設定ガイドをご覧ください。</p>
+    <p class="desc" style="margin-top:14px;">くわしい手順は、初期設定ガイドをご覧ください。複製したあとは、Claude Codeで「設置ガイド（setup.html）に沿って進めて」と頼んでいただければ、そのまま案内してくれます。</p>
     <div class="map"><div class="maprow"><span class="ic">🛠️</span><div class="body"><div class="nm">初期設定ガイド</div><div class="ds">Supabaseの作成からGitHub Pagesの公開まで、番号つきで手順をまとめています。</div></div><a class="go" href="setup.html" target="_blank">見る</a></div></div>
   </div>
 
-  <!-- 8. 引き継ぎチェックリスト -->
+  <!-- 9. 引き継ぎチェックリスト -->
   <div class="sec">
-    <div class="st"><span class="no">8</span><h2>引き継ぎチェックリスト</h2><span class="sub">Merone　→　運営者</span></div>
+    <div class="st"><span class="no">9</span><h2>引き継ぎチェックリスト</h2><span class="sub">Merone　→　運営者</span></div>
     <div class="check">
       <div class="row"><span class="bx"></span><span class="tx">GitHubリポジトリの所有権（譲渡、またはコラボレーターとして追加）</span></div>
       <div class="row"><span class="bx"></span><span class="tx">GitHub Pagesの公開設定</span></div>
@@ -345,13 +449,14 @@ weeks          日程が決まった週から、順番に書き換え</code></pr
       <div class="row"><span class="bx"></span><span class="tx">labo_config.js の内容確認</span></div>
       <div class="row"><span class="bx"></span><span class="tx">管理者ボードのログイン確認</span></div>
       <div class="row"><span class="bx"></span><span class="tx">キャラクター画像・素材一式の受け渡し</span></div>
-      <div class="row"><span class="bx"></span><span class="tx">人格設計資料（Googleドキュメント）の共有</span></div>
+      <div class="row"><span class="bx"></span><span class="tx">人格設計資料（persona_haruka.md）の受け渡し</span></div>
+      <div class="row"><span class="bx"></span><span class="tx">Claude Codeの初期設定完了（<code>/check</code>が通ること）</span></div>
     </div>
   </div>
 
-  <!-- 9. サポート範囲 -->
+  <!-- 10. サポート範囲 -->
   <div class="sec">
-    <div class="st"><span class="no">9</span><h2>サポート範囲</h2><span class="sub">引き継ぎ後にMeroneが対応すること</span></div>
+    <div class="st"><span class="no">10</span><h2>サポート範囲</h2><span class="sub">引き継ぎ後にMeroneが対応すること</span></div>
     <div class="phbox">
       <p>引き継ぎ後、株式会社Meroneがどこまで対応するかについては、以下のとおりです。</p>
       <div class="ph">【サポート範囲：くみこ確定】</div>
@@ -359,7 +464,7 @@ weeks          日程が決まった週から、順番に書き換え</code></pr
   </div>
 
   <div class="note">
-    <b>この1枚について：</b>ここまでの内容がすべて揃えば、Claudeに詳しくない方でも、日々の運用から募集期の切替、別の会社での複製まで、この1ページだけで進めていただけます。ご不明点があれば、いつでもMeroneまでご連絡ください。
+    <b>この1枚について：</b>最初にClaude Codeの準備さえ済めば、あとは4つの呪文を軸に、日本語で話しかけていただくだけで、日々の運用から募集期の切替、別の会社での複製までこの1ページで進めていただけます。ご不明点があれば、いつでもMeroneまでご連絡ください。
   </div>
 
   <footer><span data-cfg="labo_name">AI活用ラボ</span>｜運用引き継ぎ書<br>Powered by Merone</footer>

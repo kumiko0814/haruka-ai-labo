@@ -1,0 +1,12 @@
+# 人格設計資料（講師本人の情報を含むため、GitHubには上げない）
+persona/*
+!persona/README.md
+
+# OS / エディタ
+.DS_Store
+Thumbs.db
+*.swp
+
+# Claude Code のローカル状態（共有不要）
+.claude/settings.local.json
+.omc/
