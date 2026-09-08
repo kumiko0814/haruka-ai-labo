@@ -2,6 +2,13 @@
 persona/*
 !persona/README.md
 
+# カルテ下書きの作業ファイル（受講生の相談内容を含むため、絶対に上げない）
+pending.json
+drafts.json
+scripts/ailabo-draft/pending.json
+scripts/ailabo-draft/drafts.json
+backups/
+
 # OS / エディタ
 .DS_Store
 Thumbs.db
