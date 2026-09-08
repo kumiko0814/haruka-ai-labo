@@ -160,9 +160,9 @@ input[type=text]{width:100%; border:1.5px solid #e3e9f0; border-radius:12px; pad
 <div class="mtop">
   <div class="t">
     <div class="m"><small><span data-cfg="labo_name">AI活用ラボ</span></small></div>
-    <div class="h">AIカルテ 管理者ボード</div>
+    <div class="h">運営者ページ</div>
   </div>
-  <img src="assets/hk-suit.png" alt="" onerror="this.style.display='none'">
+  <img src="assets/hk-desk.png" alt="はるか" onerror="this.style.display='none'">
   <span class="burger">≡</span>
 </div>
 
@@ -206,7 +206,7 @@ input[type=text]{width:100%; border:1.5px solid #e3e9f0; border-radius:12px; pad
     <div class="inboxwrap" id="sec-inbox">
       <div class="ihead">
         <h2>カルテ受信ボックス</h2><span class="cnt">全4件</span>
-        <button class="rl" id="doneToggle" style="margin-left:auto;">回答済みを表示</button><button class="rl" id="csvbtn" style="margin-left:8px;">CSVでダウンロード</button><button class="rl" id="bakbtn" style="margin-left:8px;">全データを保存</button><button class="rl" id="inboxRefresh" style="margin-left:8px;">⟳ 最新に更新</button>
+        <div class="inbox-tools"><button class="rl" id="doneToggle">回答済みを表示</button><button class="rl" id="inboxRefresh">更新</button><details class="inbox-more"><summary>書き出す</summary><div><button class="rl" id="csvbtn">CSVでダウンロード</button><button class="rl" id="bakbtn">全データを保存</button></div></details></div>
       </div>
       <div class="ilist" id="ilist"><div class="empty2">読み込み中…</div></div>
     </div>
@@ -267,7 +267,7 @@ input[type=text]{width:100%; border:1.5px solid #e3e9f0; border-radius:12px; pad
     </div>
 
     <div class="inboxwrap" id="sec-progress">
-      <div class="ihead"><h2>📚 カリキュラムの進捗</h2><span class="cnt" id="prgcnt"></span></div>
+      <div class="ihead"><h2>カリキュラムの進捗</h2><span class="cnt" id="prgcnt"></span></div>
       <div style="padding:6px 22px 18px;">
         <div id="prgtop" style="display:flex; align-items:center; gap:22px; flex-wrap:wrap; margin-top:6px;">
           <div style="position:relative; width:92px; height:92px; flex:none;">

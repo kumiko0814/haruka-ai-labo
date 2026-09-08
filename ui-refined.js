@@ -5,6 +5,24 @@
   var $ = function (s, root) { return (root || document).querySelector(s); };
   var $$ = function (s, root) { return Array.from((root || document).querySelectorAll(s)); };
 
+  // Secondary feedback stays out of the reading and form surfaces.
+  if (!page.matches('.page-index,.page-kanri')) {
+    var feedback = $('#bugL'), footer = $('footer');
+    if (feedback && footer) footer.append(feedback);
+  }
+
+  // On phones the existing chat launcher belongs to the welcome area, so it
+  // never covers a question or an input. The original open/close handlers stay attached.
+  var chatLauncher = $('#aikW'), welcome = $('#mhero');
+  if (chatLauncher && welcome) {
+    var phone = window.matchMedia('(max-width: 900px)');
+    function placeChatLauncher() {
+      (phone.matches ? welcome : document.body).append(chatLauncher);
+    }
+    placeChatLauncher();
+    phone.addEventListener('change', placeChatLauncher);
+  }
+
   // Long guides keep every paragraph, but readers can jump directly to their task.
   if (page.matches('.page-handover,.page-manual,.page-promo')) {
     var sections = $$('.wrap > .sec');
