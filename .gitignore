@@ -17,3 +17,7 @@ Thumbs.db
 # Claude Code のローカル状態（共有不要）
 .claude/settings.local.json
 .omc/
+
+# Python キャッシュ
+__pycache__/
+*.pyc

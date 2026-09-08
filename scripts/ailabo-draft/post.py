@@ -18,7 +18,7 @@ if not env["enabled"]:
 path = sys.argv[1] if len(sys.argv) > 1 else "drafts.json"
 drafts = json.load(open(path, encoding="utf-8"))
 
-ALWAYS_NG = [re.compile(p) for p in (r"絶対(に)?(稼|儲|成功|できます)", r"必ず.{0,6}万円", r"保証(し|でき)ます")]
+ALWAYS_NG = [re.compile(p) for p in (r"絶対(に)?(\u7a3c|儲|成功|できます)", r"必ず.{0,6}万円", r"保証(し|でき)ます")]
 ng_words = env["ng_words"]
 bad = []
 for d in drafts:
