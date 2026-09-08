@@ -116,6 +116,7 @@ a{color:var(--navy);}
       <tr><td>apply_label</td><td>お申込みボタンの文言。</td></tr>
       <tr><td>tokutei_url</td><td>特定商取引法に基づく表記のURL。</td></tr>
       <tr><td>weeks</td><td>カリキュラム各週の日程（第1週から順に6つ）。</td></tr>
+      <tr><td>admin_pass_hash</td><td>管理者ボードの合言葉（本番のみ有効）。合言葉そのものではなく暗号化した値を置きます。変える時はClaudeに「管理者ボードの合言葉を〇〇に変えて」と頼んでください。自分で作る場合は、パソコンのターミナルで <code>echo -n "新しい合言葉" | shasum -a 256</code> を実行して出た64文字を貼ります。</td></tr>
     </table>
     </div>
 
@@ -251,6 +252,7 @@ create policy ailab_advice_ins on ailab_advice
     ☐ lp.htmlの講師プロフィール文章を書き換えた<br>
     ☐ supabase_config.jsのenabledがtrueになっている<br>
     ☐ 決済リンク（apply_url）を実際に押して開くことを確認した<br>
+    ☐ 管理者ボードの合言葉（admin_pass_hash）を自社用に変え、本番URLで合言葉画面が出ることを確認した（<code>kanri.html?gate=1</code> でデモ中も確認できます）<br>
     ☐ 特定商取引法に基づく表記のリンク（tokutei_url）が正しいページに繋がっている<br>
     ☐ スマートフォンでLP（lp.html）の見え方を確認した<br>
     ☐ 実際に登録・入力してみて、管理者ボード（kanri.html）にカルテが届くことを確認した<br>

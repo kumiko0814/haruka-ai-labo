@@ -411,6 +411,7 @@ weeks          日程が決まった週から、順番に書き換え</code></pr
   <div class="sec">
     <div class="st"><span class="no">7</span><h2>トラブル対応Q&amp;A</h2></div>
     <div class="qa">
+      <div class="item"><div class="q"><span class="m">Q.</span>管理者ボードを開いたら「合言葉」を聞かれました</div><div class="a">本番の管理者ボードは、運営者だけが開けるように合言葉で守られています（受講生の相談内容が入っているためです）。合言葉は引き継ぎの時に個別にお伝えします。一度入れれば、そのブラウザでは次回から聞かれません。別のスマホやパソコンで開く時は、もう一度入力してください。合言葉を変えたい時は、Claudeに「管理者ボードの合言葉を〇〇に変えて」と話しかけるだけで変更できます（変えた後は、全員がもう一度入力する形になります）。</div></div>
       <div class="item"><div class="q"><span class="m">Q.</span>画面が表示されません</div><div class="a">GitHub Pagesは、ファイルを更新してから反映まで1〜2分ほどかかることがあります。少し待ってから再読み込みしてください。それでも直らない時は、URLのつづりが正しいかをご確認ください。</div></div>
       <div class="item"><div class="q"><span class="m">Q.</span>カルテの内容が管理者ボードに届きません</div><div class="a"><code>supabase_config.js</code> を開き、<code>enabled</code> が <code>true</code> になっているかをご確認ください。<code>false</code> のままだと、送信内容が保存されない確認用の状態のままになります。あわせて、Supabaseが休止していないかもご確認ください。</div></div>
       <div class="item"><div class="q"><span class="m">Q.</span>Supabase（データベース）が休止してしまいました</div><div class="a">無料プランは、1週間まったくアクセスがないと自動的に休止する仕組みになっています。Supabaseのダッシュボードを開き、「Restore」ボタンを押していただくと数分で元に戻ります。心配な時は <code>/check</code> と話しかけていただければ、状態を確認してお伝えします。</div></div>
@@ -444,6 +445,7 @@ weeks          日程が決まった週から、順番に書き換え</code></pr
       <div class="row"><span class="bx"></span><span class="tx">GitHub Pagesの公開設定</span></div>
       <div class="row"><span class="bx"></span><span class="tx">Supabaseプロジェクトの所有権</span></div>
       <div class="row"><span class="bx"></span><span class="tx">supabase_config.js の本番化（enabled を true にし、接続情報を設定）</span></div>
+      <div class="row"><span class="bx"></span><span class="tx">管理者ボードの合言葉を受け取り、実際に開けることを確認した（合言葉は書面に残さず口頭・個別で）</span></div>
       <div class="row"><span class="bx"></span><span class="tx">UnivaPay決済リンクの動作確認</span></div>
       <div class="row"><span class="bx"></span><span class="tx">特定商取引法・プライバシーポリシー・利用規約の設置（<span data-cfg="company">合同会社Li-Li</span>側で対応）</span></div>
       <div class="row"><span class="bx"></span><span class="tx">labo_config.js の内容確認</span></div>
