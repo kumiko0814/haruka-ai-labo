@@ -12,34 +12,37 @@
 body{font-family:"Yu Gothic","YuGothic","游ゴシック","Hiragino Kaku Gothic ProN",sans-serif; background:var(--bg); color:var(--text); line-height:1.9;}
 .wrap{max-width:640px; margin:0 auto; padding:30px 18px 60px;}
 h1{font-size:20px; color:var(--navy2);}
-p.lead{font-size:13.5px; margin-top:8px;}
+p.lead{font-size:14px; margin-top:8px;}
 .step{background:#fff; border-radius:16px; padding:16px 18px; margin-top:14px; box-shadow:0 6px 18px rgba(38,64,95,.08);}
 .step b{color:var(--pink2);}
 .step h3{font-size:14px; color:var(--navy2); margin-bottom:6px;}
-.step h4{font-size:12.5px; color:var(--navy); margin-top:14px; margin-bottom:4px;}
-.step p{font-size:13px;}
+.step h4{font-size:14px; color:var(--navy); margin-top:14px; margin-bottom:4px;}
+.step p{font-size:14px;}
 .step p + p{margin-top:8px;}
-.note{background:var(--pinkbg); border-radius:12px; padding:10px 13px; font-size:12.5px; margin-top:10px;}
+.note{background:var(--pinkbg); border-radius:12px; padding:10px 13px; font-size:14px; margin-top:10px;}
 .flow{counter-reset:flow; margin-top:8px;}
-.flow li{list-style:none; counter-increment:flow; font-size:13px; padding:8px 0 8px 30px; position:relative; border-top:1px dashed #e3ecf4;}
+.flow li{list-style:none; counter-increment:flow; font-size:14px; padding:8px 0 8px 30px; position:relative; border-top:1px dashed #e3ecf4;}
 .flow li:first-child{border-top:none;}
-.flow li::before{content:counter(flow); position:absolute; left:0; top:8px; width:20px; height:20px; border-radius:50%; background:var(--navy); color:#fff; font-size:11px; font-weight:800; display:flex; align-items:center; justify-content:center;}
-pre{background:#1d3149; color:#dce8f2; border-radius:12px; padding:14px; font-size:11.5px; line-height:1.7; overflow-x:auto; margin-top:10px; white-space:pre;}
+.flow li::before{content:counter(flow); position:absolute; left:0; top:8px; width:20px; height:20px; border-radius:50%; background:var(--navy); color:#fff; font-size:14px; font-weight:800; display:flex; align-items:center; justify-content:center;}
+pre{background:#1d3149; color:#dce8f2; border-radius:12px; padding:14px; font-size:14px; line-height:1.7; overflow-x:auto; margin-top:10px; white-space:pre;}
 .tablewrap{overflow-x:auto; margin-top:10px;}
-table{border-collapse:collapse; width:100%; min-width:480px; font-size:12.5px;}
+table{border-collapse:collapse; width:100%; min-width:480px; font-size:14px;}
 table th, table td{border:1px solid #e3ecf4; padding:7px 9px; text-align:left; vertical-align:top;}
 table th{background:#eef4fa; color:var(--navy2); font-weight:800; white-space:nowrap;}
-.btn{border:none; background:var(--pink2); color:#fff; border-radius:999px; padding:11px 24px; font-size:13px; font-weight:800; cursor:pointer; font-family:inherit; margin-top:10px;}
+.btn{border:none; background:var(--pink2); color:#fff; border-radius:999px; padding:11px 24px; font-size:14px; font-weight:800; cursor:pointer; font-family:inherit; margin-top:10px;}
 .btn.navy{background:var(--navy);}
-#result{margin-top:10px; font-size:13px; font-weight:800;}
+#result{margin-top:10px; font-size:14px; font-weight:800;}
 a{color:var(--navy);}
-.check{font-size:13px; margin-top:6px;}
+.check{font-size:14px; margin-top:6px;}
 .jump{display:flex; flex-wrap:wrap; gap:6px; margin-top:10px;}
-.jump a{background:#eef4fa; color:var(--navy2); font-size:11.5px; font-weight:800; padding:6px 12px; border-radius:999px; text-decoration:none;}
+.jump a{background:#eef4fa; color:var(--navy2); font-size:14px; font-weight:800; padding:6px 12px; border-radius:999px; text-decoration:none;}
 </style>
+<link rel="stylesheet" href="ui-refined.css?v=20260909-icons">
+<link rel="stylesheet" href="ui-atelier.css?v=20260909-atelier">
 </head>
-<body>
-<div class="wrap">
+<body class="atelier page-setup">
+<a class="ui-skip" href="#main-content">本文へ進む</a>
+<div class="wrap" id="main-content">
   <h1><span data-cfg="labo_name">AI活用ラボ</span> 設置ガイド</h1>
   <p class="lead">このガイド1枚で、別の会社様・別の講師の方でも、同じ仕組みをゼロから立ち上げていただけます。全体の所要時間の目安は約1時間です（このうちSupabaseの作成にかかる時間は10分ほどです）。</p>
   <p class="lead" style="border-left:4px solid #a75da9;">Claude Code をお使いなら、このフォルダを開いて「設置ガイド（setup.html）に沿って進めて」と話しかけるだけで、STEP1〜6 を Claude が案内・代行します。設定ファイルの書き換え・人格の差し替え・公開まで、コードを触る必要はありません。運用の仕方は <a href="handover.html">引き継ぎ書</a> をご覧ください。</p>
@@ -337,5 +340,7 @@ document.getElementById("test").onclick=function(){
     .catch(function(){ r.style.color="#26405f"; r.textContent="通信できませんでした。電波を確認してもう一度どうぞ。"; });
 };
 </script>
+<script src="ui-refined.js?v=20260909-icons"></script>
+<script src="ui-atelier.js?v=20260909-atelier"></script>
 </body>
 </html>

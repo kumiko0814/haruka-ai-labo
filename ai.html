@@ -29,8 +29,8 @@ body{
 @keyframes pop{0%{transform:scale(.6);opacity:0;}60%{transform:scale(1.06);}100%{transform:scale(1);}}
 .avatar img{width:100%; height:100%; object-fit:cover; object-position:50% 4%;}
 .hero h1{font-size:24px; color:var(--navy2); letter-spacing:.06em;}
-.hero .sub{font-size:11.5px; color:var(--pink2); font-weight:800; letter-spacing:.18em; margin-top:2px;}
-.hero p.desc{font-size:12.5px; color:#8a97a5; margin-top:8px;}
+.hero .sub{font-size:14px; color:var(--pink2); font-weight:800; letter-spacing:.18em; margin-top:2px;}
+.hero p.desc{font-size:14px; color:#8a97a5; margin-top:8px;}
 
 /* chat card */
 .chatcard{
@@ -43,8 +43,8 @@ body{
 }
 .chathead img{width:34px; height:34px; border-radius:50%; object-fit:cover; object-position:50% 4%; background:#fde7ee;}
 .chathead .nm{font-size:14px; font-weight:800;}
-.chathead .st{font-size:10px; color:#bcd0e2;}
-.chathead .st::before{content:"●"; color:#7fd6a4; margin-right:4px; font-size:8px;}
+.chathead .st{font-size:14px; color:#bcd0e2;}
+.chathead .st::before{content:"●"; color:#7fd6a4; margin-right:4px; font-size:14px;}
 #chat-box{
   height:430px; overflow-y:auto; padding:16px 14px;
   background:linear-gradient(180deg,#f4f8fb,#fdf5f7);
@@ -54,7 +54,7 @@ body{
 .msg .face img{width:100%; height:100%; object-fit:cover; object-position:50% 4%;}
 .msg .b{
   background:#fff; border-radius:4px 16px 16px 16px; padding:9px 13px;
-  font-size:13.5px; line-height:1.85; max-width:80%;
+  font-size:14px; line-height:1.85; max-width:80%;
   box-shadow:0 2px 8px rgba(38,64,95,.07); white-space:pre-line; word-break:break-word;
 }
 .msg.user{justify-content:flex-end;}
@@ -69,7 +69,7 @@ body{
 #chips::-webkit-scrollbar{display:none;}
 .chip{
   flex:none; border:1.5px solid #ecd7dd; background:#fff; color:var(--pink2);
-  border-radius:999px; padding:7px 14px; font-size:12px; font-weight:800; cursor:pointer; user-select:none;
+  border-radius:999px; padding:7px 14px; font-size:14px; font-weight:800; cursor:pointer; user-select:none;
 }
 /* input */
 .inrow{display:flex; gap:8px; padding:10px 14px 14px;}
@@ -86,14 +86,14 @@ body{
 }
 .inrow button svg{width:18px; height:18px; fill:#fff;}
 .clearrow{text-align:center; margin-top:12px;}
-.clearrow a{font-size:11px; color:#9aa7b4; text-decoration:underline; cursor:pointer;}
+.clearrow a{font-size:14px; color:#9aa7b4; text-decoration:underline; cursor:pointer;}
 .note{
   margin-top:16px; background:#fff; border-radius:16px; padding:13px 16px;
-  font-size:11.5px; color:#8a97a5; line-height:1.9; box-shadow:0 4px 14px rgba(38,64,95,.06);
+  font-size:14px; color:#8a97a5; line-height:1.9; box-shadow:0 4px 14px rgba(38,64,95,.06);
 }
 .note b{color:var(--navy);}
 .note a{color:var(--pink2); font-weight:800;}
-footer{text-align:center; font-size:10px; color:#9aa7b4; margin-top:18px; letter-spacing:.1em; line-height:2;}
+footer{text-align:center; font-size:14px; color:#9aa7b4; margin-top:18px; letter-spacing:.1em; line-height:2;}
 
 /* name modal */
 .modal{position:fixed; inset:0; background:rgba(29,49,73,.55); display:none; align-items:center; justify-content:center; z-index:50; padding:24px;}
@@ -103,12 +103,15 @@ footer{text-align:center; font-size:10px; color:#9aa7b4; margin-top:18px; letter
 .mbox h3{color:var(--navy2); font-size:15.5px; margin-bottom:10px; line-height:1.7;}
 .mbox input{width:100%; border:1.5px solid #e3e9f0; border-radius:12px; padding:11px 14px; font-size:15px; font-weight:700; color:var(--navy2); background:#fbfcfe; font-family:inherit; text-align:center;}
 .mbox button{margin-top:12px; width:100%; border:none; background:linear-gradient(135deg,var(--pink3),var(--pink)); color:#fff; border-radius:999px; padding:12px; font-size:14px; font-weight:800; cursor:pointer; font-family:inherit;}
-.mbox .skip{margin-top:8px; font-size:11px; color:#9aa7b4; text-decoration:underline; cursor:pointer;}
+.mbox .skip{margin-top:8px; font-size:14px; color:#9aa7b4; text-decoration:underline; cursor:pointer;}
 </style>
 <script src="labo_config.js"></script>
+<link rel="stylesheet" href="ui-refined.css?v=20260909-icons">
+<link rel="stylesheet" href="ui-atelier.css?v=20260909-atelier">
 </head>
-<body>
-<div class="wrap">
+<body class="atelier page-ai">
+<a class="ui-skip" href="#main-content">本文へ進む</a>
+<div class="wrap" id="main-content">
 
   <div class="hero">
     <div class="avatar"><img src="assets/hk-desk.png" alt="AIはるか"></div>
@@ -122,7 +125,7 @@ footer{text-align:center; font-size:10px; color:#9aa7b4; margin-top:18px; letter
       <img src="assets/hk-desk.png" alt="">
       <div><div class="nm">AIはるか</div><div class="st">オンライン</div></div>
     </div>
-    <div id="chat-box"></div>
+    <div id="chat-box" role="log" aria-label="AIはるかとの会話" aria-live="polite" aria-relevant="additions"></div>
     <div id="chips">
       <span class="chip">何から始めればいい？</span>
       <span class="chip">DM営業の返信がこない</span>
@@ -136,7 +139,7 @@ footer{text-align:center; font-size:10px; color:#9aa7b4; margin-top:18px; letter
       <span class="chip">つかれた…</span>
     </div>
     <div class="inrow">
-      <textarea id="user-input" placeholder="メッセージを入力" rows="1"></textarea>
+      <textarea id="user-input" aria-label="AIはるかへのメッセージ" placeholder="メッセージを入力" rows="1"></textarea>
       <button id="send-btn" aria-label="送信"><svg viewBox="0 0 24 24"><path d="M2 21l21-9L2 3v7l15 2-15 2z"/></svg></button>
     </div>
   </div>
@@ -155,7 +158,7 @@ footer{text-align:center; font-size:10px; color:#9aa7b4; margin-top:18px; letter
   <div class="mbox">
     <img src="assets/hk-suit.png" alt="">
     <h3>はじめまして、AIはるかです。<br>なんて呼んだらいいですか？</h3>
-    <input type="text" id="name-input" maxlength="10" placeholder="例）ゆき">
+    <input type="text" id="name-input" aria-label="呼ばれたい名前" autocomplete="nickname" maxlength="10" placeholder="例）ゆき">
     <button id="name-ok">よろしくね！</button>
     <div class="skip" id="name-skip">あとで教える</div>
   </div>
@@ -485,7 +488,7 @@ document.getElementById("name-skip").addEventListener("click",function(){
   modal.classList.remove("show"); welcome();
 });
 document.getElementById("name-input").addEventListener("keydown",function(e){
-  if(e.key==="Enter"){ document.getElementById("name-ok").click(); }
+  if(!e.isComposing && e.key==="Enter"){ document.getElementById("name-ok").click(); }
 });
 
 /* init */
@@ -504,17 +507,17 @@ try{
 </script>
 <!-- バグ報告ツール -->
 <style>
-#bugL{position:fixed; left:12px; bottom:16px; z-index:59; background:rgba(255,255,255,.92); border:1px solid #dfe7ee; color:#8a97a5; font-size:10.5px; font-weight:800; border-radius:999px; padding:5px 12px; cursor:pointer; letter-spacing:.04em;}
+#bugL{position:fixed; left:12px; bottom:16px; z-index:59; background:rgba(255,255,255,.92); border:1px solid #dfe7ee; color:#8a97a5; font-size:14px; font-weight:800; border-radius:999px; padding:5px 12px; cursor:pointer; letter-spacing:.04em;}
 #bugM{position:fixed; inset:0; background:rgba(29,49,73,.55); display:none; align-items:center; justify-content:center; z-index:70; padding:24px;}
 #bugM.on{display:flex;}
 #bugM .bx{background:#fff; border-radius:20px; padding:22px 20px; max-width:360px; width:100%;}
 #bugM h3{font-size:14.5px; color:#1d3149; margin-bottom:8px;}
 #bugM textarea{width:100%; border:1.5px solid #e3e9f0; border-radius:12px; padding:11px 13px; font-size:14px; line-height:1.8; color:#1d3149; font-family:inherit; min-height:100px; resize:vertical;}
 #bugM .bb{display:flex; gap:8px; margin-top:12px;}
-#bugM button{flex:1; border:none; border-radius:999px; padding:11px; font-size:13px; font-weight:800; cursor:pointer; font-family:inherit;}
+#bugM button{flex:1; border:none; border-radius:999px; padding:11px; font-size:14px; font-weight:800; cursor:pointer; font-family:inherit;}
 #bugM .s{background:linear-gradient(135deg,#8fa8e6,#c77fce); color:#fff;}
 #bugM .c{background:#eef2f6; color:#26405f;}
-#bugM .done{display:none; font-size:12.5px; color:#a75da9; font-weight:800; margin-top:8px; text-align:center;}
+#bugM .done{display:none; font-size:14px; color:#a75da9; font-weight:800; margin-top:8px; text-align:center;}
 @media(max-width:900px){ #bugL{bottom:84px;} }
 </style>
 <div id="bugL">不具合を報告</div>
@@ -551,5 +554,7 @@ document.getElementById("bugS").onclick=function(){
 };
 })();
 </script>
+<script src="ui-refined.js?v=20260909-icons"></script>
+<script src="ui-atelier.js?v=20260909-atelier"></script>
 </body>
 </html>

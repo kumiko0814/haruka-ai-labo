@@ -19,16 +19,16 @@ body{
 }
 .wrap{max-width:440px; margin:0 auto; padding:0 18px 60px;}
 .top{background:var(--navy2); color:#fff; padding:16px 20px; text-align:center;}
-.top .m{font-size:13px; font-weight:800; letter-spacing:.16em; color:#e79ab2;}
-.top .m small{color:#cfdcea; font-size:10px; margin-left:6px; letter-spacing:.14em;}
+.top .m{font-size:14px; font-weight:800; letter-spacing:.16em; color:#e79ab2;}
+.top .m small{color:#cfdcea; font-size:14px; margin-left:6px; letter-spacing:.14em;}
 .hero{background:linear-gradient(160deg,#faf0fc,#fde6ff); margin:0 -18px; padding:20px 22px 10px; display:flex; align-items:center; justify-content:space-between; gap:8px;}
 .hero img{width:118px; flex:none;}
-.speech{position:relative; background:#fff; border-radius:16px; padding:11px 15px; font-size:13px; font-weight:800; color:var(--navy2); box-shadow:0 6px 18px rgba(38,64,95,.12); line-height:1.9;}
+.speech{position:relative; background:#fff; border-radius:16px; padding:11px 15px; font-size:14px; font-weight:800; color:var(--navy2); box-shadow:0 6px 18px rgba(38,64,95,.12); line-height:1.9;}
 .speech::after{content:""; position:absolute; right:-8px; top:18px; border:8px solid transparent; border-left-color:#fff; border-right:none;}
 h1{font-size:21px; color:var(--navy2); margin:22px 2px 4px; letter-spacing:.04em;}
-.lead{font-size:12.5px; color:#8a97a5;}
+.lead{font-size:14px; color:#8a97a5;}
 .card{background:#fff; border-radius:20px; padding:22px 20px; margin-top:14px; box-shadow:0 10px 30px rgba(38,64,95,.08);}
-label{display:block; font-size:12.5px; font-weight:800; color:var(--navy); margin:14px 0 6px;}
+label{display:block; font-size:14px; font-weight:800; color:var(--navy); margin:14px 0 6px;}
 label:first-child{margin-top:0;}
 label small{font-weight:700; color:#9aa7b4;}
 input{width:100%; border:1.5px solid #e3e9f0; border-radius:13px; padding:12px 14px; font-size:15px; font-weight:700; color:var(--navy2); background:#fbfcfe; font-family:inherit;}
@@ -41,25 +41,28 @@ input:focus{outline:none; border-color:var(--pink);}
 }
 .gbtn svg{width:15px; height:15px; fill:#fff; flex:none;}
 .gbtn.navy{background:var(--navy); box-shadow:0 8px 22px rgba(38,64,95,.25); text-decoration:none;}
-.ghost{display:block; width:100%; border:1.5px solid #e3e9f0; background:#fff; color:var(--navy); border-radius:999px; padding:12px; font-size:13px; font-weight:800; cursor:pointer; font-family:inherit; margin-top:10px; text-align:center; text-decoration:none;}
-.note{font-size:11px; color:#9aa7b4; margin-top:10px; line-height:1.9;}
-.err{display:none; font-size:12px; color:var(--pink3); font-weight:800; margin-top:8px;}
+.ghost{display:block; width:100%; border:1.5px solid #e3e9f0; background:#fff; color:var(--navy); border-radius:999px; padding:12px; font-size:14px; font-weight:800; cursor:pointer; font-family:inherit; margin-top:10px; text-align:center; text-decoration:none;}
+.note{font-size:14px; color:#9aa7b4; margin-top:10px; line-height:1.9;}
+.err{display:none; font-size:14px; color:var(--pink3); font-weight:800; margin-top:8px;}
 .result{display:none;}
-.urlbox{background:var(--pinkbg); border-radius:13px; padding:12px 14px; font-size:11.5px; word-break:break-all; color:var(--navy2); font-weight:700; margin-top:6px;}
+.urlbox{background:var(--pinkbg); border-radius:13px; padding:12px 14px; font-size:14px; word-break:break-all; color:var(--navy2); font-weight:700; margin-top:6px;}
 .steps{margin-top:16px;}
-.st{display:flex; gap:10px; margin-top:10px; font-size:12px; align-items:flex-start;}
-.st i{font-style:normal; flex:none; width:22px; height:22px; border-radius:50%; background:var(--pinkbg); color:var(--pink2); font-weight:800; display:flex; align-items:center; justify-content:center; font-size:11px; margin-top:4px;}
+.st{display:flex; gap:10px; margin-top:10px; font-size:14px; align-items:flex-start;}
+.st i{font-style:normal; flex:none; width:22px; height:22px; border-radius:50%; background:var(--pinkbg); color:var(--pink2); font-weight:800; display:flex; align-items:center; justify-content:center; font-size:14px; margin-top:4px;}
 .back{display:none;}
-footer{text-align:center; font-size:10.5px; color:#9aa7b4; margin-top:26px; letter-spacing:.06em; line-height:2;}
+footer{text-align:center; font-size:14px; color:#9aa7b4; margin-top:26px; letter-spacing:.06em; line-height:2;}
 </style>
 <script src="labo_config.js"></script>
+<link rel="stylesheet" href="ui-refined.css?v=20260909-icons">
+<link rel="stylesheet" href="ui-atelier.css?v=20260909-atelier">
 </head>
-<body>
+<body class="atelier page-start">
+<a class="ui-skip" href="#main-content">本文へ進む</a>
 <div class="top"><span class="m"><small><span data-cfg="labo_name">AI活用ラボ</span></small></span></div>
 
-<div class="wrap">
+<div class="wrap" id="main-content">
   <div class="hero">
-    <div class="speech">じぶん専用ページを<br>いっしょに作ろう♪</div>
+    <div class="speech">じぶん専用ページを<br>いっしょに作ろう</div>
     <img src="assets/hk-suit.png" alt="" onerror="this.style.display='none'">
   </div>
 
@@ -68,7 +71,7 @@ footer{text-align:center; font-size:10.5px; color:#9aa7b4; margin-top:26px; lett
     <h1>おかえりなさい！</h1>
     <p class="lead">このスマホで作った専用ページがあります。</p>
     <div class="card">
-      <a class="gbtn navy" id="goback" href="#"><svg viewBox="0 0 24 24"><path d="M2 21l21-9L2 3v7l15 2-15 2z"/></svg>わたしの専用ページを開く</a>
+      <a class="gbtn navy" id="goback" href="#">わたしの専用ページを開く</a>
       <a class="ghost" id="newone" href="#">別の人として作りなおす</a>
     </div>
   </div>
@@ -78,12 +81,12 @@ footer{text-align:center; font-size:10.5px; color:#9aa7b4; margin-top:26px; lett
     <h1>あなた専用の「AIカルテ」を作る</h1>
     <p class="lead">30秒で完成します。作れるのは<span data-cfg="labo_name">AI活用ラボ</span>の受講生のみです。</p>
     <div class="card">
-      <label>呼ばれたい名前<small>（ひらがな・ニックネームOK）</small></label>
-      <input type="text" id="nm" maxlength="15" placeholder="例）ゆき">
-      <label>お申込みのメールアドレス<small>（あなた専用ページの鍵になります）</small></label>
-      <input type="email" id="em" placeholder="例）example@gmail.com" autocapitalize="none">
-      <div class="err" id="err"></div>
-      <button class="gbtn" id="make"><svg viewBox="0 0 24 24"><path d="M2 21l21-9L2 3v7l15 2-15 2z"/></svg>わたしの専用ページを作る</button>
+      <label for="nm">呼ばれたい名前<small>（ひらがな・ニックネームOK）</small></label>
+      <input type="text" id="nm" aria-describedby="err" autocomplete="nickname" required maxlength="15" placeholder="例）ゆき">
+      <label for="em">お申込みのメールアドレス<small>（あなた専用ページの鍵になります）</small></label>
+      <input type="email" id="em" aria-describedby="err" autocomplete="email" inputmode="email" required placeholder="例）example@gmail.com" autocapitalize="none">
+      <div class="err" id="err" role="alert"></div>
+      <button class="gbtn" id="make">わたしの専用ページを作る</button>
       <p class="note">メールアドレスはページの鍵として使うだけで、画面やURLにそのまま表示されることはありません。</p>
     </div>
   </div>
@@ -93,7 +96,7 @@ footer{text-align:center; font-size:10.5px; color:#9aa7b4; margin-top:26px; lett
     <div class="card">
       <p style="font-size:14px; font-weight:800; color:var(--navy2); text-align:center;">できました！これがあなたの専用ページです</p>
       <div class="urlbox" id="myurl"></div>
-      <a class="gbtn navy" id="open" href="#" style="margin-top:14px;"><svg viewBox="0 0 24 24"><path d="M2 21l21-9L2 3v7l15 2-15 2z"/></svg>専用ページを開く</a>
+      <a class="gbtn navy" id="open" href="#" style="margin-top:14px;">専用ページを開く</a>
       <button class="ghost" id="copy">URLをコピー（自分のLINEに送っておくと安心）</button>
       <div class="steps">
         <div class="st"><i>1</i>専用ページを開いて、ブックマーク（ホーム画面に追加）してください</div>
@@ -152,8 +155,10 @@ document.getElementById("make").onclick=function(){
   var em=document.getElementById("em").value.trim();
   var err=document.getElementById("err");
   err.style.display="none";
-  if(!nm){ err.textContent="呼ばれたい名前を入れてください。"; err.style.display="block"; return; }
-  if(!em||em.indexOf("@")<1||em.indexOf(".")<0){ err.textContent="メールアドレスの形式をご確認ください。"; err.style.display="block"; return; }
+  document.getElementById("nm").removeAttribute("aria-invalid");
+  document.getElementById("em").removeAttribute("aria-invalid");
+  if(!nm){ err.textContent="呼ばれたい名前を入れてください。"; err.style.display="block"; document.getElementById("nm").setAttribute("aria-invalid","true"); document.getElementById("nm").focus(); return; }
+  if(!em||!document.getElementById("em").checkValidity()){ err.textContent="メールアドレスの形式をご確認ください。"; err.style.display="block"; document.getElementById("em").setAttribute("aria-invalid","true"); document.getElementById("em").focus(); return; }
   var id=hid(em);
   var url=pageUrl(id,nm);
   try{ localStorage.setItem(KEY,JSON.stringify({id:id,name:nm,url:url,t:Date.now()})); }catch(e){}
@@ -162,11 +167,12 @@ document.getElementById("make").onclick=function(){
   document.getElementById("myurl").textContent=url;
   document.getElementById("open").href=url;
   document.getElementById("result").style.display="block";
+  document.getElementById("open").focus();
   window.scrollTo(0,0);
 };
 document.getElementById("copy").onclick=function(){
   var t=document.getElementById("myurl").textContent, b=this;
-  function ok(){ b.textContent="コピーしました ♡"; setTimeout(function(){ b.textContent="URLをコピー（自分のLINEに送っておくと安心）"; },2000); }
+  function ok(){ b.textContent="コピーしました"; setTimeout(function(){ b.textContent="URLをコピー（自分のLINEに送っておくと安心）"; },2000); }
   if(navigator.clipboard&&navigator.clipboard.writeText){ navigator.clipboard.writeText(t).then(ok,fb); }else fb();
   function fb(){ var ta=document.createElement("textarea"); ta.value=t; document.body.appendChild(ta); ta.select(); try{document.execCommand("copy");}catch(e){} ta.remove(); ok(); }
 };
@@ -175,17 +181,17 @@ document.getElementById("copy").onclick=function(){
 
 <!-- バグ報告ツール -->
 <style>
-#bugL{position:fixed; left:12px; bottom:16px; z-index:59; background:rgba(255,255,255,.92); border:1px solid #dfe7ee; color:#8a97a5; font-size:10.5px; font-weight:800; border-radius:999px; padding:5px 12px; cursor:pointer; letter-spacing:.04em;}
+#bugL{position:fixed; left:12px; bottom:16px; z-index:59; background:rgba(255,255,255,.92); border:1px solid #dfe7ee; color:#8a97a5; font-size:14px; font-weight:800; border-radius:999px; padding:5px 12px; cursor:pointer; letter-spacing:.04em;}
 #bugM{position:fixed; inset:0; background:rgba(29,49,73,.55); display:none; align-items:center; justify-content:center; z-index:70; padding:24px;}
 #bugM.on{display:flex;}
 #bugM .bx{background:#fff; border-radius:20px; padding:22px 20px; max-width:360px; width:100%;}
 #bugM h3{font-size:14.5px; color:#1d3149; margin-bottom:8px;}
 #bugM textarea{width:100%; border:1.5px solid #e3e9f0; border-radius:12px; padding:11px 13px; font-size:14px; line-height:1.8; color:#1d3149; font-family:inherit; min-height:100px; resize:vertical;}
 #bugM .bb{display:flex; gap:8px; margin-top:12px;}
-#bugM button{flex:1; border:none; border-radius:999px; padding:11px; font-size:13px; font-weight:800; cursor:pointer; font-family:inherit;}
+#bugM button{flex:1; border:none; border-radius:999px; padding:11px; font-size:14px; font-weight:800; cursor:pointer; font-family:inherit;}
 #bugM .s{background:linear-gradient(135deg,#8fa8e6,#c77fce); color:#fff;}
 #bugM .c{background:#eef2f6; color:#26405f;}
-#bugM .done{display:none; font-size:12.5px; color:#a75da9; font-weight:800; margin-top:8px; text-align:center;}
+#bugM .done{display:none; font-size:14px; color:#a75da9; font-weight:800; margin-top:8px; text-align:center;}
 @media(max-width:900px){ #bugL{bottom:84px;} }
 </style>
 <div id="bugL">不具合を報告</div>
@@ -221,5 +227,7 @@ document.getElementById("bugS").onclick=function(){
 };
 })();
 </script>
+<script src="ui-refined.js?v=20260909-icons"></script>
+<script src="ui-atelier.js?v=20260909-atelier"></script>
 </body>
 </html>

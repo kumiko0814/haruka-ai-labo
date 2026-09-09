@@ -20,78 +20,78 @@ body{
 }
 .wrap{max-width:760px; margin:0 auto; padding:0 18px;}
 header{background:var(--navy2); color:#fff; padding:13px 18px; text-align:center;}
-header .lg{font-size:13px; font-weight:800; letter-spacing:.14em; color:#f3d9f5;}
+header .lg{font-size:14px; font-weight:800; letter-spacing:.14em; color:#f3d9f5;}
 
 /* hero */
 .hero{text-align:center; padding:30px 0 6px;}
 .hero img{height:150px; filter:drop-shadow(0 10px 20px rgba(44,58,85,.14));}
 .hero h1{font-size:clamp(24px,7vw,34px); color:var(--navy2); line-height:1.4; margin-top:10px; font-weight:800;}
-.hero .badge{display:inline-block; background:var(--navy2); color:#fff; font-size:11px; font-weight:800; border-radius:999px; padding:6px 16px; margin-top:12px; letter-spacing:.06em;}
+.hero .badge{display:inline-block; background:var(--navy2); color:#fff; font-size:14px; font-weight:800; border-radius:999px; padding:6px 16px; margin-top:12px; letter-spacing:.06em;}
 .hero .badge .grad{background:linear-gradient(90deg,#cdd9ff,#ffd9f7); -webkit-background-clip:text; background-clip:text; color:transparent;}
-.hero .lead{font-size:13.5px; margin:14px auto 0; max-width:600px; text-align:left; background:#fff; border-radius:16px; padding:16px 18px; box-shadow:0 6px 20px rgba(44,58,85,.07);}
+.hero .lead{font-size:14px; margin:14px auto 0; max-width:600px; text-align:left; background:#fff; border-radius:16px; padding:16px 18px; box-shadow:0 6px 20px rgba(44,58,85,.07);}
 .hero .lead b{color:var(--deep);}
 
 /* section */
 .sec{margin-top:34px;}
 .sec .st{display:flex; align-items:center; gap:9px; margin-bottom:14px; flex-wrap:wrap;}
-.sec .st .no{flex:none; width:26px; height:26px; border-radius:50%; background:linear-gradient(135deg,var(--blue),var(--pink)); color:#fff; font-size:13px; font-weight:800; display:flex; align-items:center; justify-content:center;}
+.sec .st .no{flex:none; width:26px; height:26px; border-radius:50%; background:linear-gradient(135deg,var(--blue),var(--pink)); color:#fff; font-size:14px; font-weight:800; display:flex; align-items:center; justify-content:center;}
 .sec .st h2{font-size:16.5px; color:var(--navy2); letter-spacing:.02em;}
-.sec .st .sub{font-size:11.5px; color:var(--muted); margin-left:2px;}
-.sec p.desc{font-size:12.5px; color:var(--muted); line-height:1.85; margin:-6px 0 14px;}
+.sec .st .sub{font-size:14px; color:var(--muted); margin-left:2px;}
+.sec p.desc{font-size:14px; color:var(--muted); line-height:1.85; margin:-6px 0 14px;}
 
 /* overview map rows */
 .map{display:flex; flex-direction:column; gap:10px;}
 .maprow{background:#fff; border-radius:16px; padding:14px 16px; display:flex; align-items:center; gap:12px; box-shadow:0 6px 18px rgba(44,58,85,.07);}
 .maprow .ic{flex:none; font-size:22px; width:34px; text-align:center;}
 .maprow .body{flex:1; min-width:0;}
-.maprow .nm{font-size:13.5px; font-weight:800; color:var(--navy2);}
-.maprow .ds{font-size:11.5px; color:var(--muted); margin-top:3px; line-height:1.7;}
-.maprow a.go{flex:none; display:inline-flex; align-items:center; justify-content:center; background:linear-gradient(135deg,var(--blue),var(--pink)); color:#fff; font-size:11.5px; font-weight:800; text-decoration:none; border-radius:999px; padding:8px 14px; white-space:nowrap;}
+.maprow .nm{font-size:14px; font-weight:800; color:var(--navy2);}
+.maprow .ds{font-size:14px; color:var(--muted); margin-top:3px; line-height:1.7;}
+.maprow a.go{flex:none; display:inline-flex; align-items:center; justify-content:center; background:linear-gradient(135deg,var(--blue),var(--pink)); color:#fff; font-size:14px; font-weight:800; text-decoration:none; border-radius:999px; padding:8px 14px; white-space:nowrap;}
 
 /* level cards */
 .lvl{background:#fff; border-radius:18px; padding:16px 18px; margin-top:12px; box-shadow:0 6px 20px rgba(44,58,85,.08);}
 .lvl .hd{display:flex; align-items:center; gap:10px; flex-wrap:wrap;}
-.lvl .tag{flex:none; font-size:11px; font-weight:800; border-radius:999px; padding:4px 12px;}
+.lvl .tag{flex:none; font-size:14px; font-weight:800; border-radius:999px; padding:4px 12px;}
 .lvl .tag.l0{background:#e7f6ee; color:#2e9c63;}
 .lvl .tag.l1{background:#eef2ff; color:#5a6fc6;}
 .lvl .tag.l2{background:#fde6ee; color:#c65a86;}
 .lvl h3{font-size:14.5px; color:var(--navy2);}
-.lvl .freq{font-size:11px; color:var(--muted); margin-left:auto;}
+.lvl .freq{font-size:14px; color:var(--muted); margin-left:auto;}
 .lvl ul{margin-top:10px; padding-left:0; list-style:none;}
-.lvl li{font-size:12.5px; color:var(--text); margin-top:7px; padding-left:20px; position:relative; line-height:1.75;}
-.lvl li::before{content:"○"; position:absolute; left:0; top:0; font-size:9px; color:var(--pink); top:5px;}
+.lvl li{font-size:14px; color:var(--text); margin-top:7px; padding-left:20px; position:relative; line-height:1.75;}
+.lvl li::before{content:"○"; position:absolute; left:0; top:0; font-size:14px; color:var(--pink); top:5px;}
 
 /* auto-flow pipeline (受講生→pending→Claude→…) */
 .pipe{display:flex; flex-wrap:wrap; align-items:center; gap:5px; margin-top:10px;}
-.pipe .pv{background:#eef2ff; color:var(--navy2); font-size:11px; font-weight:800; padding:6px 11px; border-radius:999px; white-space:nowrap;}
-.pipe .pa{color:var(--muted); font-size:11px;}
-.lvl p.note2{font-size:12.5px; color:var(--text); margin-top:10px; line-height:1.85;}
+.pipe .pv{background:#eef2ff; color:var(--navy2); font-size:14px; font-weight:800; padding:6px 11px; border-radius:999px; white-space:nowrap;}
+.pipe .pa{color:var(--muted); font-size:14px;}
+.lvl p.note2{font-size:14px; color:var(--text); margin-top:10px; line-height:1.85;}
 
 /* generic bullet list (reassurance / info) */
 .ilist{list-style:none; padding-left:0; margin-top:10px;}
-.ilist li{font-size:12.5px; color:var(--text); margin-top:9px; padding-left:20px; position:relative; line-height:1.85;}
-.ilist li::before{content:"○"; position:absolute; left:0; top:5px; font-size:9px; color:var(--pink);}
+.ilist li{font-size:14px; color:var(--text); margin-top:9px; padding-left:20px; position:relative; line-height:1.85;}
+.ilist li::before{content:"○"; position:absolute; left:0; top:5px; font-size:14px; color:var(--pink);}
 
 /* guide list (numbered steps) */
 .glist{background:#fff; border-radius:18px; padding:6px 4px; box-shadow:0 6px 20px rgba(44,58,85,.08);}
 .glist .row{display:flex; gap:12px; padding:13px 16px; border-bottom:1px solid var(--line); align-items:flex-start;}
 .glist .row:last-child{border-bottom:none;}
-.glist .num{flex:none; width:23px; height:23px; border-radius:50%; background:var(--navy2); color:#fff; font-size:11px; font-weight:800; display:flex; align-items:center; justify-content:center; margin-top:1px;}
-.glist .tx b{display:block; color:var(--navy2); font-size:13px; font-weight:800;}
-.glist .tx span{display:block; font-size:12px; color:var(--muted); margin-top:3px; line-height:1.8;}
+.glist .num{flex:none; width:23px; height:23px; border-radius:50%; background:var(--navy2); color:#fff; font-size:14px; font-weight:800; display:flex; align-items:center; justify-content:center; margin-top:1px;}
+.glist .tx b{display:block; color:var(--navy2); font-size:14px; font-weight:800;}
+.glist .tx span{display:block; font-size:14px; color:var(--muted); margin-top:3px; line-height:1.8;}
 
 /* plain circled-number step paragraphs */
-.steps p{font-size:13px; color:var(--navy2); background:#fff; border-radius:14px; padding:12px 14px; margin-top:8px; box-shadow:0 4px 14px rgba(44,58,85,.06); line-height:1.85;}
+.steps p{font-size:14px; color:var(--navy2); background:#fff; border-radius:14px; padding:12px 14px; margin-top:8px; box-shadow:0 4px 14px rgba(44,58,85,.06); line-height:1.85;}
 .steps p b{color:var(--deep);}
 
 /* code / pre */
-pre{background:var(--navy2); color:#eaf0ff; border-radius:14px; padding:15px 16px; font-size:11.5px; line-height:1.85; overflow-x:auto; margin-top:10px; font-family:"SFMono-Regular",Consolas,"Courier New",monospace;}
-code{font-family:"SFMono-Regular",Consolas,"Courier New",monospace; background:#eef2ff; color:var(--navy2); padding:1px 6px; border-radius:6px; font-size:12px;}
+pre{background:var(--navy2); color:#eaf0ff; border-radius:14px; padding:15px 16px; font-size:14px; line-height:1.85; overflow-x:auto; margin-top:10px; font-family:"SFMono-Regular",Consolas,"Courier New",monospace;}
+code{font-family:"SFMono-Regular",Consolas,"Courier New",monospace; background:#eef2ff; color:var(--navy2); padding:1px 6px; border-radius:6px; font-size:14px;}
 .copybar{display:flex; justify-content:flex-end; margin-top:6px;}
-.copybtn{border:none; background:#fff; color:var(--deep); border:1.5px solid #ecd7ee; border-radius:999px; padding:6px 14px; font-size:11px; font-weight:800; cursor:pointer; font-family:inherit;}
+.copybtn{border:none; background:#fff; color:var(--deep); border:1.5px solid #ecd7ee; border-radius:999px; padding:6px 14px; font-size:14px; font-weight:800; cursor:pointer; font-family:inherit;}
 .promptbox{background:#fff; border-radius:18px; padding:16px 18px; margin-top:14px; box-shadow:0 6px 20px rgba(44,58,85,.08);}
-.promptbox h3{font-size:13.5px; color:var(--navy2);}
-.promptbox .pd{font-size:11.5px; color:var(--muted); margin-top:4px; line-height:1.8;}
+.promptbox h3{font-size:14px; color:var(--navy2);}
+.promptbox .pd{font-size:14px; color:var(--muted); margin-top:4px; line-height:1.8;}
 
 /* spell cards (4 magic phrases) */
 .spellgrid{display:flex; flex-direction:column; gap:14px;}
@@ -101,24 +101,24 @@ code{font-family:"SFMono-Regular",Consolas,"Courier New",monospace; background:#
 .spellcard:nth-child(4){border-top-color:var(--navy2);}
 .spellcard .cmdrow{display:flex; align-items:center; gap:10px; flex-wrap:wrap;}
 .spellcard .cmdrow code{font-size:15.5px; padding:5px 14px; background:var(--pinkbg); color:var(--deep);}
-.spellcard .cmdrow .when{font-size:11px; color:var(--muted); font-weight:800;}
-.spellcard .lbl{font-size:11px; font-weight:800; color:var(--navy2); margin-top:14px; letter-spacing:.03em;}
-.spellcard .val{font-size:12.5px; color:var(--text); margin-top:5px; line-height:1.85;}
+.spellcard .cmdrow .when{font-size:14px; color:var(--muted); font-weight:800;}
+.spellcard .lbl{font-size:14px; font-weight:800; color:var(--navy2); margin-top:14px; letter-spacing:.03em;}
+.spellcard .val{font-size:14px; color:var(--text); margin-top:5px; line-height:1.85;}
 .spellcard pre{margin-top:6px; margin-bottom:0;}
-.spellnote{margin-top:14px; background:rgba(255,255,255,.7); border:1px dashed #d8d1ea; border-radius:14px; padding:13px 15px; font-size:12px; color:#6f6a7d; line-height:1.9;}
+.spellnote{margin-top:14px; background:rgba(255,255,255,.7); border:1px dashed #d8d1ea; border-radius:14px; padding:13px 15px; font-size:14px; color:#6f6a7d; line-height:1.9;}
 .spellnote b{color:var(--navy2);}
 
 /* warn / tip box */
-.warn{margin-top:14px; background:#fff6fb; border:1px dashed #eccbe6; border-radius:14px; padding:14px 16px; font-size:12px; color:#6f6a7d; line-height:1.9;}
-.warn b{color:var(--deep); display:block; font-size:12.5px; margin-bottom:6px;}
+.warn{margin-top:14px; background:#fff6fb; border:1px dashed #eccbe6; border-radius:14px; padding:14px 16px; font-size:14px; color:#6f6a7d; line-height:1.9;}
+.warn b{color:var(--deep); display:block; font-size:14px; margin-bottom:6px;}
 .warn ul{padding-left:18px; margin-top:2px;}
 .warn li{margin-top:5px;}
 
 /* collapsible fallback sections */
 details{background:#fff; border-radius:18px; margin-top:12px; box-shadow:0 6px 20px rgba(44,58,85,.08); overflow:hidden;}
-details summary{cursor:pointer; list-style:none; padding:15px 18px; font-size:13.5px; font-weight:800; color:var(--navy2); display:flex; align-items:center; gap:10px;}
+details summary{cursor:pointer; list-style:none; padding:15px 18px; font-size:14px; font-weight:800; color:var(--navy2); display:flex; align-items:center; gap:10px;}
 details summary::-webkit-details-marker{display:none;}
-details summary::after{content:"▼"; margin-left:auto; font-size:9px; color:var(--muted); transition:transform .2s ease;}
+details summary::after{content:"▼"; margin-left:auto; font-size:14px; color:var(--muted); transition:transform .2s ease;}
 details[open] summary::after{transform:rotate(180deg);}
 details .dtbody{padding:0 18px 18px;}
 details .dtbody p.desc{margin-top:0;}
@@ -127,35 +127,38 @@ details .dtbody p.desc{margin-top:0;}
 .qa{background:#fff; border-radius:18px; padding:6px 4px; box-shadow:0 6px 20px rgba(44,58,85,.08);}
 .qa .item{padding:14px 16px; border-bottom:1px solid var(--line);}
 .qa .item:last-child{border-bottom:none;}
-.qa .q{font-size:13px; font-weight:800; color:var(--navy2); display:flex; gap:8px;}
+.qa .q{font-size:14px; font-weight:800; color:var(--navy2); display:flex; gap:8px;}
 .qa .q .m{flex:none; color:var(--deep); font-weight:900;}
-.qa .a{font-size:12px; color:var(--muted); margin-top:7px; line-height:1.85; padding-left:21px;}
+.qa .a{font-size:14px; color:var(--muted); margin-top:7px; line-height:1.85; padding-left:21px;}
 
 /* checklist (from promo.html) */
 .check{background:#fff; border-radius:18px; padding:6px 4px; box-shadow:0 6px 20px rgba(44,58,85,.08);}
 .check .row{display:flex; gap:11px; align-items:flex-start; padding:11px 16px; border-bottom:1px solid var(--line);}
 .check .row:last-child{border-bottom:none;}
 .check .bx{flex:none; width:19px; height:19px; border:2px solid #d6cfe6; border-radius:6px; margin-top:2px;}
-.check .tx{font-size:13px; color:var(--navy2); line-height:1.65;}
+.check .tx{font-size:14px; color:var(--navy2); line-height:1.65;}
 
 /* placeholder box */
 .phbox{margin-top:12px; background:#fff; border-radius:16px; padding:16px 18px; box-shadow:0 6px 20px rgba(44,58,85,.08);}
-.phbox p{font-size:12.5px; color:var(--muted); line-height:1.85;}
-.ph{display:inline-block; margin-top:10px; background:var(--pinkbg); color:var(--deep); font-weight:800; font-size:13px; border-radius:10px; padding:8px 14px; border:1.5px dashed #e6b8ea;}
+.phbox p{font-size:14px; color:var(--muted); line-height:1.85;}
+.ph{display:inline-block; margin-top:10px; background:var(--pinkbg); color:var(--deep); font-weight:800; font-size:14px; border-radius:10px; padding:8px 14px; border:1.5px dashed #e6b8ea;}
 
-.note{margin-top:16px; background:rgba(255,255,255,.7); border:1px dashed #d8d1ea; border-radius:14px; padding:14px 16px; font-size:12px; color:#6f6a7d; line-height:1.85;}
+.note{margin-top:16px; background:rgba(255,255,255,.7); border:1px dashed #d8d1ea; border-radius:14px; padding:14px 16px; font-size:14px; color:#6f6a7d; line-height:1.85;}
 .note b{color:var(--navy2);}
-footer{text-align:center; font-size:10.5px; color:var(--muted); margin:30px 0 10px; letter-spacing:.08em; line-height:2;}
+footer{text-align:center; font-size:14px; color:var(--muted); margin:30px 0 10px; letter-spacing:.08em; line-height:2;}
 </style>
+<link rel="stylesheet" href="ui-refined.css?v=20260909-icons">
+<link rel="stylesheet" href="ui-atelier.css?v=20260909-atelier">
 </head>
-<body>
+<body class="atelier page-manual">
+<a class="ui-skip" href="#main-content">本文へ進む</a>
 <header><div class="lg">AI活用ラボ ✕ LiLi</div></header>
 
-<div class="wrap">
+<div class="wrap" id="main-content">
 
   <div class="hero">
     <img src="assets/hk-laptop.png" alt="はるか">
-    <h1>運用マニュアル（詳細）</h1>
+    <h1>運用マニュアル<small>詳細ガイド</small></h1>
     <div class="badge"><span class="grad" data-cfg="labo_name">AI活用ラボ</span>　Merone・別会社向けの詳しい説明</div>
     <div class="lead" style="border-left:4px solid #a75da9;">運営者（はるかさん）に渡す短い版は <a href="handover.html" style="color:#a75da9;font-weight:800;">引き継ぎ書（handover.html）</a> です。このページは、その裏側の仕組みと、ご自身で設定を変えたい場合・別の会社で使う場合の詳しい手順です。</div>
     <div class="lead">
@@ -165,7 +168,7 @@ footer{text-align:center; font-size:10.5px; color:var(--muted); margin:30px 0 10
 
   <!-- 0. 最初にやること -->
   <div class="sec" id="first">
-    <div class="st"><span class="no">★</span><h2>最初にやること（この3つだけ）</h2><span class="sub">受け取ったらまずここ</span></div>
+    <div class="st"><span class="no">0</span><h2>最初にやること（この3つだけ）</h2><span class="sub">受け取ったらまずここ</span></div>
     <div class="glist">
       <div class="row"><span class="num">1</span><span class="tx"><b>Supabase（無料のデータ保管庫）を作る　約10分</b><span>設置ガイドの <a href="setup.html#step4">STEP4</a> の「4-1」「4-2」「4-3」までを進めてください。アカウント作成 → SQLを1回貼って実行 → 接続テスト、です。4-4以降は Merone が行うので不要です。</span></span></div>
       <div class="row"><span class="num">2</span><span class="tx"><b>できた「URL」と「anon キー」の2つを Merone に送る</b><span>Supabase の画面（Project Settings → API）に表示される <code>Project URL</code> と <code>anon public</code> の2つです。LINE やメールでそのまま送ってください。受け取り次第、Merone 側で本番のスイッチを入れ、自動下書きと自動パトロールが動き始めます。</span></span></div>
@@ -179,12 +182,12 @@ footer{text-align:center; font-size:10.5px; color:var(--muted); margin:30px 0 10
     <div class="st"><span class="no">1</span><h2>システム全体図</h2><span class="sub">ページは全部で6つ</span></div>
     <p class="desc">それぞれのページがどんな役割を持っているかを、まず1つずつご紹介します。名前をタップすると、実際の画面をそのまま確認できます。</p>
     <div class="map">
-      <div class="maprow"><span class="ic">💁‍♀️</span><div class="body"><div class="nm">LP（募集ページ）</div><div class="ds">集客した方が最初に見るご案内ページです。お悩み・できること・受講料・お申込みボタンをまとめています。</div></div><a class="go" href="lp.html" target="_blank">見る</a></div>
-      <div class="maprow"><span class="ic">✉️</span><div class="body"><div class="nm">カルテ入口</div><div class="ds">メールアドレスを入れていただくと、その方だけの専用ページが自動でできます。</div></div><a class="go" href="start.html?demo=1" target="_blank">見る</a></div>
-      <div class="maprow"><span class="ic">📋</span><div class="body"><div class="nm">AIカルテ（受講生の画面）</div><div class="ds">困りごとを書いて送ると、<span data-cfg="instructor_nick">はるか</span>からのアドバイスが届く、受講生ご本人の画面です。</div></div><a class="go" href="index.html?demo=1" target="_blank">見る</a></div>
-      <div class="maprow"><span class="ic">💬</span><div class="body"><div class="nm">AIはるか（24時間の自動応答）</div><div class="ds">よくある質問に、<span data-cfg="instructor_nick">はるか</span>さんの口調でいつでも答えるチャット画面です。</div></div><a class="go" href="ai.html" target="_blank">見る</a></div>
-      <div class="maprow"><span class="ic">🗂️</span><div class="body"><div class="nm">管理者ボード（運営者の画面）</div><div class="ds">招待リンクの発行、カルテへの返信、進捗の確認などを行う、運営者専用の画面です。</div></div><a class="go" href="kanri.html?demo=1" target="_blank">見る</a></div>
-      <div class="maprow"><span class="ic">🛠️</span><div class="body"><div class="nm">初期設定ガイド</div><div class="ds">データベース（Supabase）をつなげて、確認用の画面から本番のご案内に切り替えるための手順書です。</div></div><a class="go" href="setup.html" target="_blank">見る</a></div>
+      <div class="maprow"><div class="body"><div class="nm">LP（募集ページ）</div><div class="ds">集客した方が最初に見るご案内ページです。お悩み・できること・受講料・お申込みボタンをまとめています。</div></div><a class="go" href="lp.html" target="_blank">見る</a></div>
+      <div class="maprow"><div class="body"><div class="nm">カルテ入口</div><div class="ds">メールアドレスを入れていただくと、その方だけの専用ページが自動でできます。</div></div><a class="go" href="start.html?demo=1" target="_blank">見る</a></div>
+      <div class="maprow"><div class="body"><div class="nm">AIカルテ（受講生の画面）</div><div class="ds">困りごとを書いて送ると、<span data-cfg="instructor_nick">はるか</span>からのアドバイスが届く、受講生ご本人の画面です。</div></div><a class="go" href="index.html?demo=1" target="_blank">見る</a></div>
+      <div class="maprow"><div class="body"><div class="nm">AIはるか（24時間の自動応答）</div><div class="ds">よくある質問に、<span data-cfg="instructor_nick">はるか</span>さんの口調でいつでも答えるチャット画面です。</div></div><a class="go" href="ai.html" target="_blank">見る</a></div>
+      <div class="maprow"><div class="body"><div class="nm">管理者ボード（運営者の画面）</div><div class="ds">招待リンクの発行、カルテへの返信、進捗の確認などを行う、運営者専用の画面です。</div></div><a class="go" href="kanri.html?demo=1" target="_blank">見る</a></div>
+      <div class="maprow"><div class="body"><div class="nm">初期設定ガイド</div><div class="ds">データベース（Supabase）をつなげて、確認用の画面から本番のご案内に切り替えるための手順書です。</div></div><a class="go" href="setup.html" target="_blank">見る</a></div>
     </div>
   </div>
 
@@ -487,7 +490,7 @@ weeks          日程が決まった週から、順番に書き換え</code></pr
       <p>⑥　GitHub Pagesを有効にして公開します。</p>
     </div>
     <p class="desc" style="margin-top:14px;">くわしい手順は、初期設定ガイドをご覧ください。複製したあとは、Claude Codeで「設置ガイド（setup.html）に沿って進めて」と頼んでいただければ、そのまま案内してくれます。</p>
-    <div class="map"><div class="maprow"><span class="ic">🛠️</span><div class="body"><div class="nm">初期設定ガイド</div><div class="ds">Supabaseの作成からGitHub Pagesの公開まで、番号つきで手順をまとめています。</div></div><a class="go" href="setup.html" target="_blank">見る</a></div></div>
+    <div class="map"><div class="maprow"><div class="body"><div class="nm">初期設定ガイド</div><div class="ds">Supabaseの作成からGitHub Pagesの公開まで、番号つきで手順をまとめています。</div></div><a class="go" href="setup.html" target="_blank">見る</a></div></div>
   </div>
 
   <!-- 10. 引き継ぎチェックリスト -->
@@ -529,17 +532,17 @@ weeks          日程が決まった週から、順番に書き換え</code></pr
 
 <!-- バグ報告ツール -->
 <style>
-#bugL{position:fixed; left:12px; bottom:16px; z-index:59; background:rgba(255,255,255,.92); border:1px solid #dfe7ee; color:#8a97a5; font-size:10.5px; font-weight:800; border-radius:999px; padding:5px 12px; cursor:pointer; letter-spacing:.04em;}
+#bugL{position:fixed; left:12px; bottom:16px; z-index:59; background:rgba(255,255,255,.92); border:1px solid #dfe7ee; color:#8a97a5; font-size:14px; font-weight:800; border-radius:999px; padding:5px 12px; cursor:pointer; letter-spacing:.04em;}
 #bugM{position:fixed; inset:0; background:rgba(34,48,74,.55); display:none; align-items:center; justify-content:center; z-index:70; padding:24px;}
 #bugM.on{display:flex;}
 #bugM .bx{background:#fff; border-radius:20px; padding:22px 20px; max-width:360px; width:100%;}
 #bugM h3{font-size:14.5px; color:#22304a; margin-bottom:8px;}
 #bugM textarea{width:100%; border:1.5px solid #e3e9f0; border-radius:12px; padding:11px 13px; font-size:14px; line-height:1.8; color:#22304a; font-family:inherit; min-height:100px; resize:vertical;}
 #bugM .bb{display:flex; gap:8px; margin-top:12px;}
-#bugM button{flex:1; border:none; border-radius:999px; padding:11px; font-size:13px; font-weight:800; cursor:pointer; font-family:inherit;}
+#bugM button{flex:1; border:none; border-radius:999px; padding:11px; font-size:14px; font-weight:800; cursor:pointer; font-family:inherit;}
 #bugM .s{background:linear-gradient(135deg,#8fa8e6,#e0a1e6); color:#fff;}
 #bugM .c{background:#eef2f6; color:#22304a;}
-#bugM .done{display:none; font-size:12.5px; color:#a75da9; font-weight:800; margin-top:8px; text-align:center;}
+#bugM .done{display:none; font-size:14px; color:#a75da9; font-weight:800; margin-top:8px; text-align:center;}
 </style>
 <div id="bugL">不具合を報告</div>
 <div id="bugM"><div class="bx">
@@ -595,5 +598,7 @@ document.getElementById("bugS").onclick=function(){
 };
 })();
 </script>
+<script src="ui-refined.js?v=20260909-icons"></script>
+<script src="ui-atelier.js?v=20260909-atelier"></script>
 </body>
 </html>

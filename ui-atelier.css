@@ -1,0 +1,307 @@
+/* AI活用ラボ — a personal notebook, letters from Haruka, and small discoveries. */
+:root{--atelier-ink:#22304a;--atelier-rose:#a75da9;--atelier-pink:#fde6ff;--atelier-blue:#e2ebff;--atelier-line:#e4dced;--atelier-muted:#6c6580;--atelier-serif:"Hiragino Mincho ProN","Yu Mincho",serif}
+body.atelier{background:#f0f4ff;color:var(--atelier-ink);font-family:"Hiragino Sans","Yu Gothic",sans-serif;font-weight:400;letter-spacing:.025em;line-height:1.9}
+.atelier img.atelier-art{object-fit:contain;flex:none;filter:none;max-width:100%;margin:0;pointer-events:none}
+.atelier button,.atelier a,.atelier summary{transition:background .2s,color .2s,box-shadow .2s,transform .2s}
+.atelier input::placeholder,.atelier textarea::placeholder{color:#807b8d;font-weight:400}
+.atelier :is(input:not([type=checkbox]):not([type=radio]),textarea){border:1px solid #ded7e9;border-radius:10px;background:#fff;font-weight:400;box-shadow:none}
+.atelier :is(input,textarea):focus{border-color:#a75da9;box-shadow:0 0 0 4px #fde6ff80;outline:none}
+.atelier :is(.gbtn,.sbtn,.ui-primary,#name-ok,#ntcClose,#nmsave){background:#a75da9;color:#fff;border:1px solid #a75da9;border-radius:10px;font-size:14px;font-weight:600;box-shadow:0 4px 0 #e4dced;letter-spacing:.06em;min-height:50px}
+.atelier :is(.gbtn,.sbtn,.ui-primary,#name-ok,#ntcClose,#nmsave):hover{background:#945196;box-shadow:0 5px 0 #e4dced;transform:translateY(-1px)}
+.atelier :is(.gbtn,.sbtn,.ui-primary,#name-ok,#ntcClose,#nmsave):active{transform:translateY(2px);box-shadow:0 1px 0 #e4dced}
+.atelier :is(.gbtn,.sbtn):disabled{background:#b2acc0;border-color:#b2acc0;box-shadow:none;transform:none}
+.atelier :is(.ghost,.subbtn,.refresh,#bugOpen2){border:1px solid #d9cce6;border-radius:9px;background:#fff;color:#7e4b85;box-shadow:none;font-size:13px;font-weight:500}
+.atelier :is(.note,footer){color:#6c6580;font-weight:400}
+.atelier footer{font-size:12px}
+.atelier .grad{background:none;color:#a75da9}
+.atelier .demoband,.atelier .mockband{background:#e2ebff;color:#665d78;font-size:11px;padding:6px 16px;letter-spacing:.08em;border-bottom:1px solid #d7dded}
+/* A light, permanent navigation rail. */
+.atelier .layout{grid-template-columns:224px minmax(0,1fr)}
+.atelier .side{background:linear-gradient(165deg,#fff 55%,#fde6ff66);border-right:1px solid #e4dced;border-radius:0;padding:30px 15px 22px;position:sticky;top:0;height:100dvh}
+.atelier .slogo{display:flex;align-items:center;gap:5px;padding:0 5px 28px}
+.atelier .slogo .brand-ribbon{width:45px;height:49px}
+.atelier .slogo .l{font-size:16px;color:#22304a;letter-spacing:.07em;font-weight:600}
+.atelier .nav-group{color:#75647f;padding:12px 15px 8px;font-size:11px;letter-spacing:.15em}
+.atelier .ni,.atelier .ni.sub{display:flex;align-items:center;gap:8px;min-height:54px;padding:9px 12px;margin:4px 0;border-radius:12px;font-size:12px;font-weight:500;color:#696079;border:1px solid transparent;background:none}
+.atelier .ni.on,.atelier .ni.sub.on{background:#fde6ff85;color:#7c4282;border:1px solid #ebd6ee;padding:9px 12px;border-radius:12px;box-shadow:0 2px 3px #a75da906}
+.atelier .ni:hover{background:#fde6ff55;color:#7c4282}
+.atelier .ni .nav-art{width:31px;height:34px;opacity:.8;transition:transform .2s}
+.atelier .ni.on .nav-art{opacity:1;transform:rotate(-5deg)}
+.atelier .ni .bdg{margin-left:auto;background:#a75da9;color:#fff;font-size:10px}
+.atelier .sprof{border-top:1px solid #e4dced;padding:22px 6px 0;gap:10px;margin-top:40px}
+.atelier .sprof>img{width:44px;height:44px;background:#fde6ff;border:3px solid white;border-radius:50%;object-fit:cover;object-position:50% 6%;box-shadow:0 0 0 1px #e4dced}
+.atelier .sprof .nm{color:#22304a;font-size:13px}.atelier .sprof .rl{color:#756b82;font-size:10px;line-height:1.9}.atelier .sprof .mt{color:#a75da9;font-size:10px;line-height:1.9;margin-top:9px}
+.atelier .main{max-width:1480px;margin:auto;padding-bottom:50px}
+/* The welcome is a small illustrated letter, not a full-page hero. */
+.page-index.atelier .hero,.page-kanri.atelier .hero{margin:28px 34px 22px;padding:24px 30px;min-height:200px;border:1px solid #e3dfee;border-radius:18px 70px 18px 18px;background:#ffffffc9 url('assets/atelier-garland.svg') no-repeat right bottom;background-size:440px auto;box-shadow:0 7px 20px #a75da906;overflow:hidden}
+.atelier .atelier-script{font:italic 23px Georgia,serif;color:#b67abb;letter-spacing:0;margin-bottom:3px}
+.page-index.atelier .hero .eyebrow{display:none}
+.page-index.atelier .hero h1,.page-kanri.atelier .hero h1{font-family:var(--atelier-serif);font-size:29px;font-weight:600;letter-spacing:.06em;line-height:1.7}
+.page-index.atelier .hero .sub,.page-kanri.atelier .hero .sub{font-size:13px;line-height:1.9;max-width:calc(100% - 260px);color:#6c6580;margin-top:9px}
+.page-index.atelier .hero .who{border:0;background:none;margin-top:10px;padding:0;color:#9c5da2;font-size:12px;font-weight:500;box-shadow:none}
+.page-index.atelier .herochar{right:25px;top:15px;gap:4px;align-items:center}
+.page-index.atelier .herochar>img{width:122px;height:170px;object-fit:contain}
+.page-index.atelier .herochar .speech{font-family:var(--atelier-serif);font-size:12px;font-weight:500;line-height:2;color:#836283;padding:0;margin:0;background:none;box-shadow:none;border:0;max-width:115px}
+.page-index.atelier .herochar .speech:after{display:none}
+.page-index.atelier .crumb{padding:0 38px;font-size:11px;color:#766c82;gap:8px}
+.page-index.atelier .crumb b{font-weight:500;color:#a75da9}
+.page-index.atelier .cols{padding:16px 34px 0;grid-template-columns:minmax(0,1fr) 238px;gap:28px}
+.page-index.atelier .card,.page-kanri.atelier .card{position:relative;border:1px solid #e4dced;background:#fff;border-radius:15px;padding:25px 30px 30px;box-shadow:0 5px 18px #a75da906}
+.page-index.atelier #v_new>.card{border-left:4px solid #d8c1e3;background:linear-gradient(90deg,#fde6ff40 0 12px,#fff 12px)}
+.page-index.atelier #v_new>.card:after{content:'';position:absolute;right:20px;top:-11px;width:42px;height:57px;background:url('assets/atelier-ribbon.svg') center/contain no-repeat;pointer-events:none}
+.page-index.atelier .card h2,.page-kanri.atelier .card h2,.page-kanri.atelier .ihead h2{display:flex;align-items:center;gap:12px;padding:0 0 16px;margin:0 0 20px;border-bottom:1px solid #eee7f2;font-size:19px;font-weight:600;letter-spacing:.035em;line-height:1.7}
+.atelier .heading-art{width:48px;height:51px}
+.page-index.atelier .q{margin-top:26px}
+.page-index.atelier .qh{gap:10px;align-items:baseline}.page-index.atelier .qh b{font-size:15px;letter-spacing:.035em;font-weight:600}
+.page-index.atelier .req{font-size:10px;color:#a75da9;padding:2px 7px;line-height:1.7;background:#fde6ff70;border:0;border-radius:4px;font-weight:500}
+.page-index.atelier .qguide{font-size:12px;line-height:1.9;color:#766c82;margin:9px 0 12px}
+.page-index.atelier textarea{min-height:136px;padding:14px 16px 30px;background:#f0f4ff32;font-size:14px!important;line-height:2}
+.page-index.atelier .cnt{color:#766c82;font-size:11px}
+.page-index.atelier .gbtn{margin-top:24px;min-height:53px;width:100%}
+.page-index.atelier .note{font-size:11px;line-height:1.9;margin-top:13px;text-align:center}
+.page-index.atelier .colside{gap:22px;padding-top:14px}
+.page-index.atelier .aican{border:0;border-radius:0;background:none;box-shadow:none;padding:0}
+.page-index.atelier .aican h3{font-family:var(--atelier-serif);font-size:17px;font-weight:600;color:#84618c;border-bottom:1px solid #e1d6eb;padding-bottom:17px;margin-bottom:8px}
+.page-index.atelier .fi{display:flex;gap:12px;align-items:flex-start;margin-top:0;padding:19px 0;border-bottom:1px solid #e4dced80}
+.page-index.atelier .fi .feature-art{width:53px;height:57px}
+.page-index.atelier .fi b{font-size:12px;font-weight:600;line-height:1.8;color:#66526f}.page-index.atelier .fi p{font-size:11px;color:#75647f;line-height:1.95;margin-top:5px}
+.page-index.atelier .wink{border:0;border-radius:70px 70px 12px 12px;background:#fde6ff55;padding:24px 18px 0;box-shadow:none;min-height:195px;overflow:hidden;display:flex;align-items:center;justify-content:space-between}
+.page-index.atelier .wink .scr{font-family:var(--atelier-serif);font-size:13px;color:#a75da9;font-weight:500;line-height:2;transform:none;letter-spacing:.02em}
+.page-index.atelier .wink img{height:174px;width:auto;position:static;filter:none}
+.page-index.atelier .view .empty{border-radius:10px;background:#f0f4ff70;color:#75647f;font-size:14px;line-height:2}
+.page-index.atelier .histitem{border-bottom:1px solid #e8deee;padding:20px 0}.page-index.atelier .histitem .d{font-size:11px;color:#a75da9}
+.page-index.atelier .adv{border:1px solid #eaddec;border-radius:12px;box-shadow:none;background:#fff;margin-top:18px;overflow:hidden}
+.page-index.atelier .adv .head{background:#fde6ff55;padding:15px 18px;border-bottom:1px solid #eaddec}
+.page-index.atelier .adv .body{font-size:14px;line-height:2;padding:20px;white-space:pre-wrap}
+.page-index.atelier .anasec{padding:20px 0;border-top:1px solid #e4dced;margin:0}.page-index.atelier .anasec:first-child{border:0}
+.page-index.atelier .anasec h3{font-size:15px;color:#87598c;font-weight:600}.page-index.atelier .habit,.page-index.atelier .plan{background:#f0f4ff80;border:1px solid #e4dced;border-radius:10px;padding:16px;font-size:13px}
+.page-index.atelier .setcard #nmsave,.page-index.atelier .setcard #bugOpen2{border-radius:9px;min-height:46px;font-size:13px;padding:10px 20px}
+/* Six chapters feel like pages in a collected notebook. */
+.page-index.atelier .curcard{border:1px solid #ddd3e8;border-radius:12px;background:#fff;box-shadow:none;margin-top:24px}
+.page-index.atelier .curcard summary{padding:16px 18px;gap:10px;font-size:13px;font-weight:500;display:flex;align-items:center}
+.page-index.atelier .summary-art{width:33px;height:36px}
+.page-index.atelier .curnow{border:0;border-radius:4px;background:#fde6ff90;color:#9c5da2;font-size:10px;line-height:1.7;letter-spacing:.02em;padding:4px 8px;white-space:nowrap;margin-left:auto}
+.page-index.atelier .curcard summary:after{content:'＋';color:#a75da9;font-size:16px;font-weight:400}.page-index.atelier .curcard[open] summary:after{content:'−'}
+.page-index.atelier .curbody{padding:0 20px 18px}
+.page-index.atelier .curwk{border-top:1px solid #e8deee;padding:17px 0;gap:16px;align-items:start;font-size:12px;line-height:1.9}
+.page-index.atelier .curwk .wn{font-size:11px;font-weight:500;line-height:1.9;color:#a75da9;flex:none;width:72px;padding-top:1px}
+.page-index.atelier .curwk .wt{min-width:0;font-size:11px;color:#7e6a89}.page-index.atelier .curwk .wt b{font-size:14px;font-weight:500;color:#4f4365;line-height:1.8;margin-bottom:5px}
+.page-index.atelier .atelier-chapter{position:relative;padding:24px 0 24px 82px;border-top:1px solid #e7dfee;min-height:105px}
+.page-index.atelier .atelier-chapter:first-child{border-top:0;padding-top:8px}
+.page-index.atelier .chapter-art{position:absolute;top:25px;left:0;width:62px;height:68px;transform:rotate(-4deg)}
+.page-index.atelier .atelier-chapter:first-child .chapter-art{top:9px}
+.page-index.atelier .atelier-chapter .curwk{border:0;padding:0;display:flex;flex-direction:column;gap:7px}
+.page-index.atelier .atelier-chapter .wn{width:auto;display:flex;align-items:center;gap:12px;line-height:1.6;font-size:11px}
+.page-index.atelier .atelier-chapter .wn br{content:' ';display:inline}.page-index.atelier .atelier-chapter .wt b{font-size:15px;color:#4f4365;line-height:1.9}
+.page-index.atelier .atelier-chapter>ul{font-size:12px!important;line-height:2!important;margin:10px 0 0!important;padding-left:16px!important;color:#766c82!important}
+.page-index.atelier #v_cur>.card>h2{font-family:var(--atelier-serif);font-size:23px}
+.page-index.atelier .ok{background:#fde6ff60;border:1px solid #decbe7;border-radius:10px;padding:16px 18px;font-size:13px;color:#87598c;line-height:1.9;animation:letter-arrives .45s ease-out}
+.page-index.atelier .success-art{float:left;width:48px;height:48px;margin-right:12px}
+@keyframes letter-arrives{from{opacity:0;transform:translateY(9px)}to{opacity:1;transform:none}}
+/* Personal letters and the chat launcher. */
+.page-index.atelier #ntcCard{border-radius:16px;background:#fff url('assets/atelier-garland.svg') no-repeat right bottom;background-size:260px;border:1px solid #dfd1e8;box-shadow:0 15px 60px #22304a22;padding:26px 26px 28px;animation:letter-arrives .4s ease-out}
+.page-index.atelier #ntcCard>img{height:110px;width:auto;margin-top:-53px;filter:none}
+.page-index.atelier #ntcCard h3{font-family:var(--atelier-serif);font-size:17px;line-height:1.8;color:#925a99;letter-spacing:.045em;margin-top:10px}
+.page-index.atelier #ntcMsg{font-size:14px;line-height:2.1;color:#5e536e}.page-index.atelier #ntcClose{padding:10px 30px;margin-top:24px}
+.page-index.atelier #aikW{right:20px;bottom:24px}.page-index.atelier #aikW img{border:3px solid #fff;box-shadow:0 0 0 1px #d9c5e3,0 4px 16px #a75da917;background:#fde6ff}
+.page-index.atelier #aikW .pl{font-size:11px;font-weight:500;border-radius:7px;padding:4px 10px;border-color:#e4dced;box-shadow:none}
+.page-index.atelier #aikP{border:1px solid #dfd1e8;border-radius:16px;box-shadow:0 16px 50px #22304a25}.page-index.atelier #aikP .ph{background:#fde6ff;color:#87598c;font-weight:500}.page-index.atelier #aikP .ph span{color:#87598c}
+.page-index.atelier #bugL{position:static;display:block;margin:10px auto;padding:6px 0;background:none;border:0;border-radius:0;box-shadow:none;font-size:11px;color:#766c82;min-height:36px}
+/* Admin surfaces share the same paper, typography and illustration family. */
+.page-kanri.atelier .hero{min-height:175px;padding:24px 28px}
+.page-kanri.atelier .hero .eyebrow{font-size:11px;color:#a75da9;margin-bottom:3px}.page-kanri.atelier .hero h1{font-size:26px}.page-kanri.atelier .hero .char{width:100px;height:142px;top:20px;right:30px;filter:none}.page-kanri.atelier .hero .script{display:none}
+.atelier .ui-tasknav{gap:16px;margin-top:18px;padding:0;border:0}.atelier .ui-tasknav a,.atelier .ui-tasknav a:first-child{font-size:12px;font-weight:500;padding:8px 0;border:0;border-bottom:1px solid #d9c5e3;border-radius:0;background:none;color:#87598c;min-height:37px}
+.page-kanri.atelier .inboxwrap{padding:22px 34px 0}.page-kanri.atelier #sec-inbox{padding-top:0}
+.page-kanri.atelier .ihead{padding:19px 25px;background:#fff;border:1px solid #e4dced;border-bottom:0;border-radius:14px 14px 0 0;gap:10px}
+.page-kanri.atelier .ihead h2{border:0;padding:0;margin:0;font-size:18px;gap:10px}.page-kanri.atelier .ihead .heading-art{width:39px;height:44px}.page-kanri.atelier .ihead .cnt{font-size:11px;color:#766c82}
+.page-kanri.atelier .inboxwrap>.ilist,.page-kanri.atelier .inboxwrap>.ihead+div:not(.ihead){border:1px solid #e4dced;border-top:0;border-radius:0 0 14px 14px;background:#fff;box-shadow:none}
+.atelier .inbox-tools{gap:7px}.page-kanri.atelier .ihead .rl{background:#fff;border:1px solid #dfd1e8;border-radius:7px;font-size:11px;color:#87598c;font-weight:500;min-height:36px;padding:7px 10px}
+.atelier .inbox-more>summary{font-size:11px;color:#87598c}.atelier .inbox-more>div{border-color:#dfd1e8;border-radius:9px;box-shadow:0 8px 20px #a75da916}
+.page-kanri.atelier .item{padding:23px 25px;border-top:1px solid #eee7f2;gap:14px}.page-kanri.atelier .ava{width:38px;height:38px;background:#fde6ff66!important}.page-kanri.atelier .ava svg{fill:#a75da9;width:18px;height:18px}
+.page-kanri.atelier .ibody .tx{font-size:14px;line-height:1.95}.page-kanri.atelier .ibody .wt{font-size:12px;line-height:1.95;color:#75647f}.page-kanri.atelier .icol .nm{font-size:13px;color:#75647f}
+.page-kanri.atelier .advpill{border:1px solid #e6cce9;background:#fde6ff60;color:#9c5da2;font-size:11px;border-radius:5px;padding:3px 8px}
+.page-kanri.atelier .reply{border:1px solid #e6d8eb;background:#f0f4ff70;border-radius:12px;padding:18px}.page-kanri.atelier .sbtn{min-height:44px;font-size:13px}
+.page-kanri.atelier .cols{padding:26px 34px 0;gap:28px;grid-template-columns:minmax(0,1fr) 238px}.page-kanri.atelier .chead h2{margin:0;border:0}.page-kanri.atelier .links a{font-size:11px}.page-kanri.atelier .hito{background:#fde6ff66;border:1px solid #e4dced;border-radius:90px 90px 15px 15px;padding:30px 20px;box-shadow:none}.page-kanri.atelier .hito h3{font-family:var(--atelier-serif);font-size:15px;color:#a75da9}.page-kanri.atelier .hito p{font-size:12px;line-height:2;color:#75647f}
+/* Invitation, conversation, and operational guides. */
+.page-start.atelier .top{background:#fff;border-bottom:1px solid #e4dced;color:#75647f;padding:18px}.page-start.atelier .top .m small{font-size:13px;letter-spacing:.1em}
+.page-start.atelier .wrap{max-width:680px;padding:0 32px 50px}
+.page-start.atelier .hero{position:relative;background:#fde6ff66 url('assets/atelier-garland.svg') no-repeat center bottom;background-size:380px;border:1px solid #e3d4ea;border-radius:100px 100px 15px 15px;min-height:205px;margin-top:40px;padding:35px 46px 15px;gap:18px}
+.page-start.atelier .hero .invitation-ribbon{position:absolute;width:62px;height:62px;top:-22px;left:calc(50% - 31px)}
+.page-start.atelier .speech{background:none;box-shadow:none;border:0;font-family:var(--atelier-serif);font-weight:500;font-size:23px;line-height:1.9;color:#87598c;padding:0}.page-start.atelier .speech:after{display:none}
+.page-start.atelier .hero>img:not(.atelier-art){width:auto;height:160px}
+.page-start.atelier h1{font-size:23px;font-family:var(--atelier-serif);font-weight:600;line-height:1.8;margin:30px 0 10px}.page-start.atelier .lead{font-size:13px;color:#75647f}
+.page-start.atelier .card{border:1px solid #e4dced;background:#fff;border-radius:14px;padding:30px;box-shadow:0 5px 18px #a75da908}.page-start.atelier label{font-size:14px;font-weight:500;margin-top:20px;color:#66526f}.page-start.atelier label small{font-size:11px;color:#75647f;margin-top:4px}.page-start.atelier input{min-height:50px}.page-start.atelier .note{font-size:11px;line-height:1.9}.page-start.atelier .gbtn{margin-top:24px}.page-start.atelier .ghost{font-size:12px;line-height:1.9;padding:10px}.page-start.atelier .urlbox{border-radius:8px;font-size:12px}.page-start.atelier .st{font-size:12px;line-height:1.9}
+.page-ai.atelier{background:#f0f4ff}.page-ai.atelier .wrap{max-width:800px;padding:24px 26px 30px}
+.page-ai.atelier .hero{position:relative;display:grid;grid-template-columns:60px 1fr;gap:0 16px;text-align:left;padding:0 70px 0 0}
+.page-ai.atelier .hero .avatar{width:60px;height:60px;border:3px solid white;background:#fde6ff;box-shadow:0 0 0 1px #dfd1e8;grid-area:1/1/3/2;margin:0}.page-ai.atelier .hero h1{font-family:var(--atelier-serif);font-size:24px;line-height:1.7;font-weight:600}.page-ai.atelier .hero .sub{font-size:11px;color:#a75da9}.page-ai.atelier .hero .desc{font-size:12px;line-height:1.9;color:#75647f;grid-column:1/-1;margin:13px 0 0}.page-ai.atelier .chat-tea{width:64px;height:67px;position:absolute;right:0;top:2px}
+.page-ai.atelier .chatcard{border-radius:15px;border:1px solid #dfd1e8;box-shadow:0 6px 22px #a75da909;margin-top:20px;overflow:hidden}
+.page-ai.atelier .chathead{background:#fff;color:#87598c;border-bottom:1px solid #eee7f2;padding:12px 20px}.page-ai.atelier .chathead .nm{font-size:13px;font-weight:600}.page-ai.atelier .chathead .st{font-size:10px;color:#766c82}.page-ai.atelier .chathead img{border:1px solid #e4dced}
+.page-ai.atelier #chat-box{background:#f0f4ff66;height:clamp(200px,calc(100dvh - 410px),460px);padding:20px}
+.page-ai.atelier .msg .b{border:1px solid #e9dfee;background:#fff;border-radius:3px 15px 15px 15px;padding:13px 17px;color:#66526f;font-size:14px;line-height:1.95;box-shadow:0 2px 6px #a75da903}.page-ai.atelier .msg.user .b{background:#fde6ff80;color:#87598c;border-color:#ead1ee;border-radius:15px 3px 15px 15px;font-weight:400}.page-ai.atelier .msg .face{border:2px solid #fff;background:#fde6ff}
+.page-ai.atelier #chips{padding:12px 16px 6px;gap:8px}.page-ai.atelier .chip{border:1px solid #e3d3e9;background:#fff;color:#87598c;border-radius:7px;font-size:11px;font-weight:400;min-height:36px}.page-ai.atelier .chip:hover{background:#fde6ff66}
+.page-ai.atelier .inrow{padding:10px 16px 16px;align-items:end}.page-ai.atelier .inrow textarea{min-height:50px;border-radius:10px;background:#fff;font-size:16px!important;line-height:1.8;resize:none}.page-ai.atelier #send-btn{width:49px;height:50px;border-radius:10px;background:#a75da9;color:#fff;box-shadow:0 3px 0 #e4dced}.page-ai.atelier #send-btn svg{fill:white}.page-ai.atelier .note{font-size:11px;line-height:1.9}.page-ai.atelier .clearrow a{font-size:11px;color:#766c82}
+.page-ai.atelier .mbox{border:1px solid #dfd1e8;border-radius:20px;background:#fff url('assets/atelier-garland.svg') no-repeat right bottom;background-size:220px;box-shadow:0 15px 50px #22304a25;padding:28px}.page-ai.atelier .mbox h3{font-family:var(--atelier-serif);font-weight:500;color:#87598c;line-height:1.9}.page-ai.atelier .mbox input{font-size:16px}.page-ai.atelier .mbox .skip{font-size:12px;min-height:40px;line-height:40px}
+:is(.page-handover,.page-manual,.page-promo).atelier header{background:#fff;color:#75647f;border-bottom:1px solid #e4dced;padding:20px 28px}
+:is(.page-handover,.page-manual,.page-promo).atelier header .lg{font-size:13px;font-weight:500;letter-spacing:.1em}
+:is(.page-handover,.page-manual,.page-promo,.page-setup).atelier .wrap{max-width:1000px;padding-left:36px;padding-right:36px}
+:is(.page-handover,.page-manual,.page-promo).atelier .hero{border-bottom:1px solid #e1d6eb;padding:46px 175px 32px 0;background:url('assets/atelier-garland.svg') no-repeat right bottom;background-size:220px}
+:is(.page-handover,.page-manual,.page-promo,.page-setup).atelier h1{position:relative;font-family:var(--atelier-serif);font-size:32px;letter-spacing:.045em;font-weight:600;padding-top:14px;line-height:1.75}
+.atelier .guide-ribbon{width:50px;height:54px;display:block;margin-bottom:5px}
+:is(.page-handover,.page-manual,.page-promo).atelier .hero .badge{color:#a75da9;font-size:12px}.atelier .hero .badge .grad{color:#a75da9}
+:is(.page-handover,.page-manual,.page-promo).atelier .hero .lead{font-size:14px;line-height:2;color:#6c6580;margin-top:18px;background:none}
+:is(.page-handover,.page-manual,.page-promo).atelier .hero>img{height:172px;top:48px;right:15px}
+.atelier .ui-toc{border:1px solid #dfd1e8;border-radius:12px;background:#fff;padding:20px 24px;margin:24px 0 40px;box-shadow:0 3px 12px #a75da906}.atelier .ui-toc summary{color:#87598c;font-family:var(--atelier-serif);font-size:16px;font-weight:500}.atelier .ui-toc nav{gap:0 30px}.atelier .ui-toc a{font-size:12px;color:#75647f;border-color:#eee7f2}.atelier .ui-toc a span{color:#b780be;font-family:Georgia,serif;font-style:italic;font-size:16px}
+:is(.page-handover,.page-manual,.page-promo).atelier .sec{margin-top:42px}.atelier .sec .st{gap:14px;align-items:center;margin-bottom:20px}
+:is(.page-handover,.page-manual,.page-promo).atelier .sec .st .no{width:36px;height:44px;display:flex;align-items:center;justify-content:center;border-radius:0;background:#fde6ff;border:0;color:#a75da9;font:italic 22px Georgia,serif;clip-path:polygon(0 0,100% 0,100% 100%,50% 86%,0 100%)}
+:is(.page-handover,.page-manual,.page-promo).atelier .sec .st h2{font-family:var(--atelier-serif);font-size:22px;font-weight:600;line-height:1.75}
+:is(.page-handover,.page-manual,.page-promo).atelier :is(.promptbox,.glist,.lvl,.qa,.spellcard,.phbox){background:#fff;border:1px solid #e4dced;border-radius:12px;padding:24px 28px;box-shadow:0 3px 12px #a75da904}
+:is(.page-handover,.page-manual,.page-promo).atelier :is(.val,.lvl p.note2,.glist .row,.qa .a,.promptbox li,.steps li,.check .row,.desc){font-size:14px;line-height:2;color:#6c6580}
+:is(.page-handover,.page-manual).atelier .ilist li:before{content:'・';color:#a75da9}
+:is(.page-handover,.page-manual,.page-promo).atelier .maprow{display:flex;align-items:center;gap:17px;padding:20px 0;border:0;border-bottom:1px solid #e4dced;background:none;border-radius:0;box-shadow:none;flex-wrap:nowrap}
+.atelier .map-art{width:50px;height:54px}
+/* Screen guide additions share the approved paper and stationery palette. */
+.page-handover.atelier .shots{gap:24px;margin-top:24px;align-items:start}
+.page-handover.atelier .shot{min-width:0;background:#fff;border:1px solid #e4dced;border-radius:12px;padding:12px;box-shadow:0 3px 12px #a75da906}
+.page-handover.atelier .shot img{border:1px solid #e4dced;border-radius:6px}
+.page-handover.atelier .shot.wide{display:grid;grid-template-columns:minmax(0,360px) minmax(0,1fr);gap:24px;align-items:center}
+@media(max-width:560px){.page-handover.atelier .shot.wide{grid-template-columns:1fr;gap:0}}
+.page-handover.atelier .shot .cap{font-size:14px;font-weight:600;color:#66526f;margin:14px 4px 4px;line-height:1.85}
+.page-handover.atelier .shot .cap small{font-size:12px;color:#75647f;line-height:1.9;margin-top:6px}
+.page-handover.atelier .bigurl{background:#fde6ff60;color:#66526f;border:1px solid #e5cfeb;border-radius:12px;padding:24px;margin-top:24px;text-align:left}
+.page-handover.atelier .bigurl .l{color:#87598c;font-size:12px}
+.page-handover.atelier .bigurl a{color:#87598c;font-size:15px;line-height:1.8;text-decoration:underline;text-underline-offset:4px;margin:8px 0;overflow-wrap:anywhere}
+.page-handover.atelier .bigurl .s{color:#75647f;font-size:12px;line-height:1.9}
+.page-handover.atelier :is(.tbl,.ng){border:1px solid #e4dced;background:#fff;border-radius:12px;box-shadow:none;margin-top:24px;padding:10px 24px}
+.page-handover.atelier .tbl .r{padding:18px 0;gap:24px;border-color:#eee7f2}
+.page-handover.atelier .tbl .k{color:#66526f;font-size:14px;font-weight:600}
+.page-handover.atelier :is(.tbl .v,.ng li){font-size:14px;color:#6c6580;line-height:2}
+.page-handover.atelier .ng .t{font-size:14px;color:#66526f;margin:12px 0;font-weight:600}
+.page-handover.atelier .ng li{padding:12px 0;border-color:#eee7f2}
+.page-handover.atelier .ng li::before{content:none}
+@media(max-width:560px){.page-handover.atelier .tbl .r{flex-direction:column;gap:6px}.page-handover.atelier .tbl .k{width:auto}.page-handover.atelier :is(.tbl,.ng){padding:8px 20px}}
+:is(.page-handover,.page-manual,.page-promo).atelier .maprow .nm{font-size:15px;font-weight:600;color:#66526f}.atelier .maprow .body{min-width:0}
+:is(.page-handover,.page-manual,.page-promo).atelier .maprow .ds{font-size:12px;color:#75647f;line-height:1.9}
+:is(.page-handover,.page-manual,.page-promo).atelier .maprow .go{border:1px solid #dbc8e4;border-radius:8px;background:#fff;color:#87598c;font-size:12px;min-height:42px;padding:8px 16px;white-space:nowrap;box-shadow:none}
+.page-promo.atelier .grid{gap:22px}.page-promo.atelier .card{border:1px solid #e4dced;background:#fff;border-radius:14px;box-shadow:0 4px 15px #a75da906;padding:23px}.page-promo.atelier .card .hd{gap:10px;flex-wrap:wrap}.page-promo.atelier .card .nm{font-size:15px}.page-promo.atelier .card .hd .stt{font-size:10px;border-radius:5px}.page-promo.atelier .card .go{background:#a75da9;color:#fff;border-radius:8px;font-weight:500;font-size:12px}.page-promo.atelier .flow{background:#fde6ff50;border-radius:15px;padding:20px;gap:12px;justify-content:center}.page-promo.atelier .flow .step{background:none;border:0;padding:6px;font-size:12px}.page-promo.atelier .flow .step .t{color:#87598c}
+.page-setup.atelier .step{border:1px solid #e4dced;border-radius:12px;background:#fff;padding:28px;box-shadow:none}.page-setup.atelier .step h3{font-family:var(--atelier-serif);font-size:22px;font-weight:600;line-height:1.8}.page-setup.atelier .step p,.page-setup.atelier .flow li{font-size:14px;line-height:2}.page-setup.atelier .note{background:#fde6ff60;border:1px solid #ead5ef;border-radius:10px;color:#87598c;font-size:13px}.page-setup.atelier .jump a{background:#fff;border:1px solid #dfd1e8;border-radius:7px;color:#87598c;padding:8px 13px;font-size:12px}.page-setup.atelier pre{background:#e2ebff66;color:#4f4365;border:1px solid #dce0ed;border-radius:9px;font-size:12px}.page-setup.atelier table{font-size:12px}.page-setup.atelier td,.page-setup.atelier th{padding:12px}
+/* The invitation into the lab uses the same handmade stationery. */
+.page-lp.atelier{background:#f0f4ff}.page-lp.atelier header{background:#ffffffa8;border-bottom:1px solid #e4dced;padding:18px 40px}
+.page-lp.atelier .ui-brand{display:flex;align-items:center;gap:7px;font-size:17px;font-weight:600;letter-spacing:.08em}.page-lp.atelier .brand-ribbon{width:39px;height:42px}.page-lp.atelier .ui-topnav nav a{font-size:12px;font-weight:500;color:#75647f}.page-lp.atelier .ui-topnav .ui-toplink{border:1px solid #dbc8e4;border-radius:8px;padding:8px 16px;background:#fff;color:#87598c}
+.page-lp.atelier .hero{position:relative;padding:66px 0 58px;background:url('assets/atelier-garland.svg') no-repeat center bottom;background-size:390px;background-position:right 170px bottom -10px;border-bottom:1px solid #e4dced;grid-template-columns:minmax(0,1.6fr) minmax(230px,1fr);gap:0 55px;overflow:visible}
+.page-lp.atelier .hero .badge{color:#87598c;font-size:11px;letter-spacing:.075em}.page-lp.atelier .hero .badge:before{width:24px;background:#c77fce;height:1px}
+.page-lp.atelier .hero h1{font-size:clamp(32px,3.9vw,51px);line-height:1.8;letter-spacing:.005em;margin-top:23px;font-weight:500}.page-lp.atelier .hero h1 .grad{font-size:1.12em;color:#a75da9;letter-spacing:.025em;background:none}
+.page-lp.atelier .hero .lead{font-size:14px;line-height:2.1;color:#75647f;margin-top:22px;max-width:485px}.page-lp.atelier .hero .lead b{color:#87598c;font-weight:600}
+.page-lp.atelier .hero .chars{border:1px solid #e4dced;border-radius:140px 140px 18px 18px;background:#fff;box-shadow:9px 9px 0 #fde6ff80,10px 10px 0 1px #ebd5ee;min-height:405px;padding:32px 18px 22px;gap:12px;transform:rotate(3deg);max-width:290px;justify-self:center;width:100%;overflow:visible}
+.page-lp.atelier .hero .chars>img:not(.atelier-art){height:295px;filter:none;transform:rotate(-3deg)}
+.page-lp.atelier .hero .chars .portrait-ribbon{width:87px;height:85px;position:absolute;top:-24px;left:calc(50% - 43px);transform:rotate(-9deg)}
+.page-lp.atelier .char-caption{border:0;display:flex;flex-direction:column;gap:3px;padding:0;text-align:center;align-items:center;font-size:13px;color:#87598c;transform:rotate(-3deg)}.page-lp.atelier .char-caption span{font:italic 14px Georgia,serif;color:#b780be;letter-spacing:.035em}
+.page-lp.atelier .hero .ui-actions{gap:25px;margin-top:28px}.page-lp.atelier .ui-primary{background:#a75da9;border-radius:10px;border:1px solid #a75da9;color:#fff;font-size:13px;min-height:52px;padding:13px 22px;font-weight:500;box-shadow:0 4px 0 #e4dced}.page-lp.atelier .ui-secondary{border-color:#b780be;color:#87598c;font-size:12px;font-weight:500}
+.page-lp.atelier .sec{border-color:#e4dced;padding:62px 0;gap:0 45px;grid-template-columns:220px 1fr}.page-lp.atelier .sec>.eyebrow{color:#b780be;font:italic 18px Georgia,serif}.page-lp.atelier .sec>h2{font-size:25px;line-height:1.85;letter-spacing:.04em;font-weight:500}
+.page-lp.atelier .worry{border-color:#e8deee;font-size:14px;line-height:2;gap:14px;color:#75647f}.page-lp.atelier .worry:before{content:'';width:21px;height:22px;background:url('assets/atelier-bloom.svg') center/contain no-repeat;align-self:flex-start;margin-top:5px}
+.page-lp.atelier #support{padding:62px 0}.page-lp.atelier #support>h2{font-size:30px;font-weight:500;letter-spacing:.035em;margin-bottom:35px}
+.page-lp.atelier .ui-features{display:grid;grid-template-columns:1fr 1fr;gap:12px 38px}
+.page-lp.atelier .feature{grid-template-columns:98px 1fr;gap:20px;border-top:1px solid #e4dced;border-radius:0;padding:29px 0;background:none;box-shadow:none;align-items:start}
+.page-lp.atelier .feature>div:last-child{display:block}.page-lp.atelier .feature-number{position:relative;text-align:center;padding:0;font:italic 13px Georgia,serif;color:#b780be}
+.page-lp.atelier .service-art{width:96px;height:100px;display:block;margin:0 auto 5px}.page-lp.atelier .feature h3{font-family:var(--atelier-serif);font-size:20px;font-weight:600;line-height:1.8;color:#755180;margin:5px 0 12px}.page-lp.atelier .feature p{font-size:13px;line-height:2;color:#75647f;margin:0}
+.page-lp.atelier .mock{background:#fff url('assets/atelier-garland.svg') no-repeat right bottom;background-size:250px;padding:28px;border:1px solid #e4dced;border-radius:15px;gap:24px;grid-template-columns:1fr 90px}.page-lp.atelier .mock p{font-size:14px;line-height:2;color:#75647f}.page-lp.atelier .mock img{width:88px}.page-lp.atelier .mock a{font-size:12px;color:#a75da9!important;font-weight:500!important}
+.page-lp.atelier #instructor .card{grid-template-columns:220px 1fr;gap:0 45px}.page-lp.atelier #instructor .card>img{border-radius:90px 90px 12px 12px;background:#fde6ff66;padding:22px 18px 0;width:190px!important}.page-lp.atelier #instructor .card>p{font-size:14px;line-height:2.1;color:#75647f}.page-lp.atelier #instructor .card>p:first-of-type{font-size:22px;color:#87598c}.page-lp.atelier #instructor .card>p:last-child{border-color:#e4dced}
+.page-lp.atelier .price{border:1px solid #e4dced;border-radius:15px;background:#fff url('assets/atelier-garland.svg') no-repeat right top;background-size:240px;padding:30px;box-shadow:0 4px 18px #a75da906}.page-lp.atelier .price .pb{font-size:12px;color:#a75da9}.page-lp.atelier .price .yen{font-family:var(--atelier-serif);font-size:49px;color:#87598c;letter-spacing:-.035em;margin:18px 0 24px}.page-lp.atelier .price .note{font-size:12px;color:#75647f;line-height:2}.page-lp.atelier .price-facts>div{grid-template-columns:115px 1fr;padding:15px 0;border-color:#eee7f2;gap:14px}.page-lp.atelier .price-facts dt{font-size:11px;color:#9c5da2}.page-lp.atelier .price-facts dd{font-size:12px;color:#75647f}
+.page-lp.atelier #price>.cta{background:#a75da9;border:1px solid #a75da9;border-radius:10px;color:#fff;font-size:14px;font-weight:500;box-shadow:0 4px 0 #e4dced;max-width:none;margin-top:24px;min-height:52px}
+.page-lp.atelier .faqq{border-color:#e4dced}.page-lp.atelier .faqq summary{font-size:14px;color:#75647f;padding-top:22px;padding-bottom:22px}.page-lp.atelier .faqq summary:before{color:#b780be}.page-lp.atelier .faqq .a{font-size:13px;line-height:2;color:#75647f}
+.page-lp.atelier .fixbar{border-color:#dfd1e8;background:#fffffff2;box-shadow:0 -3px 20px #a75da906}.page-lp.atelier .fixbar a{background:#a75da9;color:#fff;border-radius:9px;font-size:13px;font-weight:500;min-height:46px}.page-lp.atelier .ui-fixtext{font-size:12px;color:#87598c}.page-lp.atelier footer,.page-lp.atelier footer a{color:#75647f!important;font-size:11px}
+/* Phone layouts preserve both the illustrations and room to work. */
+@media(max-width:1100px) and (min-width:901px){
+ .atelier .layout{grid-template-columns:195px minmax(0,1fr)}.atelier .side{padding:22px 10px}.atelier .slogo .l{font-size:14px}.atelier .slogo .brand-ribbon{width:35px}.atelier .ni,.atelier .ni.sub,.atelier .ni.on,.atelier .ni.sub.on{padding:8px;font-size:11px}.atelier .ni .nav-art{width:28px}
+ .page-index.atelier .cols,.page-kanri.atelier .cols{grid-template-columns:minmax(0,1fr) 185px;gap:20px;padding-left:22px;padding-right:22px}.page-index.atelier .card,.page-kanri.atelier .card{padding:22px}.page-index.atelier .hero,.page-kanri.atelier .hero{margin-left:22px;margin-right:22px}.page-index.atelier .hero .sub{max-width:calc(100% - 160px)}.page-index.atelier .herochar .speech{display:none}.page-index.atelier .fi{gap:8px}.page-index.atelier .fi .feature-art{width:44px;height:48px}.page-index.atelier .wink .scr{font-size:11px}.page-index.atelier .wink img{height:142px}.page-index.atelier .card h2{font-size:17px;gap:9px}
+}
+@media(max-width:900px){
+ .atelier .layout{display:block}.atelier .side{display:none}.page-index.atelier .main,.page-kanri.atelier .main{padding-bottom:105px}
+ .page-index.atelier .mtop,.page-kanri.atelier .mtop{background:#fff;border-bottom:1px solid #e4dced;padding:15px 22px;min-height:70px;color:#87598c;display:flex;align-items:center;justify-content:space-between;gap:16px}
+ .page-index.atelier .mtop .m small,.page-kanri.atelier .mtop .t .m small{font-size:13px;color:#87598c;margin:0;letter-spacing:.08em}.page-index.atelier .mtop h1{font-family:var(--atelier-serif);font-size:18px;letter-spacing:.04em;font-weight:500;margin:0}.page-index.atelier .mtop .burger,.page-kanri.atelier .mtop .burger,.page-index.atelier .mtop>div[style]{display:none}
+ .page-kanri.atelier .mtop .t .h{font-size:10px;color:#7e6a89;margin-top:2px}.page-kanri.atelier .mtop img{height:40px;width:40px;object-fit:cover;object-position:50% 6%;border-radius:50%;border:2px solid #fff;box-shadow:0 0 0 1px #e4dced;background:#fde6ff}
+ .page-index.atelier .hero{display:none}
+ .page-index.atelier .mhero{display:flex;position:relative;margin:22px 20px 4px;padding:18px 20px;min-height:139px;gap:8px;align-items:center;justify-content:space-between;border:1px solid #e4dced;border-radius:15px 48px 15px 15px;background:#fff url('assets/atelier-garland.svg') no-repeat right bottom;background-size:165px;background-position:right -8px bottom -16px;box-shadow:0 4px 16px #a75da904}
+ .page-index.atelier .mhero:before{content:'';position:absolute;width:43px;height:46px;right:13px;top:-13px;background:url('assets/atelier-ribbon.svg') center/contain no-repeat}
+ .page-index.atelier .mspeech{font-family:var(--atelier-serif);font-size:20px;font-weight:500;line-height:1.8;color:#87598c;letter-spacing:.03em;background:none;padding:0;box-shadow:none}.page-index.atelier .mspeech:after{display:none}.page-index.atelier .mhero .who2{font-size:10px;color:#7e6a89;margin-top:9px;font-weight:400}
+ .page-index.atelier .mhero>img{display:none}.page-index.atelier #aikW{position:static;margin:9px 2px 0 9px;align-self:center;flex:none}.page-index.atelier #aikW img{width:57px;height:57px;border:3px solid #fff;box-shadow:0 0 0 1px #dcc4e5}.page-index.atelier #aikW .pl{font-size:10px;background:none;border:0;box-shadow:none;padding:5px 0 0;margin:0;color:#a75da9}
+ .page-index.atelier .crumb{display:none}.page-index.atelier .cols,.page-kanri.atelier .cols{display:block;padding:20px 20px 0}.page-index.atelier .colside{display:none}
+ .page-index.atelier .card,.page-kanri.atelier .card{border-radius:12px;padding:21px 20px 25px}.page-index.atelier #v_new>.card{border-left-width:3px;background:linear-gradient(90deg,#fde6ff40 0 6px,#fff 6px)}.page-index.atelier #v_new>.card:after{width:32px;height:42px;right:12px;top:-9px}
+ .page-index.atelier .card h2,.page-kanri.atelier .card h2{font-size:17px;line-height:1.7;gap:10px;padding-bottom:14px;margin-bottom:19px}.atelier .heading-art{width:39px;height:43px}
+ .page-index.atelier .q{margin-top:24px}.page-index.atelier .qh b{font-size:14px}.page-index.atelier .req{font-size:9px;padding:2px 5px}.page-index.atelier .qguide{font-size:12px;line-height:1.9;margin:8px 0 10px}.page-index.atelier textarea{font-size:16px!important;min-height:145px;padding:12px 12px 29px;line-height:1.9}.page-index.atelier .gbtn{font-size:12px;padding:12px 8px;min-height:51px;letter-spacing:.035em}.page-index.atelier .note{font-size:10px;line-height:1.8}
+ .page-index.atelier .curcard{margin-top:20px}.page-index.atelier .curcard summary{padding:13px;gap:7px;font-size:11px}.page-index.atelier .summary-art{width:28px;height:31px}.page-index.atelier .curnow{font-size:9px;padding:3px 6px}.page-index.atelier .curcard summary:after{font-size:14px}.page-index.atelier .curbody{padding:0 16px 14px}
+ .page-index.atelier #v_cur>.card>h2{font-size:20px}.page-index.atelier .atelier-chapter{padding:23px 0 23px 62px}.page-index.atelier .chapter-art{width:46px;height:53px;top:26px}.page-index.atelier .atelier-chapter .wn{font-size:10px;gap:10px;flex-wrap:wrap}.page-index.atelier .atelier-chapter .wt b{font-size:14px;line-height:1.9}.page-index.atelier .atelier-chapter>ul{font-size:13px!important;line-height:1.95!important}.page-index.atelier .curwk .wn{font-size:10px;width:68px}.page-index.atelier .curwk .wt b{font-size:12px}.page-index.atelier .curwk .wt{font-size:10px}
+ .page-index.atelier .mnav,.page-kanri.atelier .mnav{background:#ffffffed;backdrop-filter:blur(12px);border-top:1px solid #e4dced;box-shadow:0 -3px 15px #a75da909;padding:6px 6px calc(6px + env(safe-area-inset-bottom));gap:3px;z-index:65}
+ .page-index.atelier .mn,.page-kanri.atelier .mn{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;position:relative;min-height:60px;padding:3px 1px;font-size:10px;line-height:1.4;letter-spacing:0;font-weight:500;border:0;background:none;color:#766c82;border-radius:9px}
+ .page-index.atelier .mn .nav-art,.page-kanri.atelier .mn .nav-art{width:27px;height:30px;opacity:.7}
+ .page-index.atelier .mn.on,.page-kanri.atelier .mn.on{background:#fde6ff70;color:#925a99;font-weight:600}.page-index.atelier .mn.on .nav-art,.page-kanri.atelier .mn.on .nav-art{opacity:1;transform:rotate(-5deg)}
+ .page-index.atelier .mn.on:before{display:none}.page-index.atelier #aikP{bottom:88px;width:calc(100vw - 28px);right:14px;height:min(620px,calc(100dvh - 112px));z-index:70}
+ .page-kanri.atelier .hero{margin:22px 20px 0;min-height:0;padding:21px;border-radius:14px 42px 14px 14px;background-size:260px}.page-kanri.atelier .hero h1{font-size:22px}.page-kanri.atelier .hero .sub{max-width:none;font-size:12px}.page-kanri.atelier .hero .char{display:none}.page-kanri.atelier .ui-tasknav{display:grid;grid-template-columns:1fr 1fr;gap:4px 16px}.page-kanri.atelier .ui-tasknav a{font-size:11px;min-height:34px}
+ .page-kanri.atelier .inboxwrap{padding:23px 20px 0}.page-kanri.atelier #sec-inbox{padding-top:23px}.page-kanri.atelier .ihead{padding:18px;border-radius:12px 12px 0 0;gap:8px}.page-kanri.atelier .ihead h2{font-size:17px;flex-basis:100%;gap:8px}.page-kanri.atelier .ihead .heading-art{width:34px;height:38px}.page-kanri.atelier .ihead .cnt{font-size:10px}.page-kanri.atelier .inbox-tools{margin-top:4px;flex-basis:100%;gap:7px}.page-kanri.atelier .ihead .rl{font-size:10px;padding:7px 8px}.page-kanri.atelier .inbox-more>summary{font-size:10px}.page-kanri.atelier .item{padding:20px 18px;gap:10px}.page-kanri.atelier .ibody .tx{font-size:13px}.page-kanri.atelier .ibody .wt{font-size:11px}.page-kanri.atelier .hito{display:none}.page-kanri.atelier .mn{font-size:9px;min-height:60px;flex:1}.page-kanri.atelier .mn .b{font-size:9px;top:0;right:18px;background:#a75da9;color:#fff}
+}
+@media(max-width:650px){
+ .page-start.atelier .wrap{padding:0 22px 40px}.page-start.atelier .hero{padding:31px 26px 15px;margin-top:34px;min-height:190px;border-radius:80px 80px 14px 14px;gap:14px}.page-start.atelier .speech{font-size:19px}.page-start.atelier .hero>img:not(.atelier-art){height:137px}.page-start.atelier h1{font-size:21px}.page-start.atelier .card{padding:24px 21px}.page-start.atelier .lead{font-size:12px}.page-start.atelier label{font-size:13px}.page-start.atelier label small{font-size:10px}.page-start.atelier .gbtn{font-size:12px}.page-start.atelier .note{font-size:10px}
+ .page-ai.atelier .wrap{padding:19px 15px 26px}.page-ai.atelier .hero{grid-template-columns:50px 1fr;gap:0 12px;padding-right:49px}.page-ai.atelier .hero .avatar{width:50px;height:50px}.page-ai.atelier .hero h1{font-size:22px}.page-ai.atelier .hero .sub{font-size:10px}.page-ai.atelier .hero .desc{font-size:11px;margin-top:11px}.page-ai.atelier .chat-tea{width:47px;height:52px}.page-ai.atelier .chatcard{margin-top:17px;border-radius:13px}.page-ai.atelier .chathead{padding:10px 15px}.page-ai.atelier #chat-box{padding:16px 12px;height:clamp(210px,calc(100dvh - 380px),460px)}.page-ai.atelier .msg{gap:7px;margin-top:16px}.page-ai.atelier .msg .b{font-size:14px;line-height:1.95;padding:12px 14px;max-width:86%}.page-ai.atelier .msg .face{width:25px;height:25px}.page-ai.atelier #chips{padding:11px 12px 6px}.page-ai.atelier .chip{font-size:10px;min-height:35px}.page-ai.atelier .inrow{padding:9px 12px 13px;gap:8px}.page-ai.atelier .inrow textarea{font-size:16px!important;min-height:48px}.page-ai.atelier #send-btn{height:48px;width:45px}.page-ai.atelier .note{font-size:10px}
+ :is(.page-handover,.page-manual,.page-promo,.page-setup).atelier .wrap{padding-left:22px;padding-right:22px}.atelier .guide-ribbon{width:41px;height:44px}
+ :is(.page-handover,.page-manual,.page-promo).atelier .hero{padding:28px 0 25px;min-height:0;background-size:300px}.atelier .hero h1 .guide-ribbon{margin-bottom:5px}
+ :is(.page-handover,.page-manual,.page-promo,.page-setup).atelier h1{font-size:27px;line-height:1.7;padding-top:0;margin-bottom:14px}
+ :is(.page-handover,.page-manual,.page-promo).atelier .hero>img{position:static;float:right;height:124px;margin:10px 4px 10px 14px}
+ :is(.page-handover,.page-manual,.page-promo).atelier .hero .lead{clear:both;font-size:13px;line-height:2;padding-top:12px;margin:0}.atelier .ui-toc{padding:18px;margin:21px 0 34px}.atelier .ui-toc summary{font-size:15px}.atelier .ui-toc nav{grid-template-columns:1fr}.atelier .ui-toc a{font-size:11px}
+ :is(.page-handover,.page-manual,.page-promo).atelier .sec .st{gap:11px;flex-wrap:wrap}.atelier .sec .st .sub{font-size:10px}
+ :is(.page-handover,.page-manual,.page-promo).atelier .sec .st h2{font-size:20px;line-height:1.8;flex:1;min-width:0}
+ :is(.page-handover,.page-manual,.page-promo).atelier .sec .st .no{width:30px;height:39px;font-size:20px}
+ :is(.page-handover,.page-manual,.page-promo).atelier :is(.promptbox,.glist,.lvl,.qa,.spellcard,.phbox){padding:20px 19px}
+ :is(.page-handover,.page-manual,.page-promo).atelier :is(.val,.lvl p.note2,.glist .row,.qa .a,.promptbox li,.steps li,.check .row,.desc){font-size:13px;line-height:2}
+ .atelier .map-art{width:38px;height:44px}.atelier .maprow .body{flex:1}
+ :is(.page-handover,.page-manual,.page-promo).atelier .maprow{gap:11px;align-items:flex-start;flex-wrap:wrap;padding:19px 0}.atelier .maprow .go{margin-left:49px!important}
+ :is(.page-handover,.page-manual,.page-promo).atelier .maprow .nm{font-size:14px}.atelier .maprow .ds{font-size:11px!important}.page-promo.atelier .grid{grid-template-columns:1fr}.page-promo.atelier .card{padding:21px}.page-promo.atelier .card .hd .nm{font-size:14px}.page-promo.atelier .flow{padding:16px 10px;gap:8px}.page-promo.atelier .flow .t{font-size:12px}.page-promo.atelier .flow .d{font-size:10px}
+ .page-setup.atelier .step{padding:22px 20px}.page-setup.atelier .step h3{font-size:20px}.page-setup.atelier .step p,.page-setup.atelier .flow li{font-size:13px}.page-setup.atelier .note{font-size:12px}.page-setup.atelier table{font-size:11px}.page-setup.atelier th,.page-setup.atelier td{padding:9px}
+}
+@media(max-width:850px){
+ .page-lp.atelier header{padding:15px 24px}.page-lp.atelier .wrap{padding:0 26px}.page-lp.atelier .ui-brand{font-size:15px;gap:3px}.page-lp.atelier .brand-ribbon{width:34px;height:36px}.page-lp.atelier .ui-topnav .ui-toplink{font-size:11px;padding:7px 11px}
+ .page-lp.atelier .hero{grid-template-columns:minmax(0,1.6fr) minmax(160px,1fr);column-gap:29px;padding:45px 0}.page-lp.atelier .hero h1{font-size:clamp(27px,4.2vw,37px)}.page-lp.atelier .hero .chars{min-height:325px;max-width:210px;padding:33px 12px 20px}.page-lp.atelier .hero .chars>img:not(.atelier-art){height:223px}.page-lp.atelier .hero .chars .portrait-ribbon{width:70px;height:73px;left:calc(50% - 35px);top:-24px}.page-lp.atelier .hero .lead{font-size:13px;line-height:2.05}.page-lp.atelier .sec{grid-template-columns:165px 1fr;gap:0 29px;padding:48px 0}.page-lp.atelier .sec>h2{font-size:23px}.page-lp.atelier .feature{grid-template-columns:74px 1fr;gap:14px;padding:24px 0}.page-lp.atelier .service-art{width:73px;height:80px}.page-lp.atelier .feature h3{font-size:18px}.page-lp.atelier .feature p{font-size:12px}.page-lp.atelier .ui-features{gap:8px 24px}
+}
+@media(max-width:580px){
+ .page-lp.atelier .wrap{padding:0 23px}.page-lp.atelier header{padding:13px 20px}.page-lp.atelier .ui-brand{font-size:14px}.page-lp.atelier .brand-ribbon{width:31px}.page-lp.atelier .ui-topnav .ui-toplink{font-size:10px;padding:6px 9px}.page-lp.atelier .ui-topnav{gap:10px}
+ .page-lp.atelier .hero{grid-template-columns:minmax(0,1fr) 111px;column-gap:18px;padding:28px 0 38px;background-size:160px;background-position:right bottom;align-items:start}.page-lp.atelier .hero .badge{grid-column:1/-1;font-size:9px;line-height:1.9;letter-spacing:0}.page-lp.atelier .hero .badge:before{width:16px;margin-right:8px}
+ .page-lp.atelier .hero h1{grid-column:1/-1;font-size:clamp(24px,6.3vw,35px);line-height:1.85;letter-spacing:0;margin:24px 0 0}.page-lp.atelier .hero h1 .grad{font-size:1.2em;letter-spacing:.02em}.page-lp.atelier .hero .lead{grid-column:1;grid-row:3;font-size:12px;line-height:2;margin-top:25px;letter-spacing:.01em}
+ .page-lp.atelier .hero .chars{grid-column:2;grid-row:3;min-height:199px;margin-top:26px;border-radius:60px 60px 10px 10px;padding:25px 6px 13px;gap:5px;max-width:111px;box-shadow:5px 5px 0 #fde6ff90,6px 6px 0 1px #ead1ee;align-self:center}
+ .page-lp.atelier .hero .chars>img:not(.atelier-art){height:139px}.page-lp.atelier .hero .chars .portrait-ribbon{width:47px;height:50px;left:calc(50% - 23px);top:-16px}.page-lp.atelier .char-caption{font-size:10px;gap:0}.page-lp.atelier .char-caption span{display:block;font-size:9px}.page-lp.atelier .hero .ui-actions{grid-row:4;grid-column:1/-1;margin-top:26px;gap:20px}.page-lp.atelier .ui-primary{font-size:12px;padding:11px 16px;gap:18px;min-height:48px}.page-lp.atelier .ui-secondary{font-size:11px}
+ .page-lp.atelier .sec{display:block;padding:38px 0}.page-lp.atelier .sec>h2{font-size:24px;line-height:1.75;margin-bottom:22px}.page-lp.atelier .sec>.eyebrow{font-size:16px;margin-bottom:10px}.page-lp.atelier .worry{font-size:13px;padding:14px 0;gap:12px;line-height:1.95}.page-lp.atelier .worry:before{width:23px;height:26px}
+ .page-lp.atelier #support{padding:38px 0}.page-lp.atelier #support>h2{font-size:25px;margin-bottom:25px}.page-lp.atelier .ui-features{display:block}.page-lp.atelier .feature{grid-template-columns:71px 1fr;gap:16px;padding:23px 0}.page-lp.atelier .feature-number{grid-row:auto;font-size:11px}.page-lp.atelier .service-art{width:70px;height:77px}.page-lp.atelier .feature h3{font-size:18px;line-height:1.85;margin-top:0;margin-bottom:9px}.page-lp.atelier .feature p{font-size:13px;line-height:2}
+ .page-lp.atelier .mock{grid-template-columns:1fr 62px;padding:21px;gap:16px}.page-lp.atelier .mock img{width:62px}.page-lp.atelier .mock p{font-size:13px;line-height:2}.page-lp.atelier .mock a{font-size:11px}
+ .page-lp.atelier #instructor .card{grid-template-columns:83px 1fr;gap:20px}.page-lp.atelier #instructor .card>img{width:83px!important;padding:12px 7px 0;margin:0}.page-lp.atelier #instructor .card>p{font-size:13px;line-height:2.1}.page-lp.atelier #instructor .card>p:first-of-type{font-size:20px;line-height:1.8}.page-lp.atelier #instructor .card>p:first-of-type span[style]{font-size:11px!important}.page-lp.atelier .price{padding:24px 21px;background-size:175px}.page-lp.atelier .price .pb{font-size:10px}.page-lp.atelier .price .yen{font-size:42px}.page-lp.atelier .price .yen small{font-size:11px}.page-lp.atelier .price .note{font-size:11px}.page-lp.atelier .price-facts>div{grid-template-columns:85px 1fr;gap:12px;padding:13px 0}.page-lp.atelier .price-facts dt{font-size:10px}.page-lp.atelier .price-facts dd{font-size:11px}.page-lp.atelier #price>.cta{font-size:12px;min-height:50px;margin-top:20px}
+ .page-lp.atelier .faqq summary{font-size:13px;padding:20px 24px 20px 27px;line-height:1.95}.page-lp.atelier .faqq .a{font-size:12px;line-height:2;padding-left:27px}.page-lp.atelier .fixbar{padding:10px 20px calc(10px + env(safe-area-inset-bottom));gap:13px}.page-lp.atelier .ui-fixtext{font-size:10px;line-height:1.8;max-width:108px}.page-lp.atelier .fixbar a{font-size:12px;padding:10px 17px;min-height:45px}.page-lp.atelier footer{font-size:10px;line-height:2.2}
+}
+@media(min-width:901px){
+ .page-index.atelier .hero{min-height:164px;padding:19px 27px;margin-bottom:17px;background-size:360px}
+ .page-index.atelier .herochar{top:9px;right:21px}.page-index.atelier .herochar>img{height:146px;width:105px}
+ .page-index.atelier .hero h1{font-size:27px}.page-index.atelier .atelier-script{font-size:21px}
+ .page-index.atelier .hero .sub{font-size:12px;margin-top:7px}.page-index.atelier .hero .who{margin-top:7px;font-size:11px}
+ .page-index.atelier .q{margin-top:20px}.page-index.atelier textarea{min-height:118px}.page-index.atelier .card h2{margin-bottom:17px;padding-bottom:13px}.page-index.atelier .heading-art{height:43px;width:41px}
+ .page-index.atelier .fi p{font-size:12px}.page-index.atelier .fi b{font-size:13px}
+}
+.page-index.atelier .herochar .speech{display:none}
+.page-index.atelier .hero{background-size:250px;background-position:right 145px bottom}
+.page-start.atelier .top .m small{color:#87598c}
+.page-start.atelier .hero{background-size:200px;background-position:right -10px bottom -12px}
+.page-kanri.atelier .inboxwrap>.ilist{margin-top:0}
+:is(.page-handover,.page-manual,.page-promo).atelier header .lg{color:#75647f}
+:is(.page-handover,.page-manual,.page-promo).atelier .hero{background:none}
+.page-manual.atelier .hero h1 small{display:block;font-family:"Hiragino Sans","Yu Gothic",sans-serif;font-size:12px;color:#a75da9;font-weight:400;letter-spacing:.06em;margin-top:7px}
+.page-index.atelier .view.on{animation:letter-arrives .28s ease-out}
+.page-promo.atelier .flow{counter-reset:stage}
+.page-promo.atelier .flow .step{box-shadow:none;border-radius:0}
+.atelier .chapter-art{transition:transform .25s ease}
+@media(hover:hover){.atelier .atelier-chapter:hover .chapter-art{transform:rotate(3deg)}}
+@media(max-width:900px){.page-index.atelier .mhero{background-size:155px;background-position:right -35px bottom -20px}.page-kanri.atelier .hero{background:#ffffffc9}}
+@media(max-width:650px){
+ :is(.page-handover,.page-manual,.page-promo).atelier .sec .st .sub{flex-basis:100%;margin-left:41px}.page-manual.atelier .hero h1{font-size:24px}
+ .page-promo.atelier .flow{display:block;padding:10px 17px}
+ .page-promo.atelier .flow .step{display:flex;align-items:center;gap:10px;padding:13px 0;border-bottom:1px solid #e4dced}
+ .page-promo.atelier .flow .step:last-child{border-bottom:0}
+ .page-promo.atelier .flow .step:before{counter-increment:stage;content:counter(stage,decimal-leading-zero);font:italic 17px Georgia,serif;color:#a75da9;min-width:25px}
+ .page-promo.atelier .flow .step .t{min-width:78px;margin:0;text-align:left;font-weight:500}
+ .page-promo.atelier .flow .step .d{text-align:left;margin:0;line-height:1.8}
+ .page-promo.atelier .flow .arw{display:none}
+}
+@media(prefers-reduced-motion:reduce){.atelier *,.atelier *:before,.atelier *:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
