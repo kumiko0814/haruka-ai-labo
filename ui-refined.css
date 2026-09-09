@@ -308,7 +308,7 @@ body:is(.page-index,.page-kanri,.page-start,.page-ai){background:#f0f4ff;color:#
 .page-start .top{background:#22304a}.page-start .hero{background:none;border-radius:0;border-bottom:1px solid #22304a25;padding:18px 0;margin-top:26px;min-height:130px}.page-start .speech{background:none;box-shadow:none;border-radius:0;font-size:21px;font-family:"Hiragino Mincho ProN","Yu Mincho",serif;font-weight:500;padding:0;letter-spacing:.02em}.page-start .speech:after{display:none}.page-start .hero img{height:126px;width:86px}
 .page-start h1{font-size:24px;font-weight:500;line-height:1.7}.page-start .lead{font-size:14px}.page-start .card{border:0;border-radius:6px;box-shadow:none;padding:30px}.page-start label{font-size:14px;font-weight:500}.page-start label small{font-size:12px}.page-start input{border-radius:3px;background:#fff;min-height:50px;font-weight:400}.page-start .ghost{border-radius:3px;font-size:13px;font-weight:500}.page-start .st{font-size:13px}
 .page-ai .hero h1{font-size:22px;font-weight:600}.page-ai .hero p.desc{font-size:13px;line-height:1.9}.page-ai .chatcard{border:0;border-radius:6px;box-shadow:none}.page-ai .chathead{background:#22304a}.page-ai #chat-box{background:#f0f4ff}.page-ai .msg .b{font-size:15px;line-height:1.9;border:0;border-radius:2px 12px 12px 12px;box-shadow:none;padding:13px 16px}.page-ai .msg.user .b{border-radius:12px 2px 12px 12px;font-weight:400}.page-ai .chip{border-radius:3px;border:1px solid #e4e2f2;font-size:12px;font-weight:400;color:#22304a}.page-ai .inrow textarea{border-radius:4px;font-size:16px}.page-ai #send-btn{border-radius:4px;background:#22304a;color:#fff}.page-ai .note{font-size:12px}.page-ai .clearrow a{font-size:12px}
-#bugM .bx,.page-ai .mbox{border-radius:8px}#ntcCard{border-radius:8px!important}#ntcCard .ntcFx{display:none}
+#bugM .bx,.page-ai .mbox{border-radius:8px}#ntcCard{border-radius:8px!important}
 @media(max-width:900px){
 .page-index .mtop,.page-kanri .mtop{padding:15px 22px}.page-index .mtop h1{font-size:22px;font-weight:500;letter-spacing:.025em}.page-index .mtop>div[style]{display:none}.page-index .mhero{background:none;border-radius:0;border-bottom:1px solid #22304a25;padding:8px 0 12px;margin:18px 22px 0;min-height:90px}.page-index .mhero img{width:68px;height:90px}.page-index .mspeech{background:none;box-shadow:none;padding:0;border-radius:0;font-size:17px;font-weight:500;letter-spacing:.04em;line-height:1.65}.page-index .mspeech:after{display:none}.page-index .mhero .who2{font-size:12px;margin-top:8px;font-weight:400}
 .page-index .cols,.page-kanri .cols{padding:20px 18px 0}.page-index .card,.page-kanri .card{border-radius:5px;padding:24px 20px}.page-index .card h2,.page-kanri .card h2{font-size:18px;padding-bottom:16px;margin-bottom:22px}.page-index .qh{gap:7px}.page-index .qh b{font-size:15px}.page-index .qguide{font-size:12px}.page-index textarea{font-size:16px!important;min-height:130px;padding:12px 14px 28px}.page-index .q{margin-top:24px}
@@ -328,3 +328,17 @@ body:is(.page-index,.page-kanri,.page-start,.page-ai){background:#f0f4ff;color:#
 :is(.page-handover,.page-manual,.page-promo) .hero .badge .grad{background:none;color:#a75da9}
 :is(.page-handover,.page-manual) .ilist li:before{content:'・';color:#a75da9;top:0;font-size:15px}
 @media(max-width:900px){.page-index #aikW{position:static;inset:auto;margin:0 4px 0 18px;flex:none;align-self:center}.page-index #aikW img{width:54px;height:54px}.page-index .mhero>img{display:none}.page-index #aikW .pl{background:none;border:0;font-size:11px;font-weight:500;padding:5px 0 0}.page-index #aikP{bottom:90px}}
+/* Text labels carry navigation and status without decorative pictograms. */
+.page-index .mood-history{font-size:13px;line-height:1.9;color:#66677b;margin:4px 0 10px;overflow-wrap:anywhere}
+.page-index .curcard summary:after{content:'＋';font-size:17px;font-weight:400;color:#66677b;flex:none}
+.page-index .curcard[open] summary:after{content:'−'}
+.page-index .curnow{margin-left:auto}
+.page-index #ntcCard{background:#fff;border:1px solid #d3d8e6;box-shadow:0 12px 36px #22304a20;padding:24px;animation:none}
+.page-index #ntcCard img{height:112px;width:auto;margin-top:-50px;filter:none}
+.page-index #ntcCard h3{font-weight:500;letter-spacing:.04em}
+.page-index #ntcClose{background:#22304a;border-radius:4px;box-shadow:none;font-weight:500;min-height:46px}
+@media(max-width:900px){
+  .page-index .mn,.page-kanri .mn{display:flex;align-items:center;justify-content:center;min-height:48px;padding:9px 3px}
+  .page-index .mn{font-size:12px;letter-spacing:.04em}
+  .page-index .mn.on,.page-kanri .mn.on{color:#a75da9;font-weight:600}
+}

@@ -71,7 +71,6 @@ input[type=text]{width:100%; border:1.5px solid #e3e9f0; border-radius:12px; pad
 /* hitokoto */
 .hito{background:linear-gradient(165deg,#fde6ff,#f7dfe7); border-radius:20px; padding:20px 18px; text-align:center; box-shadow:0 10px 30px rgba(189,120,134,.14); position:relative;}
 .hito h3{font-size:14px; color:var(--pink3); letter-spacing:.06em;}
-.hito h3::before{content:"✦ "; color:#e8c48b;}
 .hito img{width:118px; margin:10px auto 8px; display:block;}
 .hito p{font-size:14px; font-weight:700; color:#7c5560; line-height:2; text-align:center;}
 
@@ -108,7 +107,6 @@ input[type=text]{width:100%; border:1.5px solid #e3e9f0; border-radius:12px; pad
 .kpi.warn{background:var(--pinkbg);}
 .kpi.warn .v{color:var(--pink3);}
 .th4{font-size:14px; color:var(--navy2); font-weight:800; margin:16px 0 6px;}
-.th4::before{content:"✦ "; color:#e8c48b;}
 .brow{display:grid; grid-template-columns:150px 1fr 40px; gap:10px; align-items:center; margin-top:8px; font-size:14px;}
 .brow .bl{font-weight:800; color:var(--navy); line-height:1.5;}
 .brow .btrack{display:block; background:#eef2f6; border-radius:999px; height:12px; overflow:hidden;}
@@ -151,7 +149,7 @@ input[type=text]{width:100%; border:1.5px solid #e3e9f0; border-radius:12px; pad
 .mockband{background:var(--navy2); color:#cfdcea; text-align:center; font-size:14px; padding:5px 10px; letter-spacing:.08em;}
 </style>
 <script src="labo_config.js"></script>
-<link rel="stylesheet" href="ui-refined.css">
+<link rel="stylesheet" href="ui-refined.css?v=20260909-icons">
 </head>
 <body class="page-kanri">
 <a class="ui-skip" href="#main-content">本文へ進む</a>
@@ -172,20 +170,20 @@ input[type=text]{width:100%; border:1.5px solid #e3e9f0; border-radius:12px; pad
   <aside class="side">
     <div class="slogo"><div class="m"></div><div class="l"><span data-cfg="labo_name">AI活用ラボ</span></div></div>
     <nav class="nav">
-      <div class="ni on"><svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg>ダッシュボード</div>
-      <div class="ni"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>カルテ受信ボックス<span class="bdg">4</span></div>
-      <div class="ni"><svg viewBox="0 0 24 24"><path d="M8 6h13M8 12h13M8 18h13"/><circle cx="4" cy="6" r="1"/><circle cx="4" cy="12" r="1"/><circle cx="4" cy="18" r="1"/></svg>アドバイス管理</div>
-      <div class="ni"><svg viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></svg>カリキュラム進捗</div>
-      <div class="ni"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.8-3.6 3.4-5.5 6.5-5.5s5.7 1.9 6.5 5.5"/><circle cx="17.5" cy="9" r="2.5"/><path d="M15.5 14.7c2.9.2 5 1.9 5.6 4.8"/></svg>ユーザー管理</div>
-      <div class="ni"><svg viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-8M21 20H3"/></svg>分析レポート</div>
-      <div class="ni"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3.2"/><path d="M12 2.8v3M12 18.2v3M2.8 12h3M18.2 12h3M5.5 5.5l2.1 2.1M16.4 16.4l2.1 2.1M18.5 5.5l-2.1 2.1M7.6 16.4l-2.1 2.1"/></svg>設定</div>
+      <div class="ni on">ダッシュボード</div>
+      <div class="ni">カルテ受信ボックス<span class="bdg">4</span></div>
+      <div class="ni">アドバイス管理</div>
+      <div class="ni">カリキュラム進捗</div>
+      <div class="ni">ユーザー管理</div>
+      <div class="ni">分析レポート</div>
+      <div class="ni">設定</div>
     </nav>
     <div class="sprof">
       <img src="assets/hk-desk.png" alt="" onerror="this.style.display='none'">
       <div>
         <div class="nm">はるか</div>
         <div class="rl">代表<br>ウェルビーイングプランナー</div>
-        <div class="mt">女性の可能性を信じて、<br>一緒に未来をつくろう♡</div>
+        <div class="mt">女性の可能性を信じて、<br>一緒に未来をつくろう</div>
       </div>
     </div>
   </aside>
@@ -193,14 +191,12 @@ input[type=text]{width:100%; border:1.5px solid #e3e9f0; border-radius:12px; pad
   <!-- main -->
   <main class="main" id="main-content">
     <div class="hero">
-      <span class="spark" style="left:46%; top:26px;">✦</span>
-      <span class="spark" style="right:200px; top:120px; font-size:14px;">✦</span>
       <div class="eyebrow"><span data-cfg="labo_name">AI活用ラボ</span></div>
       <h1>AIカルテ 管理者ボード</h1>
       <p class="sub">下書きを読んで、必要ならひとこと編集。最後に「承認して送信」で届けましょう。</p>
 <nav class="ui-tasknav" aria-label="管理メニュー"><a href="#sec-inbox">下書きを確認</a><a href="#sec-progress">学習の進捗</a><a href="#sec-invite">参加者を招待</a><a href="#sec-notice">お知らせを送る</a></nav>
       <img class="char" src="assets/hk-desk.png" alt="" onerror="this.style.display='none'">
-      <div class="script">今日も一緒に<br>がんばろうね♪♡</div>
+      <div class="script">今日も一緒に<br>がんばろうね</div>
     </div>
 
     <div class="inboxwrap" id="sec-inbox">
@@ -219,7 +215,7 @@ input[type=text]{width:100%; border:1.5px solid #e3e9f0; border-radius:12px; pad
         </div>
         <p style="font-size:14px; margin-top:8px;">参加者は下の入口URLから<b>自分で専用ページを作ります</b>（名前＋申込メール）。はるかの作業は、案内文を一度オープンチャットに貼るだけです。</p>
         <div class="urlbox" style="display:block;" id="starturl"></div>
-        <button class="gbtn" id="copystart" style="margin-top:12px;"><svg viewBox="0 0 24 24"><path d="M2 21l21-9L2 3v7l15 2-15 2z"/></svg>全員向けの案内文をコピー</button>
+        <button class="gbtn" id="copystart" style="margin-top:12px;">全員向けの案内文をコピー</button>
         <div style="margin-top:4px;">
           <button class="subbtn" id="copystarturl">入口URLだけコピー</button>
           <a class="subbtn" href="start.html" target="_blank" style="text-decoration:none; display:inline-block;">入口を開いて確認</a>
@@ -237,7 +233,7 @@ input[type=text]{width:100%; border:1.5px solid #e3e9f0; border-radius:12px; pad
               <span class="chip">体験デモ用</span>
             </div>
           </div>
-          <button class="gbtn" id="gen" style="margin-top:12px;"><svg viewBox="0 0 24 24"><path d="M2 21l21-9L2 3v7l15 2-15 2z"/></svg>URLを発行</button>
+          <button class="gbtn" id="gen" style="margin-top:12px;">URLを発行</button>
           <div class="urlbox" id="genurl"></div>
           <div id="genbtns" style="display:none;">
             <button class="subbtn" id="copyurl">URLをコピー</button>
@@ -251,7 +247,7 @@ input[type=text]{width:100%; border:1.5px solid #e3e9f0; border-radius:12px; pad
       <div class="hito">
         <h3>はるかからのひとこと</h3>
         <img src="assets/hk-suit.png" alt="" onerror="this.style.display='none'">
-        <p>AIが24時間<br>あなたの代わりに<br>寄り添ってくれるよ♡<br><br>相談者がもっと<br>安心できる環境を<br>一緒につくろう！</p>
+        <p>AIが24時間<br>あなたの代わりに<br>寄り添ってくれるよ<br><br>相談者がもっと<br>安心できる環境を<br>一緒につくろう！</p>
       </div>
     </div>
 
@@ -310,10 +306,10 @@ input[type=text]{width:100%; border:1.5px solid #e3e9f0; border-radius:12px; pad
 </div>
 
 <div class="mnav">
-  <div class="mn on"><svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg>ダッシュボード</div>
-  <div class="mn"><span class="b">4</span><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>受信ボックス</div>
-  <div class="mn"><svg viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></svg>アドバイス管理</div>
-  <div class="mn"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3.2"/><path d="M12 2.8v3M12 18.2v3M2.8 12h3M18.2 12h3M5.5 5.5l2.1 2.1M16.4 16.4l2.1 2.1M18.5 5.5l-2.1 2.1M7.6 16.4l-2.1 2.1"/></svg>設定</div>
+  <div class="mn on">ダッシュボード</div>
+  <div class="mn"><span class="b">4</span>受信ボックス</div>
+  <div class="mn">アドバイス管理</div>
+  <div class="mn">設定</div>
 </div>
 
 <script src="supabase_config.js"></script>
@@ -840,7 +836,7 @@ function loadProgress(){
       });
       document.getElementById("prgMembers").innerHTML=mHtml;
       document.getElementById("prgOpens").innerHTML=
-        "💌 レターを読んだ "+Object.keys(letter).length+"名　📚 カリキュラムを開いた "+Object.keys(curOpen).length+"名　📖 教科書を開いた "+Object.keys(bookOpen).length+"名";
+        "レターを読んだ "+Object.keys(letter).length+"名 ／ カリキュラムを開いた "+Object.keys(curOpen).length+"名 ／ 教科書を開いた "+Object.keys(bookOpen).length+"名";
       var pc=document.getElementById("prgcnt"); if(pc) pc.textContent=nStart?("スタート"+nStart+"名"):"";
     }).catch(function(){ document.getElementById("prgKpi").textContent="読み込めませんでした。リロードしてください。"; });
 }
@@ -866,6 +862,6 @@ document.getElementById("inboxRefresh").onclick=loadInbox;
 loadInbox();
 })();
 </script>
-<script src="ui-refined.js"></script>
+<script src="ui-refined.js?v=20260909-icons"></script>
 </body>
 </html>

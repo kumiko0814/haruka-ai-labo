@@ -93,7 +93,6 @@ textarea:focus{outline:none; border-color:var(--pink);}
 /* right column */
 .aican{background:linear-gradient(165deg,#fde6ff,#f9f0f3); border-radius:20px; padding:20px 20px; box-shadow:0 10px 30px rgba(189,120,134,.12);}
 .aican h3{font-size:14px; color:var(--pink3); letter-spacing:.04em; margin-bottom:12px;}
-.aican h3::before{content:"✦ "; color:#e8c48b;}
 .fi{display:flex; gap:12px; margin-top:12px;}
 .fi .ic{flex:none; width:38px; height:38px; border-radius:12px; background:#fff; display:flex; align-items:center; justify-content:center;}
 .fi .ic svg{width:18px; height:18px; fill:none; stroke:var(--pink2); stroke-width:2; stroke-linecap:round; stroke-linejoin:round;}
@@ -125,7 +124,6 @@ textarea:focus{outline:none; border-color:var(--pink);}
 .anasec{margin-top:20px;}
 .anasec:first-child{margin-top:0;}
 .anasec h3{font-size:14px; color:var(--navy2); margin-bottom:10px;}
-.anasec h3::before{content:"✦ "; color:#e8c48b;}
 .brow{display:grid; grid-template-columns:118px 1fr 34px; gap:10px; align-items:center; margin-top:8px; font-size:14px;}
 .brow .bl{font-weight:800; color:var(--navy); line-height:1.5;}
 .brow .btrack{display:block; background:#eef2f6; border-radius:999px; height:12px; overflow:hidden;}
@@ -177,15 +175,12 @@ footer{text-align:center; font-size:14px; color:#9aa7b4; padding:34px 16px 10px;
   #bugL{display:none;}
   #bugBar.on{display:block;}
   .mhero{position:relative;}
-  .mhero::after{content:"♡"; position:absolute; right:10px; top:8px; color:#cfa3dc; font-size:17px; font-weight:800;}
-  .mhero::before{content:"✦"; position:absolute; right:36px; top:28px; color:#e3c6ec; font-size:14px;}
 }
 
 /* カリキュラム常設 */
 .curcard{background:#fff; border-radius:18px; margin-top:16px; box-shadow:0 6px 20px rgba(38,64,95,.07); overflow:hidden;}
 .curcard summary{list-style:none; cursor:pointer; padding:15px 18px; font-size:14.5px; font-weight:800; color:var(--navy2);}
 .curcard summary::-webkit-details-marker{display:none;}
-.curcard summary::before{content:"📚 ";}
 .curnow{float:right; background:var(--pinkbg); color:var(--pink2); border-radius:999px; padding:2px 12px; font-size:14px; font-weight:800;}
 .curbody{padding:0 18px 16px;}
 .curwk{display:flex; gap:10px; padding:9px 0; border-top:1px dashed #f0e6ee; font-size:14px; line-height:1.7; align-items:flex-start;}
@@ -202,12 +197,9 @@ footer{text-align:center; font-size:14px; color:#9aa7b4; padding:34px 16px 10px;
 #ntcCard h3{font-size:14px; color:var(--pink2); letter-spacing:.14em; font-weight:800; margin-top:6px;}
 #ntcMsg{font-size:14px; color:var(--navy2); line-height:2; margin-top:10px; text-align:left; white-space:pre-wrap;}
 #ntcClose{border:none; background:linear-gradient(135deg,#8fa8e6,#c77fce); color:#fff; border-radius:999px; padding:12px 34px; font-size:14px; font-weight:800; cursor:pointer; font-family:inherit; margin-top:16px; box-shadow:0 8px 22px rgba(189,120,134,.35);}
-.ntcFx{position:absolute; inset:0; pointer-events:none; overflow:visible;}
-.ntcFx span{position:absolute; bottom:-10px; font-size:16px; opacity:0; animation:ntcFloat 3.2s ease-in infinite;}
-@keyframes ntcFloat{0%{transform:translateY(0) scale(.7) rotate(0deg); opacity:0;} 15%{opacity:.9;} 100%{transform:translateY(-330px) scale(1.15) rotate(18deg); opacity:0;}}
 </style>
 <script src="labo_config.js"></script>
-<link rel="stylesheet" href="ui-refined.css">
+<link rel="stylesheet" href="ui-refined.css?v=20260909-icons">
 </head>
 <body class="page-index">
 <a class="ui-skip" href="#main-content">本文へ進む</a>
@@ -222,7 +214,7 @@ footer{text-align:center; font-size:14px; color:#9aa7b4; padding:34px 16px 10px;
 </div>
 <div class="mhero" id="mhero">
   <div>
-    <div class="mspeech">なんでも<br>書いてみてね♪</div>
+    <div class="mspeech">なんでも<br>書いてみてね</div>
     <span class="who2" id="who2"></span>
   </div>
   <img src="assets/hk-suit.png" alt="" onerror="this.style.display='none'">
@@ -235,19 +227,19 @@ footer{text-align:center; font-size:14px; color:#9aa7b4; padding:34px 16px 10px;
     <div class="slogo"><div class="m"></div><div class="l"><span data-cfg="labo_name">AI活用ラボ</span></div></div>
     <nav class="nav">
       <div class="nav-group">マイページ</div>
-      <div class="ni sub" data-v="v_list"><svg viewBox="0 0 24 24"><path d="M8 6h13M8 12h13M8 18h13"/><circle cx="4" cy="6" r="1"/><circle cx="4" cy="12" r="1"/><circle cx="4" cy="18" r="1"/></svg>カルテ一覧</div>
-      <div class="ni sub on" id="ni_new" data-v="v_new"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>新しいカルテ</div>
-      <div class="ni" data-v="v_adv"><svg viewBox="0 0 24 24"><path d="M21 12a8 8 0 0 1-8 8H4l2-3a8 8 0 1 1 15-5z"/></svg>アドバイス管理</div>
-      <div class="ni" data-v="v_ana"><svg viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-8M21 20H3"/></svg>分析レポート</div>
-      <div class="ni" id="niCur"><svg viewBox="0 0 24 24"><path d="M4 4h13a3 3 0 0 1 3 3v13H7a3 3 0 0 1-3-3V4z"/><path d="M20 17H7a3 3 0 0 0-3 3"/><path d="M8 8h8M8 12h5"/></svg>カリキュラム</div>
-      <div class="ni" data-v="v_set"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3.2"/><path d="M12 2.8v3M12 18.2v3M2.8 12h3M18.2 12h3M5.5 5.5l2.1 2.1M16.4 16.4l2.1 2.1M18.5 5.5l-2.1 2.1M7.6 16.4l-2.1 2.1"/></svg>設定</div>
+      <div class="ni sub" data-v="v_list">カルテ一覧</div>
+      <div class="ni sub on" id="ni_new" data-v="v_new">新しいカルテ</div>
+      <div class="ni" data-v="v_adv">アドバイス管理</div>
+      <div class="ni" data-v="v_ana">分析レポート</div>
+      <div class="ni" id="niCur">カリキュラム</div>
+      <div class="ni" data-v="v_set">設定</div>
     </nav>
     <div class="sprof">
       <img src="assets/hk-desk.png" alt="" onerror="this.style.display='none'">
       <div>
         <div class="nm">はるか</div>
         <div class="rl">代表<br>ウェルビーイングプランナー</div>
-        <div class="mt">女性の可能性を信じて、<br>一緒に未来をつくろう♡</div>
+        <div class="mt">女性の可能性を信じて、<br>一緒に未来をつくろう</div>
       </div>
     </div>
   </aside>
@@ -260,11 +252,11 @@ footer{text-align:center; font-size:14px; color:#9aa7b4; padding:34px 16px 10px;
       <p class="sub">あなた専用のカルテを作成して、AIの力で解決のヒントを見つけましょう。</p>
       <div class="who" id="who"></div>
       <div class="herochar">
-        <div class="speech">なんでも<br>書いてみてね♪</div>
+        <div class="speech">なんでも<br>書いてみてね</div>
         <img src="assets/hk-desk.png" alt="" onerror="this.style.display='none'">
       </div>
     </div>
-    <div class="crumb"><svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg> ＞ カルテ管理 ＞ <b id="crumbnow">新しいカルテ</b></div>
+    <div class="crumb">カルテ管理 ＞ <b id="crumbnow">新しいカルテ</b></div>
 
     <div class="cols">
       <div class="colmain">
@@ -289,7 +281,7 @@ footer{text-align:center; font-size:14px; color:#9aa7b4; padding:34px 16px 10px;
                 <span class="cnt"><i id="c2">0</i> / 1000</span>
               </div>
             </div>
-            <button class="gbtn" id="send"><svg viewBox="0 0 24 24"><path d="M2 21l21-9L2 3v7l15 2-15 2z"/></svg>この内容でカルテを作成する</button>
+            <button class="gbtn" id="send">この内容でカルテを作成する</button>
             <div class="ok" id="okmsg">カルテが届きました。はるかが読んで、アドバイスをお返ししますね。</div>
             <p class="note">※作成したカルテはいつでも編集・追加できます。</p>
           </div>
@@ -359,9 +351,9 @@ footer{text-align:center; font-size:14px; color:#9aa7b4; padding:34px 16px 10px;
       <div class="colside">
         <div class="aican">
           <h3>AIができること</h3>
-          <div class="fi"><span class="ic"><svg viewBox="0 0 24 24"><path d="M3 7l9-4 9 4-9 4-9-4z"/><path d="M3 12l9 4 9-4M3 17l9 4 9-4"/></svg></span><div><b>案件を取る（営業）</b><p>提案文・ポートフォリオ・事前リサーチ・要件整理を、AIが下書きします。</p></div></div>
-          <div class="fi"><span class="ic"><svg viewBox="0 0 24 24"><path d="M12 3l2 4.5L19 9l-4 3.5L16 18l-4-2.5L8 18l1-5.5L5 9l5-1.5z"/></svg></span><div><b>制作を速く・良く</b><p>参考デザインの言語化、コピー・構成案、配色フォントの壁打ちまで。</p></div></div>
-          <div class="fi"><span class="ic"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M8 10h8M8 14h5"/></svg></span><div><b>事務を5分に</b><p>見積・請求・契約・返信メール・議事録要約を、AIにおまかせ。</p></div></div>
+          <div class="fi"><div><b>案件を取る（営業）</b><p>提案文・ポートフォリオ・事前リサーチ・要件整理を、AIが下書きします。</p></div></div>
+          <div class="fi"><div><b>制作を速く・良く</b><p>参考デザインの言語化、コピー・構成案、配色フォントの壁打ちまで。</p></div></div>
+          <div class="fi"><div><b>事務を5分に</b><p>見積・請求・契約・返信メール・議事録要約を、AIにおまかせ。</p></div></div>
         </div>
         <div class="wink">
           <div class="scr">一緒に<br>解決策を見つけて<br>いこうね！</div>
@@ -376,12 +368,12 @@ footer{text-align:center; font-size:14px; color:#9aa7b4; padding:34px 16px 10px;
 
 <!-- mobile bottom nav -->
 <div class="mnav">
-  <button class="mn on" data-v="v_new"><svg viewBox="0 0 24 24"><rect class="b" x="3.8" y="4" width="16.4" height="18" rx="3"/><rect class="a" x="8.5" y="2" width="7" height="4" rx="1.8"/><path class="w" d="M12 18.2l-3.3-3.1c-1.8-1.7-.5-4.7 1.9-4.3.6.1 1.1.5 1.4 1 .3-.5.8-.9 1.4-1 2.4-.4 3.7 2.6 1.9 4.3z"/></svg>新しいカルテ</button>
-  <button class="mn" data-v="v_list"><svg viewBox="0 0 24 24"><path class="b" d="M12 6.2C10 4.6 7 4.2 3.8 4.6v14.6c3.2-.4 6.2 0 8.2 1.6 2-1.6 5-2 8.2-1.6V4.6C17 4.2 14 4.6 12 6.2z"/><rect class="w" x="11.3" y="6.2" width="1.4" height="14" rx=".7"/><path class="w" d="M17 13.4l-1.7-1.6c-.9-.9-.3-2.5 1-2.3.3 0 .5.2.7.5.2-.3.4-.5.7-.5 1.3-.2 1.9 1.4 1 2.3z"/><path class="a" d="M19.4 1l.5 1.3 1.3.5-1.3.5-.5 1.3-.5-1.3-1.3-.5 1.3-.5z"/></svg>カルテ一覧</button>
-  <button class="mn" data-v="v_cur"><svg viewBox="0 0 24 24"><rect class="b" x="3.8" y="3.8" width="16.4" height="14.2" rx="3.6"/><path class="b" d="M7.8 17.4l-.7 4.2 4.7-3.6z"/><path class="w" d="M12 14.3l-2.8-2.6c-1.6-1.5-.4-4 1.7-3.7.5.1.9.4 1.1.9.2-.5.6-.8 1.1-.9 2.1-.3 3.3 2.2 1.7 3.7z"/><path class="a" d="M19.9 1l.4 1.1 1.1.4-1.1.4-.4 1.1-.4-1.1-1.1-.4 1.1-.4z"/></svg>カリキュラム</button>
-  <button class="mn" data-v="v_adv"><svg viewBox="0 0 24 24"><path class="b" d="M12 2.2a7.4 7.4 0 0 0-4 13.6c.7.4 1.1 1.1 1.1 1.9v.4h5.8v-.4c0-.8.4-1.5 1.1-1.9a7.4 7.4 0 0 0-4-13.6z"/><path class="w" d="M12 13.4l-2.3-2.2c-1.3-1.2-.3-3.3 1.3-3.1.4.1.8.3 1 .7.2-.4.6-.6 1-.7 1.6-.2 2.6 1.9 1.3 3.1z"/><rect class="a" x="9.2" y="18.4" width="5.6" height="1.6" rx=".8"/><rect class="a" x="9.9" y="20.7" width="4.2" height="1.6" rx=".8"/><path class="a" d="M20.9 3.4l.5 1.3 1.3.5-1.3.5-.5 1.3-.5-1.3-1.3-.5 1.3-.5z"/><path class="a" d="M2.9 5.9l.4 1 1 .4-1 .4-.4 1-.4-1-1-.4 1-.4z"/></svg>アドバイス</button>
-  <button class="mn" data-v="v_ana"><svg viewBox="0 0 24 24"><rect class="b" x="3.8" y="14" width="4.2" height="7" rx="1.3"/><rect class="b" x="9.9" y="10.5" width="4.2" height="10.5" rx="1.3"/><rect class="b" x="16" y="7" width="4.2" height="14" rx="1.3"/><path class="s" d="M4.2 9.6L9.5 5.9l4 2.3 4.2-3"/><path class="a" d="M18.9 3.2l-.1 3.3-2.9-1.7z"/><path class="w" d="M18.1 11.6l-1.3-1.2c-.7-.7-.2-1.9.7-1.8.2 0 .4.2.6.4.2-.2.4-.4.6-.4.9-.1 1.4 1.1.7 1.8z"/></svg>分析</button>
-  <button class="mn" data-v="v_set"><svg viewBox="0 0 24 24"><g class="b"><rect x="10.8" y="1.2" width="2.4" height="4.6" rx="1.2"/><rect x="10.8" y="1.2" width="2.4" height="4.6" rx="1.2" transform="rotate(45 12 12)"/><rect x="10.8" y="1.2" width="2.4" height="4.6" rx="1.2" transform="rotate(90 12 12)"/><rect x="10.8" y="1.2" width="2.4" height="4.6" rx="1.2" transform="rotate(135 12 12)"/><rect x="10.8" y="1.2" width="2.4" height="4.6" rx="1.2" transform="rotate(180 12 12)"/><rect x="10.8" y="1.2" width="2.4" height="4.6" rx="1.2" transform="rotate(225 12 12)"/><rect x="10.8" y="1.2" width="2.4" height="4.6" rx="1.2" transform="rotate(270 12 12)"/><rect x="10.8" y="1.2" width="2.4" height="4.6" rx="1.2" transform="rotate(315 12 12)"/><circle cx="12" cy="12" r="7.6"/></g><path class="w" d="M12 16l-2.7-2.6c-1.5-1.4-.4-3.8 1.5-3.5.5.1.9.4 1.2.9.3-.5.7-.8 1.2-.9 1.9-.3 3 2.1 1.5 3.5z"/></svg>設定</button>
+  <button class="mn on" data-v="v_new" aria-label="新しいカルテを作成">作成</button>
+  <button class="mn" data-v="v_list" aria-label="カルテの履歴">履歴</button>
+  <button class="mn" data-v="v_cur" aria-label="学習カリキュラム">学習</button>
+  <button class="mn" data-v="v_adv" aria-label="はるかからの返信">返信</button>
+  <button class="mn" data-v="v_ana">分析</button>
+  <button class="mn" data-v="v_set">設定</button>
 </div>
 <div id="bugBar">不具合を報告する場合は、右下の「設定」からご連絡ください。<button class="x" id="bugBarX">✕</button></div>
 
@@ -401,7 +393,6 @@ if(!UID && P.get("demo")!=="1" && (typeof SUPABASE_CONFIG!=="undefined"&&SUPABAS
       var ov=document.createElement("div");
       ov.style.cssText="position:fixed;inset:0;background:rgba(29,49,73,.62);display:flex;align-items:center;justify-content:center;z-index:95;padding:24px;";
       ov.innerHTML='<div style="background:#fff;border-radius:22px;padding:26px 22px;max-width:360px;width:100%;text-align:center;">'
-        +'<div style="font-size:30px;">🔑</div>'
         +'<h3 style="font-size:15px;color:#1d3149;margin-top:8px;line-height:1.8;">あなた専用ページの鍵が<br>このリンクに入っていません</h3>'
         +'<p style="font-size:14px;color:#6b7684;line-height:2;margin-top:10px;">このまま使うと自分のカルテが表示されません。下のボタンから<b>申込のときと同じメールアドレス</b>を入れると、いつものカルテにそのまま戻れます（新しいページは作られません）。</p>'
         +'<a href="start.html" style="display:block;margin-top:14px;background:linear-gradient(135deg,#8fa8e6,#c77fce);color:#fff;border-radius:999px;padding:13px;font-size:14px;font-weight:800;text-decoration:none;">自分のページに戻る</a>'
@@ -508,9 +499,8 @@ function loadAll(){
     html+=sem; htmlFull+=sem;
   } else {
     html='<div style="text-align:center; padding:26px 10px;">'
-      +'<div style="font-size:34px;">🎁</div>'
       +'<div style="font-size:15px; font-weight:800; color:#1d3149; margin-top:8px;">カリキュラムは<br>まもなくオープンします</div>'
-      +'<div style="font-size:14px; color:#8a97a5; margin-top:10px; line-height:2;">みなさんのカルテの悩みをぜんぶ読んで、<br>はるかが心を込めて準備しています。<br>おたのしみに☺️</div>'
+      +'<div style="font-size:14px; color:#8a97a5; margin-top:10px; line-height:2;">みなさんのカルテの悩みをぜんぶ読んで、<br>はるかが心を込めて準備しています。<br>おたのしみに。</div>'
       +'</div>';
     htmlFull=html;
   }
@@ -542,7 +532,7 @@ function loadAll(){
   }
   function init(){
   document.getElementById("ntcClose").onclick=function(){ document.getElementById("ntcOv").classList.remove("on"); };
-  if(DEMO){ setTimeout(function(){ show("（デモ表示）ようこそ、"+CF("labo_name","AI活用ラボ")+"へ。ここに、はるかからのメッセージがかわいい演出つきで届きます。"); },800); return; }
+  if(DEMO){ setTimeout(function(){ show("（デモ表示）ようこそ、"+CF("labo_name","AI活用ラボ")+"へ。はるかからのメッセージがここに届きます。"); },800); return; }
   sb("ailab_notes?member_id=eq.notice_all&mood=eq.おしらせ&order=created_at.desc&limit=1").then(function(r){return r.json();})
     .then(function(j){
       if(!Array.isArray(j)||!j.length) return;
@@ -623,16 +613,16 @@ function renderAnalysis(){
   var POS=["楽しみ","ワクワク","できた","嬉しい","うれしい","やってみ","好き","挑戦","わくわく"];
   if(chrono.length>=2){
     var recent=chrono.slice(-6);
-    var icons=recent.map(function(n){
+    var weather=recent.map(function(n){
       var t=(n.worry||"")+" "+(n.want||"");
       var s=countHits(t,POS)-countHits(t,NEG);
-      return s>0?"☀️":(s<0?"🌧":"⛅");
+      return s>0?"晴れ":(s<0?"雨":"曇り");
     });
     var half=Math.floor(recent.length/2);
     function sc(arr){ return arr.reduce(function(a,n){ var t=(n.worry||"")+" "+(n.want||""); return a+countHits(t,POS)-countHits(t,NEG); },0); }
     var d=sc(recent.slice(half))-sc(recent.slice(0,half));
     var mood=d>0?"最近のカルテは、前より前向きな言葉が増えています。いい流れです":(d<0?"最近は少しおつかれ気味の言葉が増えています。無理せず、小さな一歩だけで大丈夫":"気持ちは安定しています。このペースでいきましょう");
-    h+='<div class="anasec"><h3>こころの天気（古い→新しい）</h3><div style="font-size:22px; letter-spacing:8px; margin:4px 0;">'+icons.join("")+'</div><p style="font-size:14px;">'+mood+'。</p></div>';
+    h+='<div class="anasec"><h3>こころの天気（古い→新しい）</h3><p class="mood-history">'+weather.join(" → ")+'</p><p style="font-size:14px;">'+mood+'。</p></div>';
   }
   /* 2.6) 悩みの変化（前半→後半） */
   if(chrono.length>=4){
@@ -810,16 +800,10 @@ loadAll();
 </style>
 <div id="ntcOv">
   <div id="ntcCard">
-    <div class="ntcFx">
-      <span style="left:6%; animation-delay:0s;">🩷</span><span style="left:18%; animation-delay:1.1s;">✨</span>
-      <span style="left:32%; animation-delay:.5s;">🤍</span><span style="left:46%; animation-delay:1.6s;">🩷</span>
-      <span style="left:60%; animation-delay:.2s;">✨</span><span style="left:73%; animation-delay:1.3s;">💗</span>
-      <span style="left:86%; animation-delay:.8s;">✨</span><span style="left:94%; animation-delay:2s;">🩷</span>
-    </div>
     <img src="assets/hk-suit.png" alt="">
     <h3>はるかからのメッセージ</h3>
     <div id="ntcMsg"></div>
-    <button id="ntcClose">よんだよ 🩷</button>
+    <button id="ntcClose">読みました</button>
   </div>
 </div>
 <div id="aikW">
@@ -897,6 +881,6 @@ var bx=document.getElementById("bugBarX");
 if(bx) bx.onclick=function(){ bar.classList.remove("on"); try{ localStorage.setItem("ailab_bugbar_v1","1"); }catch(e){} };
 })();
 </script>
-<script src="ui-refined.js"></script>
+<script src="ui-refined.js?v=20260909-icons"></script>
 </body>
 </html>

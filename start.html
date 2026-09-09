@@ -53,7 +53,7 @@ input:focus{outline:none; border-color:var(--pink);}
 footer{text-align:center; font-size:14px; color:#9aa7b4; margin-top:26px; letter-spacing:.06em; line-height:2;}
 </style>
 <script src="labo_config.js"></script>
-<link rel="stylesheet" href="ui-refined.css">
+<link rel="stylesheet" href="ui-refined.css?v=20260909-icons">
 </head>
 <body class="page-start">
 <a class="ui-skip" href="#main-content">本文へ進む</a>
@@ -61,7 +61,7 @@ footer{text-align:center; font-size:14px; color:#9aa7b4; margin-top:26px; letter
 
 <div class="wrap" id="main-content">
   <div class="hero">
-    <div class="speech">じぶん専用ページを<br>いっしょに作ろう♪</div>
+    <div class="speech">じぶん専用ページを<br>いっしょに作ろう</div>
     <img src="assets/hk-suit.png" alt="" onerror="this.style.display='none'">
   </div>
 
@@ -70,7 +70,7 @@ footer{text-align:center; font-size:14px; color:#9aa7b4; margin-top:26px; letter
     <h1>おかえりなさい！</h1>
     <p class="lead">このスマホで作った専用ページがあります。</p>
     <div class="card">
-      <a class="gbtn navy" id="goback" href="#"><svg viewBox="0 0 24 24"><path d="M2 21l21-9L2 3v7l15 2-15 2z"/></svg>わたしの専用ページを開く</a>
+      <a class="gbtn navy" id="goback" href="#">わたしの専用ページを開く</a>
       <a class="ghost" id="newone" href="#">別の人として作りなおす</a>
     </div>
   </div>
@@ -85,7 +85,7 @@ footer{text-align:center; font-size:14px; color:#9aa7b4; margin-top:26px; letter
       <label for="em">お申込みのメールアドレス<small>（あなた専用ページの鍵になります）</small></label>
       <input type="email" id="em" aria-describedby="err" autocomplete="email" inputmode="email" required placeholder="例）example@gmail.com" autocapitalize="none">
       <div class="err" id="err" role="alert"></div>
-      <button class="gbtn" id="make"><svg viewBox="0 0 24 24"><path d="M2 21l21-9L2 3v7l15 2-15 2z"/></svg>わたしの専用ページを作る</button>
+      <button class="gbtn" id="make">わたしの専用ページを作る</button>
       <p class="note">メールアドレスはページの鍵として使うだけで、画面やURLにそのまま表示されることはありません。</p>
     </div>
   </div>
@@ -95,7 +95,7 @@ footer{text-align:center; font-size:14px; color:#9aa7b4; margin-top:26px; letter
     <div class="card">
       <p style="font-size:14px; font-weight:800; color:var(--navy2); text-align:center;">できました！これがあなたの専用ページです</p>
       <div class="urlbox" id="myurl"></div>
-      <a class="gbtn navy" id="open" href="#" style="margin-top:14px;"><svg viewBox="0 0 24 24"><path d="M2 21l21-9L2 3v7l15 2-15 2z"/></svg>専用ページを開く</a>
+      <a class="gbtn navy" id="open" href="#" style="margin-top:14px;">専用ページを開く</a>
       <button class="ghost" id="copy">URLをコピー（自分のLINEに送っておくと安心）</button>
       <div class="steps">
         <div class="st"><i>1</i>専用ページを開いて、ブックマーク（ホーム画面に追加）してください</div>
@@ -171,7 +171,7 @@ document.getElementById("make").onclick=function(){
 };
 document.getElementById("copy").onclick=function(){
   var t=document.getElementById("myurl").textContent, b=this;
-  function ok(){ b.textContent="コピーしました ♡"; setTimeout(function(){ b.textContent="URLをコピー（自分のLINEに送っておくと安心）"; },2000); }
+  function ok(){ b.textContent="コピーしました"; setTimeout(function(){ b.textContent="URLをコピー（自分のLINEに送っておくと安心）"; },2000); }
   if(navigator.clipboard&&navigator.clipboard.writeText){ navigator.clipboard.writeText(t).then(ok,fb); }else fb();
   function fb(){ var ta=document.createElement("textarea"); ta.value=t; document.body.appendChild(ta); ta.select(); try{document.execCommand("copy");}catch(e){} ta.remove(); ok(); }
 };
@@ -226,6 +226,6 @@ document.getElementById("bugS").onclick=function(){
 };
 })();
 </script>
-<script src="ui-refined.js"></script>
+<script src="ui-refined.js?v=20260909-icons"></script>
 </body>
 </html>

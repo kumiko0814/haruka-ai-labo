@@ -147,7 +147,7 @@ details .dtbody p.desc{margin-top:0;}
 .note b{color:var(--navy2);}
 footer{text-align:center; font-size:14px; color:var(--muted); margin:30px 0 10px; letter-spacing:.08em; line-height:2;}
 </style>
-<link rel="stylesheet" href="ui-refined.css">
+<link rel="stylesheet" href="ui-refined.css?v=20260909-icons">
 </head>
 <body class="page-manual">
 <a class="ui-skip" href="#main-content">本文へ進む</a>
@@ -167,7 +167,7 @@ footer{text-align:center; font-size:14px; color:var(--muted); margin:30px 0 10px
 
   <!-- 0. 最初にやること -->
   <div class="sec" id="first">
-    <div class="st"><span class="no">★</span><h2>最初にやること（この3つだけ）</h2><span class="sub">受け取ったらまずここ</span></div>
+    <div class="st"><span class="no">0</span><h2>最初にやること（この3つだけ）</h2><span class="sub">受け取ったらまずここ</span></div>
     <div class="glist">
       <div class="row"><span class="num">1</span><span class="tx"><b>Supabase（無料のデータ保管庫）を作る　約10分</b><span>設置ガイドの <a href="setup.html#step4">STEP4</a> の「4-1」「4-2」「4-3」までを進めてください。アカウント作成 → SQLを1回貼って実行 → 接続テスト、です。4-4以降は Merone が行うので不要です。</span></span></div>
       <div class="row"><span class="num">2</span><span class="tx"><b>できた「URL」と「anon キー」の2つを Merone に送る</b><span>Supabase の画面（Project Settings → API）に表示される <code>Project URL</code> と <code>anon public</code> の2つです。LINE やメールでそのまま送ってください。受け取り次第、Merone 側で本番のスイッチを入れ、自動下書きと自動パトロールが動き始めます。</span></span></div>
@@ -181,12 +181,12 @@ footer{text-align:center; font-size:14px; color:var(--muted); margin:30px 0 10px
     <div class="st"><span class="no">1</span><h2>システム全体図</h2><span class="sub">ページは全部で6つ</span></div>
     <p class="desc">それぞれのページがどんな役割を持っているかを、まず1つずつご紹介します。名前をタップすると、実際の画面をそのまま確認できます。</p>
     <div class="map">
-      <div class="maprow"><span class="ic">💁‍♀️</span><div class="body"><div class="nm">LP（募集ページ）</div><div class="ds">集客した方が最初に見るご案内ページです。お悩み・できること・受講料・お申込みボタンをまとめています。</div></div><a class="go" href="lp.html" target="_blank">見る</a></div>
-      <div class="maprow"><span class="ic">✉️</span><div class="body"><div class="nm">カルテ入口</div><div class="ds">メールアドレスを入れていただくと、その方だけの専用ページが自動でできます。</div></div><a class="go" href="start.html?demo=1" target="_blank">見る</a></div>
-      <div class="maprow"><span class="ic">📋</span><div class="body"><div class="nm">AIカルテ（受講生の画面）</div><div class="ds">困りごとを書いて送ると、<span data-cfg="instructor_nick">はるか</span>からのアドバイスが届く、受講生ご本人の画面です。</div></div><a class="go" href="index.html?demo=1" target="_blank">見る</a></div>
-      <div class="maprow"><span class="ic">💬</span><div class="body"><div class="nm">AIはるか（24時間の自動応答）</div><div class="ds">よくある質問に、<span data-cfg="instructor_nick">はるか</span>さんの口調でいつでも答えるチャット画面です。</div></div><a class="go" href="ai.html" target="_blank">見る</a></div>
-      <div class="maprow"><span class="ic">🗂️</span><div class="body"><div class="nm">管理者ボード（運営者の画面）</div><div class="ds">招待リンクの発行、カルテへの返信、進捗の確認などを行う、運営者専用の画面です。</div></div><a class="go" href="kanri.html?demo=1" target="_blank">見る</a></div>
-      <div class="maprow"><span class="ic">🛠️</span><div class="body"><div class="nm">初期設定ガイド</div><div class="ds">データベース（Supabase）をつなげて、確認用の画面から本番のご案内に切り替えるための手順書です。</div></div><a class="go" href="setup.html" target="_blank">見る</a></div>
+      <div class="maprow"><div class="body"><div class="nm">LP（募集ページ）</div><div class="ds">集客した方が最初に見るご案内ページです。お悩み・できること・受講料・お申込みボタンをまとめています。</div></div><a class="go" href="lp.html" target="_blank">見る</a></div>
+      <div class="maprow"><div class="body"><div class="nm">カルテ入口</div><div class="ds">メールアドレスを入れていただくと、その方だけの専用ページが自動でできます。</div></div><a class="go" href="start.html?demo=1" target="_blank">見る</a></div>
+      <div class="maprow"><div class="body"><div class="nm">AIカルテ（受講生の画面）</div><div class="ds">困りごとを書いて送ると、<span data-cfg="instructor_nick">はるか</span>からのアドバイスが届く、受講生ご本人の画面です。</div></div><a class="go" href="index.html?demo=1" target="_blank">見る</a></div>
+      <div class="maprow"><div class="body"><div class="nm">AIはるか（24時間の自動応答）</div><div class="ds">よくある質問に、<span data-cfg="instructor_nick">はるか</span>さんの口調でいつでも答えるチャット画面です。</div></div><a class="go" href="ai.html" target="_blank">見る</a></div>
+      <div class="maprow"><div class="body"><div class="nm">管理者ボード（運営者の画面）</div><div class="ds">招待リンクの発行、カルテへの返信、進捗の確認などを行う、運営者専用の画面です。</div></div><a class="go" href="kanri.html?demo=1" target="_blank">見る</a></div>
+      <div class="maprow"><div class="body"><div class="nm">初期設定ガイド</div><div class="ds">データベース（Supabase）をつなげて、確認用の画面から本番のご案内に切り替えるための手順書です。</div></div><a class="go" href="setup.html" target="_blank">見る</a></div>
     </div>
   </div>
 
@@ -489,7 +489,7 @@ weeks          日程が決まった週から、順番に書き換え</code></pr
       <p>⑥　GitHub Pagesを有効にして公開します。</p>
     </div>
     <p class="desc" style="margin-top:14px;">くわしい手順は、初期設定ガイドをご覧ください。複製したあとは、Claude Codeで「設置ガイド（setup.html）に沿って進めて」と頼んでいただければ、そのまま案内してくれます。</p>
-    <div class="map"><div class="maprow"><span class="ic">🛠️</span><div class="body"><div class="nm">初期設定ガイド</div><div class="ds">Supabaseの作成からGitHub Pagesの公開まで、番号つきで手順をまとめています。</div></div><a class="go" href="setup.html" target="_blank">見る</a></div></div>
+    <div class="map"><div class="maprow"><div class="body"><div class="nm">初期設定ガイド</div><div class="ds">Supabaseの作成からGitHub Pagesの公開まで、番号つきで手順をまとめています。</div></div><a class="go" href="setup.html" target="_blank">見る</a></div></div>
   </div>
 
   <!-- 10. 引き継ぎチェックリスト -->
@@ -597,6 +597,6 @@ document.getElementById("bugS").onclick=function(){
 };
 })();
 </script>
-<script src="ui-refined.js"></script>
+<script src="ui-refined.js?v=20260909-icons"></script>
 </body>
 </html>
