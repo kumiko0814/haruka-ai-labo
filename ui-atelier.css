@@ -163,6 +163,8 @@ body.atelier{background:#f0f4ff;color:var(--atelier-ink);font-family:"Hiragino S
 .page-handover.atelier .shots{gap:24px;margin-top:24px;align-items:start}
 .page-handover.atelier .shot{min-width:0;background:#fff;border:1px solid #e4dced;border-radius:12px;padding:12px;box-shadow:0 3px 12px #a75da906}
 .page-handover.atelier .shot img{border:1px solid #e4dced;border-radius:6px}
+.page-handover.atelier .shot.wide{display:grid;grid-template-columns:minmax(0,360px) minmax(0,1fr);gap:24px;align-items:center}
+@media(max-width:560px){.page-handover.atelier .shot.wide{grid-template-columns:1fr;gap:0}}
 .page-handover.atelier .shot .cap{font-size:14px;font-weight:600;color:#66526f;margin:14px 4px 4px;line-height:1.85}
 .page-handover.atelier .shot .cap small{font-size:12px;color:#75647f;line-height:1.9;margin-top:6px}
 .page-handover.atelier .bigurl{background:#fde6ff60;color:#66526f;border:1px solid #e5cfeb;border-radius:12px;padding:24px;margin-top:24px;text-align:left}
