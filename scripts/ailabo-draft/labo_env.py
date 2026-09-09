@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """共通：supabase_config.js / labo_config.js から接続情報・講師名を読む（コードに埋め込まない）
 どの会社のラボでも、リポジトリ直下の2ファイルを読むだけで動く。
-環境変数 SUPABASE_URL / SUPABASE_KEY があればそちらを優先（テスト・別環境用）。"""
+環境変数 SUPABASE_URL / SUPABASE_KEY / LABO_INSTRUCTOR / LABO_NAME があればそちらを優先。
+設定ファイルが無い環境（中継リポジトリ上など）でも、環境変数だけで動く。"""
 import os, re, json, sys, urllib.request, pathlib
 
 ROOT = pathlib.Path(__file__).resolve().parents[2]   # リポジトリ直下
@@ -32,8 +33,8 @@ def load():
         "url": url.rstrip("/"),
         "key": key,
         "enabled": enabled and bool(url) and "あなたの" not in url,
-        "instructor": _js_str(lc, "instructor_nick") or "はるか",
-        "labo_name": _js_str(lc, "labo_name") or "AI活用ラボ",
+        "instructor": os.environ.get("LABO_INSTRUCTOR") or _js_str(lc, "instructor_nick") or "はるか",
+        "labo_name": os.environ.get("LABO_NAME") or _js_str(lc, "labo_name") or "AI活用ラボ",
         "ng_words": _js_list(lc, "draft_ng_words"),
     }
 
