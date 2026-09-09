@@ -50,7 +50,7 @@ const output = path.resolve('guide-captures');
     await page.locator('.mn[data-v="v_adv"]').click();
     await snap('08_student');
     await page.locator('.mn[data-v="v_set"]').click();
-    await page.locator('#bugL').click();
+    await page.locator('#bugOpen2').click();
     await snap('09_bugreport');
     await go('handover.html?demo=1');
     await page.screenshot({ path: path.join(output, 'handover-mobile.png'), fullPage: true, animations: 'disabled' });
