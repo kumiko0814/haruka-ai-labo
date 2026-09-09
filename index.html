@@ -200,8 +200,9 @@ footer{text-align:center; font-size:14px; color:#9aa7b4; padding:34px 16px 10px;
 </style>
 <script src="labo_config.js"></script>
 <link rel="stylesheet" href="ui-refined.css?v=20260909-icons">
+<link rel="stylesheet" href="ui-atelier.css?v=20260909-atelier">
 </head>
-<body class="page-index">
+<body class="atelier page-index">
 <a class="ui-skip" href="#main-content">本文へ進む</a>
 <div id="demoband" class="demoband" style="display:none;">デモ画面です（実際の画面イメージ）</div>
 
@@ -231,7 +232,7 @@ footer{text-align:center; font-size:14px; color:#9aa7b4; padding:34px 16px 10px;
       <div class="ni sub on" id="ni_new" data-v="v_new">新しいカルテ</div>
       <div class="ni" data-v="v_adv">アドバイス管理</div>
       <div class="ni" data-v="v_ana">分析レポート</div>
-      <div class="ni" id="niCur">カリキュラム</div>
+      <div class="ni" id="niCur" data-v="v_cur">カリキュラム</div>
       <div class="ni" data-v="v_set">設定</div>
     </nav>
     <div class="sprof">
@@ -403,8 +404,8 @@ if(!UID && P.get("demo")!=="1" && (typeof SUPABASE_CONFIG!=="undefined"&&SUPABAS
   })();
 }
 
-document.getElementById("who").textContent=(NAME||"あなた")+"さんの専用ページ";
-document.getElementById("who2").textContent=(NAME||"あなた")+"さんの専用ページ";
+document.getElementById("who").textContent=(NAME?NAME+"さんの専用ページ":"あなた専用のページ");
+document.getElementById("who2").textContent=(NAME?NAME+"さんの専用ページ":"あなた専用のページ");
 if(DEMO) document.getElementById("demoband").style.display="block";
 if(UID&&P.get("demo")!=="1"){ try{ localStorage.setItem("ailab_my",JSON.stringify({id:UID,name:NAME,url:location.href.split("#")[0],t:Date.now()})); }catch(e){} }
 
@@ -532,7 +533,12 @@ function loadAll(){
   }
   function init(){
   document.getElementById("ntcClose").onclick=function(){ document.getElementById("ntcOv").classList.remove("on"); };
-  if(DEMO){ setTimeout(function(){ show("（デモ表示）ようこそ、"+CF("labo_name","AI活用ラボ")+"へ。はるかからのメッセージがここに届きます。"); },800); return; }
+  if(DEMO){
+    var greeted=false;
+    try{ greeted=sessionStorage.getItem("ailab_demo_greeted")==="1"; sessionStorage.setItem("ailab_demo_greeted","1"); }catch(e){}
+    if(!greeted) setTimeout(function(){ show("（デモ表示）ようこそ、"+CF("labo_name","AI活用ラボ")+"へ。はるかからのメッセージがここに届きます。"); },800);
+    return;
+  }
   sb("ailab_notes?member_id=eq.notice_all&mood=eq.おしらせ&order=created_at.desc&limit=1").then(function(r){return r.json();})
     .then(function(j){
       if(!Array.isArray(j)||!j.length) return;
@@ -882,5 +888,6 @@ if(bx) bx.onclick=function(){ bar.classList.remove("on"); try{ localStorage.setI
 })();
 </script>
 <script src="ui-refined.js?v=20260909-icons"></script>
+<script src="ui-atelier.js?v=20260909-atelier"></script>
 </body>
 </html>
