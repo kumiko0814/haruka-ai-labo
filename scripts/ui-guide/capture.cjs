@@ -2,14 +2,20 @@
 const { chromium } = require('playwright');
 const fs = require('node:fs/promises');
 const path = require('node:path');
-const base = 'http://127.0.0.1:8766/';
+const base = 'https://kumiko0814.github.io/haruka-ai-labo/';
 const output = path.resolve('guide-captures');
 (async () => {
   await fs.mkdir(output, { recursive: true });
   const browser = await chromium.launch({ headless: true });
   try {
     const context = await browser.newContext({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 2, reducedMotion: 'reduce', locale: 'ja-JP' });
-    await context.route('**/*', route => new URL(route.request().url()).origin === new URL(base).origin ? route.continue() : route.abort());
+    // Serve the checked-out files while keeping the real public address in URL fields.
+    await context.route('**/*', async route => {
+      const url = route.request().url();
+      if (!url.startsWith(base)) return route.abort();
+      const response = await route.fetch({ url: 'http://127.0.0.1:8766/' + url.slice(base.length) });
+      await route.fulfill({ response });
+    });
     const page = await context.newPage();
     const errors = [];
     page.on('pageerror', error => errors.push(error.message));
@@ -39,7 +45,8 @@ const output = path.resolve('guide-captures');
     await go('start.html?demo=1');
     await snap('07_start');
     await go('index.html?demo=1');
-    if (await page.locator('#ntcClose').isVisible()) await page.locator('#ntcClose').click();
+    await page.locator('#ntcClose').waitFor({ state: 'visible' });
+    await page.locator('#ntcClose').click();
     await page.locator('.mn[data-v="v_adv"]').click();
     await snap('08_student');
     await page.locator('.mn[data-v="v_set"]').click();
