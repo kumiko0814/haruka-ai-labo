@@ -1,0 +1,33 @@
+name: Capture guide images
+on:
+  workflow_dispatch:
+  push:
+    branches: [design/refined-ui]
+    paths:
+      - scripts/ui-guide/capture.cjs
+      - .github/workflows/guide-images.yml
+permissions:
+  contents: read
+jobs:
+  capture:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Prepare browser
+        run: |
+          npm install --no-save --package-lock=false playwright
+          npx playwright install --with-deps chromium
+          sudo apt-get install -y fonts-noto-cjk
+      - name: Capture demo screens
+        run: |
+          python3 -m http.server 8766 --bind 127.0.0.1 > /tmp/guide-server.log 2>&1 &
+          node scripts/ui-guide/capture.cjs
+      - uses: actions/upload-artifact@v4
+        with:
+          name: guide-images
+          path: guide-captures/
+          retention-days: 7
