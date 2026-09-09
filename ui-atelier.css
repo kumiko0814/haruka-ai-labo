@@ -159,6 +159,24 @@ body.atelier{background:#f0f4ff;color:var(--atelier-ink);font-family:"Hiragino S
 :is(.page-handover,.page-manual).atelier .ilist li:before{content:'・';color:#a75da9}
 :is(.page-handover,.page-manual,.page-promo).atelier .maprow{display:flex;align-items:center;gap:17px;padding:20px 0;border:0;border-bottom:1px solid #e4dced;background:none;border-radius:0;box-shadow:none;flex-wrap:nowrap}
 .atelier .map-art{width:50px;height:54px}
+/* Screen guide additions share the approved paper and stationery palette. */
+.page-handover.atelier .shots{gap:24px;margin-top:24px;align-items:start}
+.page-handover.atelier .shot{min-width:0;background:#fff;border:1px solid #e4dced;border-radius:12px;padding:12px;box-shadow:0 3px 12px #a75da906}
+.page-handover.atelier .shot img{border:1px solid #e4dced;border-radius:6px}
+.page-handover.atelier .shot .cap{font-size:14px;font-weight:600;color:#66526f;margin:14px 4px 4px;line-height:1.85}
+.page-handover.atelier .shot .cap small{font-size:12px;color:#75647f;line-height:1.9;margin-top:6px}
+.page-handover.atelier .bigurl{background:#fde6ff60;color:#66526f;border:1px solid #e5cfeb;border-radius:12px;padding:24px;margin-top:24px;text-align:left}
+.page-handover.atelier .bigurl .l{color:#87598c;font-size:12px}
+.page-handover.atelier .bigurl a{color:#87598c;font-size:15px;line-height:1.8;text-decoration:underline;text-underline-offset:4px;margin:8px 0;overflow-wrap:anywhere}
+.page-handover.atelier .bigurl .s{color:#75647f;font-size:12px;line-height:1.9}
+.page-handover.atelier :is(.tbl,.ng){border:1px solid #e4dced;background:#fff;border-radius:12px;box-shadow:none;margin-top:24px;padding:10px 24px}
+.page-handover.atelier .tbl .r{padding:18px 0;gap:24px;border-color:#eee7f2}
+.page-handover.atelier .tbl .k{color:#66526f;font-size:14px;font-weight:600}
+.page-handover.atelier :is(.tbl .v,.ng li){font-size:14px;color:#6c6580;line-height:2}
+.page-handover.atelier .ng .t{font-size:14px;color:#66526f;margin:12px 0;font-weight:600}
+.page-handover.atelier .ng li{padding:12px 0;border-color:#eee7f2}
+.page-handover.atelier .ng li::before{content:none}
+@media(max-width:560px){.page-handover.atelier .tbl .r{flex-direction:column;gap:6px}.page-handover.atelier .tbl .k{width:auto}.page-handover.atelier :is(.tbl,.ng){padding:8px 20px}}
 :is(.page-handover,.page-manual,.page-promo).atelier .maprow .nm{font-size:15px;font-weight:600;color:#66526f}.atelier .maprow .body{min-width:0}
 :is(.page-handover,.page-manual,.page-promo).atelier .maprow .ds{font-size:12px;color:#75647f;line-height:1.9}
 :is(.page-handover,.page-manual,.page-promo).atelier .maprow .go{border:1px solid #dbc8e4;border-radius:8px;background:#fff;color:#87598c;font-size:12px;min-height:42px;padding:8px 16px;white-space:nowrap;box-shadow:none}

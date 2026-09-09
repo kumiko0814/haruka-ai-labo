@@ -96,6 +96,32 @@ code{font-family:"SFMono-Regular",Consolas,"Courier New",monospace; background:#
 .phbox p{font-size:14px; color:var(--muted); line-height:1.85;}
 .ph{display:inline-block; margin-top:10px; background:var(--pinkbg); color:var(--deep); font-weight:800; font-size:14px; border-radius:10px; padding:8px 14px; border:1.5px dashed #e6b8ea;}
 
+/* screenshots */
+.shots{display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:12px;}
+@media(max-width:560px){ .shots{grid-template-columns:1fr;} }
+.shot{background:#fff; border-radius:16px; padding:10px; box-shadow:0 6px 20px rgba(44,58,85,.08);}
+.shot img{width:100%; height:auto; display:block; border-radius:10px; border:1px solid var(--line);}
+.shot .cap{font-size:11.5px; color:var(--navy2); font-weight:800; margin-top:8px; line-height:1.7;}
+.shot .cap small{display:block; color:var(--muted); font-weight:400; font-size:11px; margin-top:2px;}
+.shot.wide{grid-column:1 / -1;}
+.bigurl{margin-top:12px; background:var(--navy2); color:#fff; border-radius:16px; padding:16px 18px; text-align:center;}
+.bigurl .l{font-size:11px; color:#c9d4ea; letter-spacing:.08em;}
+.bigurl a{display:block; color:#fff; font-weight:800; font-size:15px; word-break:break-all; text-decoration:none; margin-top:4px;}
+.bigurl .s{font-size:11px; color:#f3d9f5; margin-top:6px;}
+.tbl{background:#fff; border-radius:18px; padding:6px 4px; box-shadow:0 6px 20px rgba(44,58,85,.08); margin-top:12px;}
+.tbl .r{display:flex; gap:12px; padding:12px 16px; border-bottom:1px solid var(--line); align-items:flex-start;}
+.tbl .r:last-child{border-bottom:none;}
+.tbl .k{flex:none; width:38%; font-size:12.5px; font-weight:800; color:var(--navy2); line-height:1.7;}
+.tbl .v{flex:1; font-size:12px; color:var(--text); line-height:1.8;}
+.tbl .v b{color:var(--deep);}
+.ng{margin-top:12px; background:#fff; border-radius:18px; padding:14px 18px; box-shadow:0 6px 20px rgba(44,58,85,.08);}
+.ng .t{font-size:12.5px; font-weight:800; color:var(--navy2);}
+.ng ul{list-style:none; padding:0; margin-top:6px;}
+.ng li{font-size:12px; color:var(--text); padding:6px 0 6px 22px; position:relative; line-height:1.8; border-top:1px dashed var(--line);}
+.ng li:first-child{border-top:none;}
+.ng li::before{content:"✕"; position:absolute; left:2px; top:6px; color:#c65a86; font-weight:900; font-size:12px;}
+.ng li.ok::before{content:"○"; color:#2e9c63;}
+
 .note{margin-top:16px; background:rgba(255,255,255,.7); border:1px dashed #d8d1ea; border-radius:14px; padding:14px 16px; font-size:14px; color:#6f6a7d; line-height:1.9;}
 .note b{color:var(--navy2);}
 .sign{margin-top:14px; text-align:right; font-size:14px; color:var(--navy2); font-weight:800; letter-spacing:.02em;}
@@ -124,9 +150,24 @@ footer{text-align:center; font-size:14px; color:var(--muted); margin:30px 0 10px
     <div class="st"><span class="no">1</span><h2>これだけ覚えてください</h2></div>
     <div class="promptbox">
       <ul class="ilist">
-        <li>毎日のお仕事は、管理者ボードで下書きを読んで「承認して送信」を押すことだけです</li>
-        <li>Claudeのインストールも、GitHubの操作も必要ありません。スマートフォンだけで回ります</li>
+        <li>はるかさんが見る画面は、<b>「管理者ボード」という1つのページだけ</b>です</li>
+        <li>毎日のお仕事は、そこで下書きを読んで<b>「承認して送信」を押すことだけ</b>です</li>
         <li>受講生の方に届く文章は、はるかさんが「承認して送信」を押したものだけです。自動で送られることはありません</li>
+      </ul>
+    </div>
+    <div class="bigurl">
+      <div class="l">はるかさんが毎日開くページ</div>
+      <a href="kanri.html" target="_blank">https://kumiko0814.github.io/haruka-ai-labo/kanri.html</a>
+      <div class="s">スマートフォンの「ホーム画面に追加」をしておくと、アプリのように開けます</div>
+    </div>
+    <div class="ng">
+      <div class="t">見なくてよいもの・入れなくてよいもの</div>
+      <ul>
+        <li><b>AIはるか（チャット）</b>：受講生の方が使うものです。はるかさんが見る必要はありません</li>
+        <li><b>Claude（クロード）</b>：Merone側が裏で使う道具です。パソコンにもスマートフォンにも入れなくて大丈夫です</li>
+        <li><b>GitHub（ギットハブ）</b>：ページの置き場所です。開く必要はありません</li>
+        <li><b>Supabase（データ保管庫）</b>：最初に1回作ったら、その後は開かなくて大丈夫です</li>
+        <li class="ok"><b>端末</b>：スマートフォンでもパソコンでも、ふだんのブラウザ（Safari・Chrome）で開くだけです。特別なアプリは要りません</li>
       </ul>
     </div>
   </div>
@@ -135,34 +176,104 @@ footer{text-align:center; font-size:14px; color:var(--muted); margin:30px 0 10px
   <div class="sec">
     <div class="st"><span class="no">2</span><h2>最初にやること（3つ）</h2><span class="sub">受け取ったらまずここ</span></div>
     <div class="glist">
-      <div class="row"><span class="num">1</span><span class="tx"><b>Supabase（無料のデータ保管庫）を作る　約10分</b><span>設置ガイドの <a href="setup.html#step4">STEP4</a> にある「4-1」「4-2」「4-3」までを進めてください。4-4以降はMeroneが行いますので、そこまでで大丈夫です。</span></span></div>
+      <div class="row"><span class="num">1</span><span class="tx"><b>Supabase（無料のデータ保管庫）を作る　約10分</b><span>設置ガイドの <a href="setup.html#step4" target="_blank">STEP4</a> にある「4-1」「4-2」「4-3」までを進めてください。4-4以降はMeroneが行いますので、そこまでで大丈夫です。</span></span></div>
       <div class="row"><span class="num">2</span><span class="tx"><b>できた「Project URL」と「anon public キー」の2つをMeroneに送る</b><span>Supabaseの画面（Project Settings → API）に表示される2つの値です。LINEでそのまま送っていただいて構いません。受け取り次第、Merone側で本番のスイッチを入れ、自動下書きと自動の見回りが動き始めます。</span></span></div>
-      <div class="row"><span class="num">3</span><span class="tx"><b>管理者ボードを開いて、合言葉で入れることを確かめる</b><span><a href="kanri.html" target="_blank">管理者ボード</a> を開くと合言葉を聞かれます（合言葉は個別にお伝えします）。スマートフォンでも開けます。</span></span></div>
+      <div class="row"><span class="num">3</span><span class="tx"><b>管理者ボードを開いて、合言葉で入れることを確かめる</b><span>上のURLを開くと、下の画面が出ます。合言葉は個別にお伝えします。一度入れれば、そのスマートフォンやパソコンでは次回から聞かれません。</span></span></div>
+    </div>
+    <div class="shots">
+      <div class="shot"><img loading="lazy" decoding="async" src="assets/guide/01_gate.jpg" alt="合言葉の画面"><div class="cap">③ 合言葉の画面<small>ここに合言葉を入れて「開く」を押します</small></div></div>
+      <div class="shot"><img loading="lazy" decoding="async" src="assets/guide/02_kanri_full.jpg" alt="管理者ボード全体" style="max-height:520px; object-fit:cover; object-position:top;"><div class="cap">開いた後の管理者ボード（スマートフォン）<small>最初に受信ボックスが開きます。上のメニューから、招待や学習の進捗へ移動できます</small></div></div>
     </div>
     <div class="note"><b>これ以外の設定（人格の登録・自動化の登録・公開の設定）は、すべてMerone側で済んでいます。</b></div>
   </div>
 
-  <!-- 3. 毎日の流れ -->
+  <!-- 3. 毎日の流れ（画面で見る） -->
   <div class="sec">
-    <div class="st"><span class="no">3</span><h2>毎日の流れ</h2></div>
+    <div class="st"><span class="no">3</span><h2>毎日の流れ（画面で見る）</h2><span class="sub">1回 5〜10分</span></div>
     <div class="lvl">
       <div class="pipe">
-        <span class="pv">管理者ボードを開く</span><span class="pa">→</span>
-        <span class="pv">下書きを読む</span><span class="pa">→</span>
-        <span class="pv">気になれば直す</span><span class="pa">→</span>
-        <span class="pv">承認して送信</span>
+        <span class="pv">① 管理者ボードを開く</span><span class="pa">→</span>
+        <span class="pv">② 受信ボックスを見る</span><span class="pa">→</span>
+        <span class="pv">③ 下書きを読む・直す</span><span class="pa">→</span>
+        <span class="pv">④ 承認して送信</span>
       </div>
-      <ul class="ilist">
-        <li>受講生の方の画面には「はるかからのアドバイス」として届きます</li>
-        <li>直して送っていただくと、その直し方を次回の下書きが学習します。そのままでも問題ありません</li>
-        <li>週に1回は管理者ボードを開いてください（無料の保管庫は、1週間まったくアクセスがないと自動で休止する仕組みのためです）</li>
-      </ul>
+    </div>
+    <div class="shots">
+      <div class="shot"><img loading="lazy" decoding="async" src="assets/guide/03_inbox.jpg" alt="カルテ受信ボックス"><div class="cap">② 受信ボックス<small>受講生の方から届いたカルテが並びます。「カルテ受信ボックス」の「未対応」が、まだ返していない件数です</small></div></div>
+      <div class="shot"><img loading="lazy" decoding="async" src="assets/guide/04_approve_card.jpg" alt="承認して送信"><div class="cap">③④ 1件ずつ、下書きを読んで「承認して送信」<small>「AI下書き（編集できます）」と出ていれば、下書きが入っています。文章を直したい時は、枠の中をそのまま書き換えてから押してください</small></div></div>
+      <div class="shot wide"><img loading="lazy" decoding="async" src="assets/guide/08_student.jpg" alt="受講生の画面" style="max-height:420px; object-fit:cover; object-position:top;"><div class="cap">送ったあと、受講生の方の画面にはこう届きます<small>「はるかからのアドバイス」として表示されます。はるかさんが押すまで届きません</small></div></div>
+    </div>
+    <ul class="ilist">
+      <li>直して送っていただくと、その直し方を次回の下書きが学習します。そのまま送っても問題ありません</li>
+      <li>下書きがまだ入っていないカルテは、返信欄が空になっています。2時間以内に入りますので、後で開き直してください。急ぎの時はご自身で書いて送っても大丈夫です</li>
+      <li>週に1回は必ず管理者ボードを開いてください（無料の保管庫は、1週間まったくアクセスがないと自動で休止する仕組みのためです）</li>
+    </ul>
+  </div>
+
+  <!-- 4. 連絡はどこに来る？ -->
+  <div class="sec">
+    <div class="st"><span class="no">4</span><h2>連絡はどこに来る？</h2><span class="sub">通知の行き先</span></div>
+    <div class="tbl">
+      <div class="r"><div class="k">受講生の方からカルテが届いた</div><div class="v">LINEやメールには<b>通知は来ません</b>。管理者ボードを開くと、「カルテ受信ボックス」に未対応の件数が出ます。だから<b>決まった時間に開く</b>のがコツです（次の項目）</div></div>
+      <div class="r"><div class="k">下書きが入った</div><div class="v">通知は来ません。2時間おきに自動で入ります。開いた時に「AI下書き」と出ていれば入っています</div></div>
+      <div class="r"><div class="k">受講生の方からの質問・相談</div><div class="v">すべて<b>カルテ</b>として届きます（受信ボックスに出ます）。LINEで個別に返す必要はありません</div></div>
+      <div class="r"><div class="k">不具合が起きた</div><div class="v">受講生の方が画面の「不具合を報告」を押すと、管理者ボードの<b>「バグ報告」欄</b>に出ます。同時に自動の見回りが直し、<b>Meroneにも報告が届きます</b>。はるかさんに電話やメールは来ません</div></div>
+      <div class="r"><div class="k">仕組みの異常・相談</div><div class="v">Meroneが自動の報告を見ています。気になることがあれば、<b>Meroneへ LINE</b> でご連絡ください</div></div>
+    </div>
+    <div class="note">スマートフォンへの通知（メールなど）を付けることもできます。ご希望でしたらMeroneにお声がけください。</div>
+  </div>
+
+  <!-- 5. リズム -->
+  <div class="sec">
+    <div class="st"><span class="no">5</span><h2>いつ・何をするか</h2><span class="sub">運営のリズム</span></div>
+    <div class="tbl">
+      <div class="r"><div class="k">毎日（朝と夜・各5分）</div><div class="v">管理者ボードを開く → 受信ボックスの下書きを「承認して送信」。おすすめは<b>朝9時と夜21時</b>の2回（2時間おきに下書きが入るので、この2回で取りこぼしがありません）</div></div>
+      <div class="r"><div class="k">週に1回（10分）</div><div class="v">「みんなへのメッセージ」で今週のひとこと・勉強会の案内を送る → 「参加者一覧」で2週間動きのない方がいないか見る（黄色い印が付きます）</div></div>
+      <div class="r"><div class="k">勉強会のあと</div><div class="v">アーカイブ（録画）のURLを「みんなへのメッセージ」で送る</div></div>
+      <div class="r"><div class="k">新しい受講生が入ったとき</div><div class="v">次の項目「受講生を招待する」の案内文を送るだけ</div></div>
+      <div class="r"><div class="k">募集の期が変わるとき</div><div class="v">価格・締切・日程をMeroneにLINEで伝えるだけ（例文は「9」の項目）</div></div>
     </div>
   </div>
 
-  <!-- 4. 自動で動いているもの -->
+  <!-- 6. 受講生を招待する -->
   <div class="sec">
-    <div class="st"><span class="no">4</span><h2>自動で動いているもの</h2><span class="sub">はるかさんが何もしなくても続く3つの仕組み</span></div>
+    <div class="st"><span class="no">6</span><h2>受講生を招待する</h2><span class="sub">最初の1回と、新しい方が入るたび</span></div>
+    <div class="glist">
+      <div class="row"><span class="num">1</span><span class="tx"><b>上のメニュー「参加者を招待」を開き、「全員向けの案内文をコピー」を押す</b><span>入口のURLと使い方が入った案内文がコピーされます</span></span></div>
+      <div class="row"><span class="num">2</span><span class="tx"><b>公式LINEやオープンチャットに、その案内文を貼って送る</b><span>これだけです。個別にURLを作る必要はありません</span></span></div>
+      <div class="row"><span class="num">3</span><span class="tx"><b>受講生の方は、入口で名前とメールアドレスを入れて、自分の専用ページを作ります</b><span>専用ページから困りごとを書くと、はるかさんの受信ボックスに届きます</span></span></div>
+    </div>
+    <div class="shots">
+      <div class="shot"><img loading="lazy" decoding="async" src="assets/guide/05_invite.jpg" alt="参加者の招待"><div class="cap">① 管理者ボードの「参加者の招待」<small>「全員向けの案内文をコピー」を押すと案内文がコピーされます</small></div></div>
+      <div class="shot"><img loading="lazy" decoding="async" src="assets/guide/07_start.jpg" alt="受講生の入口" style="max-height:420px; object-fit:cover; object-position:top;"><div class="cap">③ 受講生の方が見る入口<small>名前とメールアドレスを入れると専用ページができます</small></div></div>
+    </div>
+  </div>
+
+  <!-- 7. 不具合が出たら -->
+  <div class="sec">
+    <div class="st"><span class="no">7</span><h2>不具合が出たら</h2><span class="sub">はるかさんがやることは、ほぼありません</span></div>
+    <div class="lvl">
+      <div class="pipe">
+        <span class="pv">誰かが「不具合を報告」を押す</span><span class="pa">→</span>
+        <span class="pv">管理者ボードの「バグ報告」欄に出る</span><span class="pa">→</span>
+        <span class="pv">2時間以内に自動で直す</span><span class="pa">→</span>
+        <span class="pv">Meroneに報告が届く</span>
+      </div>
+    </div>
+    <div class="shots">
+      <div class="shot"><img loading="lazy" decoding="async" src="assets/guide/09_bugreport.jpg" alt="不具合を報告" style="max-height:420px; object-fit:cover; object-position:center;"><div class="cap">どのページにもある「不具合を報告」<small>受講画面は「設定」から、ガイドはページ下部から開けます。受講生の方も、はるかさんも使えます</small></div></div>
+      <div class="shot"><img loading="lazy" decoding="async" src="assets/guide/06_bugbox.jpg" alt="バグ報告欄" style="max-height:420px; object-fit:cover; object-position:top;"><div class="cap">管理者ボードの「バグ報告」欄<small>届いた報告と、対応済みかどうかが見えます</small></div></div>
+    </div>
+    <ul class="ilist">
+      <li>はっきりした不具合（ボタンが押せない・表示が崩れる など）は自動で直ります。直ったら「対応済み」に変わります</li>
+      <li>デザインの変更や「こうしてほしい」という要望は自動では直さず、Meroneが確認してご連絡します</li>
+      <li>はるかさんご自身が気づいた時も、同じ「不具合を報告」を押していただければ大丈夫です</li>
+    </ul>
+  </div>
+
+  <!-- 8. 自動で動いているもの -->
+  <div class="sec">
+    <div class="st"><span class="no">8</span><h2>自動で動いているもの</h2><span class="sub">はるかさんが何もしなくても続く3つの仕組み</span></div>
     <div class="lvl">
       <div class="hd"><span class="tag l0">①</span><h3>カルテの下書き</h3><span class="freq">2時間おき（朝7時台〜夜9時台）</span></div>
       <p class="note2">未返信のカルテに、はるかさんの文体で下書きを入れます。止まると、管理者ボードに「AI下書き」のバッジが増えなくなります。気づいたらMeroneまで一言ください。</p>
@@ -177,9 +288,9 @@ footer{text-align:center; font-size:14px; color:var(--muted); margin:30px 0 10px
     </div>
   </div>
 
-  <!-- 5. 募集の条件を変えたい・告知文がほしいとき -->
+  <!-- 9. 募集の条件を変えたい・告知文がほしいとき -->
   <div class="sec">
-    <div class="st"><span class="no">5</span><h2>募集の条件を変えたい・告知文がほしいとき</h2></div>
+    <div class="st"><span class="no">9</span><h2>募集の条件を変えたい・告知文がほしいとき</h2></div>
     <div class="promptbox">
       <div class="val">Meroneに一言お伝えいただくだけで大丈夫です。</div>
       <div class="lbl">お伝えいただく例</div>
@@ -190,21 +301,22 @@ footer{text-align:center; font-size:14px; color:var(--muted); margin:30px 0 10px
     </div>
   </div>
 
-  <!-- 6. 困ったとき -->
+  <!-- 10. 困ったとき -->
   <div class="sec">
-    <div class="st"><span class="no">6</span><h2>困ったとき</h2></div>
+    <div class="st"><span class="no">10</span><h2>困ったとき</h2></div>
     <div class="qa">
-      <div class="item"><div class="q"><span class="m">Q.</span>下書きが入っていません</div><div class="a">2時間おきの仕組みですので、少し時間をおいてご確認ください。それでも入らない時は、Meroneまでご連絡ください。</div></div>
+      <div class="item"><div class="q"><span class="m">Q.</span>下書きが入っていません</div><div class="a">2時間おきの仕組みですので、少し時間をおいてご確認ください。急ぎの時はご自身で書いて送っても大丈夫です。それでも入らない時は、Meroneまでご連絡ください。</div></div>
       <div class="item"><div class="q"><span class="m">Q.</span>下書きが自分らしくありません</div><div class="a">直してから送っていただいて大丈夫です。数件直していただくうちに、だんだんはるかさんらしい文章に近づいていきます。</div></div>
+      <div class="item"><div class="q"><span class="m">Q.</span>AIはるか（チャット）は見なくていいのですか</div><div class="a">はい。受講生の方が24時間使うためのものです。はるかさんが確認する必要はありません。内容を変えたい時はMeroneにお伝えください。</div></div>
       <div class="item"><div class="q"><span class="m">Q.</span>管理者ボードで合言葉を聞かれました</div><div class="a">個別にお伝えした合言葉を入力してください。別のスマートフォンやパソコンで開く時は、もう一度入力していただく形になります。</div></div>
       <div class="item"><div class="q"><span class="m">Q.</span>受講生の方が専用ページに戻れません</div><div class="a">カルテ入口で、登録した時と同じメールアドレスをもう一度入力していただければ、元の専用ページに戻れます。</div></div>
-      <div class="item"><div class="q"><span class="m">Q.</span>画面が真っ白・ボタンが押せません</div><div class="a">画面左下の「不具合を報告」を押してお知らせください。自動で直る場合もありますし、Meroneが確認いたします。</div></div>
+      <div class="item"><div class="q"><span class="m">Q.</span>画面が真っ白・ボタンが押せません</div><div class="a">画面の「不具合を報告」を押してお知らせください。自動で直る場合もありますし、Meroneが確認いたします。</div></div>
     </div>
   </div>
 
-  <!-- 7. 大切にしてほしいこと -->
+  <!-- 11. 大切にしてほしいこと -->
   <div class="sec">
-    <div class="st"><span class="no">7</span><h2>大切にしてほしいこと</h2></div>
+    <div class="st"><span class="no">11</span><h2>大切にしてほしいこと</h2></div>
     <div class="promptbox">
       <ul class="ilist">
         <li>受講生の方の相談内容は、大切な個人情報です。画面の共有やスクリーンショットの取り扱いにはご注意ください</li>
@@ -214,18 +326,18 @@ footer{text-align:center; font-size:14px; color:var(--muted); margin:30px 0 10px
     </div>
   </div>
 
-  <!-- 8. Meroneのサポート範囲 -->
+  <!-- 12. Meroneのサポート範囲 -->
   <div class="sec">
-    <div class="st"><span class="no">8</span><h2>Meroneのサポート範囲</h2></div>
+    <div class="st"><span class="no">12</span><h2>Meroneのサポート範囲</h2></div>
     <div class="phbox">
       <p>引き継ぎ後、株式会社Meroneがどこまで対応するかについては、以下のとおりです。</p>
       <div class="ph">【サポート範囲：くみこ確定】</div>
     </div>
   </div>
 
-  <!-- 9. 参考リンク -->
+  <!-- 13. 参考リンク -->
   <div class="sec">
-    <div class="st"><span class="no">9</span><h2>参考リンク</h2></div>
+    <div class="st"><span class="no">13</span><h2>参考リンク</h2></div>
     <div class="map">
       <div class="maprow"><div class="body"><div class="nm">管理者ボード</div><div class="ds">下書きの確認、「承認して送信」を行う画面です。</div></div><a class="go" href="kanri.html" target="_blank">開く</a></div>
       <div class="maprow"><div class="body"><div class="nm">設置ガイド STEP4</div><div class="ds">Supabase（無料のデータ保管庫）を作る手順です。</div></div><a class="go" href="setup.html#step4" target="_blank">開く</a></div>
