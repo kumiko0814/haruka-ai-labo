@@ -5,7 +5,7 @@
 // ================================================================
 var LABO_CONFIG = {
   /* ===== ブランド・運営者 ===== */
-  labo_name: "AI活用ラボ",
+  labo_name: "AIラボ",
   company: "合同会社Li-Li",
   instructor_name: "菅野 春香",
   instructor_nick: "はるか",
@@ -16,17 +16,19 @@ var LABO_CONFIG = {
   term_label: "第1期",
   target: "lilisコンサル 受講生・卒業生 限定",
   price: "45,000円",
-  price_badge: "第1期 特別価格｜受講生・卒業生 限定",
-  price_note: "第2期以降の一般募集では58,000円（税込）を予定しています。第1期は特別価格でご案内します。",
-  payment: "クレジットカード決済（分割のご相談も可能）／銀行振込",
-  start_date: "2026年10月上旬（予定・詳細日程は調整中）",
-  deadline: "2026年9月15日（火）",
+  price_badge: "9月25日（金）までのお申し込み価格",
+  price_note: "9月25日（金）までのお申し込みは45,000円（税込）、9月26日（土）以降は58,000円（税込）になります。3ヶ月のカリキュラム修了後は、月額3,300円で継続してご利用いただけます。",
+  payment: "クレジットカード決済（分割のご相談も可能）／銀行振込（同じお申し込みページで選べます）",
+  start_date: "2026年10月8日（木）21:00〜（初回勉強会）",
+  deadline: "2026年9月25日（金）",
   archive_note: "毎回の勉強会はアーカイブ（録画）が残るので、当日参加できなくても後から視聴できます。",
 
   /* ===== リンク ===== */
   apply_url: "https://univa.cc/zgpD3J",
-  apply_label: "クレジットカードで申し込む",
+  apply_label: "お申し込みはこちら",
   tokutei_url: "https://www.lilisconsul.com/tokutei",
+  privacy_url: "https://claude.ai/artifact/1m2VKXSBENfEXoLan3WHFv#privacy",
+  terms_url: "https://claude.ai/artifact/1m2VKXSBENfEXoLan3WHFv#terms",
 
   /* ===== 管理者ボードの合言葉（本番のみ有効） =====
      ここには合言葉そのものではなく「ハッシュ（暗号化した値）」を置きます。
@@ -38,7 +40,7 @@ var LABO_CONFIG = {
   draft_ng_words: ["先着", "ラストチャンス"],
 
   /* ===== カリキュラム：週ごとの日程（第1週〜第6週の順） ===== */
-  weeks: ["日程調整中","日程調整中","日程調整中","日程調整中","日程調整中","日程調整中"]
+  weeks: ["10月8日（木）〜","日程調整中","日程調整中","日程調整中","日程調整中","日程調整中"]
 };
 
 /* ---- ここから下は触らない（自動差し込みの仕組み） ---- */
