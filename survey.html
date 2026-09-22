@@ -112,9 +112,9 @@ footer{text-align:center; font-size:14px; color:#a3a2b5; margin-top:44px; line-h
 
         <div class="q first">
           <span class="qn">A1</span>
-          <p class="qt">お名前をご記入ください</p>
-          <p class="qh">ニックネームでも大丈夫です（20字まで）</p>
-          <input type="text" class="tin" id="svyName" maxlength="20" autocomplete="nickname" placeholder="例）はるか">
+          <p class="qt">お名前（フルネーム）をご記入ください</p>
+          <p class="qh">姓と名の両方をお願いします。お申し込みのときと同じお名前だと助かります（20字まで）</p>
+          <input type="text" class="tin" id="svyName" maxlength="20" autocomplete="name" placeholder="例）山田 花子">
         </div>
 
         <div class="q">
@@ -449,7 +449,10 @@ form.addEventListener("submit",function(e){
   e.preventDefault();
   err.className="err";
   var nameEl=document.getElementById("svyName");
-  if(!nameEl.value.trim()){ warn("お名前をご記入ください。ニックネームでも大丈夫です。",nameEl); return; }
+  var nm=nameEl.value.replace(/[\s　]+/g," ").trim();
+  if(!nm){ warn("お名前（フルネーム）をご記入ください。",nameEl); return; }
+  if(nm.replace(/ /g,"").length<3 && nm.indexOf(" ")<0){ warn("姓と名の両方をご記入ください（例：山田 花子）。",nameEl); return; }
+  nameEl.value=nm;
   for(var i=0;i<QN.length;i++){
     if(!one(QN[i])){
       warn("5つの質問のうち、Q"+(i+1)+"がお選びいただけていません。",form.querySelector('input[name="'+QN[i]+'"]'));
