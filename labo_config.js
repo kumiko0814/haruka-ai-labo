@@ -24,7 +24,7 @@ var LABO_CONFIG = {
   archive_note: "毎回の勉強会はアーカイブ（録画）が残るので、当日参加できなくても後から視聴できます。",
 
   /* ===== リンク ===== */
-  apply_url: "https://univa.cc/zgpD3J",
+  apply_url: "https://checkout.univapay.com/forms/11efde4e-4f4e-addc-a16d-e3a0a3efdfde?appId=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhcHBfdG9rZW4iLCJpYXQiOjE3Mzg0NzgwMDIsIm1lcmNoYW50X2lkIjoiMTFlZTU3MDUtYjVhYi1jMmJjLTk0ZjUtODM1M2EyYzgxMjkxIiwic3RvcmVfaWQiOiIxMWVlNTcwNS1iNjM0LTE1ZDYtYWI0NC1hMzYzNDdiOTAxM2MiLCJkb21haW5zIjpbInN0ZXAubG1lLmpwIiwicy5sbWVzLmpwIl0sIm1vZGUiOiJsaXZlIiwiY3JlYXRvcl9pZCI6IjExZWU1NzA1LWI1YWItYzJiYy05NGY1LTgzNTNhMmM4MTI5MSIsInZlcnNpb24iOjEsImp0aSI6IjExZWZlMTJmLTk5NDEtNzBkNy1iOWM4LTA3YjRlMTNkMTIxOSJ9.TebU4pptaXqTD5rb2NDSwruNd0f1gzA_vcY7N7yAZdo&cvvAuthorize=true&autoRedirect=true&bankTransferExpirationPeriod=P7D&amount=45000&type=recurring&allowCardInstallments=true&successRedirectUrl=https%3A%2F%2Fkumiko0814.github.io%2Fharuka-ai-labo%2Fthanks.html&showRedirectMetadata=false",   // 2026-09-22 はるかさん指定（UnivaPay決済フォーム・完了後 thanks.html へ）
   apply_label: "お申し込みはこちら",
   tokutei_url: "https://www.lilisconsul.com/tokutei",
   privacy_url: "https://claude.ai/artifact/1m2VKXSBENfEXoLan3WHFv#privacy",
