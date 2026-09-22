@@ -5,7 +5,7 @@
 // それまでは全ページ「デモモード」で動きます（?demo=1 相当）。
 // ================================================================
 var SUPABASE_CONFIG = {
-  enabled: false,
-  url: "https://あなたのプロジェクトID.supabase.co",
-  anonKey: "あなたのanonキー（publishableキー）"
+  enabled: true,
+  url: "https://yesuxtvhuuqaropysyzd.supabase.co",
+  anonKey: "sb_publishable_SLVcLacS4kYkrAAsIyB_9g_MrvssKo5"
 };
