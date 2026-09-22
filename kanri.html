@@ -573,7 +573,8 @@ function renderSvy(items){
     var r={}; try{ r=JSON.parse(s.worry||"{}")||{}; }catch(e){ r={}; }
     var isS=(s.member_id||"").indexOf("svy_sanka_")===0;
     var j=function(a){ return (a&&a.length)?a.join("・"):"—"; };
-    var line1='使っているAI：'+j(r.tools)+'　頻度：'+(r.freq||"—")+'　場面：'+j(r.scenes);
+    var SU={"0":"入れていない","1":"その都度少し","2":"数百〜数千字のメモ","3":"数万字の設定"};
+    var line1='使っているAI：'+j(r.tools)+'　頻度：'+(r.freq||"—")+'　場面：'+j(r.scenes)+'　事前設定：'+(SU[String(r.setup)]||"—");
     var line2=isS?('気になった点：'+j(r.hesitation)+(r.hesitation_other?('（'+r.hesitation_other+'）'):'')):('アーカイブ：'+(r.archive||"—"));
     var e=document.createElement("div"); e.className="item"; e.style.flexWrap="wrap";
     e.innerHTML='<div class="ibody"><div class="tx"><b style="color:var(--pink3);">'+esc(s.member_name||"（お名前なし）")+'</b>　<span class="advpill">'+(isS?"参加した方":"参加しなかった方")+'</span>　'+(typeof r.score==="number"?(r.score+'／5点　'):'')+esc(r.type||"")+'</div>'+

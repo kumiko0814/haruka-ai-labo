@@ -66,6 +66,17 @@ footer{text-align:center; font-size:14px; color:#a3a2b5; margin-top:44px; line-h
 #main-content .arc span{display:block; font-size:12px; color:var(--muted); line-height:1.8; margin-top:4px; word-break:break-all;}
 #main-content .cta{display:block; text-align:center; background:var(--camel2); color:#fff; border-radius:12px; padding:16px; font-size:15px; font-weight:800; text-decoration:none; margin-top:18px; box-shadow:0 4px 0 var(--line);}
 #main-content .fine{font-size:12px; color:var(--muted); line-height:1.95; margin-top:16px;}
+#main-content .score .nm{font-size:13px; font-weight:800; color:var(--muted); letter-spacing:.08em;}
+#main-content .gauge{border-top:1px solid var(--line); margin-top:14px; padding-top:12px;}
+#main-content .gr{display:flex; justify-content:space-between; align-items:center; gap:10px; font-size:13px; color:var(--muted); padding:5px 0; text-align:left;}
+#main-content .gr b{color:var(--navy2); font-size:14px; text-align:right; line-height:1.6;}
+#main-content .gr b.pct{color:var(--camel2); font-size:18px;}
+#main-content .card.exp .ch{font-size:16px; font-weight:800; color:var(--navy2); line-height:1.7; margin:0 0 6px;}
+#main-content .hl{background:var(--camelbg); border-left:4px solid var(--camel2); border-radius:10px; padding:12px 14px; font-size:15px; font-weight:700; color:var(--navy2); line-height:1.9; margin-top:14px;}
+#main-content .shot{margin:14px 0 6px;}
+#main-content .shot img{display:block; width:100%; max-width:100%; border-radius:14px; border:1px solid var(--line);}
+#main-content .shot figcaption{font-size:12px; color:var(--muted); margin-top:6px; text-align:center;}
+#main-content .subh{font-size:16px; font-weight:800; color:var(--navy2); margin-top:28px; line-height:1.7;}
 #svyResult{display:none;}
 #svyResult.on{display:block;}
 #svyForm.off{display:none;}
@@ -155,6 +166,17 @@ footer{text-align:center; font-size:14px; color:#a3a2b5; margin-top:44px; line-h
             <label class="opt"><input type="checkbox" name="scenes" value="デザインの壁打ち"><span>デザインの壁打ち</span></label>
             <label class="opt"><input type="checkbox" name="scenes" value="見積・契約書"><span>見積・契約書</span></label>
             <label class="opt"><input type="checkbox" name="scenes" value="使っていない"><span>使っていない</span></label>
+          </div>
+        </div>
+
+        <div class="q">
+          <span class="qn">A5</span>
+          <p class="qt">AIに、自分の前提（トンマナ・判断基準・過去の実績など）をあらかじめ入れていますか？</p>
+          <div class="opts">
+            <label class="opt"><input type="radio" name="setup" value="0"><span>入れていない（毎回その場で聞く）</span></label>
+            <label class="opt"><input type="radio" name="setup" value="1"><span>その都度、チャットの最初に少し伝えている</span></label>
+            <label class="opt"><input type="radio" name="setup" value="2"><span>数百〜数千字のメモ（プロフィールや好み）を渡している</span></label>
+            <label class="opt"><input type="radio" name="setup" value="3"><span>1〜2時間かけて作った設定（数万字）を用意し、更新している</span></label>
           </div>
         </div>
 
@@ -278,10 +300,33 @@ footer{text-align:center; font-size:14px; color:#a3a2b5; margin-top:44px; line-h
       <div>
 
         <div class="score">
+          <p class="nm" id="rName">あなたの現在地</p>
           <div class="sv"><span id="rScore">0</span><small>／5</small></div>
           <p class="tp" id="rType"></p>
           <p class="tm" id="rMsg"></p>
+          <div class="gauge">
+            <div class="gr"><span>AIへの事前設定</span><b id="rSetup"></b></div>
+            <div class="gr"><span>AIの実力を引き出せている目安</span><b id="rPct" class="pct"></b></div>
+          </div>
+          <p class="tm" id="rSetupMsg"></p>
         </div>
+
+        <div class="card exp">
+          <p class="ch">なぜ「それっぽい答え」で止まるのか</p>
+          <p>ChatGPTもClaudeも、その場で壁打ちをすれば、それっぽい答えを返してくれます。もともとAIは、そう設計されているからです。</p>
+          <p>一方で、案件を取り続けているデザイナーは、最初に<b>1〜2時間</b>かけて、自分のトンマナ・判断基準・「どの基準値でやるべきか」を<b>3〜4万字</b>ぶん、あらかじめAIに入れています。そうしないと、AIは正しく機能しません。</p>
+          <p>AIは使えば使うほど学習します。けれど、正しく使えない状態が長く続くほど、<b>その場限りの答えだけが積み上がっていきます</b>。だから「情報を蓄積させること」と「その情報ソースと判断基準が正しいかを精査すること」の両方が必要です。</p>
+          <div class="hl">事前の設定なしで使うと、AI本来の実力は<b>30%も発揮されません</b>。</div>
+        </div>
+
+        <div class="card exp">
+          <p class="ch">プロのデザイナーは、実際どう使っているか</p>
+          <p>案件獲得からアウトプットまで、すべてをAIでやる人は少数です。でも、案件の整理・要件定義・資料作成・素材の加工・アイデア出しは<b>AIでベースを作り、最後を自分の手で仕上げる</b>。これが、いま案件を回しているデザイナーの標準です。</p>
+          <figure class="shot"><img src="assets/pro-designer-chat.jpg" alt="現役デザイナーとのやり取り。資料作成・壁打ち・要件定義・アプリ作成・素材の合成加工・アイデア展開にAIを使い、デザインのアウトプットは自分の手で作る" loading="lazy"><figcaption>現役デザイナーとのやり取り</figcaption></figure>
+          <p>むしろ、AIを使えないと、この先は<b>案件獲得を回していくこと自体が難しく</b>なります。</p>
+        </div>
+
+        <p class="subh">答え合わせ：5つの質問の解説</p>
 
         <details class="faqq" id="rq1">
           <summary><span class="jg" id="jg1"></span>AIが事実と違うことを自信たっぷりに答えるとき</summary>
@@ -311,8 +356,9 @@ footer{text-align:center; font-size:14px; color:#a3a2b5; margin-top:44px; line-h
         <p class="yr">開いたままの項目が、選び直したい問いです。正解できた問いは、たたむと読みやすくなります。</p>
 
         <div class="card">
-          <p>AIは、壁打ちだけだと「それっぽい答え」は返してくれます。でも、あなたの情報は蓄積されず、一般的な基準で答えます。</p>
-          <p><b>AIラボのカルテは、あなたの相談と、はるかの基準（案件獲得コンサルの現場で培った判断）が積み上がっていく場所です。</b>育った内容は「あなたの取扱説明書」にして、お使いのChatGPTやClaudeにそのまま渡せます。</p>
+          <p><b>AIラボのカルテは、その「数万字の事前設定」を、相談しながら育てていく場所です。</b></p>
+          <p>蓄積される内容は、はるかの基準（案件獲得コンサルの現場で培った判断）で精査されるので、「入れている情報ソースが正しいか」も一緒に確認できます。</p>
+          <p>育った内容は「あなたの取扱説明書」にして、お使いのChatGPTやClaudeにそのまま渡せます。</p>
         </div>
 
         <a class="arc" id="rArc" href="https://drive.google.com/file/d/18OmKnLioKSU670_phxEhAh6L0zpEozXG/view?usp=sharing" target="_blank" rel="noopener"><b>9/18の勉強会アーカイブを見る</b><span>Googleドライブが開きます</span></a>
@@ -347,6 +393,7 @@ var QN=["b1","b2","b3","b4","b5"];
 var P=new URLSearchParams(location.search);
 var variant=(P.get("v")==="sanka")?"sanka":"fusanka";
 var isSanka=(variant==="sanka");
+var DEMO=(P.get("demo")==="1");   /* ?demo=1 … 見本の回答で結果ページを表示（保存しない） */
 document.getElementById("dSanka").style.display=isSanka?"block":"none";
 document.getElementById("dFusanka").style.display=isSanka?"none":"block";
 document.getElementById("rArc").style.display=isSanka?"none":"block";
@@ -380,7 +427,7 @@ var SB_U=SB_ON?(SUPABASE_CONFIG.url+"/rest/v1/ailab_notes"):"";
 var SB_K=(typeof SUPABASE_CONFIG!=="undefined"&&SUPABASE_CONFIG.anonKey)||"";
 var saved=false;
 function save(name,rec,want){
-  if(saved||!SB_U) return;
+  if(saved||!SB_U||DEMO) return;
   saved=true;
   try{
     fetch(SB_U,{method:"POST",headers:{apikey:SB_K,Authorization:"Bearer "+SB_K,"Content-Type":"application/json",Prefer:"return=representation"},
@@ -396,10 +443,16 @@ function save(name,rec,want){
 
 /* ===== 結果を出す ===== */
 var TYPES=[
-  {min:5, t:"基準まで持っている人", m:"あなたのAI力に足りないのは知識ではなく、「その案件で通るか」の判断だけです。ここから先は、判断を借りられる相手がいるかどうかで差がつきます。"},
-  {min:3, t:"使えているけれど、思い込みが1〜2つある人", m:"開いている問いの解説を読んでみてください。そこが、成果に直結する差です。あと少しで、AIの答えを仕事の判断に変えられます。"},
-  {min:0, t:"壁打ちで止まっている人", m:"今のAIの使い方は「それっぽい答え」を受け取る段階です。ここから先は、育て方で変わります。順番に知っていけば大丈夫です。"}
+  {min:5, t:"基準まで持っている人", m:"知識は満点です。差がつくのは、ここから先の「事前設定」と、「その案件で通るか」の判断を借りられる相手がいるかどうかです。"},
+  {min:3, t:"使えているけれど、思い込みが1〜2つある人", m:"下の答え合わせで開いている問いの解説を読んでみてください。そこが、成果に直結する差です。"},
+  {min:0, t:"壁打ちで止まっている人", m:"今のAIの使い方は「それっぽい答え」を受け取る段階です。順番に知っていけば大丈夫です。"}
 ];
+var SETUP={
+  "0":{label:"入れていない", pct:"30%未満", m:"毎回ゼロからの壁打ちなので、AIは「その場限りのそれっぽい答え」を返す設定のまま動いています。本来の実力の30%も出ていない状態です。"},
+  "1":{label:"その都度、少し伝えている", pct:"30%前後", m:"伝え直している分、AIは毎回ゼロから考えています。蓄積されないので、実力の30%前後で止まりやすい状態です。"},
+  "2":{label:"数百〜数千字のメモを渡している", pct:"半分ほど", m:"土台はあります。ここに「判断基準」と「基準値」を足していくと、答えが「あなた用」に変わります。目安は半分ほどです。"},
+  "3":{label:"数万字の設定を用意し、更新している", pct:"本来の力に近い", m:"案件を取り続けている人と同じ使い方です。次は、入れている基準そのものが正しいかを、定期的に精査する段階です。"}
+};
 function show(){
   var score=0, res={};
   for(var i=0;i<QN.length;i++){
@@ -413,17 +466,23 @@ function show(){
   }
   var ty=TYPES[0];
   for(var j=0;j<TYPES.length;j++){ if(score>=TYPES[j].min){ ty=TYPES[j]; break; } }
+  var su=one("setup"), S=SETUP[su]||SETUP["0"];
+  var name=document.getElementById("svyName").value.trim();
+  document.getElementById("rName").textContent=name?(name+"さんの現在地"):"あなたの現在地";
   document.getElementById("rScore").textContent=String(score);
   document.getElementById("rType").textContent=ty.t;
   document.getElementById("rMsg").textContent=ty.m;
+  document.getElementById("rSetup").textContent=S.label;
+  document.getElementById("rPct").textContent=S.pct;
+  document.getElementById("rSetupMsg").textContent=S.m;
 
-  var name=document.getElementById("svyName").value.trim();
   var want=document.getElementById("svyWant").value.trim();
   save(name,{
     variant:variant,
     tools:many("tools"),
     freq:one("freq"),
     scenes:many("scenes"),
+    setup:su,
     quiz:res,
     score:score,
     type:ty.t,
@@ -453,6 +512,7 @@ form.addEventListener("submit",function(e){
   if(!nm){ warn("お名前（フルネーム）をご記入ください。",nameEl); return; }
   if(nm.replace(/ /g,"").length<3 && nm.indexOf(" ")<0){ warn("姓と名の両方をご記入ください（例：山田 花子）。",nameEl); return; }
   nameEl.value=nm;
+  if(!one("setup")){ warn("A5（AIに前提を入れているか）をお選びください。",form.querySelector('input[name="setup"]')); return; }
   for(var i=0;i<QN.length;i++){
     if(!one(QN[i])){
       warn("5つの質問のうち、Q"+(i+1)+"がお選びいただけていません。",form.querySelector('input[name="'+QN[i]+'"]'));
@@ -463,6 +523,16 @@ form.addEventListener("submit",function(e){
   if(!wantEl.value.trim()){ warn("最後の1行をご記入ください。ひとことで大丈夫です。",wantEl); return; }
   show();
 });
+
+/* ===== 見本表示（?demo=1）：はるかさん・運営の確認用。保存はしない ===== */
+if(DEMO){
+  document.getElementById("svyName").value="山田 花子";
+  [["tools","ChatGPT"],["freq","毎日"],["scenes","提案文・応募文"],["scenes","文章作成"],["setup","0"],["b1","a"],["b2","c"],["b3","b"],["b4","b"],["b5","b"],["hz","ChatGPTと何が違うのかがわからない"],["arc","途中まで見た"]].forEach(function(p){
+    var el=form.querySelector('input[name="'+p[0]+'"][value="'+p[1]+'"]'); if(el) el.checked=true;
+  });
+  document.getElementById("svyWant").value="提案文を書く時間が長くなってしまう";
+  paint(); show();
+}
 })();
 </script>
 
