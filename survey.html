@@ -64,7 +64,9 @@ footer{text-align:center; font-size:14px; color:#a3a2b5; margin-top:44px; line-h
 #main-content .arc{display:block; background:#fff; border:1px solid var(--line); border-radius:14px; padding:16px 18px; margin-top:18px; text-decoration:none; color:var(--navy2);}
 #main-content .arc b{display:block; font-size:14px; font-weight:700; line-height:1.8;}
 #main-content .arc span{display:block; font-size:12px; color:var(--muted); line-height:1.8; margin-top:4px; word-break:break-all;}
-#main-content .cta{display:block; text-align:center; background:var(--camel2); color:#fff; border-radius:12px; padding:16px; font-size:15px; font-weight:800; text-decoration:none; margin-top:18px; box-shadow:0 4px 0 var(--line);}
+#main-content .cta{display:block; width:100%; border:none; cursor:pointer; font-family:inherit; text-align:center; background:var(--camel2); color:#fff; border-radius:12px; padding:16px; font-size:15px; font-weight:800; text-decoration:none; margin-top:18px; box-shadow:0 4px 0 var(--line); line-height:1.7;}
+#main-content .ctadone{display:none; text-align:center; font-size:14px; font-weight:700; color:var(--navy2); background:var(--camelbg); border-radius:12px; padding:14px; margin-top:18px; line-height:1.9;}
+#main-content .ctadone.on{display:block;}
 #main-content .fine{font-size:12px; color:var(--muted); line-height:1.95; margin-top:16px;}
 #main-content .score .nm{font-size:13px; font-weight:800; color:var(--muted); letter-spacing:.08em;}
 #main-content .gauge{border-top:1px solid var(--line); margin-top:14px; padding-top:12px;}
@@ -356,15 +358,14 @@ footer{text-align:center; font-size:14px; color:#a3a2b5; margin-top:44px; line-h
         <p class="yr">開いたままの項目が、選び直したい問いです。正解できた問いは、たたむと読みやすくなります。</p>
 
         <div class="card">
-          <p><b>AIラボのカルテは、その「数万字の事前設定」を、相談しながら育てていく場所です。</b></p>
-          <p>蓄積される内容は、はるかの基準（案件獲得コンサルの現場で培った判断）で精査されるので、「入れている情報ソースが正しいか」も一緒に確認できます。</p>
-          <p>育った内容は「あなたの取扱説明書」にして、お使いのChatGPTやClaudeにそのまま渡せます。</p>
+          <p><b>ここまでで見えたのは、「知識」「事前設定」「精査」の3つです。</b></p>
+          <p>この3つをどう整えればいいかを知りたい方は、下のボタンを押してください。はるかから、個別にご連絡します。</p>
         </div>
 
-        <a class="arc" id="rArc" href="https://drive.google.com/file/d/18OmKnLioKSU670_phxEhAh6L0zpEozXG/view?usp=sharing" target="_blank" rel="noopener"><b>9/18の勉強会アーカイブを見る</b><span>Googleドライブが開きます</span></a>
+        <button type="button" class="cta" id="ctaLearn">AIをどのように活用したらいいか学びたい</button>
+        <p class="ctadone" id="ctaDone">ありがとうございます。はるかから、個別にご連絡します。</p>
 
-        <a class="cta" href="lp.html">AIラボのご案内を見る</a>
-        <a class="ghost" href="start.html">まず1回、はるかに相談してみる（無料）</a>
+        <a class="arc" id="rArc" href="https://drive.google.com/file/d/18OmKnLioKSU670_phxEhAh6L0zpEozXG/view?usp=sharing" target="_blank" rel="noopener"><b>9/18の勉強会アーカイブを見る</b><span>Googleドライブが開きます</span></a>
         <p class="fine">回答は、はるかが読んで今後の内容づくりに使います。お名前と回答が、他の方に見えることはありません。</p>
 
       </div>
@@ -396,7 +397,6 @@ var isSanka=(variant==="sanka");
 var DEMO=(P.get("demo")==="1");   /* ?demo=1 … 見本の回答で結果ページを表示（保存しない） */
 document.getElementById("dSanka").style.display=isSanka?"block":"none";
 document.getElementById("dFusanka").style.display=isSanka?"none":"block";
-document.getElementById("rArc").style.display=isSanka?"none":"block";
 
 /* ===== 選択肢の見た目 ===== */
 var form=document.getElementById("svyForm");
@@ -425,14 +425,14 @@ function one(name){
 var SB_ON=(typeof SUPABASE_CONFIG!=="undefined")&&SUPABASE_CONFIG.enabled;
 var SB_U=SB_ON?(SUPABASE_CONFIG.url+"/rest/v1/ailab_notes"):"";
 var SB_K=(typeof SUPABASE_CONFIG!=="undefined"&&SUPABASE_CONFIG.anonKey)||"";
-var saved=false;
+var saved=false, MID="", NAME="";
 function save(name,rec,want){
   if(saved||!SB_U||DEMO) return;
   saved=true;
   try{
     fetch(SB_U,{method:"POST",headers:{apikey:SB_K,Authorization:"Bearer "+SB_K,"Content-Type":"application/json",Prefer:"return=representation"},
       body:JSON.stringify({
-        member_id:"svy_"+variant+"_"+Date.now().toString(36),
+        member_id:MID,
         member_name:name,
         mood:"AI診断",
         worry:JSON.stringify(rec),
@@ -440,6 +440,22 @@ function save(name,rec,want){
       })}).catch(function(){});
   }catch(e){}
 }
+/* ボタンのクリックを1回1行で記録（同じ member_id・mood「AI診断クリック」・worry にボタン名） */
+var tracked={};
+function track(kind){
+  if(DEMO||!SB_U||!MID||tracked[kind]) return;
+  tracked[kind]=true;
+  try{
+    fetch(SB_U,{method:"POST",keepalive:true,headers:{apikey:SB_K,Authorization:"Bearer "+SB_K,"Content-Type":"application/json"},
+      body:JSON.stringify({member_id:MID,member_name:NAME,mood:"AI診断クリック",worry:kind,want:variant})}).catch(function(){});
+  }catch(e){}
+}
+document.getElementById("ctaLearn").addEventListener("click",function(){
+  track("学びたい");
+  this.style.display="none";
+  document.getElementById("ctaDone").className="ctadone on";
+});
+document.getElementById("rArc").addEventListener("click",function(){ track("アーカイブ"); });
 
 /* ===== 結果を出す ===== */
 var TYPES=[
@@ -468,6 +484,7 @@ function show(){
   for(var j=0;j<TYPES.length;j++){ if(score>=TYPES[j].min){ ty=TYPES[j]; break; } }
   var su=one("setup"), S=SETUP[su]||SETUP["0"];
   var name=document.getElementById("svyName").value.trim();
+  MID="svy_"+variant+"_"+Date.now().toString(36); NAME=name;
   document.getElementById("rName").textContent=name?(name+"さんの現在地"):"あなたの現在地";
   document.getElementById("rScore").textContent=String(score);
   document.getElementById("rType").textContent=ty.t;
