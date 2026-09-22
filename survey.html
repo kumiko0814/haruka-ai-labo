@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="ja"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>AI活用セルフチェック｜AI活用ラボ</title>
+<style>
+:root{ --bg:#f0f4ff; --navy:#2c3a55; --navy2:#22304a; --camel:#c77fce; --camel2:#a75da9; --camelbg:#fde6ff; --text:#4a4440; --muted:#8b8a9b; --line:#e4e2f2; }
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{overflow-x:hidden;}
+body{font-family:"Yu Gothic","YuGothic","游ゴシック","Hiragino Kaku Gothic ProN","Hiragino Sans",sans-serif; background:linear-gradient(168deg,#e2ebff 0%,#fdf9ff 46%,#fde6ff 100%); color:var(--text); line-height:2.05; -webkit-font-smoothing:antialiased;}
+body.page-lp{padding-bottom:30px!important;}
+.wrap{max-width:640px; margin:0 auto; padding:0 18px;}
+header{background:var(--navy2); color:#fff; padding:13px 18px; text-align:center;}
+
+.sec{margin-top:36px;}
+.sec .eyebrow{font-size:14px; font-weight:800; color:#8ea6e0; letter-spacing:.18em; text-align:center;}
+.sec h2{font-size:clamp(18px,5.4vw,22px); color:var(--navy2); text-align:center; line-height:1.7; margin-top:2px;}
+.card{background:#fff; border-radius:18px; padding:20px; margin-top:16px; box-shadow:0 6px 20px rgba(44,58,85,.07);}
+.card p{font-size:14px; margin-top:8px;}
+.card p:first-child{margin-top:0;}
+.card b{color:var(--navy2);}
+.gbtn{display:flex; align-items:center; justify-content:center; width:100%; border:none; background:var(--camel2); color:#fff; border-radius:12px; padding:15px; font-size:15px; font-weight:800; cursor:pointer; font-family:inherit; margin-top:22px;}
+.ghost{display:block; width:100%; border:1px solid var(--line); background:#fff; color:var(--navy2); border-radius:12px; padding:12px; font-size:13px; font-weight:700; text-align:center; text-decoration:none; margin-top:10px;}
+.faqq{background:#fff; border-radius:14px; margin-top:10px; box-shadow:0 4px 14px rgba(44,58,85,.05); overflow:hidden;}
+.faqq summary{list-style:none; cursor:pointer; padding:13px 16px; font-size:14px; font-weight:800; color:var(--navy2);}
+.faqq summary::-webkit-details-marker{display:none;}
+.faqq .a{padding:0 16px 14px; font-size:14px;}
+footer{text-align:center; font-size:14px; color:#a3a2b5; margin-top:44px; line-height:2;}
+
+/* ---- ui-*.css が読めないときのための最小フォールバック ---- */
+.hero{text-align:center; padding:30px 0 10px;}
+.hero .chars{display:flex; justify-content:center; align-items:flex-end; gap:6px;}
+.hero .chars img{height:170px;}
+.hero h1{font-size:clamp(24px,7vw,34px); color:var(--navy2); line-height:1.6; margin-top:12px;}
+.hero .badge{display:inline-block; background:var(--navy2); color:#fff; font-size:14px; font-weight:800; border-radius:999px; padding:6px 16px; margin-top:12px; letter-spacing:.06em;}
+.hero .lead{font-size:14px; margin-top:14px; text-align:left; background:#fff; border-radius:16px; padding:16px 18px; box-shadow:0 6px 20px rgba(44,58,85,.07);}
+.hero .lead b{color:var(--camel2);}
+
+/* ---- このページだけの最小スタイル ---- */
+#main-content .q{margin-top:22px;}
+#main-content .q.first{margin-top:0;}
+#main-content .qn{display:inline-block; font-size:11px; font-weight:800; color:var(--camel2); background:var(--camelbg); border-radius:6px; padding:2px 9px; margin-right:9px; letter-spacing:.08em;}
+#main-content .qt{font-size:15px; font-weight:700; color:var(--navy2); line-height:1.9; margin-top:7px;}
+#main-content .qh{font-size:12px; color:var(--muted); line-height:1.9; margin-top:3px;}
+#main-content .opts{margin-top:11px; display:flex; flex-direction:column; gap:8px;}
+#main-content .opt{display:flex; gap:11px; align-items:flex-start; background:#fff; border:1px solid var(--line); border-radius:12px; padding:12px 14px; font-size:14px; line-height:1.85; color:var(--text); cursor:pointer; min-height:48px;}
+#main-content .opt input{flex:none; width:19px; height:19px; margin-top:6px; accent-color:var(--camel2);}
+#main-content .opt.on{border-color:var(--camel2); background:var(--camelbg);}
+#main-content .tin{display:block; width:100%; border:1px solid var(--line); border-radius:12px; padding:12px 14px; font-size:16px; line-height:1.9; color:var(--navy2); background:#fff; min-height:50px; margin-top:11px; font-family:inherit;}
+#main-content textarea.tin{min-height:98px; resize:vertical;}
+#main-content .err{display:none; font-size:14px; font-weight:700; color:var(--camel2); line-height:1.9; margin-top:11px;}
+#main-content .err.on{display:block;}
+
+#main-content .score{background:#fff; border:1px solid var(--line); border-radius:18px; padding:24px 20px; text-align:center;}
+#main-content .score .sv{font-size:42px; font-weight:800; color:var(--camel2); line-height:1.3;}
+#main-content .score .sv small{font-size:14px; color:var(--muted); font-weight:700; margin-left:4px;}
+#main-content .score .tp{font-size:17px; font-weight:700; color:var(--navy2); line-height:1.8; margin-top:6px;}
+#main-content .score .tm{font-size:14px; line-height:2; text-align:left; margin-top:12px;}
+#main-content .jg{display:inline-block; font-size:11px; font-weight:800; border-radius:6px; padding:2px 9px; margin-right:9px; letter-spacing:.06em;}
+#main-content .jg.ok{color:#2e7d32; background:#e8f3e9;}
+#main-content .jg.ng{color:var(--camel2); background:var(--camelbg);}
+#main-content .yr{font-size:12px; color:var(--muted); line-height:1.9; margin-top:8px;}
+#main-content .arc{display:block; background:#fff; border:1px solid var(--line); border-radius:14px; padding:16px 18px; margin-top:18px; text-decoration:none; color:var(--navy2);}
+#main-content .arc b{display:block; font-size:14px; font-weight:700; line-height:1.8;}
+#main-content .arc span{display:block; font-size:12px; color:var(--muted); line-height:1.8; margin-top:4px; word-break:break-all;}
+#main-content .cta{display:block; text-align:center; background:var(--camel2); color:#fff; border-radius:12px; padding:16px; font-size:15px; font-weight:800; text-decoration:none; margin-top:18px; box-shadow:0 4px 0 var(--line);}
+#main-content .fine{font-size:12px; color:var(--muted); line-height:1.95; margin-top:16px;}
+#svyResult{display:none;}
+#svyResult.on{display:block;}
+#svyForm.off{display:none;}
+#svyIntro.off{display:none;}
+
+#bugL{position:fixed; left:12px; bottom:16px; z-index:59; background:rgba(255,255,255,.92); border:1px solid #dcd8ee; color:#8b8a9b; font-size:14px; font-weight:800; border-radius:999px; padding:5px 12px; cursor:pointer; letter-spacing:.04em; font-family:inherit;}
+#bugM{position:fixed; inset:0; background:rgba(34,48,74,.55); display:none; align-items:center; justify-content:center; z-index:70; padding:24px;}
+#bugM.on{display:flex;}
+#bugM .bx{background:#fff; border-radius:20px; padding:22px 20px; max-width:360px; width:100%;}
+#bugM h3{font-size:14.5px; color:var(--navy2); margin-bottom:8px;}
+#bugM textarea{width:100%; border:1.5px solid #e0dfee; border-radius:12px; padding:11px 13px; font-size:14px; line-height:1.8; font-family:inherit; min-height:100px; resize:vertical;}
+#bugM .bb{display:flex; gap:8px; margin-top:12px;}
+#bugM button{flex:1; border:none; border-radius:999px; padding:11px; font-size:14px; font-weight:800; cursor:pointer; font-family:inherit;}
+#bugM .c{background:#eeedf6; color:#6d675e;}
+#bugM .s{background:linear-gradient(135deg,#8fa8e6,#e0a1e6); color:#fff;}
+#bugM .done{display:none; font-size:14px; color:#2e7d32; font-weight:800; margin-top:10px; text-align:center;}
+</style>
+<script src="labo_config.js"></script>
+<link rel="stylesheet" href="ui-refined.css?v=20260909-icons">
+<link rel="stylesheet" href="ui-atelier.css?v=20260909-atelier">
+</head>
+<body class="atelier page-lp">
+<a class="ui-skip" href="#main-content">本文へ進む</a>
+<header><div class="ui-topnav"><a class="ui-brand" href="lp.html" data-cfg="labo_name">AI活用ラボ</a><nav aria-label="ページ内ナビゲーション"><a href="lp.html">ご案内</a><a class="ui-toplink" href="start.html">受講生の方へ ↗</a></nav></div></header>
+
+<div class="wrap" id="main-content">
+
+  <div class="hero" id="svyIntro">
+    <div class="chars">
+      <img src="assets/hk-laptop.png" alt="">
+      <div class="char-caption"><span>NAVIGATOR</span><b data-cfg="instructor_nick">はるか</b></div>
+    </div>
+    <h1>AI活用、いまの<br><span class="grad">立ち位置チェック</span></h1>
+    <span class="badge">3分セルフチェック｜<span data-cfg="target">lilisコンサル 受講生・卒業生 限定</span></span>
+    <div class="lead">AIを「使っている」人は多いのに、<b>「仕事の成果につながる使い方」</b>ができているかは、自分では見えにくいものです。3分で、いまの立ち位置を一緒に確認しましょう。</div>
+  </div>
+
+  <form id="svyForm" novalidate>
+
+    <section class="sec" id="partA">
+      <div class="eyebrow" aria-hidden="true">01</div>
+      <h2>いまのAIの使い方</h2>
+      <div>
+
+        <div class="q first">
+          <span class="qn">A1</span>
+          <p class="qt">お名前をご記入ください</p>
+          <p class="qh">ニックネームでも大丈夫です（20字まで）</p>
+          <input type="text" class="tin" id="svyName" maxlength="20" autocomplete="nickname" placeholder="例）はるか">
+        </div>
+
+        <div class="q">
+          <span class="qn">A2</span>
+          <p class="qt">使っているAIを教えてください</p>
+          <p class="qh">あてはまるものをいくつでも</p>
+          <div class="opts">
+            <label class="opt"><input type="checkbox" name="tools" value="ChatGPT"><span>ChatGPT</span></label>
+            <label class="opt"><input type="checkbox" name="tools" value="Claude"><span>Claude</span></label>
+            <label class="opt"><input type="checkbox" name="tools" value="Gemini"><span>Gemini</span></label>
+            <label class="opt"><input type="checkbox" name="tools" value="Microsoft Copilot"><span>Microsoft Copilot</span></label>
+            <label class="opt"><input type="checkbox" name="tools" value="CanvaのAI機能"><span>Canva のAI機能</span></label>
+            <label class="opt"><input type="checkbox" name="tools" value="その他"><span>その他</span></label>
+            <label class="opt"><input type="checkbox" name="tools" value="使っていない"><span>使っていない</span></label>
+          </div>
+        </div>
+
+        <div class="q">
+          <span class="qn">A3</span>
+          <p class="qt">どのくらいの頻度で使っていますか</p>
+          <div class="opts">
+            <label class="opt"><input type="radio" name="freq" value="毎日"><span>毎日</span></label>
+            <label class="opt"><input type="radio" name="freq" value="週に数回"><span>週に数回</span></label>
+            <label class="opt"><input type="radio" name="freq" value="月に数回"><span>月に数回</span></label>
+            <label class="opt"><input type="radio" name="freq" value="ほとんど使わない"><span>ほとんど使わない</span></label>
+          </div>
+        </div>
+
+        <div class="q">
+          <span class="qn">A4</span>
+          <p class="qt">どんな場面で使っていますか</p>
+          <p class="qh">あてはまるものをいくつでも</p>
+          <div class="opts">
+            <label class="opt"><input type="checkbox" name="scenes" value="提案文・応募文"><span>提案文・応募文</span></label>
+            <label class="opt"><input type="checkbox" name="scenes" value="クライアントのリサーチ"><span>クライアントのリサーチ</span></label>
+            <label class="opt"><input type="checkbox" name="scenes" value="LP構成・ワイヤー"><span>LP構成・ワイヤー</span></label>
+            <label class="opt"><input type="checkbox" name="scenes" value="文章作成"><span>文章作成</span></label>
+            <label class="opt"><input type="checkbox" name="scenes" value="デザインの壁打ち"><span>デザインの壁打ち</span></label>
+            <label class="opt"><input type="checkbox" name="scenes" value="見積・契約書"><span>見積・契約書</span></label>
+            <label class="opt"><input type="checkbox" name="scenes" value="使っていない"><span>使っていない</span></label>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <section class="sec" id="partB">
+      <div class="eyebrow" aria-hidden="true">02</div>
+      <h2>5つの質問</h2>
+      <div>
+
+        <div class="q first">
+          <span class="qn">Q1</span>
+          <p class="qt">AIが「それっぽいけれど、事実と違うこと」を自信たっぷりに答えることがあります。あなたはふだん、どうしていますか？</p>
+          <div class="opts">
+            <label class="opt"><input type="radio" name="b1" value="a"><span>出典や根拠を確認してから使う</span></label>
+            <label class="opt"><input type="radio" name="b1" value="b"><span>有料版を使っているので起きないと思う</span></label>
+            <label class="opt"><input type="radio" name="b1" value="c"><span>そういうことがあるのを知らなかった</span></label>
+            <label class="opt"><input type="radio" name="b1" value="d"><span>気にせず使っている</span></label>
+          </div>
+        </div>
+
+        <div class="q">
+          <span class="qn">Q2</span>
+          <p class="qt">昨日ChatGPTに相談した案件の続きを、今日「新しいチャット」で聞きました。AIは昨日の内容を？</p>
+          <div class="opts">
+            <label class="opt"><input type="radio" name="b2" value="a"><span>覚えているので続きから話せる</span></label>
+            <label class="opt"><input type="radio" name="b2" value="b"><span>基本は覚えていない。前提をもう一度渡す必要がある</span></label>
+            <label class="opt"><input type="radio" name="b2" value="c"><span>有料版なら全部覚えている</span></label>
+            <label class="opt"><input type="radio" name="b2" value="d"><span>わからない</span></label>
+          </div>
+        </div>
+
+        <div class="q">
+          <span class="qn">Q3</span>
+          <p class="qt">「この提案文、通りますか？」とAIに聞いたら「素晴らしい提案です！」と返ってきました。これは？</p>
+          <div class="opts">
+            <label class="opt"><input type="radio" name="b3" value="a"><span>案件が取れる根拠になる</span></label>
+            <label class="opt"><input type="radio" name="b3" value="b"><span>AIは頼まれた文を褒めやすく、「実際に通るか」の基準は持っていない</span></label>
+            <label class="opt"><input type="radio" name="b3" value="c"><span>AIが業界の採用基準で判定している</span></label>
+            <label class="opt"><input type="radio" name="b3" value="d"><span>わからない</span></label>
+          </div>
+        </div>
+
+        <div class="q">
+          <span class="qn">Q4</span>
+          <p class="qt">ChatGPTで育ててきた「自分の情報」を、Claudeでも使いたい。どうしますか？</p>
+          <div class="opts">
+            <label class="opt"><input type="radio" name="b4" value="a"><span>自動で共有される</span></label>
+            <label class="opt"><input type="radio" name="b4" value="b"><span>自分の前提・好み・過去のやり取りを「取扱説明書」にまとめて渡す</span></label>
+            <label class="opt"><input type="radio" name="b4" value="c"><span>同じアカウントでログインすれば引き継がれる</span></label>
+            <label class="opt"><input type="radio" name="b4" value="d"><span>やったことがない</span></label>
+          </div>
+        </div>
+
+        <div class="q">
+          <span class="qn">Q5</span>
+          <p class="qt">AIに「相場はいくら？」「単価はいくらが妥当？」と聞いて出てきた数字は？</p>
+          <div class="opts">
+            <label class="opt"><input type="radio" name="b5" value="a"><span>そのまま提案に使ってよい</span></label>
+            <label class="opt"><input type="radio" name="b5" value="b"><span>もっともらしくても根拠がないことがあるので、実データや経験者の基準で確かめる</span></label>
+            <label class="opt"><input type="radio" name="b5" value="c"><span>最新版なら正確</span></label>
+            <label class="opt"><input type="radio" name="b5" value="d"><span>わからない</span></label>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <section class="sec" id="partC">
+      <div class="eyebrow" aria-hidden="true">03</div>
+      <h2>最後に、ひとこと</h2>
+      <div>
+
+        <div class="q first">
+          <span class="qn">C</span>
+          <p class="qt">いま一番、AIで解決したいこと・迷っていることを1行で</p>
+          <textarea class="tin" id="svyWant" maxlength="300" placeholder="例）提案文を書く時間が長くなってしまうところ"></textarea>
+        </div>
+
+        <div class="q" id="dSanka">
+          <span class="qn">D</span>
+          <p class="qt">9/18の勉強会を見て、気になった点・迷っている点</p>
+          <p class="qh">あてはまるものをいくつでも</p>
+          <div class="opts">
+            <label class="opt"><input type="checkbox" name="hz" value="ChatGPTと何が違うのかがわからない"><span>ChatGPTと何が違うのかがわからない</span></label>
+            <label class="opt"><input type="checkbox" name="hz" value="実案件のデザイン添削・提出前の相談ができるのか"><span>実案件のデザイン添削・提出前の相談ができるのか</span></label>
+            <label class="opt"><input type="checkbox" name="hz" value="価格"><span>価格</span></label>
+            <label class="opt"><input type="checkbox" name="hz" value="時間が取れるか"><span>時間が取れるか</span></label>
+            <label class="opt"><input type="checkbox" name="hz" value="すでに自分で十分できていると思う"><span>すでに自分で十分できていると思う</span></label>
+            <label class="opt"><input type="checkbox" name="hz" value="その他"><span>その他</span></label>
+          </div>
+          <input type="text" class="tin" id="svyHzOther" maxlength="120" placeholder="その他（よろしければ、ひとことで）">
+        </div>
+
+        <div class="q" id="dFusanka">
+          <span class="qn">D</span>
+          <p class="qt">9/18の勉強会のアーカイブは</p>
+          <div class="opts">
+            <label class="opt"><input type="radio" name="arc" value="見た"><span>見た</span></label>
+            <label class="opt"><input type="radio" name="arc" value="途中まで見た"><span>途中まで見た</span></label>
+            <label class="opt"><input type="radio" name="arc" value="これから見る"><span>これから見る</span></label>
+            <label class="opt"><input type="radio" name="arc" value="見る予定はない"><span>見る予定はない</span></label>
+          </div>
+        </div>
+
+        <button type="submit" class="gbtn" id="svySubmit">診断結果を見る</button>
+        <p class="err" id="svyErr" role="alert"></p>
+        <p class="fine">回答は、はるかが読んで今後の内容づくりに使います。お名前と回答が、他の方に見えることはありません。</p>
+
+      </div>
+    </section>
+
+  </form>
+
+  <div id="svyResult">
+
+    <section class="sec" id="partR">
+      <div class="eyebrow" aria-hidden="true">04</div>
+      <h2>あなたの結果</h2>
+      <div>
+
+        <div class="score">
+          <div class="sv"><span id="rScore">0</span><small>／5</small></div>
+          <p class="tp" id="rType"></p>
+          <p class="tm" id="rMsg"></p>
+        </div>
+
+        <details class="faqq" id="rq1">
+          <summary><span class="jg" id="jg1"></span>AIが事実と違うことを自信たっぷりに答えるとき</summary>
+          <div class="a">これは「ハルシネーション」と呼ばれる、AIの仕組み上どうしても起きる現象です。有料版でも起きます。根拠を確かめる習慣が、AIを仕事で使う土台になります。</div>
+        </details>
+
+        <details class="faqq" id="rq2">
+          <summary><span class="jg" id="jg2"></span>新しいチャットは、昨日の相談を覚えているか</summary>
+          <div class="a">チャットごとに記憶は分かれます。あなたの前提・好み・過去の相談は、渡し直さないとゼロから始まります。「自分の情報が育っていく場所」を別に持つと、毎回の渡し直しがなくなります。</div>
+        </details>
+
+        <details class="faqq" id="rq3">
+          <summary><span class="jg" id="jg3"></span>「素晴らしい提案です！」は、通る根拠になるか</summary>
+          <div class="a">AIは一般的な基準で「文章として良いか」を見ます。「その案件で、その相手に、通るか」は、案件獲得の現場を見てきた人の基準でしか判断できません。</div>
+        </details>
+
+        <details class="faqq" id="rq4">
+          <summary><span class="jg" id="jg4"></span>育てた情報を、別のAIへ引っ越す方法</summary>
+          <div class="a">AI同士は情報を共有しません。「自分の取扱説明書」を作って渡すのが、いちばん確実な引越しの方法です。</div>
+        </details>
+
+        <details class="faqq" id="rq5">
+          <summary><span class="jg" id="jg5"></span>AIが出してきた「相場」「単価」の数字</summary>
+          <div class="a">数字は特にハルシネーションが起きやすい領域です。もっともらしい数字ほど、実データと突き合わせてください。</div>
+        </details>
+
+        <p class="yr">開いたままの項目が、選び直したい問いです。正解できた問いは、たたむと読みやすくなります。</p>
+
+        <div class="card">
+          <p>AIは、壁打ちだけだと「それっぽい答え」は返してくれます。でも、あなたの情報は蓄積されず、一般的な基準で答えます。</p>
+          <p><b>AIラボのカルテは、あなたの相談と、はるかの基準（案件獲得コンサルの現場で培った判断）が積み上がっていく場所です。</b>育った内容は「あなたの取扱説明書」にして、お使いのChatGPTやClaudeにそのまま渡せます。</p>
+        </div>
+
+        <a class="arc" id="rArc" href="https://drive.google.com/file/d/18OmKnLioKSU670_phxEhAh6L0zpEozXG/view?usp=sharing" target="_blank" rel="noopener"><b>9/18の勉強会アーカイブを見る</b><span>Googleドライブが開きます</span></a>
+
+        <a class="cta" href="lp.html">AIラボのご案内を見る</a>
+        <a class="ghost" href="start.html">まず1回、はるかに相談してみる（無料）</a>
+        <p class="fine">回答は、はるかが読んで今後の内容づくりに使います。お名前と回答が、他の方に見えることはありません。</p>
+
+      </div>
+    </section>
+
+  </div>
+
+  <footer><span data-cfg="labo_name">AI活用ラボ</span>｜<span data-cfg="company">合同会社Li-Li</span><br><a data-cfg-href="tokutei_url" href="https://www.lilisconsul.com/tokutei" target="_blank" rel="noopener">特定商取引法に基づく表記</a> ｜ <a data-cfg-href="privacy_url" href="https://claude.ai/artifact/1m2VKXSBENfEXoLan3WHFv#privacy" target="_blank" rel="noopener">プライバシーポリシー</a> ｜ <a data-cfg-href="terms_url" href="https://claude.ai/artifact/1m2VKXSBENfEXoLan3WHFv#terms" target="_blank" rel="noopener">利用規約</a><button id="bugL">不具合を報告</button></footer>
+</div>
+
+<div id="bugM"><div class="bx">
+  <h3>不具合・気になったことを教えてください</h3>
+  <textarea id="bugT" placeholder="例）ボタンが反応しませんでした（iPhone/Safari）"></textarea>
+  <div class="bb"><button class="c" id="bugC">閉じる</button><button class="s" id="bugS">送信する</button></div>
+  <div class="done" id="bugD">届きました。ありがとうございます。すぐ確認します。</div>
+</div></div>
+
+<script src="supabase_config.js"></script>
+<script>
+(function(){
+/* ===== 正解キー（5問すべて当たると 5 点） ===== */
+var KEY={b1:"a", b2:"b", b3:"b", b4:"b", b5:"b"};
+var QN=["b1","b2","b3","b4","b5"];
+
+/* ===== ?v= による出し分け ===== */
+var P=new URLSearchParams(location.search);
+var variant=(P.get("v")==="sanka")?"sanka":"fusanka";
+var isSanka=(variant==="sanka");
+document.getElementById("dSanka").style.display=isSanka?"block":"none";
+document.getElementById("dFusanka").style.display=isSanka?"none":"block";
+document.getElementById("rArc").style.display=isSanka?"none":"block";
+
+/* ===== 選択肢の見た目 ===== */
+var form=document.getElementById("svyForm");
+function paint(){
+  var labs=form.querySelectorAll(".opt");
+  for(var i=0;i<labs.length;i++){
+    var inp=labs[i].querySelector("input");
+    if(inp&&inp.checked) labs[i].classList.add("on"); else labs[i].classList.remove("on");
+  }
+}
+form.addEventListener("change",paint);
+paint();
+
+/* ===== 回答の取り出し ===== */
+function many(name){
+  var out=[], els=form.querySelectorAll('input[name="'+name+'"]:checked');
+  for(var i=0;i<els.length;i++) out.push(els[i].value);
+  return out;
+}
+function one(name){
+  var el=form.querySelector('input[name="'+name+'"]:checked');
+  return el?el.value:"";
+}
+
+/* ===== 保存（失敗しても結果は出す） ===== */
+var SB_ON=(typeof SUPABASE_CONFIG!=="undefined")&&SUPABASE_CONFIG.enabled;
+var SB_U=SB_ON?(SUPABASE_CONFIG.url+"/rest/v1/ailab_notes"):"";
+var SB_K=(typeof SUPABASE_CONFIG!=="undefined"&&SUPABASE_CONFIG.anonKey)||"";
+var saved=false;
+function save(name,rec,want){
+  if(saved||!SB_U) return;
+  saved=true;
+  try{
+    fetch(SB_U,{method:"POST",headers:{apikey:SB_K,Authorization:"Bearer "+SB_K,"Content-Type":"application/json",Prefer:"return=representation"},
+      body:JSON.stringify({
+        member_id:"svy_"+variant+"_"+Date.now().toString(36),
+        member_name:name,
+        mood:"AI診断",
+        worry:JSON.stringify(rec),
+        want:want
+      })}).catch(function(){});
+  }catch(e){}
+}
+
+/* ===== 結果を出す ===== */
+var TYPES=[
+  {min:5, t:"基準まで持っている人", m:"あなたのAI力に足りないのは知識ではなく、「その案件で通るか」の判断だけです。ここから先は、判断を借りられる相手がいるかどうかで差がつきます。"},
+  {min:3, t:"使えているけれど、思い込みが1〜2つある人", m:"開いている問いの解説を読んでみてください。そこが、成果に直結する差です。あと少しで、AIの答えを仕事の判断に変えられます。"},
+  {min:0, t:"壁打ちで止まっている人", m:"今のAIの使い方は「それっぽい答え」を受け取る段階です。ここから先は、育て方で変わります。順番に知っていけば大丈夫です。"}
+];
+function show(){
+  var score=0, res={};
+  for(var i=0;i<QN.length;i++){
+    var k=QN[i], v=one(k), ok=(v===KEY[k]);
+    res[k]={answer:v, correct:ok};
+    if(ok) score++;
+    var badge=document.getElementById("jg"+(i+1));
+    badge.textContent=ok?"正解":"もう一度";
+    badge.className="jg "+(ok?"ok":"ng");
+    document.getElementById("rq"+(i+1)).open=!ok;
+  }
+  var ty=TYPES[0];
+  for(var j=0;j<TYPES.length;j++){ if(score>=TYPES[j].min){ ty=TYPES[j]; break; } }
+  document.getElementById("rScore").textContent=String(score);
+  document.getElementById("rType").textContent=ty.t;
+  document.getElementById("rMsg").textContent=ty.m;
+
+  var name=document.getElementById("svyName").value.trim();
+  var want=document.getElementById("svyWant").value.trim();
+  save(name,{
+    variant:variant,
+    tools:many("tools"),
+    freq:one("freq"),
+    scenes:many("scenes"),
+    quiz:res,
+    score:score,
+    type:ty.t,
+    hesitation:isSanka?many("hz"):[],
+    hesitation_other:isSanka?document.getElementById("svyHzOther").value.trim():"",
+    archive:isSanka?"":one("arc")
+  },want);
+
+  document.getElementById("svyIntro").className="hero off";
+  form.className="off";
+  document.getElementById("svyResult").className="on";
+  window.scrollTo(0,0);
+}
+
+/* ===== 送信 ===== */
+var err=document.getElementById("svyErr");
+function warn(msg,el){
+  err.textContent=msg;
+  err.className="err on";
+  if(el){ try{ el.focus({preventScroll:true}); el.scrollIntoView({block:"center"}); }catch(e){ el.focus(); } }
+}
+form.addEventListener("submit",function(e){
+  e.preventDefault();
+  err.className="err";
+  var nameEl=document.getElementById("svyName");
+  if(!nameEl.value.trim()){ warn("お名前をご記入ください。ニックネームでも大丈夫です。",nameEl); return; }
+  for(var i=0;i<QN.length;i++){
+    if(!one(QN[i])){
+      warn("5つの質問のうち、Q"+(i+1)+"がお選びいただけていません。",form.querySelector('input[name="'+QN[i]+'"]'));
+      return;
+    }
+  }
+  var wantEl=document.getElementById("svyWant");
+  if(!wantEl.value.trim()){ warn("最後の1行をご記入ください。ひとことで大丈夫です。",wantEl); return; }
+  show();
+});
+})();
+</script>
+
+<script>
+(function(){
+var U=(typeof SUPABASE_CONFIG!=="undefined"&&SUPABASE_CONFIG.enabled)?SUPABASE_CONFIG.url+"/rest/v1/ailab_notes":"";
+var K=(typeof SUPABASE_CONFIG!=="undefined"&&SUPABASE_CONFIG.anonKey)||"";
+var M=document.getElementById("bugM");
+document.getElementById("bugL").onclick=function(){ M.classList.add("on"); };
+document.getElementById("bugC").onclick=function(){ M.classList.remove("on"); document.getElementById("bugD").style.display="none"; };
+document.getElementById("bugS").onclick=function(){
+  var t=document.getElementById("bugT").value.trim();
+  if(!t){ document.getElementById("bugT").focus(); return; }
+  var btn=this; btn.disabled=true;
+  function done(){
+    document.getElementById("bugD").style.display="block";
+    document.getElementById("bugT").value=""; btn.disabled=false;
+    setTimeout(function(){ M.classList.remove("on"); document.getElementById("bugD").style.display="none"; },1800);
+  }
+  if(!U){ done(); return; }
+  fetch(U,{method:"POST",headers:{apikey:K,Authorization:"Bearer "+K,"Content-Type":"application/json"},
+    body:JSON.stringify({member_id:"bug_survey",member_name:"診断アンケート",mood:"バグ報告",worry:t,want:location.href.slice(0,180)+" ／ "+navigator.userAgent.slice(0,140)})})
+    .then(function(){ done(); }).catch(function(){ btn.disabled=false; alert("送信できませんでした。通信環境をご確認ください。"); });
+};
+})();
+</script>
+<script src="ui-refined.js?v=20260909-icons"></script>
+<script src="ui-atelier.js?v=20260909-atelier"></script>
+
+</body></html>

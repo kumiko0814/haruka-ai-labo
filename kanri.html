@@ -294,6 +294,11 @@ input[type=text]{width:100%; border:1.5px solid #e3e9f0; border-radius:12px; pad
       <div class="ilist" style="padding:8px 22px 16px; display:none;" id="memlist"><div class="empty2">まだ登録がありません。参加者が入口ページで専用URLを作ると、ここに並びます。</div></div>
     </div>
 
+    <div class="inboxwrap" id="sec-svy">
+      <div class="ihead"><h2>AI診断アンケートの回答</h2><span class="cnt" id="svycnt"></span></div>
+      <div class="ilist" style="padding:8px 22px 16px;" id="svylist"><div class="empty2">まだ回答はありません。survey.html?v=sanka（勉強会に参加した方）／survey.html?v=fusanka（参加しなかった方）を配ると、ここに並びます。</div></div>
+    </div>
+
     <div class="inboxwrap" id="sec-bugs">
       <div class="ihead"><h2>バグ報告</h2><span class="cnt" id="bugcnt"></span></div>
       <div class="ilist" style="padding:8px 22px 16px;" id="buglist"><div class="empty2">報告はありません。</div></div>
@@ -557,6 +562,27 @@ function renderBugs(bugs){
     box.appendChild(e);
   });
 }
+function renderSvy(items){
+  var box=document.getElementById("svylist"); if(!box) return;
+  var cnt=document.getElementById("svycnt");
+  if(!items.length){ cnt.textContent=""; return; }
+  var sanka=items.filter(function(s){ return (s.member_id||"").indexOf("svy_sanka_")===0; }).length;
+  cnt.textContent="全"+items.length+"件（参加した方 "+sanka+"／参加しなかった方 "+(items.length-sanka)+"）";
+  box.innerHTML="";
+  items.forEach(function(s){
+    var r={}; try{ r=JSON.parse(s.worry||"{}")||{}; }catch(e){ r={}; }
+    var isS=(s.member_id||"").indexOf("svy_sanka_")===0;
+    var j=function(a){ return (a&&a.length)?a.join("・"):"—"; };
+    var line1='使っているAI：'+j(r.tools)+'　頻度：'+(r.freq||"—")+'　場面：'+j(r.scenes);
+    var line2=isS?('気になった点：'+j(r.hesitation)+(r.hesitation_other?('（'+r.hesitation_other+'）'):'')):('アーカイブ：'+(r.archive||"—"));
+    var e=document.createElement("div"); e.className="item"; e.style.flexWrap="wrap";
+    e.innerHTML='<div class="ibody"><div class="tx"><b style="color:var(--pink3);">'+esc(s.member_name||"（お名前なし）")+'</b>　<span class="advpill">'+(isS?"参加した方":"参加しなかった方")+'</span>　'+(typeof r.score==="number"?(r.score+'／5点　'):'')+esc(r.type||"")+'</div>'+
+      '<div class="wt">'+esc(line1)+'</div><div class="wt">'+esc(line2)+'</div>'+
+      (s.want?'<div class="wt">解決したいこと：'+esc(s.want)+'</div>':'')+'</div>'+
+      '<div class="iright"><span class="dt">'+fmt(s.created_at)+'</span></div>';
+    box.appendChild(e);
+  });
+}
 function renderLine(items){
   var box=document.getElementById("linelist");
   var open=items.filter(function(b){ return b.mood==="LINE新着"; });
@@ -674,7 +700,7 @@ function renderInbox(notes,advMap,drafts){
   });
 }
 function loadInbox(){
-  if(DEMO){ lastNotesA=demoNotes.slice(); renderMembers(demoApps,demoRegs,demoNotes,demoAdv); renderInbox(demoNotes,demoAdv,demoDrafts); renderTrend(demoNotes,demoAdv); renderBugs([{id:0,member_name:"マイページ｜demo",mood:"バグ報告",worry:"（デモ）送信ボタンの反応が遅い気がします",want:"https://…／iPhone Safari",created_at:new Date().toISOString()}]); return; }
+  if(DEMO){ lastNotesA=demoNotes.slice(); renderMembers(demoApps,demoRegs,demoNotes,demoAdv); renderInbox(demoNotes,demoAdv,demoDrafts); renderTrend(demoNotes,demoAdv); renderBugs([{id:0,member_name:"マイページ｜demo",mood:"バグ報告",worry:"（デモ）送信ボタンの反応が遅い気がします",want:"https://…／iPhone Safari",created_at:new Date().toISOString()}]); renderSvy([{id:0,member_id:"svy_sanka_demo",member_name:"（デモ）ゆき",mood:"AI診断",worry:JSON.stringify({tools:["ChatGPT"],freq:"週に数回",scenes:["提案文・応募文","文章作成"],score:3,type:"使えているけれど、思い込みが1〜2つある人",hesitation:["ChatGPTと何が違うのかがわからない"],hesitation_other:""}),want:"提案文を書く時間が長くなってしまう",created_at:new Date().toISOString()}]); return; }
   Promise.all([
     sb("ailab_notes?order=created_at.desc&limit=1000").then(function(r){return r.json();}),
     sb("ailab_advice?order=created_at.desc&limit=1000").then(function(r){return r.json();})
@@ -682,6 +708,7 @@ function loadInbox(){
     var all=Array.isArray(res[0])?res[0]:[];
     var bugs=all.filter(function(n){ return (n.member_id||"").indexOf("bug_")===0; });
     var lines=all.filter(function(n){ return (n.member_id||"").indexOf("line_")===0; });
+    var svys=all.filter(function(n){ return (n.member_id||"").indexOf("svy_")===0; });
     var rest=all.filter(function(n){ var m=(n.member_id||""); return m.indexOf("bug_")!==0 && m.indexOf("line_")!==0 && m.indexOf("svy_")!==0 && m.indexOf("notice_")!==0 && m.indexOf("read_")!==0; });
     var apps=rest.filter(function(n){ return n.mood==="申込"; });
     var regs=rest.filter(function(n){ return n.mood==="登録"; });
@@ -693,7 +720,7 @@ function loadInbox(){
       if(an.indexOf("draft")===0) return;
       (advMap[a.target_id]=advMap[a.target_id]||[]).push(a);
     });
-    lastNotesA=notes; renderMembers(apps,regs,notes,advMap); renderInbox(notes,advMap,drafts); renderTrend(notes,advMap); renderBugs(bugs); renderLine(lines);
+    lastNotesA=notes; renderMembers(apps,regs,notes,advMap); renderInbox(notes,advMap,drafts); renderTrend(notes,advMap); renderBugs(bugs); renderSvy(svys); renderLine(lines);
   }).catch(function(){
     document.getElementById("ilist").innerHTML='<div class="empty2">読み込めませんでした。初期設定（setup.html）がまだの可能性があります。</div>';
   });

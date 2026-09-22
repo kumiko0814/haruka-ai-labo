@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>お申し込みありがとうございます｜AI活用ラボ</title>
+<style>
+:root{
+  --bg:#fdf5f7; --navy:#26405f; --navy2:#1d3149;
+  --pink:#c77fce; --pink2:#a75da9; --pink3:#8fa8e6; --pinkbg:#fde6ff; --blue:#7fb0d2; --text:#4a4446;
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+html,body{overflow-x:hidden;}
+body{
+  font-family:"Yu Gothic","YuGothic","游ゴシック","Hiragino Kaku Gothic ProN","Hiragino Sans",sans-serif;
+  background:linear-gradient(160deg,#fdf3f6 0%,#f4f7fb 60%,#fdf3f6 100%); color:var(--text); line-height:1.9;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:440px; margin:0 auto; padding:0 18px 60px;}
+.top{background:var(--navy2); color:#fff; padding:16px 20px; text-align:center;}
+.top .m{font-size:14px; font-weight:800; letter-spacing:.16em; color:#e79ab2;}
+.top .m small{color:#cfdcea; font-size:14px; margin-left:6px; letter-spacing:.14em;}
+h1{font-size:21px; color:var(--navy2); margin:22px 2px 4px; letter-spacing:.04em;}
+.lead{font-size:14px; color:#8a97a5;}
+.card{background:#fff; border-radius:20px; padding:22px 20px; margin-top:14px; box-shadow:0 10px 30px rgba(38,64,95,.08);}
+.ghost{display:block; width:100%; border:1.5px solid #e3e9f0; background:#fff; color:var(--navy); border-radius:999px; padding:12px; font-size:14px; font-weight:800; cursor:pointer; font-family:inherit; margin-top:10px; text-align:center; text-decoration:none;}
+.note{font-size:14px; color:#9aa7b4; margin-top:10px; line-height:1.9;}
+footer{text-align:center; font-size:14px; color:#9aa7b4; margin-top:26px; letter-spacing:.06em; line-height:2;}
+.sec{margin-top:28px;}
+.eyebrow{font-size:14px; font-weight:800; color:var(--blue); letter-spacing:.14em; margin-bottom:6px;}
+.sec h2{font-size:16.5px; color:var(--navy2); margin:0 0 4px;}
+.cta{display:block; width:100%; text-align:center; border:none; background:linear-gradient(135deg,var(--pink3),var(--pink)); color:#fff; border-radius:999px; padding:16px; font-size:15px; font-weight:800; letter-spacing:.04em; text-decoration:none; cursor:pointer; font-family:inherit; box-shadow:0 8px 22px rgba(189,120,134,.35); margin-top:12px;}
+</style>
+<script src="labo_config.js"></script>
+<link rel="stylesheet" href="ui-refined.css?v=20260909-icons">
+<link rel="stylesheet" href="ui-atelier.css?v=20260909-atelier">
+</head>
+<body class="atelier page-start">
+<a class="ui-skip" href="#main-content">本文へ進む</a>
+<div class="top"><span class="m"><small><span data-cfg="labo_name">AI活用ラボ</span></small></span></div>
+
+<div class="wrap" id="main-content">
+  <h1>お申し込みありがとうございます</h1>
+  <p class="lead">これから3ヶ月、一緒にAIを相棒にしていきましょう。次の2ステップで準備完了です。</p>
+
+  <section class="sec" id="step1">
+    <div class="eyebrow" aria-hidden="true">STEP 1</div>
+    <div class="card">
+      <h2>オープンチャットに参加する</h2>
+      <button class="cta" id="joinBtn" type="button">オープンチャット「AIラボ【lilisコンサル】」に参加する</button>
+      <p class="note">入室のときに、お申し込みのときのお名前を送ってください。お支払いの確認ができた方から、はるかが順番に承認します。銀行振込の方は、確認までに少しお時間をいただくことがあります。</p>
+      <p class="note">リンクが開かない方はこちら</p>
+      <button class="ghost" id="copyBtn" type="button">招待リンクをコピー</button>
+    </div>
+  </section>
+
+  <section class="sec" id="step2">
+    <div class="eyebrow" aria-hidden="true">STEP 2</div>
+    <div class="card">
+      <h2>あなた専用のカルテを作る</h2>
+      <p class="note">承認を待つ間に作っておけます。悩みを書くと、はるかから返事が届きます。</p>
+      <a class="ghost" href="start.html">カルテ入口を開く</a>
+    </div>
+  </section>
+
+  <section class="sec" id="seminar">
+    <div class="card">
+      <p>初回勉強会：<span data-cfg="start_date">2026年10月8日（木）21:00〜（初回勉強会）</span></p>
+      <p class="note">参加URLはオープンチャットでご案内します。アーカイブ（録画）も残ります。</p>
+    </div>
+  </section>
+
+  <p class="note" style="text-align:center;">この画面は閉じても大丈夫です。オープンチャットへの参加は、後からでもできます。</p>
+
+  <footer>
+    <span data-cfg="labo_name">AI活用ラボ</span>｜AIの力で、あなたの毎日をもっと豊かに。</footer>
+</div>
+
+<script>
+(function(){
+/* オープンチャットの招待リンク（Base64）。変えるときは Claude に「オープンチャットのリンクを○○に変えて」と頼む */
+var OC_B64="aHR0cHM6Ly9saW5lLm1lL3RpL2cyL2pXTVN3RjZlSzRHd2gzMFVuRzJCMmR4cmx2V3NWbktDWjhzNUpBP3V0bV9zb3VyY2U9aW52aXRhdGlvbiZ1dG1fbWVkaXVtPWxpbmtfY29weSZ1dG1fY2FtcGFpZ249ZGVmYXVsdA==";
+function ocUrl(){ return atob(OC_B64); }
+document.getElementById("joinBtn").onclick=function(){
+  location.href=ocUrl();
+};
+document.getElementById("copyBtn").onclick=function(){
+  var t=ocUrl(), b=this;
+  function ok(){ b.textContent="コピーしました"; setTimeout(function(){ b.textContent="招待リンクをコピー"; },2000); }
+  function fb(){ var ta=document.createElement("textarea"); ta.value=t; document.body.appendChild(ta); ta.select(); try{document.execCommand("copy");}catch(e){} ta.remove(); ok(); }
+  if(navigator.clipboard&&navigator.clipboard.writeText){ navigator.clipboard.writeText(t).then(ok,fb); }else fb();
+};
+})();
+</script>
+
+<!-- バグ報告ツール -->
+<style>
+#bugL{position:fixed; left:12px; bottom:16px; z-index:59; background:rgba(255,255,255,.92); border:1px solid #dfe7ee; color:#8a97a5; font-size:14px; font-weight:800; border-radius:999px; padding:5px 12px; cursor:pointer; letter-spacing:.04em;}
+#bugM{position:fixed; inset:0; background:rgba(29,49,73,.55); display:none; align-items:center; justify-content:center; z-index:70; padding:24px;}
+#bugM.on{display:flex;}
+#bugM .bx{background:#fff; border-radius:20px; padding:22px 20px; max-width:360px; width:100%;}
+#bugM h3{font-size:14.5px; color:#1d3149; margin-bottom:8px;}
+#bugM textarea{width:100%; border:1.5px solid #e3e9f0; border-radius:12px; padding:11px 13px; font-size:14px; line-height:1.8; color:#1d3149; font-family:inherit; min-height:100px; resize:vertical;}
+#bugM .bb{display:flex; gap:8px; margin-top:12px;}
+#bugM button{flex:1; border:none; border-radius:999px; padding:11px; font-size:14px; font-weight:800; cursor:pointer; font-family:inherit;}
+#bugM .s{background:linear-gradient(135deg,#8fa8e6,#c77fce); color:#fff;}
+#bugM .c{background:#eef2f6; color:#26405f;}
+#bugM .done{display:none; font-size:14px; color:#a75da9; font-weight:800; margin-top:8px; text-align:center;}
+@media(max-width:900px){ #bugL{bottom:84px;} }
+</style>
+<div id="bugL">不具合を報告</div>
+<div id="bugM"><div class="bx">
+  <h3>不具合・気になったことを教えてください</h3>
+  <textarea id="bugT" placeholder="例）ボタンを押しても反応しませんでした（iPhone/Safari）"></textarea>
+  <div class="bb"><button class="c" id="bugC">閉じる</button><button class="s" id="bugS">送信する</button></div>
+  <div class="done" id="bugD">届きました。ありがとうございます。すぐ確認します。</div>
+</div></div>
+<script src="supabase_config.js"></script>
+<script>
+(function(){
+var U=(typeof SUPABASE_CONFIG!=="undefined"&&SUPABASE_CONFIG.enabled)?SUPABASE_CONFIG.url+"/rest/v1/ailab_notes":"";
+var K=(typeof SUPABASE_CONFIG!=="undefined"&&SUPABASE_CONFIG.anonKey)||"";
+var P=new URLSearchParams(location.search);
+var uid=(P.get("u")||"guest").replace(/[^a-zA-Z0-9_\-]/g,"");
+var demo=P.get("demo")==="1";
+var M=document.getElementById("bugM");
+document.getElementById("bugL").onclick=function(){ M.classList.add("on"); };
+document.getElementById("bugC").onclick=function(){ M.classList.remove("on"); document.getElementById("bugD").style.display="none"; };
+document.getElementById("bugS").onclick=function(){
+  var t=document.getElementById("bugT").value.trim();
+  if(!t){ document.getElementById("bugT").focus(); return; }
+  var btn=this; btn.disabled=true;
+  function done(){
+    document.getElementById("bugD").style.display="block";
+    document.getElementById("bugT").value=""; btn.disabled=false;
+    setTimeout(function(){ M.classList.remove("on"); document.getElementById("bugD").style.display="none"; },1800);
+  }
+  if(demo){ done(); return; }
+  if(!U){ done(); } else fetch(U,{method:"POST",headers:{apikey:K,Authorization:"Bearer "+K,"Content-Type":"application/json"},
+    body:JSON.stringify({member_id:"bug_thanks",member_name:"サンクスページ｜"+uid,mood:"バグ報告",worry:t,want:location.href.slice(0,180)+" ／ "+navigator.userAgent.slice(0,140)})})
+    .then(function(){ done(); }).catch(function(){ btn.disabled=false; alert("送信できませんでした。通信環境をご確認ください。"); });
+};
+})();
+</script>
+<script src="ui-refined.js?v=20260909-icons"></script>
+<script src="ui-atelier.js?v=20260909-atelier"></script>
+</body>
+</html>

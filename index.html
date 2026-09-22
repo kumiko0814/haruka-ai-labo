@@ -292,6 +292,12 @@ footer{text-align:center; font-size:14px; color:#9aa7b4; padding:34px 16px 10px;
             <div class="curbody" id="curbody"></div>
           </details>
 
+          <div class="card" id="labnoteCard" style="margin-top:16px; padding-bottom:18px;">
+            <h2>はるかのAI実験ノート</h2>
+            <p class="qguide">はるかが実際にAIを触って気づいたこと・使い方が、ここに溜まっていきます</p>
+            <div id="labnotes"></div>
+          </div>
+
           <div style="display:none;">
           </div>
         </div>
@@ -355,6 +361,7 @@ footer{text-align:center; font-size:14px; color:#9aa7b4; padding:34px 16px 10px;
           <div class="fi"><div><b>案件を取る（営業）</b><p>提案文・ポートフォリオ・事前リサーチ・要件整理を、AIが下書きします。</p></div></div>
           <div class="fi"><div><b>制作を速く・良く</b><p>参考デザインの言語化、コピー・構成案、配色フォントの壁打ちまで。</p></div></div>
           <div class="fi"><div><b>事務を5分に</b><p>見積・請求・契約・返信メール・議事録要約を、AIにおまかせ。</p></div></div>
+          <div class="fi"><div><b>カルテだから、積み上がる</b><p>AIは、壁打ちだけだと「それっぽい答え」を返してくれます。でも、あなたの情報は蓄積されず、一般的な基準で答えます。このカルテは、あなたの相談と、はるかの基準が積み上がっていく場所です。育った内容は「あなたの取扱説明書」にして、お使いのChatGPTやClaudeにそのまま渡せます（分析レポートから作れます）。</p></div></div>
         </div>
         <div class="wink">
           <div class="scr">一緒に<br>解決策を見つけて<br>いこうね！</div>
@@ -416,6 +423,18 @@ function sb(path,opts){
 }
 function fmt(d){ var x=new Date(d); return (x.getMonth()+1)+"/"+x.getDate()+" "+("0"+x.getHours()).slice(-2)+":"+("0"+x.getMinutes()).slice(-2); }
 function esc(s){ var d=document.createElement("div"); d.textContent=s||""; return d.innerHTML; }
+/* 本文をそのまま入れつつ、URLだけリンクにする（生HTMLは入れない） */
+function fillText(el,s){
+  el.textContent="";
+  String(s||"").split(/(https?:\/\/[^\s]+)/g).forEach(function(part){
+    if(/^https?:\/\//.test(part)){
+      var a=document.createElement("a");
+      a.href=part; a.target="_blank"; a.rel="noopener";
+      a.textContent=part; a.style.cssText="color:#a75da9;font-weight:800;word-break:break-all;";
+      el.appendChild(a);
+    } else if(part){ el.appendChild(document.createTextNode(part)); }
+  });
+}
 
 var demoNotes=[
 {worry:"提案文を書くのに毎回1時間かかって、疲れて応募が止まってしまいます。時間ばかりかかって数が出せません。",want:"提案文のたたき台をAIで早く作れるようになりたいです。",created_at:new Date(Date.now()-3600000).toISOString()},
@@ -426,6 +445,38 @@ var demoAdv=[
 {author_name:"はるか",message:"カルテ、読みました。\n提案文に1時間かかっているとのこと、そこはAIがいちばん得意なところです。今夜、気になる案件の募集要項をそのまま貼って「私の強みが伝わる提案文のたたき台を作って」と頼んでみてください。5分でたたき台ができます。\nあなたの場合、長い文章の下書きが得意なClaudeが合っています。",created_at:new Date(Date.now()-43200000).toISOString()},
 {author_name:"はるか",message:"AIとの付き合い方について、ひとつだけ。\n全部いっぺんに覚えようとしなくて大丈夫です。まずは「提案文のたたき台」と「クライアントの事前リサーチ」の2つだけAIに渡してみてください。提案の数と質が、両方いっぺんに上がります。",created_at:new Date(Date.now()-3600000).toISOString()}
 ];
+
+/* ===== はるかのAI実験ノート（おしらせのうち【AIメモ】で始まるものだけ） ===== */
+var LABTAG="【AIメモ】";
+var demoLabNotes=[
+{id:"dm1",worry:"【AIメモ】提案文のたたき台は、Claudeに「募集要項をそのまま貼る→自分の実績を3つ渡す」の順で頼むと精度が上がりました。順番を逆にすると一般論になります。",created_at:new Date(Date.now()-7200000).toISOString()},
+{id:"dm2",worry:"【AIメモ】参考デザインの言語化は、ChatGPTに画像を渡して「余白・配色・フォントの3点で分解して」と聞くのが早いです。",created_at:new Date(Date.now()-260000000).toISOString()},
+{id:"dm3",worry:"今週の勉強会は、アーカイブ（録画）を残します。当日むずかしい方はあとから見てくださいね。",created_at:new Date(Date.now()-300000000).toISOString()}
+];
+function renderLabNotes(list){
+  var box=document.getElementById("labnotes");
+  if(!box) return;
+  var picked=(list||[]).filter(function(n){ return String(n.worry||"").indexOf(LABTAG)===0; });
+  box.innerHTML="";
+  if(!picked.length){
+    var em=document.createElement("div"); em.className="empty";
+    em.textContent="メモはこれから増えていきます。はるかがAIを試したら、ここに並びます。";
+    box.appendChild(em); return;
+  }
+  picked.forEach(function(n){
+    var e=document.createElement("div"); e.className="hitem";
+    var d=document.createElement("span"); d.className="d"; d.textContent=fmt(n.created_at); e.appendChild(d);
+    var b=document.createElement("div");
+    fillText(b,String(n.worry||"").slice(LABTAG.length).replace(/^[\s　]+/,""));
+    e.appendChild(b);
+    box.appendChild(e);
+  });
+}
+function loadLabNotes(){
+  if(DEMO){ renderLabNotes(demoLabNotes); return; }
+  sb("ailab_notes?member_id=eq.notice_all&mood=eq.おしらせ&order=created_at.desc&limit=30").then(function(r){return r.json();})
+    .then(function(j){ if(Array.isArray(j)) renderLabNotes(j); }).catch(function(){});
+}
 
 function renderHist(list){
   var h=document.getElementById("hist");
@@ -449,7 +500,7 @@ function renderAdv(list){
     a.appendChild(e);
   });
 }
-var lastNotes=[], lastAdv=[];
+var lastNotes=[], lastAdv=[], lastManual="";
 function loadAll(){
   if(DEMO){
     lastNotes=demoNotes.slice(); lastAdv=demoAdv.slice();
@@ -582,11 +633,39 @@ function countHits(text,words){
   var n=0; words.forEach(function(w){ var i=-1; while((i=text.indexOf(w,i+1))>=0){ n++; } });
   return n;
 }
+/* ===== 私の取扱説明書（上の分析結果を組み直すだけ） ===== */
+var MANUAL_SEC='<div class="anasec"><h3>私の取扱説明書</h3>'
+  +'<p style="font-size:14px;">このカルテで育った内容を、お使いのChatGPTやClaudeに渡すための文章です。新しいチャットの最初に貼ると、あなたの前提を分かった状態で相談が始められます。</p>'
+  +'<button class="refresh" id="mkManual">取扱説明書を作ってコピー</button>'
+  +'<p class="ananote" id="manualNote"></p>'
+  +'<textarea id="manualOut" readonly aria-label="私の取扱説明書" style="display:none; margin-top:10px; min-height:240px;"></textarea>'
+  +'</div>';
+function cut(s,n){ s=String(s||"").replace(/\s+/g," ").trim(); return s.length>n?s.slice(0,n)+"…":s; }
+function bindManual(){
+  var b=document.getElementById("mkManual");
+  if(!b) return;
+  var note=document.getElementById("manualNote"), out=document.getElementById("manualOut");
+  if(!lastManual && note) note.textContent="カルテを1つ書くと作れます";
+  b.onclick=function(){
+    if(!lastManual){ if(note) note.textContent="カルテを1つ書くと作れます"; return; }
+    out.value=lastManual; out.style.display="block";
+    function pick(){ out.focus(); out.select(); if(note) note.textContent="この枠を長押し（パソコンはCtrl+C）でコピーできます"; }
+    try{
+      if(navigator.clipboard&&navigator.clipboard.writeText){
+        navigator.clipboard.writeText(lastManual).then(function(){
+          if(note) note.textContent="コピーしました。ChatGPTやClaudeの新しいチャットに貼ってください";
+        },pick);
+      } else { pick(); }
+    }catch(e){ pick(); }
+  };
+}
 function renderAnalysis(){
   var box=document.getElementById("anabody");
   if(!box) return;
   if(!lastNotes.length){
-    box.innerHTML='<div class="empty"><img src="assets/hk-laptop.png" alt="" style="width:88px; display:block; margin:0 auto 8px;" onerror="this.style.display=\'none\'">カルテを送ると、ここに「あなたの分析」が育っていきます。</div>';
+    lastManual="";
+    box.innerHTML='<div class="empty"><img src="assets/hk-laptop.png" alt="" style="width:88px; display:block; margin:0 auto 8px;" onerror="this.style.display=\'none\'">カルテを送ると、ここに「あなたの分析」が育っていきます。</div>'+MANUAL_SEC;
+    bindManual();
     return;
   }
   var all=lastNotes.map(function(n){ return (n.worry||"")+" "+(n.want||""); }).join(" ");
@@ -679,6 +758,34 @@ function renderAnalysis(){
     '<div class="prow"><span class="pk">最初の一歩</span><span class="pv">'+pl[2]+'</span></div>'+
     '<div class="prow"><span class="pk">はるか流ひとこと</span><span class="pv">'+pl[3]+'</span></div>'+
   '</div></div>';
+  /* 4.5) 私の取扱説明書（上で出した値を文章に組み直す） */
+  (function(){
+    var td=new Date();
+    var m="# "+(NAME||"私")+"の取扱説明書（AIラボのカルテより・"+td.getFullYear()+"年"+(td.getMonth()+1)+"月"+td.getDate()+"日）\n";
+    m+="\n## 私について\n- 職種：Webデザイナー（lilisコンサル受講生）\n";
+    if(top.length) m+="- いまの悩みの傾向："+top.slice(0,3).map(function(t){return t[0];}).join("／")+"\n";
+    if(habs.length) m+="- 思考のくせ："+habs[0][0][0]+"（"+habs[0][0][2]+"）\n";
+    if(ts&&ts.length){
+      m+="\n## はるか（案件獲得コンサル）から繰り返し言われていること\n";
+      ts.slice(0,5).forEach(function(t){ m+="- "+t[0]+"（"+t[1]+"回）\n"; });
+    }
+    m+="\n## 私へのAI活用プラン\n- おすすめの相棒："+pl[0]+"\n- まかせること："+pl[1]+"\n- 最初の一歩："+pl[2]+"\n";
+    var lastW=cut((lastNotes[0]||{}).worry,200);
+    var lastA=null;
+    for(var i=0;i<lastAdv.length;i++){ if(String(lastAdv[i].author_name||"").indexOf("draft")!==0){ lastA=lastAdv[i]; break; } }
+    var lastM=lastA?cut(lastA.message,300):"";
+    if(lastW||lastM){
+      m+="\n## 最近の相談と、もらったアドバイス（原文）\n";
+      if(lastW) m+="- 相談："+lastW+"\n";
+      if(lastM) m+="- アドバイス："+lastM+"\n";
+    }
+    m+="\n## あなた（AI）へのお願い\n"
+      +"- 上の内容を前提に、私の相談に答えてください\n"
+      +"- 数字・相場・断定は根拠を添えるか「確認が必要」と言ってください\n"
+      +"- 提案文や文章は、はるかのアドバイスの基準（相手の悩みを理解して解決する・売り込まない）に沿って直してください\n";
+    lastManual=m;
+  })();
+  h+=MANUAL_SEC;
   h+='<p class="ananote">カルテ'+lastNotes.length+'件・アドバイス'+lastAdv.length+'件をもとに自動分析しています。カルテが増えるほど、精度が上がります。</p>';
   /* 5) はるかの処方箋（もらったアドバイスから抽出） */
   if(lastAdv.length){
@@ -717,6 +824,7 @@ function renderAnalysis(){
     h+='<div class="anasec"><h3>あなたの歩み</h3><p style="font-size:14px;">相談をはじめて <b>'+days+'日</b>／カルテ <b>'+lastNotes.length+'枚</b>／はるかからの返信 <b>'+lastAdv.length+'通</b>'+(top.length?('／いちばんのテーマは<b>「'+top[0][0]+'」</b>'):'')+'</p></div>';
   })();
   box.innerHTML=h;
+  bindManual();
 }
 
 /* counters */
@@ -788,6 +896,7 @@ document.querySelectorAll(".mn,.ni[data-v]").forEach(function(n){
 window.switchView=switchView;
 
 loadAll();
+loadLabNotes();
 })();
 </script>
 
