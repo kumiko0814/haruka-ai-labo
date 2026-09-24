@@ -28,6 +28,14 @@ for n in notes:
         k = str(n.get("want") or "").replace("karte:", "").split("#")[0]
         images.setdefault(k, []).append(n.get("worry") or "")
 logs = [n for n in notes if n.get("mood") == "営業ログ"]
+# 受講期限（mood「期限」・want=YYYY-MM-DD）。期限切れの人には下書きを作らない
+import datetime as _dt
+expiry = {}
+for n in notes:
+    if n.get("mood") == "期限" and n.get("want"):
+        expiry[n["member_id"]] = max(expiry.get(n["member_id"], ""), n["want"])
+_today = _dt.datetime.utcnow().date().isoformat()
+karte = [n for n in karte if not (expiry.get(n["member_id"]) and expiry[n["member_id"]] < _today)]
 img_dir = os.environ.get("SNAP_IMG_DIR") or ""
 if img_dir:
     shutil.rmtree(img_dir, ignore_errors=True); os.makedirs(img_dir, exist_ok=True)

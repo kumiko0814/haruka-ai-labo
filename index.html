@@ -552,7 +552,21 @@ function renderAdv(list){
     a.appendChild(e);
   });
 }
-var lastNotes=[], lastAdv=[], lastManual="", IMGMAP={}, demoImgs=[];
+var lastNotes=[], lastAdv=[], lastManual="", IMGMAP={}, demoImgs=[], EXPIRY="", STOPPED=false;
+/* 受講期限を過ぎていたら、画面を停止表示に切り替える（オープンチャットはそのまま） */
+function checkExpiry(){
+  if(!EXPIRY||EXPIRY==="9999-12-31"||STOPPED) return;
+  var today=todayKey();
+  if(EXPIRY>=today) return;
+  STOPPED=true;
+  var main=document.querySelector(".colmain")||document.getElementById("main-content")||document.body;
+  var d=new Date(EXPIRY+"T00:00:00");
+  var box=document.createElement("div"); box.className="card"; box.id="stopCard";
+  box.innerHTML='<h2>受講期間が終了しました</h2><p class="qguide" style="margin-top:8px;">'+(d.getMonth()+1)+'月'+d.getDate()+'日で、カルテの受講期間が終わりました。ここまで一緒に進めてくださって、ありがとうございました🤍</p>'+
+    '<p class="qguide" style="margin-top:10px;"><b>続ける場合</b>：月額3,300円（税込）の継続プランで、カルテ・返信・取扱説明書をそのまま使い続けられます。オープンチャットではるかに「継続希望」とお知らせください。</p>'+
+    '<p class="qguide" style="margin-top:10px;">オープンチャット（AIの情報交換の場）は、このあとも残れます。</p>';
+  main.innerHTML=""; main.appendChild(box);
+}
 function splitRows(j){
   /* 同じ member_id の行を、カルテ本文／添付画像／営業ログ に分ける */
   IMGMAP={}; LOGS=[];
@@ -560,6 +574,8 @@ function splitRows(j){
   j.forEach(function(n){
     if(n.mood==="添付画像"){ var k=String(n.want||"").replace(/^karte:/,"").split("#")[0]; (IMGMAP[k]=IMGMAP[k]||[]).push(n.worry); }
     else if(n.mood==="営業ログ"){ LOGS.push(n); }
+    else if(n.mood==="期限"){ if(!EXPIRY||String(n.want||"")>EXPIRY) EXPIRY=String(n.want||""); }
+    else if(n.mood==="応募ノート"){ }
     else notes.push(n);
   });
   Object.keys(IMGMAP).forEach(function(k){ IMGMAP[k].reverse(); });
@@ -571,7 +587,7 @@ function loadAll(){
     renderHist(lastNotes); renderAdv(lastAdv); renderAnalysis(); renderLog(); return;
   }
   sb("ailab_notes?member_id=eq."+UID+"&order=created_at.desc&limit=300").then(function(r){return r.json();})
-    .then(function(j){ if(Array.isArray(j)){ lastNotes=splitRows(j); renderHist(lastNotes); renderAnalysis(); renderLog(); } }).catch(function(){});
+    .then(function(j){ if(Array.isArray(j)){ lastNotes=splitRows(j); checkExpiry(); if(STOPPED) return; renderHist(lastNotes); renderAnalysis(); renderLog(); } }).catch(function(){});
   sb("ailab_advice?target_id=eq."+UID+"&order=created_at.desc&limit=100").then(function(r){return r.json();})
     .then(function(j){ if(Array.isArray(j)){ j=j.filter(function(a){ return String(a.author_name||"").indexOf("draft")!==0; }); lastAdv=j; renderAdv(j); renderAnalysis(); } }).catch(function(){});
 }

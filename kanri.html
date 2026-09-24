@@ -485,6 +485,11 @@ function renderMembers(apps,regs,karte,advMap){
     var e=document.createElement("div"); e.className="item";
     var right="";
     if(v.app) right+='<span class="advpill" style="background:#e8f0e9; color:#3f7d63;">申込✓'+(v.rno?(" "+v.rno):"")+'</span>';
+    /* 受講期限（mood「期限」）：無ければ「期限なし」。ボタンで 3ヶ月後／+1ヶ月／無期限 を設定 */
+    var ex=(renderMembers._exp||{})[id], exd=ex?String(ex.want||""):"";
+    var left=exd?Math.ceil((new Date(exd+"T23:59:59")-Date.now())/86400000):null;
+    var exTxt=exd?(left<0?'<span class="mood" style="background:#fbe9e7; color:#b3261e; font-weight:800;">停止中（'+esc(exd)+'）</span>':'<span class="advpill" style="background:#eef1fb; color:#4d5f9a;">期限 '+esc(exd)+'（残'+left+'日）</span>'):'<span class="advpill" style="opacity:.6;">期限なし</span>';
+    right+=exTxt+'<span class="expbtns" style="display:inline-flex; gap:4px; margin-left:4px;"><button class="rl" data-exp="3m" title="今日から3ヶ月後">3ヶ月後</button><button class="rl" data-exp="1m" title="いまの期限を1ヶ月延長（継続）">+1ヶ月</button><button class="rl" data-exp="none" title="期限を外す">無期限</button></span>';
     if(v.app&&!v.reg&&v.k===0) right+='<span class="mood" style="background:var(--pinkbg); color:var(--pink3); font-weight:800;">カルテ未開設</span>';
     else if(v.k===0) right+='<span class="mood" style="background:var(--pinkbg); color:var(--pink3);">カルテ未提出</span>';
     else right+='<span class="advpill">カルテ'+v.k+'件</span>';
@@ -495,6 +500,21 @@ function renderMembers(apps,regs,karte,advMap){
       '<div class="ibody" style="align-self:center;"><div class="wt">'+(v.app?"申込":"登録")+'：'+fmt(v.at)+'</div></div>'+
       '<div class="iright" style="display:flex; gap:6px; flex-wrap:wrap; justify-content:flex-end;">'+right+'</div>';
     box.appendChild(e);
+    Array.prototype.forEach.call(e.querySelectorAll("button[data-exp]"),function(b){
+      b.onclick=function(){
+        var kind=b.getAttribute("data-exp"), cur=(renderMembers._exp||{})[id], base=new Date();
+        if(kind==="1m"&&cur&&cur.want){ base=new Date(cur.want+"T00:00:00"); }
+        var d=new Date(base); if(kind==="3m") d.setMonth(d.getMonth()+3); if(kind==="1m") d.setMonth(d.getMonth()+1);
+        var ymd=kind==="none"?"9999-12-31":(d.getFullYear()+"-"+("0"+(d.getMonth()+1)).slice(-2)+"-"+("0"+d.getDate()).slice(-2));
+        var label=kind==="none"?"無期限":(kind==="3m"?"3ヶ月の受講期間":"継続（+1ヶ月）");
+        if(!confirm(v.name+"さんの期限を「"+(kind==="none"?"無期限":ymd)+"」にします。よろしいですか？")) return;
+        b.disabled=true;
+        if(DEMO){ alert("デモ表示中です。本番では保存されます。"); b.disabled=false; return; }
+        var body=JSON.stringify({member_id:id,member_name:v.name,mood:"期限",worry:label,want:ymd});
+        var req=cur?sb("ailab_notes?id=eq."+cur.id,{method:"PATCH",body:body}):sb("ailab_notes",{method:"POST",body:body});
+        req.then(function(){ loadInbox(); }).catch(function(){ b.disabled=false; alert("保存できませんでした。"); });
+      };
+    });
   });
 }
 function renderTrend(notes,advMap){
@@ -665,7 +685,7 @@ function renderInbox(notes,advMap,drafts){
     var done=isDone(n,advMap);
     if(done) e.style.opacity=".55";
     e.innerHTML='<span class="ava a'+(idx%4+1)+'"><svg viewBox="0 0 24 24"><circle cx="12" cy="8.5" r="4"/><path d="M4 20c1-4 4.2-6 8-6s7 2 8 6z"/></svg></span>'+
-      '<div class="icol"><div class="nm">'+esc(n.member_name||n.member_id)+'</div><div class="id">'+esc(n.member_id)+'</div>'+(n.mood==="急ぎ"?'<span class="mood" style="background:#fde6ff;color:#a75da9;font-weight:800;">🔥 急ぎ（提出前）</span>':(n.mood&&n.mood!=="対応済み"?'<span class="mood">'+esc(n.mood)+'</span>':''))+'</div>'+
+      '<div class="icol"><div class="nm">'+esc(n.member_name||n.member_id)+'</div><div class="id">'+esc(n.member_id)+'</div>'+(String(n.member_id||"").indexOf("trial_")===0?'<span class="mood" style="background:#eef1fb; color:#4d5f9a; font-weight:800;">モニター（お試し1回）</span>':'')+(n.mood==="急ぎ"?'<span class="mood" style="background:#fde6ff;color:#a75da9;font-weight:800;">🔥 急ぎ（提出前）</span>':(n.mood&&n.mood!=="対応済み"?'<span class="mood">'+esc(n.mood)+'</span>':''))+'</div>'+
       '<div class="ibody"><div class="tx">'+esc(n.worry)+'</div>'+(n.want?'<div class="wt">やってみたい：'+esc(n.want)+'</div>':'')+
         (function(){ var ims=(renderInbox._img||{})[String(n.id)]||[]; return ims.length?'<div class="wt" style="display:flex;gap:6px;flex-wrap:wrap;">'+ims.map(function(d){ return '<a href="'+d+'" target="_blank" rel="noopener"><img src="'+d+'" alt="添付画像" style="width:72px;height:72px;object-fit:cover;border-radius:8px;border:1px solid #e6e3ee;"></a>'; }).join("")+'</div>':''; })()+
         (function(){ var ls=(renderInbox._slog||{})[n.member_id]||[]; if(!ls.length) return ''; var t=0,c=0; ls.forEach(function(l){ try{ var v=JSON.parse(l.worry||"{}"); var d=new Date(l.want); if((Date.now()-d)/86400000<=7){ t+=(+v.dm||0); c++; } }catch(e){} }); return '<div class="wt">営業ログ：直近7日 DM '+t+'件（記録'+c+'日）</div>'; })()+'</div>'+
@@ -725,14 +745,16 @@ function loadInbox(){
     var apps=rest.filter(function(n){ return n.mood==="申込"; });
     var regs=rest.filter(function(n){ return n.mood==="登録"; });
     /* 添付画像（mood「添付画像」）と営業ログ（mood「営業ログ」）はカルテではないので分ける */
-    var IMG={}, SLOG={};
+    var IMG={}, SLOG={}, EXP={};
     rest.forEach(function(n){
       if(n.mood==="添付画像"){ var k=String(n.want||"").replace(/^karte:/,"").split("#")[0]; (IMG[k]=IMG[k]||[]).push(n.worry); }
       else if(n.mood==="営業ログ"){ (SLOG[n.member_id]=SLOG[n.member_id]||[]).push(n); }
+      else if(n.mood==="期限"){ if(!EXP[n.member_id]||String(n.want||"")>String(EXP[n.member_id].want||"")) EXP[n.member_id]=n; }
     });
+    renderMembers._exp=EXP;
     Object.keys(IMG).forEach(function(k){ IMG[k].reverse(); });
     renderInbox._img=IMG; renderInbox._slog=SLOG;
-    var notes=rest.filter(function(n){ return n.mood!=="登録" && n.mood!=="申込" && n.mood!=="添付画像" && n.mood!=="営業ログ"; });
+    var notes=rest.filter(function(n){ return n.mood!=="登録" && n.mood!=="申込" && n.mood!=="添付画像" && n.mood!=="営業ログ" && n.mood!=="期限" && n.mood!=="応募ノート"; });
     var advMap={}, drafts={};
     (Array.isArray(res[1])?res[1]:[]).forEach(function(a){
       var an=String(a.author_name||"");

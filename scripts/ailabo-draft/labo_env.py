@@ -62,7 +62,7 @@ SKIP_PREFIX = ("bug_", "line_", "svy_", "react_", "notice_", "read_", "test", "n
                "name_", "hearing_", "poll_", "sim_", "cfg_")
 SKIP_MOOD = {"登録", "申込", "バグ報告", "対応済み", "重複", "LINE新着", "確認済み", "アンケート",
              "おしらせ", "既読", "テスト", "改名", "リアクション", "勉強会アンケート", "設定",
-             "添付画像", "営業ログ", "AI診断", "AI診断クリック"}
+             "添付画像", "営業ログ", "AI診断", "AI診断クリック", "期限", "応募ノート"}
 
 def is_karte(n):
     mid = n.get("member_id") or ""

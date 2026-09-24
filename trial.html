@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="ja"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>AIカルテ モニター版｜AI活用ラボ</title>
+<style>
+:root{ --bg:#f0f4ff; --navy:#2c3a55; --navy2:#22304a; --camel:#c77fce; --camel2:#a75da9; --camelbg:#fde6ff; --text:#4a4440; --muted:#8b8a9b; --line:#e4e2f2; }
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{overflow-x:hidden;}
+body{font-family:"Yu Gothic","YuGothic","游ゴシック","Hiragino Kaku Gothic ProN","Hiragino Sans",sans-serif; background:linear-gradient(168deg,#e2ebff 0%,#fdf9ff 46%,#fde6ff 100%); color:var(--text); line-height:2.05; -webkit-font-smoothing:antialiased;}
+body.page-lp{padding-bottom:30px!important;}
+.wrap{max-width:640px; margin:0 auto; padding:0 18px;}
+header{background:var(--navy2); color:#fff; padding:13px 18px; text-align:center;}
+.demoband{background:var(--navy2); color:#cfdcea; text-align:center; font-size:13px; padding:5px 10px; letter-spacing:.08em;}
+
+.sec{margin-top:36px;}
+.sec .eyebrow{font-size:14px; font-weight:800; color:#8ea6e0; letter-spacing:.18em; text-align:center;}
+.sec h2{font-size:clamp(18px,5.4vw,22px); color:var(--navy2); text-align:center; line-height:1.7; margin-top:2px;}
+.card{background:#fff; border-radius:18px; padding:20px; margin-top:16px; box-shadow:0 6px 20px rgba(44,58,85,.07);}
+.card p{font-size:14px; margin-top:8px;}
+.card p:first-child{margin-top:0;}
+.card b{color:var(--navy2);}
+footer{text-align:center; font-size:14px; color:#a3a2b5; margin-top:44px; line-height:2;}
+
+/* ---- ui-*.css が読めないときのための最小フォールバック ---- */
+.hero{text-align:center; padding:30px 0 10px;}
+.hero .chars{display:flex; justify-content:center; align-items:flex-end; gap:6px;}
+.hero .chars img{height:170px;}
+.hero h1{font-size:clamp(24px,7vw,34px); color:var(--navy2); line-height:1.6; margin-top:12px;}
+.hero .badge{display:inline-block; background:var(--navy2); color:#fff; font-size:14px; font-weight:800; border-radius:999px; padding:6px 16px; margin-top:12px; letter-spacing:.06em;}
+.hero .lead{font-size:14px; margin-top:14px; text-align:left; background:#fff; border-radius:16px; padding:16px 18px; box-shadow:0 6px 20px rgba(44,58,85,.07);}
+.hero .lead b{color:var(--camel2);}
+
+/* ---- このページだけのスタイル ---- */
+#main-content .qt{font-size:15px; font-weight:700; color:var(--navy2); line-height:1.9;}
+#main-content .qt .req{display:inline-block; font-size:11px; font-weight:800; color:#fff; background:#8fa8e6; border-radius:6px; padding:1px 8px; margin-right:8px; letter-spacing:.06em; vertical-align:2px;}
+#main-content .qt .opt{display:inline-block; font-size:11px; font-weight:800; color:var(--camel2); background:var(--camelbg); border-radius:6px; padding:1px 8px; margin-right:8px; vertical-align:2px;}
+#main-content .qh{font-size:12px; color:var(--muted); line-height:1.9; margin-top:3px;}
+#main-content .q{margin-top:20px;}
+#main-content .q.first{margin-top:0;}
+#main-content .tin{display:block; width:100%; border:1px solid var(--line); border-radius:12px; padding:12px 14px; font-size:16px; line-height:1.9; color:var(--navy2); background:#fff; min-height:50px; margin-top:10px; font-family:inherit;}
+#main-content textarea.tin{min-height:110px; resize:vertical;}
+#main-content .tin:focus{outline:none; border-color:var(--camel);}
+#main-content .tin:disabled{background:#f6f5fb; color:#6b6a7d;}
+#main-content .cnt{font-size:12px; color:var(--muted); text-align:right; margin-top:2px;}
+#main-content .idline{font-size:12px; color:var(--muted); margin-top:10px; word-break:break-all;}
+#main-content .idline b{color:var(--navy2); font-family:ui-monospace,Menlo,monospace; font-size:12px;}
+#main-content .err{display:none; font-size:14px; font-weight:700; color:var(--camel2); line-height:1.9; margin-top:11px;}
+#main-content .err.on{display:block;}
+#main-content .gbtn{display:flex; align-items:center; justify-content:center; width:100%; border:none; background:var(--camel2); color:#fff; border-radius:12px; padding:15px; font-size:15px; font-weight:800; cursor:pointer; font-family:inherit; margin-top:22px;}
+#main-content .gbtn:disabled{background:#c9c6d8; cursor:default;}
+#main-content .subbtn{display:inline-block; border:1px solid var(--line); background:#fff; color:var(--navy2); border-radius:12px; padding:10px 14px; font-size:14px; font-weight:700; cursor:pointer; font-family:inherit; margin-top:10px;}
+#main-content .imgprev{display:flex; gap:8px; flex-wrap:wrap; margin-top:10px;}
+#main-content .imgprev .th{position:relative; width:84px; height:84px; border-radius:12px; overflow:hidden; border:1px solid var(--line); background:#fff;}
+#main-content .imgprev .th img{width:100%; height:100%; object-fit:cover; display:block;}
+#main-content .imgprev .th button{position:absolute; top:2px; right:2px; width:22px; height:22px; border:none; border-radius:50%; background:rgba(34,48,74,.75); color:#fff; font-size:13px; line-height:22px; cursor:pointer; padding:0;}
+#main-content .fine{font-size:12px; color:var(--muted); line-height:1.95; margin-top:14px;}
+
+/* 送信後 */
+#main-content .sentbox{display:none;}
+#main-content .sentbox.on{display:block;}
+#main-content .lockmsg{background:var(--camelbg); border-left:4px solid var(--camel2); border-radius:10px; padding:12px 14px; font-size:14px; font-weight:700; color:var(--navy2); line-height:1.9;}
+#main-content .hitem{background:#fbfaff; border:1px solid var(--line); border-radius:14px; padding:12px 14px; margin-top:12px; font-size:14px; line-height:1.9;}
+#main-content .hitem .d{display:block; font-size:12px; color:var(--muted); font-weight:800;}
+#main-content .hitem .w2{color:var(--muted); font-size:13px; margin-top:4px;}
+#main-content .hthumbs{display:flex; gap:6px; flex-wrap:wrap; margin-top:8px;}
+#main-content .hthumbs img{width:72px; height:72px; object-fit:cover; border-radius:10px; border:1px solid var(--line);}
+#main-content .samedev{font-size:12px; color:var(--muted); margin-top:10px; line-height:1.9;}
+
+/* 返信 */
+#main-content .adv{background:#fff; border:1px solid var(--line); border-radius:16px; padding:14px 16px; margin-top:12px;}
+#main-content .adv .head{display:flex; gap:10px; align-items:center; margin-bottom:6px;}
+#main-content .adv .av{width:40px; height:40px; border-radius:50%; background:#fde7ee; flex:none; object-fit:cover; object-position:50% 6%;}
+#main-content .adv .nm{font-size:14px; font-weight:800; color:var(--navy2); line-height:1.5;}
+#main-content .adv .dt{font-size:12px; color:var(--muted); font-weight:700; line-height:1.5;}
+#main-content .adv .body{font-size:14px; white-space:pre-line; word-break:break-word;}
+#main-content .empty{text-align:center; font-size:14px; color:var(--muted); padding:16px 0 4px; line-height:1.9;}
+#main-content .empty img{width:84px; display:block; margin:0 auto 8px;}
+#main-content .refresh{display:block; margin:14px auto 0; border:1px solid var(--line); background:#fff; color:var(--navy2); border-radius:999px; padding:9px 26px; font-size:14px; font-weight:800; cursor:pointer; font-family:inherit;}
+
+/* AIはるか */
+#main-content .ailink{display:flex; gap:14px; align-items:center; background:#fff; border:1px solid var(--line); border-radius:16px; padding:14px 16px; margin-top:16px; text-decoration:none; color:var(--navy2);}
+#main-content .ailink img{width:58px; height:58px; border-radius:50%; object-fit:cover; object-position:50% 6%; background:#fde7ee; flex:none;}
+#main-content .ailink b{display:block; font-size:15px; line-height:1.7;}
+#main-content .ailink span{display:block; font-size:12px; color:var(--muted); line-height:1.8;}
+#main-content .ailink i{font-style:normal; margin-left:auto; color:var(--camel2); font-weight:800; flex:none;}
+
+/* ロック表示 */
+#main-content .lkgrid{display:grid; grid-template-columns:1fr; gap:12px; margin-top:16px;}
+#main-content .lk{position:relative; background:#fff; border:1px solid var(--line); border-radius:16px; padding:14px 16px 16px; cursor:pointer; overflow:hidden; text-align:left; font-family:inherit; width:100%; color:var(--text);}
+#main-content .lk:focus-visible{outline:2px solid var(--camel2); outline-offset:2px;}
+#main-content .lk .lh{display:flex; align-items:center; gap:8px; font-size:15px; font-weight:800; color:var(--navy2); line-height:1.7;}
+#main-content .lk .lh .ic{flex:none; font-size:14px;}
+#main-content .lk .lh .tag{margin-left:auto; flex:none; font-size:11px; font-weight:800; color:var(--camel2); background:var(--camelbg); border-radius:999px; padding:1px 10px;}
+#main-content .lk .ld{font-size:13px; color:var(--muted); line-height:1.85; margin-top:2px;}
+#main-content .lk .blur{filter:blur(5px); -webkit-filter:blur(5px); pointer-events:none; user-select:none; -webkit-user-select:none; margin-top:10px; opacity:.85;}
+#main-content .lk .lkmsg{display:none; position:relative; z-index:2; margin-top:12px; background:var(--camelbg); border-radius:12px; padding:10px 14px; font-size:13px; font-weight:700; color:var(--navy2); line-height:1.9;}
+#main-content .lk .lkmsg a{color:var(--camel2); font-weight:800; margin-left:4px; white-space:nowrap;}
+#main-content .lk.open .lkmsg{display:block;}
+/* ダミー（ぼかしの下） */
+#main-content .dbar{display:grid; grid-template-columns:96px 1fr 26px; gap:8px; align-items:center; font-size:12px; margin-top:6px;}
+#main-content .dbar i{display:block; height:10px; border-radius:999px; background:linear-gradient(90deg,#7fb0d2,#c77fce);}
+#main-content .dtag{display:inline-block; background:var(--camel2); color:#fff; border-radius:999px; padding:1px 12px; font-size:12px; font-weight:800; margin-top:8px;}
+#main-content .dtext{font-size:12px; line-height:1.9; margin-top:4px;}
+#main-content .dnum{display:grid; grid-template-columns:repeat(3,1fr); gap:6px; text-align:center; font-size:11px;}
+#main-content .dnum b{display:block; font-size:18px; color:var(--navy2);}
+#main-content .dbars{display:flex; gap:5px; align-items:flex-end; height:46px; margin-top:8px;}
+#main-content .dbars i{flex:1; background:#e0a1e6; border-radius:5px 5px 2px 2px;}
+#main-content .drow{display:flex; justify-content:space-between; gap:8px; font-size:12px; border-top:1px dashed var(--line); padding:5px 0;}
+#main-content .drow:first-child{border-top:none;}
+#main-content .drow em{font-style:normal; color:var(--camel2); font-weight:800; flex:none;}
+
+/* CTA */
+#main-content .cta{display:block; width:100%; border:none; cursor:pointer; font-family:inherit; text-align:center; background:var(--camel2); color:#fff; border-radius:12px; padding:16px; font-size:15px; font-weight:800; text-decoration:none; margin-top:18px; box-shadow:0 4px 0 var(--line); line-height:1.7;}
+#main-content .ctaimg{display:block; width:120px; margin:0 auto;}
+
+#bugL{position:fixed; left:12px; bottom:16px; z-index:59; background:rgba(255,255,255,.92); border:1px solid #dcd8ee; color:#8b8a9b; font-size:14px; font-weight:800; border-radius:999px; padding:5px 12px; cursor:pointer; letter-spacing:.04em; font-family:inherit;}
+#bugM{position:fixed; inset:0; background:rgba(34,48,74,.55); display:none; align-items:center; justify-content:center; z-index:70; padding:24px;}
+#bugM.on{display:flex;}
+#bugM .bx{background:#fff; border-radius:20px; padding:22px 20px; max-width:360px; width:100%;}
+#bugM h3{font-size:14.5px; color:var(--navy2); margin-bottom:8px;}
+#bugM textarea{width:100%; border:1.5px solid #e0dfee; border-radius:12px; padding:11px 13px; font-size:14px; line-height:1.8; font-family:inherit; min-height:100px; resize:vertical;}
+#bugM .bb{display:flex; gap:8px; margin-top:12px;}
+#bugM button{flex:1; border:none; border-radius:999px; padding:11px; font-size:14px; font-weight:800; cursor:pointer; font-family:inherit;}
+#bugM .c{background:#eeedf6; color:#6d675e;}
+#bugM .s{background:linear-gradient(135deg,#8fa8e6,#e0a1e6); color:#fff;}
+#bugM .done{display:none; font-size:14px; color:#2e7d32; font-weight:800; margin-top:10px; text-align:center;}
+</style>
+<script src="labo_config.js"></script>
+<link rel="stylesheet" href="ui-refined.css?v=20260909-icons">
+<link rel="stylesheet" href="ui-atelier.css?v=20260909-atelier">
+</head>
+<body class="atelier page-lp">
+<a class="ui-skip" href="#main-content">本文へ進む</a>
+<div id="demoband" class="demoband" style="display:none;">確認用の表示です（送った内容は保存されません）</div>
+<header><div class="ui-topnav"><a class="ui-brand" href="lp.html" data-cfg="labo_name">AI活用ラボ</a><nav aria-label="ページ内ナビゲーション"><a href="lp.html">ご案内</a><a class="ui-toplink" href="start.html">受講生の方へ ↗</a></nav></div></header>
+
+<div class="wrap" id="main-content">
+
+  <div class="hero">
+    <div class="chars">
+      <img src="assets/hk-laptop.png" alt="">
+      <div class="char-caption"><span>NAVIGATOR</span><b data-cfg="instructor_nick">はるか</b></div>
+    </div>
+    <h1>AIカルテを、<br><span class="grad">お試しで。</span></h1>
+    <span class="badge">モニター版｜カルテ1回＋<span data-cfg="instructor_nick">はるか</span>からの返信</span>
+    <div class="lead">受講生が使っている「AIカルテ」を、1回だけ体験できるページです。いま困っていることを書いて送ると、<b>はるかが読んで、あなた宛てに返信</b>します。AIにそのまま聞くのとは違う「あなたの前提をふまえた答え」を、受け取ってみてください。</div>
+  </div>
+
+  <!-- 01 お名前 -->
+  <section class="sec" id="secName">
+    <div class="eyebrow" aria-hidden="true">01</div>
+    <h2>はじめに、お名前を</h2>
+    <div>
+      <div class="card">
+        <p class="qt"><span class="req">必須</span>お名前（フルネーム）</p>
+        <p class="qh">姓と名の両方をお願いします。はるかが返信するときに使います（20字まで）</p>
+        <input type="text" class="tin" id="tName" maxlength="20" autocomplete="name" placeholder="例）山田 花子">
+        <p class="idline">あなたのモニターID：<b id="tUid"></b></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 02 カルテ -->
+  <section class="sec" id="secKarte">
+    <div class="eyebrow" aria-hidden="true">02</div>
+    <h2>カルテを書いてみる</h2>
+    <div>
+      <div class="card" id="karteForm">
+        <div class="q first">
+          <p class="qt"><span class="req">必須</span>いま困っていること</p>
+          <p class="qh">いつ・どんな場面で困っているかを、そのまま書いてください。</p>
+          <textarea class="tin" id="worry" maxlength="1000" aria-label="いま困っていること" placeholder="例）提案文を書くのに毎回1時間かかって、応募が続きません。"></textarea>
+          <p class="cnt"><span id="c1">0</span> / 1000</p>
+        </div>
+        <div class="q">
+          <p class="qt"><span class="req">必須</span>AIに手伝ってほしいこと</p>
+          <p class="qh">どうなれたら嬉しいか、理想の状態を教えてください。</p>
+          <textarea class="tin" id="want" maxlength="1000" aria-label="AIに手伝ってほしいこと" placeholder="例）提案文のたたき台を、AIで早く作れるようになりたいです。"></textarea>
+          <p class="cnt"><span id="c2">0</span> / 1000</p>
+        </div>
+        <div class="q">
+          <p class="qt"><span class="opt">任意</span>画像を添付（1枚まで）</p>
+          <p class="qh">見てほしいデザイン・バナー・提案文のスクショなど。</p>
+          <input type="file" id="imgIn" accept="image/*" style="display:none">
+          <button type="button" class="subbtn" id="imgBtn">画像を選ぶ</button>
+          <div class="imgprev" id="imgPrev"></div>
+        </div>
+        <button type="button" class="gbtn" id="send">この内容でカルテを送る</button>
+        <p class="err" id="tErr" role="alert"></p>
+        <p class="fine">モニター版で送れるカルテは1回です。書いた内容は、はるかだけが読みます。</p>
+      </div>
+
+      <div class="card sentbox" id="sentBox">
+        <p class="lockmsg" id="lockMsg" role="status">モニターは1回までです。はるかからの返信は営業日24時間以内に、このページに届きます</p>
+        <div id="sentKarte"></div>
+        <p class="samedev">返信を見るときは、送ったときと同じスマホ・同じブラウザでこのページを開いてください。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 03 返信 -->
+  <section class="sec" id="secAdv">
+    <div class="eyebrow" aria-hidden="true">03</div>
+    <h2>はるかからの返信</h2>
+    <div>
+      <div class="card">
+        <div id="advlist"></div>
+        <button type="button" class="refresh" id="refresh">更新する</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 04 AIはるか -->
+  <section class="sec" id="secAi">
+    <div class="eyebrow" aria-hidden="true">04</div>
+    <h2>AIはるかにも話しかけてみる</h2>
+    <div>
+      <a class="ailink" href="ai.html" target="_blank" rel="noopener">
+        <img src="assets/hk-desk.png" alt="" onerror="this.style.display='none'">
+        <span><b>AIはるかと話す</b><span>はるかの考え方を覚えたAIです。返信を待つあいだも、気軽にどうぞ。</span></span>
+        <i aria-hidden="true">→</i>
+      </a>
+    </div>
+  </section>
+
+  <!-- 05 ロック -->
+  <section class="sec" id="secLock">
+    <div class="eyebrow" aria-hidden="true">05</div>
+    <h2>本受講で使える機能</h2>
+    <div>
+      <div class="card"><p>カルテは、書くほどに「あなた専用」に育っていきます。ここから先は、本受講で使える機能です。どんなものかだけ、少しのぞいてみてください。</p></div>
+      <div class="lkgrid" id="lkgrid">
+
+        <div class="lk" role="button" tabindex="0" data-name="分析レポート">
+          <div class="lh"><span class="ic" aria-hidden="true">🔒</span>分析レポート<span class="tag">本受講</span></div>
+          <p class="ld">カルテがたまるほど、悩みの傾向・思考のくせ・あなたに合うAIの使い方が見えてきます。</p>
+          <div class="blur" aria-hidden="true">
+            <div class="dbar"><span>営業・受注</span><i style="width:100%"></i><span>8</span></div>
+            <div class="dbar"><span>制作・デザイン</span><i style="width:62%"></i><span>5</span></div>
+            <div class="dbar"><span>じかん・余裕</span><i style="width:38%"></i><span>3</span></div>
+            <span class="dtag">時間圧迫タイプ</span>
+            <p class="dtext">まずは提案文のたたき台を1つだけ。1日15分をAIに渡せると、気持ちの余裕が先に戻ってきます。</p>
+          </div>
+          <p class="lkmsg">本受講で使えます。<a href="lp.html">AIラボのご案内を見る</a></p>
+        </div>
+
+        <div class="lk" role="button" tabindex="0" data-name="私の取扱説明書">
+          <div class="lh"><span class="ic" aria-hidden="true">🔒</span>私の取扱説明書<span class="tag">本受講</span></div>
+          <p class="ld">カルテで育った内容を1枚にまとめて、お使いのChatGPTやClaudeにそのまま渡せます。</p>
+          <div class="blur" aria-hidden="true">
+            <p class="dtext"># 私の取扱説明書（AIラボのカルテより）</p>
+            <p class="dtext">・職種：Webデザイナー／得意なのはバナーとLP</p>
+            <p class="dtext">・いまの悩みの傾向：営業・受注／制作・デザイン</p>
+            <p class="dtext">・はるかからくり返し言われていること：まず小さく1歩だけ</p>
+            <p class="dtext">・おすすめの相棒：Claude（提案文・ポートフォリオ）</p>
+          </div>
+          <p class="lkmsg">本受講で使えます。<a href="lp.html">AIラボのご案内を見る</a></p>
+        </div>
+
+        <div class="lk" role="button" tabindex="0" data-name="今日の営業ログ">
+          <div class="lh"><span class="ic" aria-hidden="true">🔒</span>今日の営業ログ<span class="tag">本受講</span></div>
+          <p class="ld">DM・応募・返信の数を毎日残すと、はるかの返信に「あなたの数字」が入ります。</p>
+          <div class="blur" aria-hidden="true">
+            <div class="dnum"><span><b>5</b>DM・営業</span><span><b>2</b>応募・提案</span><span><b>1</b>返信</span></div>
+            <div class="dbars"><i style="height:40%"></i><i style="height:65%"></i><i style="height:30%"></i><i style="height:80%"></i><i style="height:55%"></i><i style="height:90%"></i><i style="height:70%"></i></div>
+          </div>
+          <p class="lkmsg">本受講で使えます。<a href="lp.html">AIラボのご案内を見る</a></p>
+        </div>
+
+        <div class="lk" role="button" tabindex="0" data-name="応募ノート">
+          <div class="lh"><span class="ic" aria-hidden="true">🔒</span>応募ノート<span class="tag">本受講</span></div>
+          <p class="ld">応募した案件と結果を記録して、通った提案・通らなかった提案の違いを一緒に見ていきます。</p>
+          <div class="blur" aria-hidden="true">
+            <div class="drow"><span>美容サロンのLP制作</span><em>返信あり</em></div>
+            <div class="drow"><span>飲食店のバナー3点</span><em>面談へ</em></div>
+            <div class="drow"><span>スクールのSNS画像</span><em>検討中</em></div>
+          </div>
+          <p class="lkmsg">本受講で使えます。<a href="lp.html">AIラボのご案内を見る</a></p>
+        </div>
+
+        <div class="lk" role="button" tabindex="0" data-name="はるかのAI実験ノート">
+          <div class="lh"><span class="ic" aria-hidden="true">🔒</span>はるかのAI実験ノート<span class="tag">本受講</span></div>
+          <p class="ld">はるかが実際にAIを触って気づいた使い方が、ここに溜まっていきます。</p>
+          <div class="blur" aria-hidden="true">
+            <p class="dtext">提案文のたたき台は「募集要項をそのまま貼る→自分の実績を3つ渡す」の順で頼むと精度が上がりました。</p>
+            <p class="dtext">参考デザインの言語化は「余白・配色・フォントの3点で分解して」と聞くのが早いです。</p>
+          </div>
+          <p class="lkmsg">本受講で使えます。<a href="lp.html">AIラボのご案内を見る</a></p>
+        </div>
+
+        <div class="lk" role="button" tabindex="0" data-name="カルテ履歴（2件目以降）">
+          <div class="lh"><span class="ic" aria-hidden="true">🔒</span>カルテ履歴（2件目以降）<span class="tag">本受講</span></div>
+          <p class="ld">相談とはるかの返信が、全部ここに積み上がります。前回の続きから相談できます。</p>
+          <div class="blur" aria-hidden="true">
+            <div class="drow"><span>クライアントの事前リサーチのやり方がわからない</span><em>返信済</em></div>
+            <div class="drow"><span>【やってみた結果】提案文をAIで作ったら30分で3件送れた</span><em>返信済</em></div>
+            <div class="drow"><span>見積書の文面をやわらかくしたい</span><em>返信済</em></div>
+          </div>
+          <p class="lkmsg">本受講で使えます。<a href="lp.html">AIラボのご案内を見る</a></p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="sec" id="secCta">
+    <div class="eyebrow" aria-hidden="true">06</div>
+    <h2>AIラボのこと、もう少し知りたい方へ</h2>
+    <div>
+      <div class="card">
+        <img class="ctaimg" src="assets/hk-desk.png" alt="" onerror="this.style.display='none'">
+        <p>カルテ・分析レポート・取扱説明書・営業ログがそろうと、AIへの相談が「毎回ゼロから」ではなくなります。どんな講座か、ご案内ページにまとめています。</p>
+      </div>
+      <a class="cta" id="ctaLp" href="lp.html">AIラボのご案内を見る</a>
+    </div>
+  </section>
+
+  <footer><span data-cfg="labo_name">AI活用ラボ</span>｜<span data-cfg="company">合同会社Li-Li</span><br><a data-cfg-href="tokutei_url" href="https://www.lilisconsul.com/tokutei" target="_blank" rel="noopener">特定商取引法に基づく表記</a> ｜ <a data-cfg-href="privacy_url" href="https://claude.ai/artifact/1m2VKXSBENfEXoLan3WHFv#privacy" target="_blank" rel="noopener">プライバシーポリシー</a> ｜ <a data-cfg-href="terms_url" href="https://claude.ai/artifact/1m2VKXSBENfEXoLan3WHFv#terms" target="_blank" rel="noopener">利用規約</a><button id="bugL">不具合を報告</button></footer>
+</div>
+
+<div id="bugM"><div class="bx">
+  <h3>不具合・気になったことを教えてください</h3>
+  <textarea id="bugT" placeholder="例）送信ボタンが反応しませんでした（iPhone/Safari）"></textarea>
+  <div class="bb"><button class="c" id="bugC">閉じる</button><button class="s" id="bugS">送信する</button></div>
+  <div class="done" id="bugD">届きました。ありがとうございます。すぐ確認します。</div>
+</div></div>
+
+<script src="supabase_config.js"></script>
+<script>
+(function(){
+var P=new URLSearchParams(location.search);
+var SB_ON=(typeof SUPABASE_CONFIG!=="undefined")&&SUPABASE_CONFIG.enabled;
+var DEMO=(P.get("demo")==="1")||!SB_ON;   /* ?demo=1 … 保存せずメモリ内で動く（運営の確認用） */
+if(DEMO) document.getElementById("demoband").style.display="block";
+
+/* ===== 保存まわり（demo では一切書かない） ===== */
+function lsGet(k){ if(DEMO) return null; try{ return localStorage.getItem(k); }catch(e){ return null; } }
+function lsSet(k,v){ if(DEMO) return; try{ localStorage.setItem(k,v); }catch(e){} }
+
+/* ===== モニター用ID（trial_＋8文字。再訪時は同じID） ===== */
+function newId(){
+  var cs="abcdefghijklmnopqrstuvwxyz0123456789", s="", a=null;
+  try{ a=new Uint8Array(8); (window.crypto||window.msCrypto).getRandomValues(a); }catch(e){ a=null; }
+  for(var i=0;i<8;i++){ s+=cs.charAt((a?a[i]:Math.floor(Math.random()*256))%cs.length); }
+  return "trial_"+s;
+}
+var UID=lsGet("ailab_trial_uid");
+if(!UID||!/^trial_[a-z0-9]{8}$/.test(UID)){ UID=newId(); lsSet("ailab_trial_uid",UID); }
+var SENT_KEY="ailab_trial_sent_"+UID;
+document.getElementById("tUid").textContent=UID;
+
+var nameEl=document.getElementById("tName");
+var NAME=(lsGet("ailab_trial_name")||"").slice(0,20);
+nameEl.value=NAME;
+nameEl.addEventListener("change",function(){
+  var v=nameEl.value.replace(/[\s　]+/g," ").trim().slice(0,20);
+  nameEl.value=v; NAME=v; if(v) lsSet("ailab_trial_name",v);
+});
+
+/* ===== index.html と同じ接続・表示ヘルパー ===== */
+function sb(path,opts){
+  return fetch(SUPABASE_CONFIG.url+"/rest/v1/"+path,Object.assign({
+    headers:{apikey:SUPABASE_CONFIG.anonKey,Authorization:"Bearer "+SUPABASE_CONFIG.anonKey,
+    "Content-Type":"application/json",Prefer:"return=representation"}},opts||{}));
+}
+function fmt(d){ var x=new Date(d); return (x.getMonth()+1)+"/"+x.getDate()+" "+("0"+x.getHours()).slice(-2)+":"+("0"+x.getMinutes()).slice(-2); }
+function esc(s){ var d=document.createElement("div"); d.textContent=s||""; return d.innerHTML; }
+function fillText(el,s){
+  el.textContent="";
+  String(s||"").split(/(https?:\/\/[^\s]+)/g).forEach(function(part){
+    if(/^https?:\/\//.test(part)){
+      var a=document.createElement("a");
+      a.href=part; a.target="_blank"; a.rel="noopener";
+      a.textContent=part; a.style.cssText="color:#a75da9;font-weight:800;word-break:break-all;";
+      el.appendChild(a);
+    } else if(part){ el.appendChild(document.createTextNode(part)); }
+  });
+}
+
+/* ===== 文字数 ===== */
+[["worry","c1"],["want","c2"]].forEach(function(p){
+  var ta=document.getElementById(p[0]), c=document.getElementById(p[1]);
+  ta.addEventListener("input",function(){ c.textContent=ta.value.length; });
+});
+
+/* ===== 画像添付（端末内で1200px・JPEGに縮小。1枚まで） ===== */
+var IMGS=[];
+function renderThumbs(){
+  var box=document.getElementById("imgPrev"); box.innerHTML="";
+  IMGS.forEach(function(d,i){
+    var t=document.createElement("div"); t.className="th";
+    t.innerHTML='<img src="'+d+'" alt=""><button type="button" aria-label="削除">×</button>';
+    t.querySelector("button").onclick=function(){ IMGS.splice(i,1); renderThumbs(); };
+    box.appendChild(t);
+  });
+  document.getElementById("imgBtn").style.display=IMGS.length>=1?"none":"inline-block";
+}
+function shrink(file){
+  return new Promise(function(res,rej){
+    var fr=new FileReader();
+    fr.onload=function(){
+      var im=new Image();
+      im.onload=function(){
+        var MAX=1200, w=im.width, h=im.height, k=Math.min(1,MAX/Math.max(w,h));
+        var c=document.createElement("canvas"); c.width=Math.round(w*k); c.height=Math.round(h*k);
+        c.getContext("2d").drawImage(im,0,0,c.width,c.height);
+        var q=0.82, d=c.toDataURL("image/jpeg",q);
+        while(d.length>380000 && q>0.4){ q-=0.1; d=c.toDataURL("image/jpeg",q); }
+        res(d);
+      };
+      im.onerror=rej; im.src=fr.result;
+    };
+    fr.onerror=rej; fr.readAsDataURL(file);
+  });
+}
+document.getElementById("imgBtn").onclick=function(){ document.getElementById("imgIn").click(); };
+document.getElementById("imgIn").onchange=function(){
+  var fs=Array.prototype.slice.call(this.files||[]).slice(0,1); this.value="";
+  if(!fs.length||IMGS.length>=1) return;
+  shrink(fs[0]).then(function(d){ IMGS=[d]; renderThumbs(); })
+    .catch(function(){ alert("画像を読み込めませんでした。別の画像でお試しください。"); });
+};
+
+/* ===== 送信後のロック表示 ===== */
+function showSent(k,imgs){
+  document.getElementById("karteForm").style.display="none";
+  document.getElementById("sentBox").className="card sentbox on";
+  nameEl.disabled=true;
+  var box=document.getElementById("sentKarte"); box.innerHTML="";
+  if(!k) return;
+  var e=document.createElement("div"); e.className="hitem";
+  e.innerHTML='<span class="d">送ったカルテ'+(k.created_at?"｜"+fmt(k.created_at):"")+'</span>'+
+    '<div>'+esc(k.worry)+'</div>'+(k.want?'<div class="w2">AIに手伝ってほしいこと：'+esc(k.want)+'</div>':'')+
+    ((imgs&&imgs.length)?'<div class="hthumbs">'+imgs.map(function(d){ return '<img src="'+d+'" alt="添付画像">'; }).join("")+'</div>':'');
+  box.appendChild(e);
+}
+
+/* ===== 返信の表示（index.html と同じ：draft で始まるものは出さない） ===== */
+var demoKarte=null;
+function renderAdv(list){
+  var a=document.getElementById("advlist");
+  a.innerHTML="";
+  if(!list.length){
+    a.innerHTML='<div class="empty"><img src="assets/hk-laptop.png" alt="" onerror="this.style.display=\'none\'">'+
+      (isSent()?'はるかが読んで、返信を書いています。<br>届いたら、ここに表示されます。':'カルテを送ると、ここにはるかからの返信が届きます。')+'</div>';
+    return;
+  }
+  list.forEach(function(m){
+    var e=document.createElement("div"); e.className="adv";
+    e.innerHTML='<div class="head"><img class="av" src="assets/hk-desk.png" alt="" onerror="this.style.display=\'none\'"><div><div class="nm">'+esc(m.author_name||"はるか")+'</div><div class="dt">'+fmt(m.created_at)+'</div></div></div>';
+    var b=document.createElement("div"); b.className="body"; fillText(b,m.message);
+    e.appendChild(b);
+    a.appendChild(e);
+  });
+}
+function loadAdv(){
+  if(DEMO){
+    renderAdv(demoKarte?[{author_name:"はるか",message:"（確認用の表示）カルテ、読みました。\n本番では、はるかからの返信がここに届きます。",created_at:new Date().toISOString()}]:[]);
+    return;
+  }
+  sb("ailab_advice?target_id=eq."+UID+"&order=created_at.desc&limit=100").then(function(r){return r.json();})
+    .then(function(j){ if(Array.isArray(j)){ renderAdv(j.filter(function(a){ return String(a.author_name||"").indexOf("draft")!==0; })); } })
+    .catch(function(){});
+}
+document.getElementById("refresh").onclick=loadAdv;
+
+function isSent(){ return !!demoKarte || !!lsGet(SENT_KEY); }
+
+/* ===== 送信（1回だけ） ===== */
+var err=document.getElementById("tErr");
+function warn(msg,el){
+  err.textContent=msg; err.className="err on";
+  if(el){ try{ el.focus({preventScroll:true}); el.scrollIntoView({block:"center"}); }catch(e){ try{ el.focus(); }catch(e2){} } }
+}
+document.getElementById("send").onclick=function(){
+  err.className="err";
+  if(isSent()){ showSent(null); return; }
+  var nm=nameEl.value.replace(/[\s　]+/g," ").trim();
+  if(!nm){ warn("お名前（フルネーム）をご記入ください。",nameEl); return; }
+  if(nm.replace(/ /g,"").length<3 && nm.indexOf(" ")<0){ warn("姓と名の両方をご記入ください（例：山田 花子）。",nameEl); return; }
+  nameEl.value=nm; NAME=nm.slice(0,20); lsSet("ailab_trial_name",NAME);
+  var wEl=document.getElementById("worry"), tEl=document.getElementById("want");
+  var w=wEl.value.trim(), wt=tEl.value.trim();
+  if(!w){ warn("「いま困っていること」をご記入ください。",wEl); return; }
+  if(!wt){ warn("「AIに手伝ってほしいこと」をご記入ください。",tEl); return; }
+  var btn=this; btn.disabled=true;
+  var rec={member_id:UID,member_name:NAME,mood:null,worry:w,want:wt};
+  var imgs=IMGS.slice(0,1);
+  function done(created){
+    var k={worry:w,want:wt,created_at:created||new Date().toISOString()};
+    if(DEMO){ demoKarte=k; } else { lsSet(SENT_KEY,JSON.stringify(k)); }
+    showSent(k,imgs);
+    loadAdv();
+  }
+  if(DEMO){ done(); return; }
+  sb("ailab_notes",{method:"POST",body:JSON.stringify(rec)}).then(function(r){
+    if(!r.ok) throw new Error("post");
+    return r.json();
+  }).then(function(j){
+    var row=(Array.isArray(j)&&j[0])?j[0]:{};
+    var id=row.id||null;
+    /* 画像は index.html と同じく別行（mood「添付画像」・want に "karte:<id>#1"） */
+    var ps=imgs.map(function(d,i){ return sb("ailab_notes",{method:"POST",body:JSON.stringify({member_id:UID,member_name:NAME,mood:"添付画像",worry:d,want:"karte:"+(id||"")+"#"+(i+1)})}).catch(function(){}); });
+    return Promise.all(ps).then(function(){ return row.created_at; });
+  }).then(function(created){ done(created); })
+    .catch(function(){ btn.disabled=false; alert("送信できませんでした。電波のよいところでもう一度お試しください。"); });
+};
+
+/* ===== ロック機能：押すと小さな案内 ===== */
+Array.prototype.forEach.call(document.querySelectorAll("#lkgrid .lk"),function(card){
+  function toggle(){
+    var was=card.classList.contains("open");
+    Array.prototype.forEach.call(document.querySelectorAll("#lkgrid .lk.open"),function(o){ o.classList.remove("open"); });
+    if(!was) card.classList.add("open");
+  }
+  card.addEventListener("click",function(ev){ if(ev.target&&ev.target.closest&&ev.target.closest("a")) return; toggle(); });
+  card.addEventListener("keydown",function(ev){ if(ev.key==="Enter"||ev.key===" "){ ev.preventDefault(); toggle(); } });
+});
+
+/* ===== 開いたとき：送信済みならロック ===== */
+(function init(){
+  var saved=null; try{ saved=JSON.parse(lsGet(SENT_KEY)||"null"); }catch(e){ saved=null; }
+  if(saved) showSent(saved,[]);
+  renderAdv([]);
+  if(DEMO) return;
+  /* 端末の記録が消えていても、同じIDで送っていればロックする */
+  sb("ailab_notes?member_id=eq."+UID+"&order=created_at.asc&limit=20").then(function(r){return r.json();})
+    .then(function(j){
+      if(!Array.isArray(j)||!j.length) return;
+      var imgs=[], karte=null;
+      j.forEach(function(n){ if(n.mood==="添付画像") imgs.push(n.worry); else if(!karte) karte=n; });
+      if(karte){ lsSet(SENT_KEY,JSON.stringify({worry:karte.worry,want:karte.want,created_at:karte.created_at})); showSent(karte,imgs); renderAdv([]); }
+    }).catch(function(){});
+  loadAdv();
+})();
+})();
+</script>
+
+<script>
+(function(){
+var U=(typeof SUPABASE_CONFIG!=="undefined"&&SUPABASE_CONFIG.enabled)?SUPABASE_CONFIG.url+"/rest/v1/ailab_notes":"";
+var K=(typeof SUPABASE_CONFIG!=="undefined"&&SUPABASE_CONFIG.anonKey)||"";
+var demo=new URLSearchParams(location.search).get("demo")==="1";
+var uid=""; try{ uid=localStorage.getItem("ailab_trial_uid")||""; }catch(e){}
+var M=document.getElementById("bugM");
+document.getElementById("bugL").onclick=function(){ M.classList.add("on"); };
+document.getElementById("bugC").onclick=function(){ M.classList.remove("on"); document.getElementById("bugD").style.display="none"; };
+document.getElementById("bugS").onclick=function(){
+  var t=document.getElementById("bugT").value.trim();
+  if(!t){ document.getElementById("bugT").focus(); return; }
+  var btn=this; btn.disabled=true;
+  function done(){
+    document.getElementById("bugD").style.display="block";
+    document.getElementById("bugT").value=""; btn.disabled=false;
+    setTimeout(function(){ M.classList.remove("on"); document.getElementById("bugD").style.display="none"; },1800);
+  }
+  if(!U||demo){ done(); return; }
+  fetch(U,{method:"POST",headers:{apikey:K,Authorization:"Bearer "+K,"Content-Type":"application/json"},
+    body:JSON.stringify({member_id:"bug_trial",member_name:"モニター版｜"+(uid||"guest"),mood:"バグ報告",worry:t,want:location.href.slice(0,180)+" ／ "+navigator.userAgent.slice(0,140)})})
+    .then(function(){ done(); }).catch(function(){ btn.disabled=false; alert("送信できませんでした。通信環境をご確認ください。"); });
+};
+})();
+</script>
+<script src="ui-refined.js?v=20260909-icons"></script>
+<script src="ui-atelier.js?v=20260909-atelier"></script>
+
+</body></html>
