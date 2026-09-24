@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="ja"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>応募ノート｜AI活用ラボ</title>
+<style>
+:root{ --bg:#f0f4ff; --navy:#2c3a55; --navy2:#22304a; --camel:#c77fce; --camel2:#a75da9; --camelbg:#fde6ff; --text:#4a4440; --muted:#8b8a9b; --line:#e4e2f2; }
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{overflow-x:hidden;}
+body{font-family:"Yu Gothic","YuGothic","游ゴシック","Hiragino Kaku Gothic ProN","Hiragino Sans",sans-serif; background:linear-gradient(168deg,#e2ebff 0%,#fdf9ff 46%,#fde6ff 100%); color:var(--text); line-height:2.05; -webkit-font-smoothing:antialiased;}
+body.page-lp{padding-bottom:30px!important;}
+.wrap{max-width:720px; margin:0 auto; padding:0 16px;}
+header{background:var(--navy2); color:#fff; padding:13px 18px; text-align:center;}
+.card{background:#fff; border-radius:18px; padding:20px; margin-top:16px; box-shadow:0 6px 20px rgba(44,58,85,.07);}
+.card p{font-size:14px; margin-top:8px;}
+.card p:first-child{margin-top:0;}
+.card b{color:var(--navy2);}
+footer{text-align:center; font-size:14px; color:#a3a2b5; margin-top:44px; line-height:2;}
+
+/* ---- ui-*.css が読めないときのための最小フォールバック ---- */
+.hero{text-align:center; padding:30px 0 10px;}
+.hero .chars{display:flex; justify-content:center; align-items:flex-end; gap:6px;}
+.hero .chars img{height:150px;}
+.hero h1{font-size:clamp(24px,7vw,34px); color:var(--navy2); line-height:1.6; margin-top:12px;}
+.hero .badge{display:inline-block; background:var(--navy2); color:#fff; font-size:14px; font-weight:800; border-radius:999px; padding:6px 16px; margin-top:12px; letter-spacing:.06em;}
+.hero .lead{font-size:14px; margin-top:14px; text-align:left; background:#fff; border-radius:16px; padding:16px 18px; box-shadow:0 6px 20px rgba(44,58,85,.07);}
+.hero .lead b{color:var(--camel2);}
+
+/* ---- このページだけのスタイル ---- */
+.demoband{background:var(--navy2); color:#cfdcea; text-align:center; font-size:13px; padding:5px 10px; letter-spacing:.06em;}
+#main-content .back{display:inline-block; margin-top:16px; font-size:13px; font-weight:700; color:var(--camel2); text-decoration:none; background:#fff; border:1px solid var(--line); border-radius:999px; padding:6px 16px;}
+#main-content .rule{margin-top:12px; font-size:13px; font-weight:700; color:var(--navy2); background:var(--camelbg); border-left:4px solid var(--camel2); border-radius:10px; padding:10px 14px; line-height:1.9; text-align:left;}
+#main-content .lostkey{display:none; margin-top:14px; font-size:13px; line-height:1.9; background:#fff; border:1px solid var(--line); border-radius:12px; padding:12px 14px;}
+#main-content .lostkey a{color:var(--camel2); font-weight:700;}
+#main-content .stats{display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:8px; margin-top:22px;}
+#main-content .stat{background:#fff; border:1px solid var(--line); border-radius:12px; padding:8px 6px; text-align:center; font-size:12px; color:var(--muted); line-height:1.6;}
+#main-content .stat b{display:block; font-size:20px; color:var(--navy2); line-height:1.4;}
+#main-content .stat.today b{color:var(--camel2);}
+#main-content .toolbar{position:sticky; top:0; z-index:5; margin:14px -16px 0; padding:10px 16px; background:rgba(246,244,255,.94); backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px); border-bottom:1px solid var(--line); display:flex; flex-wrap:wrap; gap:6px 6px; align-items:center;}
+#main-content .chip{border:1px solid var(--line); background:#fff; color:var(--navy2); border-radius:999px; padding:5px 12px; font-size:12.5px; font-weight:700; cursor:pointer; font-family:inherit; line-height:1.6;}
+#main-content .chip[aria-pressed="true"]{background:var(--camel2); border-color:var(--camel2); color:#fff;}
+#main-content .chip.sub{font-weight:500; color:var(--muted);}
+#main-content .count{font-size:12px; color:var(--muted); margin-top:12px;}
+#main-content .list{display:flex; flex-direction:column; gap:12px; margin-top:8px;}
+#main-content .job{background:#fff; border:1px solid var(--line); border-radius:16px; box-shadow:0 4px 14px rgba(44,58,85,.05); overflow:hidden;}
+#main-content .job.done{background:#f7fbf7;}
+#main-content .job.skip{opacity:.55;}
+#main-content .head{padding:14px 16px 12px; cursor:pointer;}
+#main-content .toprow{display:flex; gap:10px; align-items:flex-start;}
+#main-content .num{flex:none; font-size:12px; font-weight:800; color:var(--camel2); background:var(--camelbg); border-radius:6px; padding:0 7px; margin-top:4px; line-height:1.8;}
+#main-content .title{font-size:15px; font-weight:700; color:var(--navy2); line-height:1.7; word-break:break-word;}
+#main-content .meta{display:flex; flex-wrap:wrap; gap:2px 12px; font-size:12.5px; color:var(--muted); margin-top:6px; line-height:1.8;}
+#main-content .meta .pay{color:var(--navy2); font-weight:700;}
+#main-content .tags{display:flex; flex-wrap:wrap; gap:4px; margin-top:6px;}
+#main-content .tag{display:inline-block; font-size:11px; font-weight:700; padding:1px 8px; border-radius:6px; background:#eef0f7; color:#6b7390; line-height:1.8;}
+#main-content .tag.web{background:#e2ebff; color:#3f5a99;}
+#main-content .tag.design{background:var(--camelbg); color:var(--camel2);}
+#main-content .tag.fit{background:#e8f3e9; color:#2e7d32;}
+#main-content .tag.hot{background:#fff1dc; color:#9a5a00;}
+#main-content .ctl{display:flex; align-items:center; justify-content:space-between; gap:10px; margin-top:10px;}
+#main-content .status{font-family:inherit; font-size:14px; font-weight:700; border:1px solid var(--line); background:#fff; color:var(--navy2); border-radius:10px; padding:6px 10px; min-height:40px;}
+#main-content .status.s1{background:#e8f3e9; color:#2e7d32; border-color:#cfe6d1;}
+#main-content .status.s2{background:#eeedf6; color:var(--muted);}
+#main-content .toggle{font-size:12px; color:var(--camel2); font-weight:700;}
+#main-content .body{display:none; border-top:1px solid var(--line); padding:14px 16px 16px;}
+#main-content .job.open .body{display:block;}
+#main-content .body h4{font-size:12px; font-weight:800; color:var(--muted); letter-spacing:.08em; margin:0 0 6px;}
+#main-content .body h4.sp{margin-top:18px;}
+#main-content .summary{font-size:13.5px; line-height:1.95; white-space:pre-wrap; overflow-wrap:anywhere; background:#f6f8ff; border:1px solid var(--line); border-radius:12px; padding:10px 12px;}
+#main-content .hint{font-size:13px; line-height:1.9; margin-top:8px; padding:8px 12px; border-left:3px solid var(--camel2); background:var(--camelbg); border-radius:0 10px 10px 0; color:var(--navy2);}
+#main-content textarea.draft{display:block; width:100%; min-height:360px; resize:vertical; font-family:inherit; font-size:14px; line-height:1.85; color:var(--navy2); background:#fff; border:1px solid var(--line); border-radius:12px; padding:12px;}
+#main-content .actions{display:flex; flex-wrap:wrap; gap:8px; align-items:center; margin-top:10px;}
+#main-content .btn{font-family:inherit; font-size:13px; font-weight:700; border-radius:10px; padding:8px 14px; border:1px solid var(--line); background:#fff; color:var(--navy2); cursor:pointer; text-decoration:none; display:inline-block; line-height:1.6;}
+#main-content .btn.primary{background:var(--camel2); border-color:var(--camel2); color:#fff;}
+#main-content .saved{font-size:12px; color:var(--muted);}
+#main-content .warn{display:none; margin-top:10px; font-size:13px; line-height:1.9; color:#7a4a00; background:#fff6e6; border:1px solid #f2dcb3; border-radius:10px; padding:9px 12px;}
+#main-content .warn.on{display:block;}
+#main-content details.low{margin-top:26px; background:#fff; border:1px dashed #d8d4ea; border-radius:14px; padding:10px 16px;}
+#main-content details.low summary{cursor:pointer; font-size:13.5px; font-weight:700; color:var(--navy2); line-height:1.8;}
+#main-content details.low ul{margin:8px 0 4px; padding-left:18px; font-size:13px; line-height:1.85;}
+#main-content details.low li{margin:4px 0; overflow-wrap:anywhere;}
+#main-content details.low a{color:var(--camel2);}
+#main-content .fine{font-size:12px; color:var(--muted); line-height:1.95; margin-top:16px;}
+#main-content .loading{font-size:13px; color:var(--muted); text-align:center; padding:20px 0;}
+#toast{position:fixed; left:50%; bottom:64px; transform:translateX(-50%); background:var(--navy2); color:#fff; font-size:13px; font-weight:700; border-radius:999px; padding:8px 18px; z-index:80; display:none; max-width:calc(100% - 32px); text-align:center; line-height:1.7;}
+#toast.on{display:block;}
+@media (max-width:430px){
+  #main-content .stats{grid-template-columns:repeat(2,minmax(0,1fr));}
+  #main-content .title{font-size:14.5px;}
+  #main-content .body{padding:12px 12px 14px;}
+  #main-content textarea.draft{min-height:300px; font-size:14px;}
+}
+
+#bugL{position:fixed; left:12px; bottom:16px; z-index:59; background:rgba(255,255,255,.92); border:1px solid #dcd8ee; color:#8b8a9b; font-size:14px; font-weight:800; border-radius:999px; padding:5px 12px; cursor:pointer; letter-spacing:.04em; font-family:inherit;}
+#bugM{position:fixed; inset:0; background:rgba(34,48,74,.55); display:none; align-items:center; justify-content:center; z-index:70; padding:24px;}
+#bugM.on{display:flex;}
+#bugM .bx{background:#fff; border-radius:20px; padding:22px 20px; max-width:360px; width:100%;}
+#bugM h3{font-size:14.5px; color:var(--navy2); margin-bottom:8px;}
+#bugM textarea{width:100%; border:1.5px solid #e0dfee; border-radius:12px; padding:11px 13px; font-size:14px; line-height:1.8; font-family:inherit; min-height:100px; resize:vertical;}
+#bugM .bb{display:flex; gap:8px; margin-top:12px;}
+#bugM button{flex:1; border:none; border-radius:999px; padding:11px; font-size:14px; font-weight:800; cursor:pointer; font-family:inherit;}
+#bugM .c{background:#eeedf6; color:#6d675e;}
+#bugM .s{background:linear-gradient(135deg,#8fa8e6,#e0a1e6); color:#fff;}
+#bugM .done{display:none; font-size:14px; color:#2e7d32; font-weight:800; margin-top:10px; text-align:center;}
+</style>
+<script src="labo_config.js"></script>
+<link rel="stylesheet" href="ui-refined.css?v=20260909-icons">
+<link rel="stylesheet" href="ui-atelier.css?v=20260909-atelier">
+</head>
+<body class="atelier page-lp">
+<a class="ui-skip" href="#main-content">本文へ進む</a>
+<header><div class="ui-topnav"><a class="ui-brand" id="brandLink" href="index.html" data-cfg="labo_name">AI活用ラボ</a><nav aria-label="ページ内ナビゲーション"><a class="ui-toplink" id="backTop" href="index.html">マイページに戻る</a></nav></div></header>
+<div id="demoband" class="demoband" style="display:none;">デモ画面です（保存はされません）</div>
+
+<div class="wrap" id="main-content">
+
+  <div class="hero">
+    <div class="chars">
+      <img src="assets/hk-laptop.png" alt="">
+      <div class="char-caption"><span>NAVIGATOR</span><b data-cfg="instructor_nick">はるか</b></div>
+    </div>
+    <h1>応募ノート</h1>
+    <span class="badge" id="who">クラウドワークス 応募文の下書き</span>
+    <div class="lead">応募文は<b>はるかの応募文テンプレートと添削ルール</b>に沿ったAIの下書きです。【 】を埋めてから、クラウドワークス側で応募してください。応募済にすると、今日の営業ログの応募数に自動で足されます。</div>
+    <p class="rule">はるかの基準：クラウドソーシング系の応募は1日10件。忙しい日も5件は止めない。</p>
+  </div>
+
+  <a class="back" id="backLink" href="index.html">← マイページに戻る</a>
+  <div class="lostkey" id="lostkey">このリンクには、あなた専用ページの鍵が入っていないため、応募の記録は保存されません。マイページの「応募ノート」から開き直してください。<br><a href="start.html">自分のページに戻る</a></div>
+
+  <div class="stats" aria-live="polite">
+    <div class="stat">未応募<b id="cTodo">0</b></div>
+    <div class="stat">応募済<b id="cDone">0</b></div>
+    <div class="stat">見送り<b id="cSkip">0</b></div>
+    <div class="stat today">今日の応募<b id="cToday">0</b></div>
+  </div>
+
+  <div class="toolbar" role="group" aria-label="絞り込み">
+    <button type="button" class="chip" data-f="all" aria-pressed="true">すべて</button>
+    <button type="button" class="chip" data-f="web" aria-pressed="false">Web・LP</button>
+    <button type="button" class="chip" data-f="design" aria-pressed="false">グラフィック</button>
+    <button type="button" class="chip" data-f="todo" aria-pressed="false">未応募のみ</button>
+    <button type="button" class="chip" data-f="soon" aria-pressed="false">締切3日以内</button>
+    <button type="button" class="chip sub" id="expandAll">すべて開く</button>
+    <button type="button" class="chip sub" id="collapseAll">閉じる</button>
+  </div>
+
+  <p class="count"><span id="visibleCount">0</span>件を表示中</p>
+  <div class="list" id="list"><p class="loading">案件を読み込んでいます…</p></div>
+
+  <details class="low">
+    <summary>今回リストから外した案件（<span id="lowCount">0</span>件）</summary>
+    <p class="fine" style="margin-top:6px;">表記は1万円以上でも実質の単価が低いもの・勧誘の疑いがあるもの・条件が合わないものです。同じような募集を見かけたときの見分け方の参考にしてください。</p>
+    <ul id="lowList"></ul>
+  </details>
+
+  <p class="fine" id="srcNote">取得元：クラウドワークス「ホームページ制作・Webデザイン」「デザイン」の新着順と、Webデザイナー向けキーワードの新着検索。応募人数・締切は取得時点のものです。応募する前に、必ず案件ページで最新の内容を確認してください。</p>
+
+  <footer><span data-cfg="labo_name">AI活用ラボ</span>｜<span data-cfg="company">合同会社Li-Li</span><br><a data-cfg-href="tokutei_url" href="https://www.lilisconsul.com/tokutei" target="_blank" rel="noopener">特定商取引法に基づく表記</a> ｜ <a data-cfg-href="privacy_url" href="https://claude.ai/artifact/1m2VKXSBENfEXoLan3WHFv#privacy" target="_blank" rel="noopener">プライバシーポリシー</a> ｜ <a data-cfg-href="terms_url" href="https://claude.ai/artifact/1m2VKXSBENfEXoLan3WHFv#terms" target="_blank" rel="noopener">利用規約</a><button id="bugL">不具合を報告</button></footer>
+</div>
+
+<div id="toast" role="status" aria-live="polite"></div>
+
+<div id="bugM"><div class="bx">
+  <h3>不具合・気になったことを教えてください</h3>
+  <textarea id="bugT" placeholder="例）ボタンが反応しませんでした（iPhone/Safari）"></textarea>
+  <div class="bb"><button class="c" id="bugC">閉じる</button><button class="s" id="bugS">送信する</button></div>
+  <div class="done" id="bugD">届きました。ありがとうございます。すぐ確認します。</div>
+</div></div>
+
+<script src="supabase_config.js"></script>
+<script>
+(function(){
+/* ===== 受講生ID・表示名（index.html と同じ ?u= を優先。?uid= と端末の記憶も見る） ===== */
+var P=new URLSearchParams(location.search);
+function clean(s){ return String(s||"").replace(/[^a-zA-Z0-9_\-]/g,"").slice(0,40); }
+var MY=null; try{ MY=JSON.parse(localStorage.getItem("ailab_my")||"null"); }catch(e){}
+var UID=clean(P.get("u"))||clean(P.get("uid"));
+if(!UID){ try{ UID=clean(localStorage.getItem("ailab_uid")); }catch(e){} }
+if(!UID && MY && MY.id) UID=clean(MY.id);
+var NAME=(P.get("name")||"").slice(0,20);
+try{ var __nm=localStorage.getItem("ailab_name_"+UID); if(__nm) NAME=__nm.slice(0,20); }catch(e){}
+if(!NAME && MY && clean(MY.id)===UID && MY.name) NAME=String(MY.name).slice(0,20);
+var CFG_ON=(typeof SUPABASE_CONFIG!=="undefined"&&SUPABASE_CONFIG.enabled);
+var DEMO=P.get("demo")==="1"||!UID||!CFG_ON;
+if(DEMO) document.getElementById("demoband").style.display="block";
+if(!UID && P.get("demo")!=="1" && CFG_ON) document.getElementById("lostkey").style.display="block";
+
+/* マイページへ戻るリンク（u= をそのまま引き継ぐ） */
+(function(){
+  var q=[]; if(UID) q.push("u="+encodeURIComponent(UID)); if(P.get("name")) q.push("name="+encodeURIComponent(P.get("name")));
+  if(P.get("demo")==="1") q.push("demo=1");
+  var href="index.html"+(q.length?"?"+q.join("&"):"");
+  ["backLink","backTop","brandLink"].forEach(function(id){ var a=document.getElementById(id); if(a) a.href=href; });
+})();
+
+function sb(path,opts){
+  return fetch(SUPABASE_CONFIG.url+"/rest/v1/"+path,Object.assign({
+    headers:{apikey:SUPABASE_CONFIG.anonKey,Authorization:"Bearer "+SUPABASE_CONFIG.anonKey,
+    "Content-Type":"application/json",Prefer:"return=representation"}},opts||{}));
+}
+function esc(s){ return String(s==null?"":s).replace(/[&<>"']/g,function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]; }); }
+function dkey(d){ return d.getFullYear()+"-"+("0"+(d.getMonth()+1)).slice(-2)+"-"+("0"+d.getDate()).slice(-2); }
+function todayKey(){ return dkey(new Date()); }
+function toast(msg){ var t=document.getElementById("toast"); t.textContent=msg; t.classList.add("on"); clearTimeout(toast._t); toast._t=setTimeout(function(){ t.classList.remove("on"); },2600); }
+
+var STATUS=["未応募","応募済","見送り"];
+/* 見出しとして使っている【 】（埋める必要なし） */
+var HEADINGS={"【ご提案】":1,"【画像について】":1,"【納品形式について】":1,"【現在の業務内容】":1,"【得意なこと】":1,"【使用ソフト】":1};
+
+var JOBS=[], LOW=[], META={};
+var ST={};        /* id → {s:0/1/2, t:編集文 or null, rowId, updated, o:開閉} */
+var filter="all";
+function st(id){ return ST[id]||(ST[id]={s:0,t:null,rowId:null,updated:null,o:false}); }
+
+function fillName(text){ return NAME ? String(text).split("【お名前】").join(NAME) : String(text); }
+function defaultText(j){ return fillName(j.text); }
+function currentText(j){ var s=st(j.id); return s.t!=null ? s.t : defaultText(j); }
+function leftPlaceholders(text){
+  var m=String(text).match(/【[^】\n]*】/g)||[], out=[];
+  m.forEach(function(x){ if(!HEADINGS[x] && out.indexOf(x)<0) out.push(x); });
+  return out;
+}
+
+/* ===== 締切 ===== */
+function daysLeft(d){ var t=new Date(); t.setHours(0,0,0,0); var p=d.split("-"); var e=new Date(+p[0],+p[1]-1,+p[2]); return Math.round((e-t)/86400000); }
+function fmtDate(d){ var p=d.split("-"); return (+p[1])+"/"+(+p[2]); }
+function dlLabel(dl){ return dl<0?"締切済":dl===0?"今日まで":"あと"+dl+"日"; }
+
+/* ===== 描画 ===== */
+var list=document.getElementById("list");
+function render(){
+  var html=[], shown=0;
+  JOBS.forEach(function(j,i){
+    var s=st(j.id), dl=daysLeft(j.deadline);
+    var show = filter==="all" || (filter==="web"&&j.g==="web") || (filter==="design"&&j.g==="design") || (filter==="todo"&&s.s===0) || (filter==="soon"&&dl>=0&&dl<=3);
+    if(!show) return;
+    shown++;
+    var tags=['<span class="tag '+(j.g==="web"?"web":"design")+'">'+(j.g==="web"?"Web・LP":"グラフィック")+'</span>']
+      .concat((j.tags||[]).map(function(t){ return '<span class="tag '+(/締切|明日/.test(t)?"hot":/応募0/.test(t)?"fit":"")+'">'+esc(t)+'</span>'; })).join("");
+    var url="https://crowdworks.jp/public/jobs/"+encodeURIComponent(j.id);
+    html.push(
+      '<article class="job'+(s.o?" open":"")+(s.s===1?" done":s.s===2?" skip":"")+'" data-id="'+esc(j.id)+'">'
+      +'<div class="head" role="button" tabindex="0" aria-expanded="'+(s.o?"true":"false")+'">'
+        +'<div class="toprow"><span class="num">'+String(i+1).padStart(2,"0")+'</span><h3 class="title">'+esc(j.title)+'</h3></div>'
+        +'<div class="tags">'+tags+'</div>'
+        +'<div class="meta"><span class="pay">'+esc(j.pay)+'</span><span>締切 '+fmtDate(j.deadline)+'（'+dlLabel(dl)+'）</span><span>応募 '+esc(j.applied)+'人</span><span>'+esc(j.client)+'</span></div>'
+        +'<div class="ctl"><select class="status s'+s.s+'" aria-label="ステータス">'
+          +STATUS.map(function(n,k){ return '<option value="'+k+'"'+(s.s===k?" selected":"")+'>'+n+'</option>'; }).join("")
+        +'</select><span class="toggle">'+(s.o?"閉じる":"応募文を見る")+'</span></div>'
+      +'</div>'
+      +'<div class="body">'
+        +'<h4>案件の要点</h4><div class="summary">'+esc(j.summary)+'</div>'
+        +'<p class="hint">'+esc(j.hint)+'</p>'
+        +'<div class="actions"><a class="btn" href="'+url+'" target="_blank" rel="noopener">案件ページを開く</a></div>'
+        +'<h4 class="sp">応募文（【 】を埋めて使ってください）</h4>'
+        +'<textarea class="draft" spellcheck="false" aria-label="応募文">'+esc(currentText(j))+'</textarea>'
+        +'<div class="actions"><button type="button" class="btn primary" data-act="copy">コピー</button><button type="button" class="btn" data-act="reset">下書きに戻す</button><span class="saved">'+(s.t!=null?"編集を保存済み":"")+'</span></div>'
+        +'<div class="warn"></div>'
+      +'</div>'
+      +'</article>');
+  });
+  list.innerHTML=html.join("")||'<p class="loading">この条件に合う案件はありません。</p>';
+  document.getElementById("visibleCount").textContent=shown;
+  updateCounts();
+}
+function updateCounts(){
+  var c=[0,0,0], today=0, tk=todayKey();
+  JOBS.forEach(function(j){ var s=st(j.id); c[s.s]++; if(s.s===1&&s.updated&&dkey(new Date(s.updated))===tk) today++; });
+  document.getElementById("cTodo").textContent=c[0];
+  document.getElementById("cDone").textContent=c[1];
+  document.getElementById("cSkip").textContent=c[2];
+  document.getElementById("cToday").textContent=today;
+}
+
+/* ===== 保存（1案件1行：mood「応募ノート」・want=案件id） ===== */
+var queue={};
+function saveNote(id){
+  var s=st(id);
+  var worry=JSON.stringify({status:STATUS[s.s],text:s.t!=null?s.t:"",updated:s.updated||new Date().toISOString()});
+  if(DEMO) return Promise.resolve();
+  var run=function(){
+    var req=s.rowId
+      ? sb("ailab_notes?id=eq."+encodeURIComponent(s.rowId),{method:"PATCH",body:JSON.stringify({member_name:NAME||null,worry:worry})})
+      : sb("ailab_notes",{method:"POST",body:JSON.stringify({member_id:UID,member_name:NAME||null,mood:"応募ノート",want:id,worry:worry})});
+    return req.then(function(r){ if(!r.ok) throw new Error("save "+r.status); return r.json(); })
+      .then(function(j){ if(!s.rowId && Array.isArray(j) && j[0] && j[0].id!=null) s.rowId=j[0].id; });
+  };
+  queue[id]=(queue[id]||Promise.resolve()).catch(function(){}).then(run);
+  return queue[id].catch(function(){ toast("保存できませんでした。通信環境をご確認ください"); });
+}
+
+/* ===== 営業ログの応募数（ap）を増減（index.html の営業ログと同じ行） ===== */
+var logQueue=Promise.resolve();
+var DEMO_LOG={};
+function bumpLog(delta){
+  var date=todayKey();
+  if(DEMO){ var v0=DEMO_LOG[date]||{date:date,dm:0,ap:0,re:0,memo:""}; v0.ap=Math.max(0,(v0.ap||0)+delta); DEMO_LOG[date]=v0; return Promise.resolve(v0); }
+  logQueue=logQueue.catch(function(){}).then(function(){
+    return sb("ailab_notes?member_id=eq."+encodeURIComponent(UID)+"&mood=eq."+encodeURIComponent("営業ログ")+"&want=eq."+date+"&order=created_at.desc&limit=1")
+      .then(function(r){ return r.json(); })
+      .then(function(rows){
+        var ex=Array.isArray(rows)&&rows[0]?rows[0]:null, v={};
+        if(ex){ try{ v=JSON.parse(ex.worry||"{}")||{}; }catch(e){ v={}; } }
+        v={date:date,dm:+v.dm||0,ap:Math.max(0,(+v.ap||0)+delta),re:+v.re||0,memo:v.memo||""};
+        var body=JSON.stringify(ex?{worry:JSON.stringify(v)}:{member_id:UID,member_name:NAME,mood:"営業ログ",worry:JSON.stringify(v),want:date});
+        var req=ex?sb("ailab_notes?id=eq."+encodeURIComponent(ex.id),{method:"PATCH",body:body}):sb("ailab_notes",{method:"POST",body:body});
+        return req.then(function(r){ if(!r.ok) throw new Error("log "+r.status); return v; });
+      });
+  });
+  return logQueue.catch(function(){ toast("営業ログに反映できませんでした。マイページで応募数を直してください"); return null; });
+}
+
+/* ===== 操作 ===== */
+function jobOf(el){ var a=el.closest(".job"); return a?{el:a,id:a.getAttribute("data-id")}:null; }
+list.addEventListener("click",function(e){
+  var jb=jobOf(e.target); if(!jb) return;
+  var s=st(jb.id), j=JOBS.filter(function(x){ return x.id===jb.id; })[0];
+  if(e.target.closest("select")) return;
+  var act=e.target.getAttribute("data-act");
+  if(act==="copy"){
+    var ta=jb.el.querySelector("textarea.draft");
+    var text=fillName(ta.value);
+    var left=leftPlaceholders(text);
+    var warn=jb.el.querySelector(".warn");
+    if(left.length){
+      warn.innerHTML="まだ埋まっていない【 】が<b>"+left.length+"か所</b>あります。送る前に書きかえてくださいね。<br>"+left.slice(0,6).map(esc).join("<br>")+(left.length>6?"<br>ほか"+(left.length-6)+"か所":"");
+      warn.classList.add("on");
+    } else { warn.classList.remove("on"); warn.innerHTML=""; }
+    var btn=e.target;
+    var done=function(){ btn.textContent="コピーしました"; setTimeout(function(){ btn.textContent="コピー"; },1500); };
+    var fallback=function(){ var t=document.createElement("textarea"); t.value=text; t.style.position="fixed"; t.style.opacity="0"; document.body.appendChild(t); t.select(); try{ document.execCommand("copy"); }catch(x){} document.body.removeChild(t); done(); };
+    if(navigator.clipboard&&navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(done).catch(fallback); else fallback();
+    return;
+  }
+  if(act==="reset"){
+    if(s.t!=null && !confirm("編集した内容を消して、下書きに戻しますか？")) return;
+    s.t=null; s.updated=new Date().toISOString();
+    jb.el.querySelector("textarea.draft").value=defaultText(j);
+    jb.el.querySelector(".saved").textContent="";
+    saveNote(jb.id);
+    return;
+  }
+  if(e.target.closest(".head") && !e.target.closest("a")){
+    s.o=!s.o; jb.el.classList.toggle("open",s.o);
+    var h=jb.el.querySelector(".head"); h.setAttribute("aria-expanded",s.o?"true":"false");
+    h.querySelector(".toggle").textContent=s.o?"閉じる":"応募文を見る";
+  }
+});
+list.addEventListener("keydown",function(e){
+  if((e.key==="Enter"||e.key===" ")&&e.target.classList.contains("head")){ e.preventDefault(); e.target.click(); }
+});
+list.addEventListener("change",function(e){
+  if(!e.target.classList.contains("status")) return;
+  var jb=jobOf(e.target); if(!jb) return;
+  var s=st(jb.id), prev=s.s, prevUpd=s.updated, next=+e.target.value;
+  if(prev===next) return;
+  s.s=next; s.updated=new Date().toISOString();
+  saveNote(jb.id);
+  if(next===1){ bumpLog(1).then(function(v){ if(v) toast("今日の営業ログの応募数に＋1しました（今日 "+v.ap+"件）"); }); }
+  else if(prev===1 && prevUpd && dkey(new Date(prevUpd))===todayKey()){ bumpLog(-1); }  /* 今日つけた「応募済」を取り消したときだけ戻す */
+  render();
+});
+var typing={};
+list.addEventListener("input",function(e){
+  if(!e.target.classList.contains("draft")) return;
+  var jb=jobOf(e.target); if(!jb) return;
+  var s=st(jb.id), j=JOBS.filter(function(x){ return x.id===jb.id; })[0];
+  s.t = (e.target.value===defaultText(j)) ? null : e.target.value;
+  s.updated=new Date().toISOString();
+  var lab=jb.el.querySelector(".saved"); lab.textContent="保存中…";
+  clearTimeout(typing[jb.id]);
+  typing[jb.id]=setTimeout(function(){ saveNote(jb.id).then(function(){ lab.textContent=s.t!=null?"編集を保存済み":""; }); },900);
+});
+document.querySelectorAll(".chip[data-f]").forEach(function(b){
+  b.addEventListener("click",function(){
+    filter=b.getAttribute("data-f");
+    document.querySelectorAll(".chip[data-f]").forEach(function(x){ x.setAttribute("aria-pressed",x===b?"true":"false"); });
+    render();
+  });
+});
+document.getElementById("expandAll").addEventListener("click",function(){ JOBS.forEach(function(j){ st(j.id).o=true; }); render(); });
+document.getElementById("collapseAll").addEventListener("click",function(){ JOBS.forEach(function(j){ st(j.id).o=false; }); render(); });
+
+/* ===== 読み込み ===== */
+function loadJSON(p){ return fetch(p,{cache:"no-cache"}).then(function(r){ if(!r.ok) throw new Error(p); return r.json(); }); }
+function loadSaved(){
+  if(DEMO) return Promise.resolve();
+  return sb("ailab_notes?member_id=eq."+encodeURIComponent(UID)+"&mood=eq."+encodeURIComponent("応募ノート")+"&select=id,want,worry,member_name,created_at&order=created_at.asc&limit=500")
+    .then(function(r){ return r.json(); })
+    .then(function(rows){
+      if(!Array.isArray(rows)) return;
+      rows.forEach(function(n){
+        var v={}; try{ v=JSON.parse(n.worry||"{}")||{}; }catch(e){}
+        var s=st(String(n.want||"")); var k=STATUS.indexOf(v.status);
+        s.s=k<0?0:k; s.t=v.text?String(v.text):null; s.updated=v.updated||n.created_at||null; s.rowId=n.id;
+        if(!NAME && n.member_name) NAME=String(n.member_name).slice(0,20);
+      });
+    }).catch(function(){ toast("保存した内容を読み込めませんでした"); });
+}
+function loadName(){
+  if(DEMO||NAME) return Promise.resolve();
+  return sb("ailab_notes?member_id=eq."+encodeURIComponent(UID)+"&member_name=not.is.null&select=member_name&order=created_at.desc&limit=1")
+    .then(function(r){ return r.json(); })
+    .then(function(rows){ if(Array.isArray(rows)&&rows[0]&&rows[0].member_name) NAME=String(rows[0].member_name).slice(0,20); })
+    .catch(function(){});
+}
+Promise.all([loadJSON("data/jobs.json"),loadJSON("data/jobs_low.json").catch(function(){ return {low:[]}; }),loadSaved().then(loadName)])
+  .then(function(res){
+    META=res[0]||{}; JOBS=META.jobs||[]; LOW=(res[1]&&res[1].low)||[];
+    if(NAME) document.getElementById("who").textContent=NAME+"さんの応募ノート";
+    if(META.fetched){ var p=META.fetched.split("-"); document.getElementById("srcNote").textContent="取得日："+(+p[0])+"年"+(+p[1])+"月"+(+p[2])+"日（"+(META.source||"クラウドワークス")+"）。"+document.getElementById("srcNote").textContent; }
+    document.getElementById("lowCount").textContent=LOW.length;
+    document.getElementById("lowList").innerHTML=LOW.map(function(x){
+      var id=String(x.id||""), link=/^\d+$/.test(id);
+      return "<li>"+(link?'<a href="https://crowdworks.jp/public/jobs/'+esc(id)+'" target="_blank" rel="noopener">'+esc(x.title)+"</a>":esc(x.title))+" ─ "+esc(x.why)+"</li>";
+    }).join("");
+    render();
+  })
+  .catch(function(){ list.innerHTML='<p class="loading">案件リストを読み込めませんでした。ページを再読み込みしてください。</p>'; });
+})();
+</script>
+
+<script>
+(function(){
+var U=(typeof SUPABASE_CONFIG!=="undefined"&&SUPABASE_CONFIG.enabled)?SUPABASE_CONFIG.url+"/rest/v1/ailab_notes":"";
+var K=(typeof SUPABASE_CONFIG!=="undefined"&&SUPABASE_CONFIG.anonKey)||"";
+var P=new URLSearchParams(location.search);
+var uid=(P.get("u")||P.get("uid")||"guest").replace(/[^a-zA-Z0-9_\-]/g,"");
+var demo=P.get("demo")==="1";
+var M=document.getElementById("bugM");
+document.getElementById("bugL").onclick=function(){ M.classList.add("on"); };
+document.getElementById("bugC").onclick=function(){ M.classList.remove("on"); document.getElementById("bugD").style.display="none"; };
+document.getElementById("bugS").onclick=function(){
+  var t=document.getElementById("bugT").value.trim();
+  if(!t){ document.getElementById("bugT").focus(); return; }
+  var btn=this; btn.disabled=true;
+  function done(){
+    document.getElementById("bugD").style.display="block";
+    document.getElementById("bugT").value=""; btn.disabled=false;
+    setTimeout(function(){ M.classList.remove("on"); document.getElementById("bugD").style.display="none"; },1800);
+  }
+  if(!U||demo){ done(); return; }
+  fetch(U,{method:"POST",headers:{apikey:K,Authorization:"Bearer "+K,"Content-Type":"application/json"},
+    body:JSON.stringify({member_id:"bug_oubo",member_name:"応募ノート｜"+uid,mood:"バグ報告",worry:t,want:location.href.slice(0,180)+" ／ "+navigator.userAgent.slice(0,140)})})
+    .then(function(){ done(); }).catch(function(){ btn.disabled=false; alert("送信できませんでした。通信環境をご確認ください。"); });
+};
+})();
+</script>
+<script src="ui-refined.js?v=20260909-icons"></script>
+<script src="ui-atelier.js?v=20260909-atelier"></script>
+
+</body></html>

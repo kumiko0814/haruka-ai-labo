@@ -333,6 +333,7 @@ footer{text-align:center; font-size:14px; color:#9aa7b4; padding:34px 16px 10px;
             <div class="sbars" id="slBars"></div>
             <div class="sstat"><span>直近7日のDM <b id="slW">0</b></span><span>連続 <b id="slStreak">0</b>日</span><span>今月のDM <b id="slM">0</b></span></div>
             <button type="button" class="subbtn" id="slIcs">毎朝8時のリマインドをカレンダーに入れる</button>
+            <a class="subbtn" id="oubohref" href="oubo.html" style="text-decoration:none; margin-left:8px;">応募ノートを開く（案件25件＋応募文の下書き）</a>
             <p class="note">※スマホの標準カレンダーに「営業ログを記録」の予定が毎日8:00で入ります。通知はカレンダーから届きます。</p>
           </div>
 
@@ -1012,6 +1013,7 @@ document.getElementById("slSave").onclick=function(){
   req.then(function(){ if(ex) ex.worry=JSON.stringify(v); else LOGS.push({want:v.date,worry:JSON.stringify(v),id:null}); ok(); if(!ex) loadAll(); })
     .catch(function(){ btn.disabled=false; alert("記録できませんでした。もう一度お試しください。"); });
 };
+(function(){ var a=document.getElementById("oubohref"); if(a){ a.href="oubo.html"+(UID?("?u="+encodeURIComponent(UID)+(NAME?("&name="+encodeURIComponent(NAME)):"")):(DEMO?"?demo=1":"")); } })();
 document.getElementById("slIcs").onclick=function(){
   var d=new Date(); d.setDate(d.getDate()+1); var ymd=d.getFullYear()+("0"+(d.getMonth()+1)).slice(-2)+("0"+d.getDate()).slice(-2);
   var url=location.href.split("?")[0]+(UID?("?uid="+encodeURIComponent(UID)):"");
