@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="ja"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="robots" content="noindex">
+<title>実際にこう返ってきます｜AIラボ</title>
+<style>
+:root{ --navy2:#22304a; --camel2:#a75da9; --camelbg:#fde6ff; --text:#4a4440; --muted:#8b8a9b; --line:#e4e2f2; }
+*{margin:0;padding:0;box-sizing:border-box;} html,body{overflow-x:hidden;}
+body{font-family:"Yu Gothic","YuGothic","游ゴシック","Hiragino Kaku Gothic ProN","Hiragino Sans",sans-serif; background:linear-gradient(168deg,#e2ebff 0%,#fdf9ff 46%,#fde6ff 100%); color:var(--text); line-height:2.05; -webkit-font-smoothing:antialiased;}
+body.page-lp{padding-bottom:30px!important;}
+.wrap{max-width:640px; margin:0 auto; padding:0 18px;}
+header{background:var(--navy2); color:#fff; padding:13px 18px; text-align:center;}
+.hero{text-align:center; padding:30px 0 10px;}
+.hero .chars{display:flex; justify-content:center; align-items:flex-end; gap:6px;} .hero .chars img{height:170px;}
+.hero h1{font-size:clamp(24px,7vw,34px); color:var(--navy2); line-height:1.6; margin-top:12px;}
+.hero .lead{font-size:14px; margin-top:14px; text-align:left; background:#fff; border-radius:16px; padding:16px 18px; box-shadow:0 6px 20px rgba(44,58,85,.07);}
+.sec{margin-top:36px;} .sec .eyebrow{font-size:14px; font-weight:800; color:#8ea6e0; letter-spacing:.18em; text-align:center;}
+.sec h2{font-size:clamp(18px,5.4vw,22px); color:var(--navy2); text-align:center; line-height:1.7; margin-top:2px;}
+.card{background:#fff; border-radius:18px; padding:20px; margin-top:16px; box-shadow:0 6px 20px rgba(44,58,85,.07);}
+.card p{font-size:14px; margin-top:8px;} .card p:first-child{margin-top:0;} .card b{color:var(--navy2);}
+.ask{background:var(--camelbg); border-radius:12px; padding:12px 14px; font-size:14px; color:var(--navy2);} .ask::before{content:"受講生の相談："; font-weight:800; color:var(--camel2);}
+.shot{margin:12px 0 6px;} .shot img{display:block; width:100%; max-width:360px; margin:0 auto; border-radius:14px; border:1px solid var(--line);} .shot figcaption{font-size:12px; color:var(--muted); text-align:center; margin-top:6px;}
+.reply{margin-top:12px; border:1px solid var(--line); border-radius:14px; padding:14px 16px; background:#fbfaff;}
+.reply .who{display:flex; align-items:center; gap:8px; font-size:13px; font-weight:800; color:var(--navy2); margin-bottom:6px;} .reply .who img{width:28px; height:28px; border-radius:50%; object-fit:cover; background:var(--camelbg);}
+.reply pre{white-space:pre-wrap; font-family:inherit; font-size:14px; line-height:1.95;}
+.tag{display:inline-block; font-size:11px; font-weight:800; color:var(--camel2); background:var(--camelbg); border-radius:6px; padding:1px 9px; margin-left:8px; vertical-align:middle;}
+.note{font-size:12.5px; color:var(--muted); margin-top:10px; line-height:1.9;}
+.cta{display:block; text-align:center; background:var(--camel2); color:#fff; border-radius:12px; padding:16px; font-size:15px; font-weight:800; text-decoration:none; margin-top:18px; box-shadow:0 4px 0 var(--line);}
+.ghost{display:block; width:100%; border:1px solid var(--line); background:#fff; color:var(--navy2); border-radius:12px; padding:12px; font-size:13px; font-weight:700; text-align:center; text-decoration:none; margin-top:10px;}
+footer{text-align:center; font-size:14px; color:#a3a2b5; margin-top:44px; line-height:2;}
+#bugL{position:fixed; left:12px; bottom:16px; z-index:59; background:rgba(255,255,255,.92); border:1px solid #dcd8ee; color:#8b8a9b; font-size:14px; font-weight:800; border-radius:999px; padding:5px 12px; cursor:pointer; letter-spacing:.04em; font-family:inherit;}
+#bugM{position:fixed; inset:0; background:rgba(34,48,74,.55); display:none; align-items:center; justify-content:center; z-index:70; padding:24px;} #bugM.on{display:flex;}
+#bugM .bx{background:#fff; border-radius:20px; padding:22px 20px; max-width:360px; width:100%;} #bugM h3{font-size:14.5px; color:var(--navy2); margin-bottom:8px;}
+#bugM textarea{width:100%; border:1.5px solid #e0dfee; border-radius:12px; padding:11px 13px; font-size:14px; line-height:1.8; font-family:inherit; min-height:100px; resize:vertical;}
+#bugM .bb{display:flex; gap:8px; margin-top:12px;} #bugM button{flex:1; border:none; border-radius:999px; padding:11px; font-size:14px; font-weight:800; cursor:pointer; font-family:inherit;}
+#bugM .c{background:#eeedf6; color:#6d675e;} #bugM .s{background:linear-gradient(135deg,#8fa8e6,#e0a1e6); color:#fff;} #bugM .done{display:none; font-size:14px; color:#2e7d32; font-weight:800; margin-top:10px; text-align:center;}
+</style>
+<script src="labo_config.js"></script>
+<link rel="stylesheet" href="ui-refined.css?v=20260909-icons"><link rel="stylesheet" href="ui-atelier.css?v=20260909-atelier">
+</head>
+<body class="atelier page-lp">
+<a class="ui-skip" href="#main-content">本文へ進む</a>
+<header><div class="ui-topnav"><a class="ui-brand" href="lp.html" data-cfg="labo_name">AI活用ラボ</a><nav aria-label="ページ内ナビゲーション"><a href="lp.html">ご案内</a><a class="ui-toplink" href="start.html">受講生の方へ ↗</a></nav></div></header>
+<div class="wrap" id="main-content">
+  <div class="hero">
+    <div class="chars"><img src="assets/hk-desk.png" alt=""><div class="char-caption"><span>NAVIGATOR</span><b data-cfg="instructor_nick">はるか</b></div></div>
+    <h1>カルテに送ると、<br><span class="grad">実際にこう返ってきます</span></h1>
+    <div class="lead">「ChatGPTと何が違うの？」「実案件で使えるの？」という声にお答えして、<b>カルテに送った相談と、返ってきた返信をそのまま</b>載せました。すべて、はるかが承認する前の"AIの下書き"です（実際の返信は、はるかが読んで直してから届きます）。</div>
+  </div>
+
+  <section class="sec"><div class="eyebrow" aria-hidden="true">01</div><h2>制作中のバナーを、そのまま添削</h2>
+    <div class="card">
+      <div class="ask">Instagram用に、秋のカフェの新メニュー告知バナー（600×560）を作りました。初めてのバナー案件のテストです。全体がごちゃついている気がするのですが、どこを直せばいいか分かりません。</div>
+      <figure class="shot"><img src="assets/jirei-banner.jpg" alt="相談者が添付したバナー画像（テスト用）"><figcaption>添付した画像（カルテの「画像を添付」から。3枚まで）</figcaption></figure>
+      <div class="reply"><div class="who"><img src="assets/hk-desk.png" alt="">はるか<span class="tag">AIの下書き・約2時間後</span></div><pre>〇〇さん
+
+秋のカフェ新メニューのバナー、初めての案件でここまで形にできていてすごいです！！🥳✨
+キャッチコピーをしっかり大きく置けているのと、CTAボタンまで用意できているのは、もう基本がしっかり押さえられている証拠です。
+
+ここからさらにクオリティアップできるポイントをお伝えしますね。
+
+①情報の優先順位
+日程「9/25〜10/31まで」がピンクで強く主張していて、キャッチコピーと同じくらい目立ってしまっています。キャッチコピー→メニュー名→日程の順で強弱をつけたいので、日程はもう少し落ち着いた色・小さめサイズにしてみましょう。
+
+②配色
+オレンジに加えてネイビー・ピンク・茶色・グリーンと色数が多めです。基本は3〜4色までなので、ピンクの日程をオレンジ系の濃い色に寄せると全体がまとまります🤍
+
+③写真
+丸の中がまだ単色になっているので、かぼちゃラテなど実際の商品写真を入れるとぐっと美味しそうな印象になります。
+
+④余白
+キャッチコピーとメニュー説明文の間、CTAボタン周りの余白を8の倍数（8/16/24pxなど）で揃えると、全体がきれいに見えます。
+
+次の一手は、まず①の強弱調整から手をつけてみてください🙌
+できたところまで送ってもらえたら、一緒に見直しましょう。</pre></div>
+      <p class="note">添削の観点と数値（色は3〜4色まで／余白は8の倍数 など）は、lilisコンサルの添削1,600件超から作った基準に沿っています。急ぎの実案件は「急ぎ」にチェックを入れると、はるかの画面で先頭に並びます。</p>
+    </div>
+  </section>
+
+  <section class="sec"><div class="eyebrow" aria-hidden="true">02</div><h2>LPのワイヤーフレームを、文字で組む</h2>
+    <div class="card">
+      <div class="ask">ヨガ教室のLPを初めて作ります。ターゲットは30代の働く女性、ゴールは体験レッスンの申込です。どんなセクション構成にすればいいか、ワイヤーフレームを出してほしいです。</div>
+      <div class="reply"><div class="who"><img src="assets/hk-desk.png" alt="">はるか<span class="tag">AIの下書き</span></div><pre>〇〇さん
+
+ヨガ教室のLP制作、初めてなのにターゲットとゴールまできちんと整理できていて素晴らしいです！！✨
+「30代の働く女性」「体験レッスンの申込」がはっきりしているので、ここから構成を組み立てやすいですよ🤍
+
+LPでよくある型はFV→お悩み→解決→ベネフィット→CTAという流れなので、この案件にも当てはめてみますね（フッター込み）。
+
+①FV
+目的：誰向けの・どんなヨガかを一瞬で伝えて続きを読ませる
+要素：ヘッダー→キャッチコピー（最大）→サブコピー→ベネフィット2〜3個→CTAボタン
+文言仮：「仕事帰りの30分で、心と体をゆるめる」
+
+②お悩み
+目的：「自分のことだ」と共感してもらう
+要素：見出し→お悩み項目3〜4個→人物写真
+文言仮：「肩こり・眠れない・自分の時間がない…そんな毎日に」
+
+③解決策
+目的：お悩みの原因と、このヨガ教室で解決できることをつなぐ
+要素：見出し→原因→レッスンの特徴→CTA
+
+④ベネフィット
+目的：通った後の未来を見せる
+要素：見出し→ポイント①②③（同じ型で繰り返す）→CTA
+文言仮：「体験後に感じる変化」を3つ
+
+⑤CTA（体験レッスン申込）
+目的：申込への後押し
+要素：オファー内容→申込ボタン→補足（持ち物・服装など）
+
+⑥フッター
+要素：教室情報・お問い合わせ
+
+数値の目安：SPは幅730px（実機365pxの2倍）、セクション上下の余白は50px前後で統一すると整います。
+
+次の一手は、①FVと②お悩みの文章から仮で埋めてみてください🙌
+できたら送ってください、一緒に見直しましょう。</pre></div>
+    </div>
+  </section>
+
+  <section class="sec"><div class="eyebrow" aria-hidden="true">03</div><h2>DM営業の数が、返信に入る</h2>
+    <div class="card">
+      <p>カルテの「今日の営業ログ」にDM数・応募数・返信数を入れておくと、返信の中で数字ごと見てもらえます。</p>
+      <div class="reply"><div class="who"><img src="assets/hk-desk.png" alt="">はるか<span class="tag">上の添削の続き</span></div><pre>あと、DM営業も3日連続でコツコツ続けられてますね、それだけで十分すごいです。返信はまだ0とのことですが、返信率は大体1〜3%が目安なので、今のペースのまま数を重ねていけば大丈夫です。</pre></div>
+      <p class="note">毎朝8時にカレンダーから「今日の分を記録」と通知が来る設定も、ボタン1つで入れられます。</p>
+    </div>
+  </section>
+
+  <section class="sec"><div class="eyebrow" aria-hidden="true">04</div><h2>営業DMの文面を、はるかの型で</h2>
+    <div class="card">
+      <div class="ask">Instagramで美容室に営業DMを送りたいです。文面を作ってほしいです。</div>
+      <div class="reply"><div class="who"><img src="assets/hk-desk.png" alt="">はるか<span class="tag">はるかの営業文の型で作った例</span></div><pre>突然のご連絡失礼いたします。Webデザイナーの〇〇と申します。
+
+〇〇さんの投稿の世界観がとても素敵で、フォローさせていただきました🌼
+
+いま9月限定で「3名様限定のモニター枠」をご用意しています。
+
+・投稿しているのに反応が少ない
+・価格を毎回DMでやり取りしている
+・「予約はどこから？」とよく聞かれる
+・HPが欲しいけれど、コストが不安
+
+どれか1つでも当てはまれば、まずはオンラインかお電話で、事業のお話を聞かせてください。
+
+【モニター】とだけご返信いただければOKです◎
+今回ご縁がなければ、スルーしていただいて大丈夫です◎
+無理なご案内や営業はいたしませんので、ご安心ください。
+
+最後までお読みいただき、ありがとうございました🍀</pre></div>
+      <p class="note">「短く・柔らかく」「いきなり受注前提にしない」「必ず次の行動を入れる」「返信のハードルを下げる」——はるかが受講生に配ってきた営業文の骨格そのままです。</p>
+    </div>
+  </section>
+
+  <section class="sec"><div class="eyebrow" aria-hidden="true">05</div><h2>育った内容は「取扱説明書」にして持ち出せる</h2>
+    <div class="card">
+      <p>カルテを書くほど、あなた専用の前提が育ちます。それをボタン1つでコピーして、お使いのChatGPTやClaudeの最初に貼るだけ。</p>
+      <div class="reply"><div class="who"><img src="assets/hk-desk.png" alt="">私の取扱説明書<span class="tag">見本</span></div><pre># 私の取扱説明書（AIラボのカルテより・〇月〇日）
+
+## 私について
+- 職種：Webデザイナー（lilisコンサル受講生）
+- いまの悩みの傾向：営業・受注／やり方・入口／じかん・余裕
+- 思考のくせ：完璧準備タイプ（全体がわかってから動きたいタイプのようです。その丁寧さは強みです。）
+
+## はるか（案件獲得コンサル）から繰り返し言われていること
+- まず小さく1歩だけ（4回）
+- がんばりすぎない（2回）
+- 相棒はClaude（1回）
+- 時間を取り戻す（1回）
+
+## 私へのAI活用プラン
+- おすすめの相棒：Claude
+- まかせること：提案文・ポートフォリオ
+- 最初の一歩：気になる案件の募集要項を貼って「私の強みが伝わる提案文のたたき台を」と頼む
+
+## 最近の相談と、もらったアドバイス（原文）
+- 相談：提案文を書くのに毎回1時間かかって、疲れて応募が止まってしまいます。時間ばかりかかって数が出せません。
+- アドバイス：カルテ、読みました。 提案文に1時間かかっているとのこと、そこはAIがいちばん得意なところです。今夜、気になる案件の募集要項をそのまま貼って「私の強みが伝わる提案文のたたき台を作って」と頼んでみてください。5分でたたき台ができます。 あなたの場合、長い文章の下書きが得意なClaudeが合っています。
+
+## あなた（AI）へのお願い
+- 上の内容を前提に、私の相談に答えてください
+- 数字・相場・断定は根拠を添えるか「確認が必要」と言ってください
+- 提案文や文章は、はるかのアドバイスの基準（相手の悩みを理解して解決する・売り込まない）に沿って直してください
+</pre></div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="card">
+      <p><b>ChatGPTとの違いは、この2つです。</b></p>
+      <p>①返信の基準が「はるか（案件獲得コンサルの現場）」であること。②相談するほど、あなたの前提が蓄積されて、どのAIにも持ち出せること。</p>
+      <p class="note">ここに載せた返信は、テスト用の相談に対してAIが作った下書きです。受講生の実際の相談内容は掲載していません。</p>
+    </div>
+    <a class="cta" href="lp.html">AIラボのご案内を見る</a>
+    <a class="ghost" href="start.html">まず1回、はるかに相談してみる（無料）</a>
+  </section>
+
+  <footer><span data-cfg="labo_name">AI活用ラボ</span>｜<span data-cfg="company">合同会社Li-Li</span><br><a data-cfg-href="tokutei_url" href="https://www.lilisconsul.com/tokutei" target="_blank" rel="noopener">特定商取引法に基づく表記</a> ｜ <a data-cfg-href="privacy_url" href="https://claude.ai/artifact/1m2VKXSBENfEXoLan3WHFv#privacy" target="_blank" rel="noopener">プライバシーポリシー</a> ｜ <a data-cfg-href="terms_url" href="https://claude.ai/artifact/1m2VKXSBENfEXoLan3WHFv#terms" target="_blank" rel="noopener">利用規約</a><button id="bugL">不具合を報告</button></footer>
+</div>
+<div id="bugM"><div class="bx"><h3>不具合・気になったことを教えてください</h3><textarea id="bugT" placeholder="例）画像が表示されませんでした（iPhone/Safari）"></textarea><div class="bb"><button class="c" id="bugC">閉じる</button><button class="s" id="bugS">送信する</button></div><div class="done" id="bugD">届きました。ありがとうございます。すぐ確認します。</div></div></div>
+<script src="supabase_config.js"></script>
+<script>
+(function(){
+var U=(typeof SUPABASE_CONFIG!=="undefined"&&SUPABASE_CONFIG.enabled)?SUPABASE_CONFIG.url+"/rest/v1/ailab_notes":"";
+var K=(typeof SUPABASE_CONFIG!=="undefined"&&SUPABASE_CONFIG.anonKey)||"";
+var M=document.getElementById("bugM");
+document.getElementById("bugL").onclick=function(){ M.classList.add("on"); };
+document.getElementById("bugC").onclick=function(){ M.classList.remove("on"); document.getElementById("bugD").style.display="none"; };
+document.getElementById("bugS").onclick=function(){
+  var t=document.getElementById("bugT").value.trim(); if(!t){ document.getElementById("bugT").focus(); return; }
+  var btn=this; btn.disabled=true;
+  function done(){ document.getElementById("bugD").style.display="block"; document.getElementById("bugT").value=""; btn.disabled=false; setTimeout(function(){ M.classList.remove("on"); document.getElementById("bugD").style.display="none"; },1800); }
+  if(!U){ done(); return; }
+  fetch(U,{method:"POST",headers:{apikey:K,Authorization:"Bearer "+K,"Content-Type":"application/json"},body:JSON.stringify({member_id:"bug_jirei",member_name:"実例ページ",mood:"バグ報告",worry:t,want:location.href.slice(0,180)+" ／ "+navigator.userAgent.slice(0,140)})}).then(function(){ done(); }).catch(function(){ btn.disabled=false; alert("送信できませんでした。通信環境をご確認ください。"); });
+};
+})();
+</script>
+<script src="ui-refined.js?v=20260909-icons"></script><script src="ui-atelier.js?v=20260909-atelier"></script>
+</body></html>

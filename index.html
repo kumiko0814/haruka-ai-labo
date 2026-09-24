@@ -312,6 +312,7 @@ footer{text-align:center; font-size:14px; color:#9aa7b4; padding:34px 16px 10px;
               <button type="button" class="subbtn" id="imgBtn">画像を選ぶ</button>
               <div class="imgprev" id="imgPrev"></div>
               <label class="chk"><input type="checkbox" id="isResult"><span>前回のアドバイスを「やってみた結果」の報告です（合っていたか・どう変わったかも一緒に書いてください）</span></label>
+              <label class="chk"><input type="checkbox" id="isUrgent"><span>急ぎです（納期が近い実案件・提出前の確認）。管理者ボードで先頭に表示され、はるかが優先して見ます</span></label>
             </div>
             <button class="gbtn" id="send">この内容でカルテを作成する</button>
             <div class="ok" id="okmsg">カルテが届きました。はるかが読んで、アドバイスをお返ししますね。</div>
@@ -905,13 +906,14 @@ document.getElementById("send").onclick=function(){
   var btn=this; btn.disabled=true;
   var isRes=document.getElementById("isResult").checked;
   if(isRes && w.indexOf("【やってみた結果】")!==0) w="【やってみた結果】"+w;
-  var rec={member_id:UID||"demo",member_name:NAME,mood:null,worry:w,want:wt};
+  var isUrg=document.getElementById("isUrgent").checked;
+  var rec={member_id:UID||"demo",member_name:NAME,mood:(isUrg?"急ぎ":null),worry:w,want:wt};
   var imgs=IMGS.slice();
   function done(){
     document.getElementById("okmsg").style.display="block";
     document.getElementById("worry").value=""; document.getElementById("want").value="";
     document.getElementById("c1").textContent="0"; document.getElementById("c2").textContent="0";
-    document.getElementById("isResult").checked=false; IMGS=[]; renderThumbs();
+    document.getElementById("isResult").checked=false; document.getElementById("isUrgent").checked=false; IMGS=[]; renderThumbs();
     btn.disabled=false;
     setTimeout(function(){ document.getElementById("okmsg").style.display="none"; },4500);
     loadAll();

@@ -77,6 +77,7 @@ for n in karte:
     pending.append({"id": n["id"], "member_id": mid, "member_name": n.get("member_name") or "",
                     "created_at": ts, "worry": n.get("worry") or "", "want": n.get("want") or "",
                     "is_result_report": (n.get("worry") or "").startswith("【やってみた結果】"),
+                    "urgent": (n.get("mood") == "急ぎ"),
                     "images": imgs,
                     "sales_log": [{"date": x.get("want"), "log": x.get("worry")} for x in slog],
                     "prior_notes": [{"worry": x.get("worry") or "", "want": x.get("want") or "", "created_at": x["created_at"]} for x in prior_notes],
