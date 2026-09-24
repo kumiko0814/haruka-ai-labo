@@ -4,82 +4,181 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex">
-<meta name="description" content="AIラボの受講生専用ページ。名前とメールアドレスで、相談・アドバイス・学びをまとめるあなたのAIカルテをはじめましょう。">
-<meta name="theme-color" content="#193c36">
-<title>あなたの学びを、ここから。｜AI活用ラボ</title>
+<title>専用ページを作る｜AI活用ラボ</title>
+<style>
+:root{
+  --bg:#fdf5f7; --navy:#26405f; --navy2:#1d3149;
+  --pink:#c77fce; --pink2:#a75da9; --pink3:#8fa8e6; --pinkbg:#fde6ff; --blue:#7fb0d2; --text:#4a4446;
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+html,body{overflow-x:hidden;}
+body{
+  font-family:"Yu Gothic","YuGothic","游ゴシック","Hiragino Kaku Gothic ProN","Hiragino Sans",sans-serif;
+  background:linear-gradient(160deg,#fdf3f6 0%,#f4f7fb 60%,#fdf3f6 100%); color:var(--text); line-height:1.9;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:440px; margin:0 auto; padding:0 18px 60px;}
+.top{background:var(--navy2); color:#fff; padding:16px 20px; text-align:center;}
+.top .m{font-size:14px; font-weight:800; letter-spacing:.16em; color:#e79ab2;}
+.top .m small{color:#cfdcea; font-size:14px; margin-left:6px; letter-spacing:.14em;}
+.hero{background:linear-gradient(160deg,#faf0fc,#fde6ff); margin:0 -18px; padding:20px 22px 10px; display:flex; align-items:center; justify-content:space-between; gap:8px;}
+.hero img{width:118px; flex:none;}
+.speech{position:relative; background:#fff; border-radius:16px; padding:11px 15px; font-size:14px; font-weight:800; color:var(--navy2); box-shadow:0 6px 18px rgba(38,64,95,.12); line-height:1.9;}
+.speech::after{content:""; position:absolute; right:-8px; top:18px; border:8px solid transparent; border-left-color:#fff; border-right:none;}
+h1{font-size:21px; color:var(--navy2); margin:22px 2px 4px; letter-spacing:.04em;}
+.lead{font-size:14px; color:#8a97a5;}
+.card{background:#fff; border-radius:20px; padding:22px 20px; margin-top:14px; box-shadow:0 10px 30px rgba(38,64,95,.08);}
+label{display:block; font-size:14px; font-weight:800; color:var(--navy); margin:14px 0 6px;}
+label:first-child{margin-top:0;}
+label small{font-weight:700; color:#9aa7b4;}
+input{width:100%; border:1.5px solid #e3e9f0; border-radius:13px; padding:12px 14px; font-size:15px; font-weight:700; color:var(--navy2); background:#fbfcfe; font-family:inherit;}
+input:focus{outline:none; border-color:var(--pink);}
+.gbtn{
+  display:flex; align-items:center; justify-content:center; gap:8px; width:100%; border:none; margin-top:18px;
+  background:linear-gradient(135deg,var(--pink3),var(--pink)); color:#fff;
+  border-radius:999px; padding:14px; font-size:15px; font-weight:800; letter-spacing:.06em;
+  box-shadow:0 8px 22px rgba(189,120,134,.35); cursor:pointer; font-family:inherit;
+}
+.gbtn svg{width:15px; height:15px; fill:#fff; flex:none;}
+.gbtn.navy{background:var(--navy); box-shadow:0 8px 22px rgba(38,64,95,.25); text-decoration:none;}
+.ghost{display:block; width:100%; border:1.5px solid #e3e9f0; background:#fff; color:var(--navy); border-radius:999px; padding:12px; font-size:14px; font-weight:800; cursor:pointer; font-family:inherit; margin-top:10px; text-align:center; text-decoration:none;}
+.note{font-size:14px; color:#9aa7b4; margin-top:10px; line-height:1.9;}
+.err{display:none; font-size:14px; color:var(--pink3); font-weight:800; margin-top:8px;}
+.result{display:none;}
+.urlbox{background:var(--pinkbg); border-radius:13px; padding:12px 14px; font-size:14px; word-break:break-all; color:var(--navy2); font-weight:700; margin-top:6px;}
+.steps{margin-top:16px;}
+.st{display:flex; gap:10px; margin-top:10px; font-size:14px; align-items:flex-start;}
+.st i{font-style:normal; flex:none; width:22px; height:22px; border-radius:50%; background:var(--pinkbg); color:var(--pink2); font-weight:800; display:flex; align-items:center; justify-content:center; font-size:14px; margin-top:4px;}
+.back{display:none;}
+footer{text-align:center; font-size:14px; color:#9aa7b4; margin-top:26px; letter-spacing:.06em; line-height:2;}
+</style>
 <script src="labo_config.js"></script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="icon" href="assets/labo-mark.svg" type="image/svg+xml">
-<link rel="stylesheet" href="ui-studio.css?v=20260924-1">
+<link rel="stylesheet" href="ui-refined.css?v=20260909-icons">
+<link rel="stylesheet" href="ui-atelier.css?v=20260909-atelier">
 </head>
-<body class="studio page-start">
+<body class="atelier page-start">
 <a class="ui-skip" href="#main-content">本文へ進む</a>
-<header class="entry-header">
-  <a class="brand" href="start.html" aria-label="AIラボ ホーム"><img src="assets/labo-mark.svg" alt="" width="36" height="36"><span data-cfg="labo_name">AIラボ</span><span class="brand-divider"></span><span class="brand-sub">受講生ポータル</span></a>
-  <a class="help-link" href="#help"><span aria-hidden="true">?</span>ご利用ガイド</a>
-</header>
-<main id="main-content" class="entry-main">
-  <section class="entry-story" aria-labelledby="welcome-title">
-    <div class="eyebrow"><span class="status-dot"></span> YOUR PERSONAL AI LAB</div>
-    <h1 id="welcome-title">小さな「できた」が、<br>わたしを変えていく。</h1>
-    <p class="story-lead">AIと学ぶ毎日を、あなたらしく。<br>相談も、アドバイスも、学びの記録も。<br>ぜんぶ、あなた専用のページに。</p>
-    <div class="product-scene" aria-label="AIカルテの利用イメージ">
-      <div class="scene-orbit" aria-hidden="true"></div>
-      <div class="scene-caption">A LITTLE STEP, A NEW POSSIBILITY.</div>
-      <div class="preview-window">
-        <div class="preview-top"><span class="preview-mark" aria-hidden="true">✳</span><span>わたしのAIカルテ</span><span class="preview-example">利用イメージ</span></div>
-        <div class="preview-content"><div class="preview-eyebrow">TODAY’S SMALL STEP</div><h2>今日は、どんなことから？</h2><p>いま気になっていることを、ひとつずつ。</p>
-        <div class="preview-prompt"><span class="mini-icon" aria-hidden="true">↗</span><div><b>困りごとを言葉にする</b><small>あなたのペースで、大丈夫。</small></div><span aria-hidden="true">＋</span></div>
-        <div class="preview-bottom"><span><i></i>相談の記録</span><span>あなたの学びが、積み重なる。</span></div></div>
-      </div>
-      <div class="preview-message"><span class="message-icon" aria-hidden="true">✓</span><div><b>ひとりで悩まず、一緒に。</b><small>はるかからのアドバイスが届きます。</small></div></div>
-      <div class="scene-spark" aria-hidden="true">✳</div>
+<div class="top"><span class="m"><small><span data-cfg="labo_name">AI活用ラボ</span></small></span></div>
+
+<div class="wrap" id="main-content">
+  <div class="hero">
+    <div class="speech">じぶん専用ページを<br>いっしょに作ろう</div>
+    <img src="assets/hk-suit.png" alt="" onerror="this.style.display='none'">
+  </div>
+
+  <!-- returning -->
+  <div class="back" id="back">
+    <h1>おかえりなさい！</h1>
+    <p class="lead">このスマホで作った専用ページがあります。</p>
+    <div class="card">
+      <a class="gbtn navy" id="goback" href="#">わたしの専用ページを開く</a>
+      <a class="ghost" id="newone" href="#">別の人として作りなおす</a>
     </div>
-    <div class="entry-features"><span><i aria-hidden="true">01</i>相談を残す</span><span><i aria-hidden="true">02</i>ヒントが届く</span><span><i aria-hidden="true">03</i>学びを深める</span></div>
-  </section>
-  <section class="entry-panel" aria-label="専用ページへのアクセス">
-    <div class="entry-card">
-      <div class="entry-card-top"><span class="member-tag"><span aria-hidden="true">◇</span> 受講生専用</span><span class="time-note">かんたん 2 項目</span></div>
-      <div id="create">
-        <div class="form-kicker">LET’S GET STARTED</div>
-        <h2 id="form-title">あなたの学びを、ここから。</h2>
-        <p class="form-lead" id="form-lead">お名前とメールアドレスを入力して、<br>専用ページをはじめましょう。</p>
-        <form id="entry-form" novalidate>
-          <div class="field"><label for="nm">呼ばれたいお名前 <span>必須</span></label><input type="text" id="nm" autocomplete="nickname" required maxlength="15" placeholder="例：はるか" aria-describedby="name-hint name-error"><p class="field-hint" id="name-hint">ニックネーム・ひらがなでも大丈夫です。</p><p class="field-error" id="name-error" hidden></p></div>
-          <div class="field"><label for="em">お申し込みのメールアドレス <span>必須</span></label><input type="email" id="em" autocomplete="email" inputmode="email" required maxlength="254" placeholder="you@example.com" autocapitalize="none" spellcheck="false" aria-describedby="email-hint email-error"><p class="field-hint" id="email-hint">専用ページを見つけるために使います。</p><p class="field-error" id="email-error" hidden></p></div>
-          <div id="err" class="sr-only" role="alert"></div>
-          <button class="primary-button" id="make" type="submit"><span>わたしの専用ページを作る</span><span aria-hidden="true">→</span></button>
-        </form>
-        <p class="privacy-note"><svg aria-hidden="true" viewBox="0 0 24 24"><rect x="5" y="10" width="14" height="11" rx="3"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg><span>メールアドレスがそのまま<br>画面やURLに表示されることはありません。</span></p>
-        <div class="return-option"><span>すでに専用ページをお持ちの方</span><button type="button" id="restore">同じメールアドレスで再開する <span aria-hidden="true">↗</span></button></div>
-      </div>
-      <div id="back" hidden>
-        <div class="form-kicker">WELCOME BACK</div><h2>おかえりなさい。</h2><p class="form-lead"><span id="return-name">あなた</span>の専用ページが見つかりました。<br>今日も、あなたのペースで進めましょう。</p>
-        <a class="primary-button" id="goback" href="index.html"><span>わたしの専用ページを開く</span><span aria-hidden="true">→</span></a>
-        <button class="secondary-button" id="newone" type="button">別のアカウントを使う</button>
-      </div>
-      <div id="result" hidden aria-labelledby="result-title">
-        <div class="success-mark" aria-hidden="true">✓</div><div class="form-kicker">YOU’RE READY</div><h2 id="result-title" tabindex="-1">準備ができました。</h2><p class="form-lead">ここが、あなたの学びのホームです。<br>まずは、いまの気持ちを残してみましょう。</p>
-        <a class="primary-button" id="open" href="index.html"><span>専用ページへ進む</span><span aria-hidden="true">→</span></a>
-        <button class="secondary-button" id="copy" type="button">専用ページのURLをコピー</button><p class="copy-status" id="copy-status" role="status"></p>
-        <details class="url-details"><summary>専用ページのURLを表示</summary><p class="urlbox" id="myurl"></p></details>
-        <p class="save-tip">このURLをブックマークしておくと、次回からすぐに開けます。あなた専用のURLなので、大切に保管してください。</p>
+  </div>
+
+  <!-- create -->
+  <div id="create">
+    <h1>あなた専用の「AIカルテ」を作る</h1>
+    <p class="lead">30秒で完成します。作れるのは<span data-cfg="labo_name">AI活用ラボ</span>の受講生のみです。</p>
+    <div class="card">
+      <label for="nm">呼ばれたい名前<small>（ひらがな・ニックネームOK）</small></label>
+      <input type="text" id="nm" aria-describedby="err" autocomplete="nickname" required maxlength="15" placeholder="例）ゆき">
+      <label for="em">お申込みのメールアドレス<small>（あなた専用ページの鍵になります）</small></label>
+      <input type="email" id="em" aria-describedby="err" autocomplete="email" inputmode="email" required placeholder="例）example@gmail.com" autocapitalize="none">
+      <div class="err" id="err" role="alert"></div>
+      <button class="gbtn" id="make">わたしの専用ページを作る</button>
+      <p class="note">メールアドレスはページの鍵として使うだけで、画面やURLにそのまま表示されることはありません。</p>
+    </div>
+  </div>
+
+  <!-- result -->
+  <div class="result" id="result">
+    <div class="card">
+      <p style="font-size:14px; font-weight:800; color:var(--navy2); text-align:center;">できました！これがあなたの専用ページです</p>
+      <div class="urlbox" id="myurl"></div>
+      <a class="gbtn navy" id="open" href="#" style="margin-top:14px;">専用ページを開く</a>
+      <button class="ghost" id="copy">URLをコピー（自分のLINEに送っておくと安心）</button>
+      <div class="steps">
+        <div class="st"><i>1</i>専用ページを開いて、ブックマーク（ホーム画面に追加）してください</div>
+        <div class="st"><i>2</i>URLを失くしても大丈夫。このページで同じメールアドレスを入れると、いつでも同じページに戻れます</div>
       </div>
     </div>
-    <p class="panel-caption"><span data-cfg="labo_name">AIラボ</span>の受講生の方にご利用いただけます。</p>
-    <a class="demo-link" href="index.html?demo=1">まずは専用ページのイメージを見る <span aria-hidden="true">↗</span></a>
-  </section>
-</main>
-<section class="entry-help" id="help" aria-labelledby="help-title"><div><span class="eyebrow">A LITTLE HELP</span><h2 id="help-title">はじめる前の、ちょっとした疑問。</h2></div><div class="help-items">
-<details><summary>「AIカルテ」では、何ができますか？</summary><p>いま困っていることや、なりたい姿を記録して、はるかからアドバイスを受け取れます。相談の履歴やカリキュラムも、同じ専用ページで確認できます。</p></details>
-<details><summary>専用ページのURLを忘れてしまいました。</summary><p>「同じメールアドレスで再開する」から、最初と同じメールアドレスを入力してください。以前と同じカルテに戻れます。お名前の表記が変わっても、同じメールアドレスなら記録は引き継がれます。</p></details>
-<details><summary>スマートフォンでも使えますか？</summary><p>スマートフォン、タブレット、パソコンでご利用いただけます。別の端末では、同じ専用URLを開くか、同じメールアドレスで再開してください。</p></details>
-</div></section>
-<footer class="entry-footer"><a class="brand footer-brand" href="lp.html"><img src="assets/labo-mark.svg" alt="" width="28" height="28"><span data-cfg="labo_name">AIラボ</span></a><span>あなたの可能性に、もうひとつの扉を。</span><div><a href="lp.html">ラボについて</a><a data-cfg-href="privacy_url" href="https://claude.ai/artifact/1m2VKXSBENfEXoLan3WHFv#privacy" target="_blank" rel="noopener noreferrer">プライバシーポリシー</a></div></footer>
+  </div>
+
+  <footer>
+    <span data-cfg="labo_name">AI活用ラボ</span>｜AIの力で、あなたの毎日をもっと豊かに。</footer>
+</div>
+
 <script src="supabase_config.js"></script>
-<script src="start.js?v=20260924-1"></script>
+<script>
+(function(){
+var KEY="ailab_my";
+var SB_U=(typeof SUPABASE_CONFIG!=="undefined"&&SUPABASE_CONFIG.enabled)?SUPABASE_CONFIG.url+"/rest/v1/ailab_notes":"";
+var SB_K=(typeof SUPABASE_CONFIG!=="undefined"&&SUPABASE_CONFIG.anonKey)||"";
+function regTouroku(id,nm){
+  try{
+    if(localStorage.getItem("ailab_reg_"+id)) return;
+    if(SB_U) fetch(SB_U,{method:"POST",headers:{apikey:SB_K,Authorization:"Bearer "+SB_K,"Content-Type":"application/json"},
+      body:JSON.stringify({member_id:id,member_name:nm,mood:"登録",worry:"",want:"入口ページで専用URLを発行"})})
+      .then(function(r){ if(r.ok){ try{localStorage.setItem("ailab_reg_"+id,"1");}catch(e){} } })
+      .catch(function(){});
+  }catch(e){}
+}
+function load(){ try{return JSON.parse(localStorage.getItem(KEY));}catch(e){return null;} }
+
+/* メールアドレス→固定ID（同じメールなら必ず同じIDになる） */
+function hid(s){
+  s=s.trim().toLowerCase();
+  var h=5381; for(var i=0;i<s.length;i++){ h=(((h<<5)+h)+s.charCodeAt(i))>>>0; }
+  var h2=2166136261; for(var j=s.length-1;j>=0;j--){ h2=((h2^s.charCodeAt(j))*16777619)>>>0; }
+  return "m"+h.toString(36)+h2.toString(36).slice(0,4);
+}
+function pageUrl(id,nm){
+  var base=location.href.replace(/[^/]*(\?.*)?$/,"");
+  return base+"index.html?u="+id+"&name="+encodeURIComponent(nm);
+}
+
+var saved=load();
+if(saved&&saved.url){
+  document.getElementById("back").style.display="block";
+  document.getElementById("create").style.display="none";
+  document.getElementById("goback").href=saved.url;
+  document.getElementById("newone").onclick=function(e){
+    e.preventDefault();
+    document.getElementById("back").style.display="none";
+    document.getElementById("create").style.display="block";
+  };
+}
+
+document.getElementById("make").onclick=function(){
+  var nm=document.getElementById("nm").value.trim();
+  var em=document.getElementById("em").value.trim();
+  var err=document.getElementById("err");
+  err.style.display="none";
+  document.getElementById("nm").removeAttribute("aria-invalid");
+  document.getElementById("em").removeAttribute("aria-invalid");
+  if(!nm){ err.textContent="呼ばれたい名前を入れてください。"; err.style.display="block"; document.getElementById("nm").setAttribute("aria-invalid","true"); document.getElementById("nm").focus(); return; }
+  if(!em||!document.getElementById("em").checkValidity()){ err.textContent="メールアドレスの形式をご確認ください。"; err.style.display="block"; document.getElementById("em").setAttribute("aria-invalid","true"); document.getElementById("em").focus(); return; }
+  var id=hid(em);
+  var url=pageUrl(id,nm);
+  try{ localStorage.setItem(KEY,JSON.stringify({id:id,name:nm,url:url,t:Date.now()})); }catch(e){}
+  regTouroku(id,nm);
+  document.getElementById("create").style.display="none";
+  document.getElementById("myurl").textContent=url;
+  document.getElementById("open").href=url;
+  document.getElementById("result").style.display="block";
+  document.getElementById("open").focus();
+  window.scrollTo(0,0);
+};
+document.getElementById("copy").onclick=function(){
+  var t=document.getElementById("myurl").textContent, b=this;
+  function ok(){ b.textContent="コピーしました"; setTimeout(function(){ b.textContent="URLをコピー（自分のLINEに送っておくと安心）"; },2000); }
+  if(navigator.clipboard&&navigator.clipboard.writeText){ navigator.clipboard.writeText(t).then(ok,fb); }else fb();
+  function fb(){ var ta=document.createElement("textarea"); ta.value=t; document.body.appendChild(ta); ta.select(); try{document.execCommand("copy");}catch(e){} ta.remove(); ok(); }
+};
+})();
+</script>
+
 <!-- バグ報告ツール -->
 <style>
 #bugL{position:fixed; left:12px; bottom:16px; z-index:59; background:rgba(255,255,255,.92); border:1px solid #dfe7ee; color:#8a97a5; font-size:14px; font-weight:800; border-radius:999px; padding:5px 12px; cursor:pointer; letter-spacing:.04em;}
@@ -122,13 +221,13 @@ document.getElementById("bugS").onclick=function(){
     setTimeout(function(){ M.classList.remove("on"); document.getElementById("bugD").style.display="none"; },1800);
   }
   if(demo){ done(); return; }
-  if(!U){ btn.disabled=false; alert("送信先に接続できません。時間をおいてお試しください。"); } else fetch(U,{method:"POST",headers:{apikey:K,Authorization:"Bearer "+K,"Content-Type":"application/json"},
+  if(!U){ done&&done(); } else fetch(U,{method:"POST",headers:{apikey:K,Authorization:"Bearer "+K,"Content-Type":"application/json"},
     body:JSON.stringify({member_id:"bug_入口ページ",member_name:"入口ページ｜"+uid,mood:"バグ報告",worry:t,want:location.href.slice(0,180)+" ／ "+navigator.userAgent.slice(0,140)})})
-    .then(function(r){ if(!r.ok) throw new Error("送信エラー"); done(); }).catch(function(){ btn.disabled=false; alert("送信できませんでした。通信環境をご確認ください。"); });
+    .then(function(){ done(); }).catch(function(){ btn.disabled=false; alert("送信できませんでした。通信環境をご確認ください。"); });
 };
 })();
 </script>
-
 <script src="ui-refined.js?v=20260909-icons"></script>
-<script src="ui-studio.js?v=20260924-1"></script>
-</body></html>
+<script src="ui-atelier.js?v=20260909-atelier"></script>
+</body>
+</html>

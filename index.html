@@ -3,7 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="AIカルテ｜AI活用ラボ。あなたのペースで、AIを毎日の相棒に。">
 <meta name="robots" content="noindex">
 <title>AIカルテ｜AI活用ラボ</title>
 <style>
@@ -223,26 +222,23 @@ footer{text-align:center; font-size:14px; color:#9aa7b4; padding:34px 16px 10px;
 .imgview img{max-width:100%; max-height:100%; border-radius:12px;}
 </style>
 <script src="labo_config.js"></script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="icon" href="assets/labo-mark.svg" type="image/svg+xml">
-<link rel="stylesheet" href="ui-studio.css?v=20260924-1">
+<link rel="stylesheet" href="ui-refined.css?v=20260909-icons">
+<link rel="stylesheet" href="ui-atelier.css?v=20260909-atelier">
 </head>
-<body class="studio page-index">
+<body class="atelier page-index">
 <a class="ui-skip" href="#main-content">本文へ進む</a>
 <div id="demoband" class="demoband" style="display:none;">デモ画面です（実際の画面イメージ）</div>
 
 <!-- mobile header -->
 <div class="mtop">
   <div class="m"><small><span data-cfg="labo_name">AI活用ラボ</span></small></div>
-  <h1>わたしのAIカルテ</h1>
-  <a class="mobile-home" href="start.html" aria-label="受講生ポータルへ">↗</a>
+  <h1>AIカルテ</h1>
+  <span class="burger">≡</span>
   <div style="height:12px;"></div>
 </div>
 <div class="mhero" id="mhero">
   <div>
-    <div class="mspeech">あなたのペースで、<br>一緒に進めましょう。</div>
+    <div class="mspeech">なんでも<br>書いてみてね</div>
     <span class="who2" id="who2"></span>
   </div>
   <img src="assets/hk-suit.png" alt="" onerror="this.style.display='none'">
@@ -252,7 +248,7 @@ footer{text-align:center; font-size:14px; color:#9aa7b4; padding:34px 16px 10px;
 
   <!-- sidebar -->
   <aside class="side">
-    <div class="slogo"><img src="assets/labo-mark.svg" alt="" width="36" height="36"><div class="l"><span data-cfg="labo_name">AI活用ラボ</span></div></div>
+    <div class="slogo"><div class="m"></div><div class="l"><span data-cfg="labo_name">AI活用ラボ</span></div></div>
     <nav class="nav">
       <div class="nav-group">マイページ</div>
       <div class="ni sub" data-v="v_list">カルテ一覧</div>
@@ -275,12 +271,12 @@ footer{text-align:center; font-size:14px; color:#9aa7b4; padding:34px 16px 10px;
   <!-- main -->
   <main class="main" id="main-content">
     <div class="hero">
-      <div class="eyebrow">YOUR LEARNING SPACE</div>
-      <h1>わたしのAIカルテ</h1>
-      <p class="sub">小さな悩みを、次の一歩に。今日の気持ちからはじめましょう。</p>
+      <div class="eyebrow"><span data-cfg="labo_name">AI活用ラボ</span></div>
+      <h1>AIカルテ</h1>
+      <p class="sub">あなた専用のカルテを作成して、AIの力で解決のヒントを見つけましょう。</p>
       <div class="who" id="who"></div>
       <div class="herochar">
-        <div class="speech">あなたのペースで、<br>一緒に進めましょう。</div>
+        <div class="speech">なんでも<br>書いてみてね</div>
         <img src="assets/hk-desk.png" alt="" onerror="this.style.display='none'">
       </div>
     </div>
@@ -292,9 +288,9 @@ footer{text-align:center; font-size:14px; color:#9aa7b4; padding:34px 16px 10px;
         <!-- new -->
         <div class="view on" id="v_new">
           <div class="card">
-            <div class="section-kicker">NEW NOTE</div><h2>いま、どんなことに困っていますか？</h2><p class="section-intro">うまく書こうとしなくて大丈夫。2つの質問から、整理してみましょう。</p>
+            <h2>新しいカルテを作成</h2>
             <div class="q">
-              <div class="qh"><span class="question-number">01</span><b>日常で困ったこと</b><span class="req">必須</span></div>
+              <div class="qh"><span class="req">必須</span><b>日常で困ったこと</b></div>
               <p class="qguide">具体的に、いつ・どこで・どんな時に困っているのか教えてください。</p>
               <div class="tawrap">
                 <textarea id="worry" aria-label="いま困っていること" maxlength="1000" placeholder="例）提案文を書くのに毎回1時間かかって、応募が続きません。もっと早く、質の高い提案を出せるようになりたいです…"></textarea>
@@ -302,7 +298,7 @@ footer{text-align:center; font-size:14px; color:#9aa7b4; padding:34px 16px 10px;
               </div>
             </div>
             <div class="q">
-              <div class="qh"><span class="question-number">02</span><b>AIに手伝ってほしいこと</b><span class="req">必須</span></div>
+              <div class="qh"><span class="req">必須</span><b>AIに手伝ってほしいこと</b></div>
               <p class="qguide">AIにどんなサポートをしてほしいか、理想の状態やゴールを教えてください。</p>
               <div class="tawrap">
                 <textarea id="want" aria-label="どうなれたら嬉しいですか" maxlength="1000" placeholder="例）提案文のたたき台をAIに作ってもらう手順や、クライアントの事前リサーチのやり方を知りたいです。"></textarea>
@@ -1150,6 +1146,6 @@ if(bx) bx.onclick=function(){ bar.classList.remove("on"); try{ localStorage.setI
 })();
 </script>
 <script src="ui-refined.js?v=20260909-icons"></script>
-<script src="ui-studio.js?v=20260924-1"></script>
+<script src="ui-atelier.js?v=20260909-atelier"></script>
 </body>
 </html>
