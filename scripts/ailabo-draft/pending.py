@@ -20,6 +20,17 @@ adv   = get_all(env, "ailab_advice")
 me    = env["instructor"]
 
 karte = [n for n in notes if is_karte(n)]
+# 添付画像・営業ログは別行。カルテ id で引けるように整理する
+import os, base64, shutil
+images = {}
+for n in notes:
+    if n.get("mood") == "添付画像":
+        k = str(n.get("want") or "").replace("karte:", "").split("#")[0]
+        images.setdefault(k, []).append(n.get("worry") or "")
+logs = [n for n in notes if n.get("mood") == "営業ログ"]
+img_dir = os.environ.get("SNAP_IMG_DIR") or ""
+if img_dir:
+    shutil.rmtree(img_dir, ignore_errors=True); os.makedirs(img_dir, exist_ok=True)
 sent_all = [a for a in adv if a.get("author_name") == me]
 # 同じ文を大勢に送った一斉配信は、返信済み判定・文体コーパスから外す
 _mc = Counter((a.get("message") or "") for a in sent_all)
@@ -48,8 +59,26 @@ for n in karte:
     # 同じ人の過去のやり取り（文脈用）
     prior_notes = [x for x in karte if x["member_id"] == mid and x["created_at"] < ts][-3:]
     prior_sent  = [a for a in sent if a["target_id"] == mid][-2:]
+    # 添付画像（mood「添付画像」・want="karte:<id>#n"）→ SNAP_IMG_DIR があればファイルに書き出してパスを渡す
+    imgs = []
+    for im in images.get(str(n["id"]), []):
+        if img_dir:
+            fn = f"{n['id']}_{len(imgs)+1}.jpg"
+            try:
+                b64 = im.split(",", 1)[1] if "," in im else im
+                open(os.path.join(img_dir, fn), "wb").write(base64.b64decode(b64))
+                imgs.append(os.path.join(os.path.basename(img_dir), fn))
+            except Exception:
+                pass
+        else:
+            imgs.append("(画像あり・SNAP_IMG_DIR 未設定)")
+    # 営業ログ（直近14日）
+    slog = sorted([x for x in logs if x["member_id"] == mid], key=lambda x: x.get("want") or "")[-14:]
     pending.append({"id": n["id"], "member_id": mid, "member_name": n.get("member_name") or "",
                     "created_at": ts, "worry": n.get("worry") or "", "want": n.get("want") or "",
+                    "is_result_report": (n.get("worry") or "").startswith("【やってみた結果】"),
+                    "images": imgs,
+                    "sales_log": [{"date": x.get("want"), "log": x.get("worry")} for x in slog],
                     "prior_notes": [{"worry": x.get("worry") or "", "want": x.get("want") or "", "created_at": x["created_at"]} for x in prior_notes],
                     "prior_replies": [{"message": a.get("message") or "", "created_at": a["created_at"]} for a in prior_sent]})
 
@@ -87,4 +116,6 @@ for i, p in enumerate(merged, 1):
         print("  （同じ人の別カルテ）", q["worry"].replace("\n", " ")[:120])
     for r in p["prior_replies"]:
         print("  （この人への過去返信）", r["message"].replace("\n", " ")[:120])
+    if p.get("images"): print("  添付画像:", len(p["images"]), "枚")
+    if p.get("sales_log"): print("  営業ログ:", len(p["sales_log"]), "日分")
 print(f"\n未返信・下書きなし: {len(merged)}件（{len(pending)}カルテ）")

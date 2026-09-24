@@ -197,6 +197,29 @@ footer{text-align:center; font-size:14px; color:#9aa7b4; padding:34px 16px 10px;
 #ntcCard h3{font-size:14px; color:var(--pink2); letter-spacing:.14em; font-weight:800; margin-top:6px;}
 #ntcMsg{font-size:14px; color:var(--navy2); line-height:2; margin-top:10px; text-align:left; white-space:pre-wrap;}
 #ntcClose{border:none; background:linear-gradient(135deg,#8fa8e6,#c77fce); color:#fff; border-radius:999px; padding:12px 34px; font-size:14px; font-weight:800; cursor:pointer; font-family:inherit; margin-top:16px; box-shadow:0 8px 22px rgba(189,120,134,.35);}
+/* 画像添付・結果報告・営業ログ（追加分） */
+.imgprev{display:flex; gap:8px; flex-wrap:wrap; margin-top:10px;}
+.imgprev .th{position:relative; width:84px; height:84px; border-radius:12px; overflow:hidden; border:1px solid #e6e3ee; background:#fff;}
+.imgprev .th img{width:100%; height:100%; object-fit:cover; display:block;}
+.imgprev .th button{position:absolute; top:2px; right:2px; width:22px; height:22px; border:none; border-radius:50%; background:rgba(29,49,73,.75); color:#fff; font-size:13px; line-height:22px; cursor:pointer; padding:0;}
+.chk{display:flex; align-items:flex-start; gap:8px; font-size:14px; margin-top:12px; color:var(--navy2); cursor:pointer;}
+.chk input{margin-top:5px;}
+.subbtn{display:inline-block; border:1px solid #e6e3ee; background:#fff; color:var(--navy2); border-radius:12px; padding:10px 14px; font-size:14px; font-weight:700; cursor:pointer; font-family:inherit; margin-top:10px;}
+.hthumbs{display:flex; gap:6px; flex-wrap:wrap; margin-top:8px;}
+.hthumbs img{width:64px; height:64px; object-fit:cover; border-radius:10px; border:1px solid #e6e3ee; cursor:zoom-in;}
+.slog{display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-top:8px;}
+.slog label{font-size:12px; color:#7c7f93; display:block;}
+.slog input{width:100%; border:1px solid #e6e3ee; border-radius:12px; padding:10px; font-size:16px; font-family:inherit; text-align:center;}
+.slogmemo{width:100%; border:1px solid #e6e3ee; border-radius:12px; padding:10px 12px; font-size:14px; font-family:inherit; margin-top:8px; min-height:44px; resize:vertical;}
+.sbars{display:flex; gap:5px; align-items:flex-end; height:64px; margin-top:12px;}
+.sbars .b{flex:1; display:flex; flex-direction:column; align-items:center; gap:3px; font-size:10px; color:#7c7f93;}
+.sbars .b i{display:block; width:100%; background:#e0a1e6; border-radius:6px 6px 2px 2px; min-height:3px;}
+.sbars .b.today i{background:#8fa8e6;}
+.sstat{display:flex; justify-content:space-between; gap:10px; margin-top:10px; font-size:13px; color:#7c7f93;}
+.sstat b{color:var(--navy2); font-size:16px;}
+.imgview{position:fixed; inset:0; background:rgba(29,49,73,.85); display:none; align-items:center; justify-content:center; z-index:80; padding:16px; cursor:zoom-out;}
+.imgview.on{display:flex;}
+.imgview img{max-width:100%; max-height:100%; border-radius:12px;}
 </style>
 <script src="labo_config.js"></script>
 <link rel="stylesheet" href="ui-refined.css?v=20260909-icons">
@@ -282,9 +305,34 @@ footer{text-align:center; font-size:14px; color:#9aa7b4; padding:34px 16px 10px;
                 <span class="cnt"><i id="c2">0</i> / 1000</span>
               </div>
             </div>
+            <div class="q">
+              <div class="qh"><b>画像を添付</b><span style="font-size:12px;color:#9aa7b4;">任意・3枚まで</span></div>
+              <p class="qguide">添削してほしいデザイン・バナー・LPのスクショなど。はるかが見て、良い点と直すところをお返しします。</p>
+              <input type="file" id="imgIn" accept="image/*" multiple style="display:none">
+              <button type="button" class="subbtn" id="imgBtn">画像を選ぶ</button>
+              <div class="imgprev" id="imgPrev"></div>
+              <label class="chk"><input type="checkbox" id="isResult"><span>前回のアドバイスを「やってみた結果」の報告です（合っていたか・どう変わったかも一緒に書いてください）</span></label>
+            </div>
             <button class="gbtn" id="send">この内容でカルテを作成する</button>
             <div class="ok" id="okmsg">カルテが届きました。はるかが読んで、アドバイスをお返ししますね。</div>
             <p class="note">※作成したカルテはいつでも編集・追加できます。</p>
+          </div>
+
+          <div class="card" id="slogCard">
+            <h2>今日の営業ログ</h2>
+            <p class="qguide">毎日の数を残すと、はるかの返信に「数字」が入ります。続かない日も0で記録して大丈夫です。</p>
+            <div class="slog">
+              <div><label>DM・営業した数</label><input type="number" id="slDm" min="0" max="999" inputmode="numeric" placeholder="0"></div>
+              <div><label>応募・提案した数</label><input type="number" id="slAp" min="0" max="999" inputmode="numeric" placeholder="0"></div>
+              <div><label>返信が来た数</label><input type="number" id="slRe" min="0" max="999" inputmode="numeric" placeholder="0"></div>
+            </div>
+            <textarea class="slogmemo" id="slMemo" maxlength="200" placeholder="ひとこと（任意）例）制作が入って午後は動けなかった"></textarea>
+            <button class="gbtn" id="slSave" style="margin-top:12px;">今日の分を記録する</button>
+            <div class="ok" id="slOk">記録しました。はるかにも共有されます。</div>
+            <div class="sbars" id="slBars"></div>
+            <div class="sstat"><span>直近7日のDM <b id="slW">0</b></span><span>連続 <b id="slStreak">0</b>日</span><span>今月のDM <b id="slM">0</b></span></div>
+            <button type="button" class="subbtn" id="slIcs">毎朝8時のリマインドをカレンダーに入れる</button>
+            <p class="note">※スマホの標準カレンダーに「営業ログを記録」の予定が毎日8:00で入ります。通知はカレンダーから届きます。</p>
           </div>
 
           <details class="curcard" id="curcard">
@@ -484,8 +532,11 @@ function renderHist(list){
   h.innerHTML="";
   list.forEach(function(n){
     var e=document.createElement("div"); e.className="hitem";
+    var ims=IMGMAP[String(n.id)]||[];
     e.innerHTML='<span class="d">'+fmt(n.created_at)+'</span>'+
-      '<div>'+esc(n.worry)+'</div>'+(n.want?'<div class="w2">AIにしてほしいこと：'+esc(n.want)+'</div>':'');
+      '<div>'+esc(n.worry)+'</div>'+(n.want?'<div class="w2">AIにしてほしいこと：'+esc(n.want)+'</div>':'')+
+      (ims.length?'<div class="hthumbs">'+ims.map(function(d){ return '<img src="'+d+'" alt="添付画像">'; }).join("")+'</div>':'');
+    Array.prototype.forEach.call(e.querySelectorAll(".hthumbs img"),function(im){ im.onclick=function(){ viewImg(im.src); }; });
     h.appendChild(e);
   });
 }
@@ -500,14 +551,26 @@ function renderAdv(list){
     a.appendChild(e);
   });
 }
-var lastNotes=[], lastAdv=[], lastManual="";
+var lastNotes=[], lastAdv=[], lastManual="", IMGMAP={}, demoImgs=[];
+function splitRows(j){
+  /* 同じ member_id の行を、カルテ本文／添付画像／営業ログ に分ける */
+  IMGMAP={}; LOGS=[];
+  var notes=[];
+  j.forEach(function(n){
+    if(n.mood==="添付画像"){ var k=String(n.want||"").replace(/^karte:/,"").split("#")[0]; (IMGMAP[k]=IMGMAP[k]||[]).push(n.worry); }
+    else if(n.mood==="営業ログ"){ LOGS.push(n); }
+    else notes.push(n);
+  });
+  Object.keys(IMGMAP).forEach(function(k){ IMGMAP[k].reverse(); });
+  return notes;
+}
 function loadAll(){
   if(DEMO){
-    lastNotes=demoNotes.slice(); lastAdv=demoAdv.slice();
-    renderHist(lastNotes); renderAdv(lastAdv); renderAnalysis(); return;
+    lastNotes=splitRows(demoNotes.slice().concat(demoImgs)); lastAdv=demoAdv.slice();
+    renderHist(lastNotes); renderAdv(lastAdv); renderAnalysis(); renderLog(); return;
   }
-  sb("ailab_notes?member_id=eq."+UID+"&order=created_at.desc&limit=100").then(function(r){return r.json();})
-    .then(function(j){ if(Array.isArray(j)){ lastNotes=j; renderHist(j); renderAnalysis(); } }).catch(function(){});
+  sb("ailab_notes?member_id=eq."+UID+"&order=created_at.desc&limit=300").then(function(r){return r.json();})
+    .then(function(j){ if(Array.isArray(j)){ lastNotes=splitRows(j); renderHist(lastNotes); renderAnalysis(); renderLog(); } }).catch(function(){});
   sb("ailab_advice?target_id=eq."+UID+"&order=created_at.desc&limit=100").then(function(r){return r.json();})
     .then(function(j){ if(Array.isArray(j)){ j=j.filter(function(a){ return String(a.author_name||"").indexOf("draft")!==0; }); lastAdv=j; renderAdv(j); renderAnalysis(); } }).catch(function(){});
 }
@@ -840,18 +903,102 @@ document.getElementById("send").onclick=function(){
   if(!w){ document.getElementById("worry").focus(); return; }
   if(!wt){ document.getElementById("want").focus(); return; }
   var btn=this; btn.disabled=true;
+  var isRes=document.getElementById("isResult").checked;
+  if(isRes && w.indexOf("【やってみた結果】")!==0) w="【やってみた結果】"+w;
   var rec={member_id:UID||"demo",member_name:NAME,mood:null,worry:w,want:wt};
+  var imgs=IMGS.slice();
   function done(){
     document.getElementById("okmsg").style.display="block";
     document.getElementById("worry").value=""; document.getElementById("want").value="";
     document.getElementById("c1").textContent="0"; document.getElementById("c2").textContent="0";
+    document.getElementById("isResult").checked=false; IMGS=[]; renderThumbs();
     btn.disabled=false;
     setTimeout(function(){ document.getElementById("okmsg").style.display="none"; },4500);
     loadAll();
   }
-  if(DEMO){ demoNotes.unshift({worry:rec.worry,want:rec.want,created_at:new Date().toISOString()}); done(); return; }
-  sb("ailab_notes",{method:"POST",body:JSON.stringify(rec)}).then(function(){ done(); })
+  if(DEMO){ var did="d"+Date.now(); demoNotes.unshift({id:did,worry:rec.worry,want:rec.want,created_at:new Date().toISOString()}); imgs.forEach(function(d){ demoImgs.push({want:"karte:"+did,worry:d}); }); done(); return; }
+  sb("ailab_notes",{method:"POST",body:JSON.stringify(rec)}).then(function(r){ return r.json(); }).then(function(j){
+    var id=(Array.isArray(j)&&j[0]&&j[0].id)?j[0].id:null;
+    /* 画像は別行（mood「添付画像」・want に "karte:<id>"）で保存。本文と紐づけて管理者ボードと下書きが見る */
+    var ps=imgs.map(function(d,i){ return sb("ailab_notes",{method:"POST",body:JSON.stringify({member_id:UID,member_name:NAME,mood:"添付画像",worry:d,want:"karte:"+(id||"")+"#"+(i+1)})}).catch(function(){}); });
+    return Promise.all(ps);
+  }).then(function(){ done(); })
     .catch(function(){ btn.disabled=false; alert("送信できませんでした。電波のよいところでもう一度お試しください。"); });
+};
+
+/* ===== 画像添付（端末内で縮小→JPEG。最大3枚） ===== */
+var IMGS=[];
+function renderThumbs(){
+  var box=document.getElementById("imgPrev"); box.innerHTML="";
+  IMGS.forEach(function(d,i){
+    var t=document.createElement("div"); t.className="th";
+    t.innerHTML='<img src="'+d+'" alt=""><button type="button" aria-label="削除">×</button>';
+    t.querySelector("button").onclick=function(){ IMGS.splice(i,1); renderThumbs(); };
+    box.appendChild(t);
+  });
+  document.getElementById("imgBtn").style.display=IMGS.length>=3?"none":"inline-block";
+}
+function shrink(file){
+  return new Promise(function(res,rej){
+    var fr=new FileReader();
+    fr.onload=function(){
+      var im=new Image();
+      im.onload=function(){
+        var MAX=1200, w=im.width, h=im.height, k=Math.min(1,MAX/Math.max(w,h));
+        var c=document.createElement("canvas"); c.width=Math.round(w*k); c.height=Math.round(h*k);
+        c.getContext("2d").drawImage(im,0,0,c.width,c.height);
+        var q=0.82, d=c.toDataURL("image/jpeg",q);
+        while(d.length>380000 && q>0.4){ q-=0.1; d=c.toDataURL("image/jpeg",q); }
+        res(d);
+      };
+      im.onerror=rej; im.src=fr.result;
+    };
+    fr.onerror=rej; fr.readAsDataURL(file);
+  });
+}
+document.getElementById("imgBtn").onclick=function(){ document.getElementById("imgIn").click(); };
+document.getElementById("imgIn").onchange=function(){
+  var fs=Array.prototype.slice.call(this.files||[]).slice(0,3-IMGS.length); this.value="";
+  Promise.all(fs.map(shrink)).then(function(ds){ ds.forEach(function(d){ if(IMGS.length<3) IMGS.push(d); }); renderThumbs(); })
+    .catch(function(){ alert("画像を読み込めませんでした。別の画像でお試しください。"); });
+};
+(function(){
+  var v=document.createElement("div"); v.className="imgview"; v.id="imgView"; v.innerHTML='<img alt="">'; document.body.appendChild(v);
+  v.onclick=function(){ v.classList.remove("on"); };
+  window.viewImg=function(src){ v.querySelector("img").src=src; v.classList.add("on"); };
+})();
+
+/* ===== 営業ログ（1日1行・mood「営業ログ」・want に日付） ===== */
+var LOGS=[];
+function todayKey(){ var d=new Date(); return d.getFullYear()+"-"+("0"+(d.getMonth()+1)).slice(-2)+"-"+("0"+d.getDate()).slice(-2); }
+function logOf(k){ for(var i=0;i<LOGS.length;i++){ if(LOGS[i].want===k) return LOGS[i]; } return null; }
+function parseLog(n){ try{ return JSON.parse(n.worry||"{}")||{}; }catch(e){ return {}; } }
+function renderLog(){
+  var bars=document.getElementById("slBars"); if(!bars) return;
+  var t=logOf(todayKey()); if(t){ var v=parseLog(t); document.getElementById("slDm").value=v.dm||0; document.getElementById("slAp").value=v.ap||0; document.getElementById("slRe").value=v.re||0; document.getElementById("slMemo").value=v.memo||""; }
+  var days=[], max=1, w7=0, m=0, streak=0, ym=todayKey().slice(0,7);
+  for(var i=6;i>=0;i--){ var d=new Date(); d.setDate(d.getDate()-i); var k=d.getFullYear()+"-"+("0"+(d.getMonth()+1)).slice(-2)+"-"+("0"+d.getDate()).slice(-2); var l=logOf(k); var dm=l?(parseLog(l).dm||0):0; days.push({k:k,dm:dm,lab:(d.getMonth()+1)+"/"+d.getDate()}); max=Math.max(max,dm); w7+=dm; }
+  LOGS.forEach(function(l){ if(String(l.want||"").slice(0,7)===ym) m+=(parseLog(l).dm||0); });
+  for(var j=0;j<400;j++){ var d2=new Date(); d2.setDate(d2.getDate()-j); var k2=d2.getFullYear()+"-"+("0"+(d2.getMonth()+1)).slice(-2)+"-"+("0"+d2.getDate()).slice(-2); var l2=logOf(k2); if(l2&&(parseLog(l2).dm||0)>0) streak++; else if(j>0) break; }
+  bars.innerHTML=days.map(function(x,i){ return '<div class="b'+(i===6?" today":"")+'"><i style="height:'+Math.max(3,Math.round(x.dm/max*44))+'px" title="'+x.dm+'"></i><span>'+x.lab+'</span></div>'; }).join("");
+  document.getElementById("slW").textContent=w7; document.getElementById("slM").textContent=m; document.getElementById("slStreak").textContent=streak;
+}
+document.getElementById("slSave").onclick=function(){
+  var btn=this; btn.disabled=true;
+  var v={date:todayKey(),dm:+document.getElementById("slDm").value||0,ap:+document.getElementById("slAp").value||0,re:+document.getElementById("slRe").value||0,memo:document.getElementById("slMemo").value.trim().slice(0,200)};
+  var ex=logOf(v.date);
+  function ok(){ document.getElementById("slOk").style.display="block"; btn.disabled=false; setTimeout(function(){ document.getElementById("slOk").style.display="none"; },3500); renderLog(); }
+  if(DEMO){ if(ex) ex.worry=JSON.stringify(v); else LOGS.push({want:v.date,worry:JSON.stringify(v)}); ok(); return; }
+  var body=JSON.stringify(ex?{worry:JSON.stringify(v)}:{member_id:UID,member_name:NAME,mood:"営業ログ",worry:JSON.stringify(v),want:v.date});
+  var req=ex?sb("ailab_notes?id=eq."+ex.id,{method:"PATCH",body:body}):sb("ailab_notes",{method:"POST",body:body});
+  req.then(function(){ if(ex) ex.worry=JSON.stringify(v); else LOGS.push({want:v.date,worry:JSON.stringify(v),id:null}); ok(); if(!ex) loadAll(); })
+    .catch(function(){ btn.disabled=false; alert("記録できませんでした。もう一度お試しください。"); });
+};
+document.getElementById("slIcs").onclick=function(){
+  var d=new Date(); d.setDate(d.getDate()+1); var ymd=d.getFullYear()+("0"+(d.getMonth()+1)).slice(-2)+("0"+d.getDate()).slice(-2);
+  var url=location.href.split("?")[0]+(UID?("?uid="+encodeURIComponent(UID)):"");
+  var ics=["BEGIN:VCALENDAR","VERSION:2.0","PRODID:-//AI Labo//JP","BEGIN:VEVENT","UID:ailabo-slog-"+(UID||"demo")+"@labo","DTSTAMP:"+ymd+"T000000Z","DTSTART;TZID=Asia/Tokyo:"+ymd+"T080000","DTEND;TZID=Asia/Tokyo:"+ymd+"T081500","RRULE:FREQ=DAILY","SUMMARY:営業ログを記録（AIラボ）","DESCRIPTION:今日のDM・応募の数を記録する "+url,"URL:"+url,"BEGIN:VALARM","TRIGGER:PT0M","ACTION:DISPLAY","DESCRIPTION:営業ログ","END:VALARM","END:VEVENT","END:VCALENDAR"].join("\r\n");
+  var a=document.createElement("a"); a.href="data:text/calendar;charset=utf-8,"+encodeURIComponent(ics); a.download="ailabo-eigyo-log.ics"; document.body.appendChild(a); a.click(); a.remove();
 };
 document.getElementById("refresh").onclick=loadAll;
 document.getElementById("nmsave").onclick=function(){
