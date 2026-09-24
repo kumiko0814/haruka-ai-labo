@@ -94,7 +94,7 @@ footer{text-align:center; font-size:14px; color:#a3a2b5; margin-top:44px; line-h
 #main-content .lk .lh .ic{flex:none; font-size:14px;}
 #main-content .lk .lh .tag{margin-left:auto; flex:none; font-size:11px; font-weight:800; color:var(--camel2); background:var(--camelbg); border-radius:999px; padding:1px 10px;}
 #main-content .lk .ld{font-size:13px; color:var(--muted); line-height:1.85; margin-top:2px;}
-#main-content .lk .blur{filter:blur(5px); -webkit-filter:blur(5px); pointer-events:none; user-select:none; -webkit-user-select:none; margin-top:10px; opacity:.85;}
+#main-content .lk .blur{margin-top:10px;}
 #main-content .lk .lkmsg{display:none; position:relative; z-index:2; margin-top:12px; background:var(--camelbg); border-radius:12px; padding:10px 14px; font-size:13px; font-weight:700; color:var(--navy2); line-height:1.9;}
 #main-content .lk .lkmsg a{color:var(--camel2); font-weight:800; margin-left:4px; white-space:nowrap;}
 #main-content .lk.open .lkmsg{display:block;}
@@ -144,8 +144,8 @@ footer{text-align:center; font-size:14px; color:#a3a2b5; margin-top:44px; line-h
       <div class="char-caption"><span>NAVIGATOR</span><b data-cfg="instructor_nick">はるか</b></div>
     </div>
     <h1>AIカルテを、<br><span class="grad">お試しで。</span></h1>
-    <span class="badge">モニター版｜カルテ1回＋<span data-cfg="instructor_nick">はるか</span>からの返信</span>
-    <div class="lead">受講生が使っている「AIカルテ」を、1回だけ体験できるページです。いま困っていることを書いて送ると、<b>はるかが読んで、あなた宛てに返信</b>します。AIにそのまま聞くのとは違う「あなたの前提をふまえた答え」を、受け取ってみてください。</div>
+    <span class="badge">モニター版｜カルテ3回まで＋<span data-cfg="instructor_nick">はるか</span>からの返信</span>
+    <div class="lead">受講生が使っている「AIカルテ」を、3回まで体験できるページです。いま困っていることを書いて送ると、<b>はるかが読んで、あなた宛てに返信</b>します。AIにそのまま聞くのとは違う「あなたの前提をふまえた答え」を、受け取ってみてください。</div>
   </div>
 
   <!-- 01 お名前 -->
@@ -189,11 +189,11 @@ footer{text-align:center; font-size:14px; color:#a3a2b5; margin-top:44px; line-h
         </div>
         <button type="button" class="gbtn" id="send">この内容でカルテを送る</button>
         <p class="err" id="tErr" role="alert"></p>
-        <p class="fine">モニター版で送れるカルテは1回です。書いた内容は、はるかだけが読みます。</p>
+        <p class="fine">モニター版で送れるカルテは3回までです（<span id="leftN">あと3回</span>）。書いた内容は、はるかだけが読みます。</p>
       </div>
 
       <div class="card sentbox" id="sentBox">
-        <p class="lockmsg" id="lockMsg" role="status">モニターは1回までです。はるかからの返信は営業日24時間以内に、このページに届きます</p>
+        <p class="lockmsg" id="lockMsg" role="status">送りました。はるかからの返信は営業日24時間以内に、このページに届きます</p>
         <div id="sentKarte"></div>
         <p class="samedev">返信を見るときは、送ったときと同じスマホ・同じブラウザでこのページを開いてください。</p>
       </div>
@@ -228,13 +228,13 @@ footer{text-align:center; font-size:14px; color:#a3a2b5; margin-top:44px; line-h
   <!-- 05 ロック -->
   <section class="sec" id="secLock">
     <div class="eyebrow" aria-hidden="true">05</div>
-    <h2>本受講で使える機能</h2>
+    <h2>受講生が使っている機能</h2>
     <div>
-      <div class="card"><p>カルテは、書くほどに「あなた専用」に育っていきます。ここから先は、本受講で使える機能です。どんなものかだけ、少しのぞいてみてください。</p></div>
+      <div class="card"><p>カルテは、書くほどに「あなた専用」に育っていきます。受講生の画面では、送った相談がこんな形で積み上がります。</p></div>
       <div class="lkgrid" id="lkgrid">
 
         <div class="lk" role="button" tabindex="0" data-name="分析レポート">
-          <div class="lh"><span class="ic" aria-hidden="true">🔒</span>分析レポート<span class="tag">本受講</span></div>
+          <div class="lh">分析レポート</div>
           <p class="ld">カルテがたまるほど、悩みの傾向・思考のくせ・あなたに合うAIの使い方が見えてきます。</p>
           <div class="blur" aria-hidden="true">
             <div class="dbar"><span>営業・受注</span><i style="width:100%"></i><span>8</span></div>
@@ -243,11 +243,10 @@ footer{text-align:center; font-size:14px; color:#a3a2b5; margin-top:44px; line-h
             <span class="dtag">時間圧迫タイプ</span>
             <p class="dtext">まずは提案文のたたき台を1つだけ。1日15分をAIに渡せると、気持ちの余裕が先に戻ってきます。</p>
           </div>
-          <p class="lkmsg">本受講で使えます。<a href="lp.html">AIラボのご案内を見る</a></p>
         </div>
 
         <div class="lk" role="button" tabindex="0" data-name="私の取扱説明書">
-          <div class="lh"><span class="ic" aria-hidden="true">🔒</span>私の取扱説明書<span class="tag">本受講</span></div>
+          <div class="lh">私の取扱説明書</div>
           <p class="ld">カルテで育った内容を1枚にまとめて、お使いのChatGPTやClaudeにそのまま渡せます。</p>
           <div class="blur" aria-hidden="true">
             <p class="dtext"># 私の取扱説明書（AIラボのカルテより）</p>
@@ -256,49 +255,44 @@ footer{text-align:center; font-size:14px; color:#a3a2b5; margin-top:44px; line-h
             <p class="dtext">・はるかからくり返し言われていること：まず小さく1歩だけ</p>
             <p class="dtext">・おすすめの相棒：Claude（提案文・ポートフォリオ）</p>
           </div>
-          <p class="lkmsg">本受講で使えます。<a href="lp.html">AIラボのご案内を見る</a></p>
         </div>
 
         <div class="lk" role="button" tabindex="0" data-name="今日の営業ログ">
-          <div class="lh"><span class="ic" aria-hidden="true">🔒</span>今日の営業ログ<span class="tag">本受講</span></div>
+          <div class="lh">今日の営業ログ</div>
           <p class="ld">DM・応募・返信の数を毎日残すと、はるかの返信に「あなたの数字」が入ります。</p>
           <div class="blur" aria-hidden="true">
             <div class="dnum"><span><b>5</b>DM・営業</span><span><b>2</b>応募・提案</span><span><b>1</b>返信</span></div>
             <div class="dbars"><i style="height:40%"></i><i style="height:65%"></i><i style="height:30%"></i><i style="height:80%"></i><i style="height:55%"></i><i style="height:90%"></i><i style="height:70%"></i></div>
           </div>
-          <p class="lkmsg">本受講で使えます。<a href="lp.html">AIラボのご案内を見る</a></p>
         </div>
 
         <div class="lk" role="button" tabindex="0" data-name="応募ノート">
-          <div class="lh"><span class="ic" aria-hidden="true">🔒</span>応募ノート<span class="tag">本受講</span></div>
+          <div class="lh">応募ノート</div>
           <p class="ld">応募した案件と結果を記録して、通った提案・通らなかった提案の違いを一緒に見ていきます。</p>
           <div class="blur" aria-hidden="true">
             <div class="drow"><span>美容サロンのLP制作</span><em>返信あり</em></div>
             <div class="drow"><span>飲食店のバナー3点</span><em>面談へ</em></div>
             <div class="drow"><span>スクールのSNS画像</span><em>検討中</em></div>
           </div>
-          <p class="lkmsg">本受講で使えます。<a href="lp.html">AIラボのご案内を見る</a></p>
         </div>
 
         <div class="lk" role="button" tabindex="0" data-name="はるかのAI実験ノート">
-          <div class="lh"><span class="ic" aria-hidden="true">🔒</span>はるかのAI実験ノート<span class="tag">本受講</span></div>
+          <div class="lh">はるかのAI実験ノート</div>
           <p class="ld">はるかが実際にAIを触って気づいた使い方が、ここに溜まっていきます。</p>
           <div class="blur" aria-hidden="true">
             <p class="dtext">提案文のたたき台は「募集要項をそのまま貼る→自分の実績を3つ渡す」の順で頼むと精度が上がりました。</p>
             <p class="dtext">参考デザインの言語化は「余白・配色・フォントの3点で分解して」と聞くのが早いです。</p>
           </div>
-          <p class="lkmsg">本受講で使えます。<a href="lp.html">AIラボのご案内を見る</a></p>
         </div>
 
         <div class="lk" role="button" tabindex="0" data-name="カルテ履歴（2件目以降）">
-          <div class="lh"><span class="ic" aria-hidden="true">🔒</span>カルテ履歴（2件目以降）<span class="tag">本受講</span></div>
+          <div class="lh">カルテ履歴（2件目以降）</div>
           <p class="ld">相談とはるかの返信が、全部ここに積み上がります。前回の続きから相談できます。</p>
           <div class="blur" aria-hidden="true">
             <div class="drow"><span>クライアントの事前リサーチのやり方がわからない</span><em>返信済</em></div>
             <div class="drow"><span>【やってみた結果】提案文をAIで作ったら30分で3件送れた</span><em>返信済</em></div>
             <div class="drow"><span>見積書の文面をやわらかくしたい</span><em>返信済</em></div>
           </div>
-          <p class="lkmsg">本受講で使えます。<a href="lp.html">AIラボのご案内を見る</a></p>
         </div>
 
       </div>
@@ -425,17 +419,20 @@ document.getElementById("imgIn").onchange=function(){
 };
 
 /* ===== 送信後のロック表示 ===== */
-function showSent(k,imgs){
-  document.getElementById("karteForm").style.display="none";
+function showSent(list){
+  /* 送ったカルテを一覧表示。3回に達するまでフォームはそのまま使える */
   document.getElementById("sentBox").className="card sentbox on";
+  if(isFull()){ document.getElementById("karteForm").style.display="none"; }
   nameEl.disabled=true;
   var box=document.getElementById("sentKarte"); box.innerHTML="";
-  if(!k) return;
-  var e=document.createElement("div"); e.className="hitem";
-  e.innerHTML='<span class="d">送ったカルテ'+(k.created_at?"｜"+fmt(k.created_at):"")+'</span>'+
-    '<div>'+esc(k.worry)+'</div>'+(k.want?'<div class="w2">AIに手伝ってほしいこと：'+esc(k.want)+'</div>':'')+
-    ((imgs&&imgs.length)?'<div class="hthumbs">'+imgs.map(function(d){ return '<img src="'+d+'" alt="添付画像">'; }).join("")+'</div>':'');
-  box.appendChild(e);
+  (list||[]).forEach(function(k,i){
+    var e=document.createElement("div"); e.className="hitem";
+    var imgs=k.imgs||[];
+    e.innerHTML='<span class="d">送ったカルテ '+(i+1)+'／'+MAXN+(k.created_at?"｜"+fmt(k.created_at):"")+'</span>'+
+      '<div>'+esc(k.worry)+'</div>'+(k.want?'<div class="w2">AIに手伝ってほしいこと：'+esc(k.want)+'</div>':'')+
+      (imgs.length?'<div class="hthumbs">'+imgs.map(function(d){ return '<img src="'+d+'" alt="添付画像">'; }).join("")+'</div>':'');
+    box.appendChild(e);
+  });
 }
 
 /* ===== 返信の表示（index.html と同じ：draft で始まるものは出さない） ===== */
@@ -467,7 +464,15 @@ function loadAdv(){
 }
 document.getElementById("refresh").onclick=loadAdv;
 
-function isSent(){ return !!demoKarte || !!lsGet(SENT_KEY); }
+var MAXN=3, SENTS=[];
+function isSent(){ return SENTS.length>=1 || !!demoKarte; }
+function isFull(){ return SENTS.length>=MAXN; }
+function saveSents(){ if(!DEMO) lsSet(SENT_KEY,JSON.stringify(SENTS)); }
+function refreshLeft(){
+  var left=Math.max(0,MAXN-SENTS.length), el=document.getElementById("leftN"); if(el) el.textContent="あと"+left+"回";
+  var form=document.getElementById("send");
+  if(isFull()){ if(form) form.disabled=true; var lm=document.getElementById("lockMsg"); if(lm) lm.textContent="モニターは3回までです。はるかからの返信は営業日24時間以内に、このページに届きます"; }
+}
 
 /* ===== 送信（1回だけ） ===== */
 var err=document.getElementById("tErr");
@@ -477,7 +482,7 @@ function warn(msg,el){
 }
 document.getElementById("send").onclick=function(){
   err.className="err";
-  if(isSent()){ showSent(null); return; }
+  if(isFull()){ refreshLeft(); return; }
   var nm=nameEl.value.replace(/[\s　]+/g," ").trim();
   if(!nm){ warn("お名前（フルネーム）をご記入ください。",nameEl); return; }
   if(nm.replace(/ /g,"").length<3 && nm.indexOf(" ")<0){ warn("姓と名の両方をご記入ください（例：山田 花子）。",nameEl); return; }
@@ -490,9 +495,11 @@ document.getElementById("send").onclick=function(){
   var rec={member_id:UID,member_name:NAME,mood:null,worry:w,want:wt};
   var imgs=IMGS.slice(0,1);
   function done(created){
-    var k={worry:w,want:wt,created_at:created||new Date().toISOString()};
-    if(DEMO){ demoKarte=k; } else { lsSet(SENT_KEY,JSON.stringify(k)); }
-    showSent(k,imgs);
+    var k={worry:w,want:wt,created_at:created||new Date().toISOString(),imgs:imgs};
+    SENTS.push(k); if(DEMO){ demoKarte=k; } saveSents();
+    showSent(SENTS); refreshLeft();
+    wEl.value=""; tEl.value=""; IMGS=[]; try{ renderThumbs(); }catch(e){}
+    btn.disabled=isFull();
     loadAdv();
   }
   if(DEMO){ done(); return; }
@@ -523,16 +530,17 @@ Array.prototype.forEach.call(document.querySelectorAll("#lkgrid .lk"),function(c
 /* ===== 開いたとき：送信済みならロック ===== */
 (function init(){
   var saved=null; try{ saved=JSON.parse(lsGet(SENT_KEY)||"null"); }catch(e){ saved=null; }
-  if(saved) showSent(saved,[]);
-  renderAdv([]);
+  if(saved && !Array.isArray(saved)) saved=[saved];
+  if(saved&&saved.length){ SENTS=saved; showSent(SENTS); }
+  refreshLeft(); renderAdv([]);
   if(DEMO) return;
   /* 端末の記録が消えていても、同じIDで送っていればロックする */
   sb("ailab_notes?member_id=eq."+UID+"&order=created_at.asc&limit=20").then(function(r){return r.json();})
     .then(function(j){
       if(!Array.isArray(j)||!j.length) return;
-      var imgs=[], karte=null;
-      j.forEach(function(n){ if(n.mood==="添付画像") imgs.push(n.worry); else if(!karte) karte=n; });
-      if(karte){ lsSet(SENT_KEY,JSON.stringify({worry:karte.worry,want:karte.want,created_at:karte.created_at})); showSent(karte,imgs); renderAdv([]); }
+      var imgs={}, ks=[];
+      j.forEach(function(n){ if(n.mood==="添付画像"){ var k=String(n.want||"").replace(/^karte:/,"").split("#")[0]; (imgs[k]=imgs[k]||[]).push(n.worry); } else if(n.mood!=="営業ログ"&&n.mood!=="期限"&&n.mood!=="応募ノート") ks.push(n); });
+      if(ks.length){ SENTS=ks.map(function(k){ return {worry:k.worry,want:k.want,created_at:k.created_at,imgs:imgs[String(k.id)]||[]}; }); saveSents(); showSent(SENTS); refreshLeft(); renderAdv([]); }
     }).catch(function(){});
   loadAdv();
 })();
