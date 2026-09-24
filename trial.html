@@ -268,12 +268,13 @@ footer{text-align:center; font-size:14px; color:#a3a2b5; margin-top:44px; line-h
 
         <div class="lk" role="button" tabindex="0" data-name="応募ノート">
           <div class="lh">応募ノート</div>
-          <p class="ld">応募した案件と結果を記録して、通った提案・通らなかった提案の違いを一緒に見ていきます。</p>
+          <p class="ld">クラウドワークスの案件25件（毎週月曜に自動更新）に、はるかの応募文テンプレートに沿った下書きが付いています。【 】を埋めてコピーすれば、そのまま応募できます。</p>
           <div class="blur" aria-hidden="true">
-            <div class="drow"><span>美容サロンのLP制作</span><em>返信あり</em></div>
-            <div class="drow"><span>飲食店のバナー3点</span><em>面談へ</em></div>
-            <div class="drow"><span>スクールのSNS画像</span><em>検討中</em></div>
+            <div class="drow"><span>中華とフレンチのロゴデザイン制作</span><em>未応募</em></div>
+            <div class="drow"><span>Shopify ECサイトのデザイン</span><em>応募済</em></div>
+            <div class="drow"><span>採用サイトのLP制作</span><em>見送り</em></div>
           </div>
+          <a class="subbtn" id="ouboLink" href="oubo.html?demo=1" style="text-decoration:none; margin-top:10px;">応募ノートを実際に開く</a>
         </div>
 
         <div class="lk" role="button" tabindex="0" data-name="はるかのAI実験ノート">
@@ -345,6 +346,7 @@ var UID=lsGet("ailab_trial_uid");
 if(!UID||!/^trial_[a-z0-9]{8}$/.test(UID)){ UID=newId(); lsSet("ailab_trial_uid",UID); }
 var SENT_KEY="ailab_trial_sent_"+UID;
 document.getElementById("tUid").textContent=UID;
+(function(){ var a=document.getElementById("ouboLink"); if(a&&!DEMO){ a.href="oubo.html?u="+encodeURIComponent(UID)+(NAME?("&name="+encodeURIComponent(NAME)):""); } })();
 
 var nameEl=document.getElementById("tName");
 var NAME=(lsGet("ailab_trial_name")||"").slice(0,20);
