@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="ja"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>デザイン添削依頼｜AIラボ</title>
+<style>
+:root{ --bg:#f0f4ff; --navy:#2c3a55; --navy2:#22304a; --camel:#c77fce; --camel2:#a75da9; --camelbg:#fde6ff; --text:#4a4440; --muted:#8b8a9b; --line:#e4e2f2; }
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{overflow-x:hidden;}
+body{font-family:"Yu Gothic","YuGothic","游ゴシック","Hiragino Kaku Gothic ProN","Hiragino Sans",sans-serif; background:linear-gradient(168deg,#e2ebff 0%,#fdf9ff 46%,#fde6ff 100%); color:var(--text); line-height:2.05; -webkit-font-smoothing:antialiased;}
+body.page-lp{padding-bottom:30px!important;}
+.wrap{max-width:640px; margin:0 auto; padding:0 18px;}
+header{background:var(--navy2); color:#fff; padding:13px 18px; text-align:center;}
+
+.sec{margin-top:36px;}
+.sec .eyebrow{font-size:14px; font-weight:800; color:#8ea6e0; letter-spacing:.18em; text-align:center;}
+.sec h2{font-size:clamp(18px,5.4vw,22px); color:var(--navy2); text-align:center; line-height:1.7; margin-top:2px;}
+.card{background:#fff; border-radius:18px; padding:20px; margin-top:16px; box-shadow:0 6px 20px rgba(44,58,85,.07);}
+.card p{font-size:14px; margin-top:8px;}
+.card p:first-child{margin-top:0;}
+.card b{color:var(--navy2);}
+.gbtn{display:flex; align-items:center; justify-content:center; width:100%; border:none; background:var(--camel2); color:#fff; border-radius:12px; padding:15px; font-size:15px; font-weight:800; cursor:pointer; font-family:inherit; margin-top:22px;}
+.ghost{display:block; width:100%; border:1px solid var(--line); background:#fff; color:var(--navy2); border-radius:12px; padding:12px; font-size:13px; font-weight:700; text-align:center; text-decoration:none; margin-top:10px;}
+.faqq{background:#fff; border-radius:14px; margin-top:10px; box-shadow:0 4px 14px rgba(44,58,85,.05); overflow:hidden;}
+.faqq summary{list-style:none; cursor:pointer; padding:13px 16px; font-size:14px; font-weight:800; color:var(--navy2);}
+.faqq summary::-webkit-details-marker{display:none;}
+.faqq .a{padding:0 16px 14px; font-size:14px;}
+footer{text-align:center; font-size:14px; color:#a3a2b5; margin-top:44px; line-height:2;}
+
+/* ---- ui-*.css が読めないときのための最小フォールバック ---- */
+.hero{text-align:center; padding:30px 0 10px;}
+.hero .chars{display:flex; justify-content:center; align-items:flex-end; gap:6px;}
+.hero .chars img{height:170px;}
+.hero h1{font-size:clamp(24px,7vw,34px); color:var(--navy2); line-height:1.6; margin-top:12px;}
+.hero .badge{display:inline-block; background:var(--navy2); color:#fff; font-size:14px; font-weight:800; border-radius:999px; padding:6px 16px; margin-top:12px; letter-spacing:.06em;}
+.hero .lead{font-size:14px; margin-top:14px; text-align:left; background:#fff; border-radius:16px; padding:16px 18px; box-shadow:0 6px 20px rgba(44,58,85,.07);}
+.hero .lead b{color:var(--camel2);}
+
+
+/* ---- このページだけのスタイル ---- */
+#main-content .tabs{display:flex; gap:8px; margin-top:22px;}
+#main-content .tab{flex:1; border:1px solid var(--line); background:#fff; color:var(--navy2); border-radius:999px; padding:10px 8px; font-size:14px; font-weight:800; cursor:pointer; font-family:inherit; min-height:46px;}
+#main-content .tab.on{background:var(--camel2); border-color:var(--camel2); color:#fff;}
+#main-content .fl{margin-top:22px;}
+#main-content .fl:first-child{margin-top:0;}
+#main-content .lb{display:block; font-size:15px; font-weight:800; color:var(--navy2); line-height:1.8;}
+#main-content .req{display:inline-block; font-size:11px; font-weight:800; color:#fff; background:var(--camel2); border-radius:6px; padding:1px 8px; margin-left:8px; vertical-align:2px;}
+#main-content .optl{display:inline-block; font-size:11px; font-weight:800; color:var(--muted); background:#f1f0f7; border-radius:6px; padding:1px 8px; margin-left:8px; vertical-align:2px;}
+#main-content .hint{font-size:12px; color:var(--muted); line-height:1.9; margin-top:3px;}
+#main-content .tin{display:block; width:100%; border:1px solid var(--line); border-radius:12px; padding:12px 14px; font-size:16px; line-height:1.9; color:var(--navy2); background:#fff; min-height:50px; margin-top:9px; font-family:inherit; max-width:100%;}
+#main-content textarea.tin{min-height:150px; resize:vertical;}
+#main-content select.tin{appearance:auto;}
+#main-content .cnt{font-size:12px; color:var(--muted); text-align:right; margin-top:4px;}
+#main-content .err{display:none; font-size:13px; font-weight:700; color:var(--camel2); line-height:1.9; margin-top:6px;}
+#main-content .err.on{display:block;}
+#main-content .kinds{display:flex; flex-wrap:wrap; gap:8px; margin-top:9px;}
+#main-content .kind{border:1px solid var(--line); background:#fff; color:var(--navy2); border-radius:999px; padding:8px 16px; font-size:14px; font-weight:700; cursor:pointer; font-family:inherit; min-height:42px;}
+#main-content .kind.on{background:var(--camelbg); border-color:var(--camel2); color:var(--camel2);}
+#main-content .chk{display:flex; gap:10px; align-items:flex-start; background:#fff; border:1px solid var(--line); border-radius:12px; padding:12px 14px; font-size:14px; line-height:1.8; color:var(--navy2); cursor:pointer; margin-top:10px;}
+#main-content .chk input{flex:none; width:19px; height:19px; margin-top:4px; accent-color:var(--camel2);}
+#main-content .subbtn{display:inline-block; border:1px dashed #c9b6e0; background:#fff; color:var(--camel2); border-radius:12px; padding:10px 18px; font-size:14px; font-weight:800; cursor:pointer; font-family:inherit; margin-top:9px;}
+#main-content .imgprev{display:flex; flex-wrap:wrap; gap:8px; margin-top:10px;}
+#main-content .imgprev .th{position:relative; width:84px; height:84px; border-radius:12px; overflow:hidden; border:1px solid #e6e3ee; background:#fff;}
+#main-content .imgprev .th img{width:100%; height:100%; object-fit:cover; display:block;}
+#main-content .imgprev .th button{position:absolute; top:2px; right:2px; width:22px; height:22px; border:none; border-radius:50%; background:rgba(29,49,73,.75); color:#fff; font-size:13px; line-height:22px; cursor:pointer; padding:0;}
+#main-content .okmsg{display:none; background:var(--camelbg); border-left:4px solid var(--camel2); border-radius:12px; padding:14px 16px; font-size:14px; font-weight:700; color:var(--navy2); line-height:1.95; margin-top:16px;}
+#main-content .okmsg.on{display:block;}
+#main-content .rowh{display:flex; justify-content:space-between; align-items:center; gap:10px; margin-top:26px;}
+#main-content .rowh h3{font-size:16px; font-weight:800; color:var(--navy2); line-height:1.7;}
+#main-content .rbtn{border:1px solid var(--line); background:#fff; color:var(--navy2); border-radius:999px; padding:6px 14px; font-size:13px; font-weight:800; cursor:pointer; font-family:inherit; flex:none;}
+#main-content .item{background:#fff; border-radius:16px; padding:16px 16px; margin-top:12px; box-shadow:0 4px 14px rgba(44,58,85,.06); overflow-wrap:anywhere;}
+#main-content .item .head{display:flex; align-items:center; gap:10px;}
+#main-content .item .av{width:40px; height:40px; border-radius:50%; object-fit:cover; background:var(--camelbg); flex:none;}
+#main-content .item .nm{font-size:14px; font-weight:800; color:var(--navy2); line-height:1.5;}
+#main-content .item .dt{font-size:12px; color:var(--muted); line-height:1.5;}
+#main-content .item .msg{font-size:14px; line-height:2; margin-top:10px; white-space:pre-wrap; word-break:break-word;}
+#main-content .item .msg a,#main-content .item .fg a{color:var(--camel2); font-weight:800; word-break:break-all;}
+#main-content .item .fg{font-size:13px; margin-top:8px; line-height:1.8;}
+#main-content .tag{display:inline-block; font-size:11px; font-weight:800; border-radius:6px; padding:1px 8px; margin-left:6px; vertical-align:1px;}
+#main-content .tag.kd{color:#4d5f9a; background:#eef1fb;}
+#main-content .tag.ug{color:var(--camel2); background:var(--camelbg);}
+#main-content .tag.tn{color:#2e7d32; background:#e8f3e9;}
+#main-content .empty{font-size:14px; color:var(--muted); text-align:center; background:#fff; border-radius:16px; padding:18px; margin-top:12px; line-height:1.9;}
+#main-content .demoband{display:none; background:#fff6d9; color:#8a6a12; font-size:13px; font-weight:700; text-align:center; border-radius:12px; padding:8px 12px; margin-top:16px; line-height:1.8;}
+#main-content .who{font-size:13px; font-weight:800; color:var(--muted); text-align:center; margin-top:6px; letter-spacing:.04em;}
+.pane{display:none;} .pane.on{display:block;}
+#bugL{position:fixed; left:12px; bottom:16px; z-index:59; background:rgba(255,255,255,.92); border:1px solid #dcd8ee; color:#8b8a9b; font-size:14px; font-weight:800; border-radius:999px; padding:5px 12px; cursor:pointer; letter-spacing:.04em; font-family:inherit;}
+#bugM{position:fixed; inset:0; background:rgba(34,48,74,.55); display:none; align-items:center; justify-content:center; z-index:70; padding:24px;}
+#bugM.on{display:flex;}
+#bugM .bx{background:#fff; border-radius:20px; padding:22px 20px; max-width:360px; width:100%;}
+#bugM h3{font-size:14.5px; color:var(--navy2); margin-bottom:8px;}
+#bugM textarea{width:100%; border:1.5px solid #e0dfee; border-radius:12px; padding:11px 13px; font-size:14px; line-height:1.8; font-family:inherit; min-height:100px; resize:vertical;}
+#bugM .bb{display:flex; gap:8px; margin-top:12px;}
+#bugM button{flex:1; border:none; border-radius:999px; padding:11px; font-size:14px; font-weight:800; cursor:pointer; font-family:inherit;}
+#bugM .c{background:#eeedf6; color:#6d675e;}
+#bugM .s{background:linear-gradient(135deg,#8fa8e6,#e0a1e6); color:#fff;}
+#bugM .done{display:none; font-size:14px; color:#2e7d32; font-weight:800; margin-top:10px; text-align:center;}
+</style>
+<script src="labo_config.js"></script>
+<link rel="stylesheet" href="ui-refined.css?v=20260909-icons">
+<link rel="stylesheet" href="ui-atelier.css?v=20260909-atelier">
+</head>
+<body class="atelier page-lp">
+<a class="ui-skip" href="#main-content">本文へ進む</a>
+<header><div class="ui-topnav"><a class="ui-brand" href="index.html" id="homeLink" data-cfg="labo_name">AIラボ</a><nav aria-label="ページ内ナビゲーション"><a href="index.html" id="homeLink2">マイページへ戻る</a></nav></div></header>
+
+<div class="wrap" id="main-content">
+
+  <div class="hero">
+    <div class="chars">
+      <img src="assets/hk-desk.png" alt="">
+      <div class="char-caption"><span>DESIGN REVIEW</span><b data-cfg="instructor_nick">はるか</b></div>
+    </div>
+    <h1>デザイン添削依頼</h1>
+    <div class="who" id="who">あなた専用のページ</div>
+    <div class="lead">制作中のデザインを、<b data-cfg="instructor_nick">はるか</b>が見て戻します。実案件は回数の制限なく何回でも。返却は<b>営業日24時間以内</b>。</div>
+  </div>
+  <div class="demoband" id="demoband">見本モードで表示しています（送信しても保存されません）</div>
+
+  <div class="tabs" role="tablist">
+    <button class="tab on" type="button" data-p="pForm" role="tab">依頼を送る</button>
+    <button class="tab" type="button" data-p="pBack" role="tab">添削の戻り<span id="backCnt"></span></button>
+  </div>
+
+  <!-- ===== 依頼フォーム ===== -->
+  <section class="pane on" id="pForm">
+    <div class="card">
+      <div class="fl">
+        <label class="lb" for="fgUrl">FigmaのURL<span class="req">必須</span></label>
+        <div class="hint">Figmaの右上「共有」→「リンクを知っている全員が閲覧可」にしてから、リンクをコピーして貼ってください。</div>
+        <input class="tin" id="fgUrl" type="url" inputmode="url" autocomplete="off" placeholder="https://www.figma.com/design/...">
+        <div class="err" id="eUrl">FigmaのURL（https://www.figma.com/ から始まるもの）を貼ってください。</div>
+      </div>
+
+      <div class="fl">
+        <span class="lb">案件の種類<span class="req">必須</span></span>
+        <div class="kinds" id="kinds">
+          <button type="button" class="kind" data-k="バナー">バナー</button>
+          <button type="button" class="kind" data-k="LP">LP</button>
+          <button type="button" class="kind" data-k="HP">HP</button>
+          <button type="button" class="kind" data-k="ロゴ">ロゴ</button>
+          <button type="button" class="kind" data-k="資料">資料</button>
+          <button type="button" class="kind" data-k="その他">その他</button>
+        </div>
+        <div class="err" id="eKind">案件の種類をひとつ選んでください。</div>
+      </div>
+
+      <div class="fl">
+        <label class="lb" for="body">依頼内容・相談したいこと<span class="req">必須</span></label>
+        <div class="hint">例：「FVの文字の強弱が決まらない」「配色が3案あって迷っている」。どこを見てほしいか書いてもらえると、戻しが具体的になります。</div>
+        <textarea class="tin" id="body" maxlength="1000" placeholder="例）FVの文字の強弱が決まらないです。キャッチとサブの差をどのくらいつけるとよいか見てほしいです。"></textarea>
+        <div class="cnt"><span id="bodyCnt">0</span> / 1,000字</div>
+        <div class="err" id="eBody">依頼内容・相談したいことを書いてください。</div>
+      </div>
+
+      <div class="fl">
+        <label class="lb" for="due">納期<span class="optl">任意</span></label>
+        <input class="tin" id="due" type="date">
+        <label class="chk"><input type="checkbox" id="urgent"><span>急ぎ（提出前・納期が近い）</span></label>
+      </div>
+
+      <div class="fl">
+        <span class="lb">画像を添付<span class="optl">任意・3枚まで</span></span>
+        <div class="hint">Figmaで見てほしい箇所のスクショや、参考にしているデザインなど。</div>
+        <input type="file" id="imgIn" accept="image/*" multiple style="display:none">
+        <button type="button" class="subbtn" id="imgBtn">画像を選ぶ</button>
+        <div class="imgprev" id="imgPrev"></div>
+      </div>
+
+      <button type="button" class="gbtn" id="send">はるかに送る</button>
+      <div class="okmsg" id="okmsg">はるかに届きました。添削したFigmaのURLとコメントが、営業日24時間以内にこのページの『添削の戻り』に届きます。</div>
+    </div>
+  </section>
+
+  <!-- ===== 添削の戻り／送った依頼 ===== -->
+  <section class="pane" id="pBack">
+    <div class="rowh"><h3>添削の戻り</h3><button type="button" class="rbtn" id="reload">更新</button></div>
+    <div id="backList"><div class="empty">読み込み中…</div></div>
+    <div class="rowh"><h3>送った依頼</h3></div>
+    <div id="sentList"><div class="empty">読み込み中…</div></div>
+  </section>
+
+  <footer><span data-cfg="labo_name">AIラボ</span>｜<span data-cfg="company">合同会社Li-Li</span><br><a data-cfg-href="tokutei_url" href="https://www.lilisconsul.com/tokutei" target="_blank" rel="noopener">特定商取引法に基づく表記</a> ｜ <a data-cfg-href="privacy_url" href="https://claude.ai/artifact/1m2VKXSBENfEXoLan3WHFv#privacy" target="_blank" rel="noopener">プライバシーポリシー</a> ｜ <a data-cfg-href="terms_url" href="https://claude.ai/artifact/1m2VKXSBENfEXoLan3WHFv#terms" target="_blank" rel="noopener">利用規約</a><button id="bugL">不具合を報告</button></footer>
+</div>
+
+<div id="bugM"><div class="bx">
+  <h3>不具合・気になったことを教えてください</h3>
+  <textarea id="bugT" placeholder="例）ボタンが反応しませんでした（iPhone/Safari）"></textarea>
+  <div class="bb"><button class="c" id="bugC">閉じる</button><button class="s" id="bugS">送信する</button></div>
+  <div class="done" id="bugD">届きました。ありがとうございます。すぐ確認します。</div>
+</div></div>
+
+<script src="supabase_config.js"></script>
+<script>
+(function(){
+var P=new URLSearchParams(location.search);
+/* 受講生ID・表示名：index.html と同じ取り方。?u= が無いときは index.html が保存した "ailab_my" を見る */
+var UID=(P.get("u")||"").replace(/[^a-zA-Z0-9_\-]/g,"").slice(0,40);
+var NAME=(P.get("name")||"").slice(0,20);
+if(!UID){ try{ var my=JSON.parse(localStorage.getItem("ailab_my")||"{}"); if(my&&my.id){ UID=String(my.id).replace(/[^a-zA-Z0-9_\-]/g,"").slice(0,40); if(!NAME&&my.name) NAME=String(my.name).slice(0,20); } }catch(e){} }
+try{ var __nm=localStorage.getItem("ailab_name_"+UID); if(__nm) NAME=__nm.slice(0,20); }catch(e){}
+var CFG_ON=(typeof SUPABASE_CONFIG!=="undefined"&&SUPABASE_CONFIG.enabled);
+var DEMO=P.get("demo")==="1"||!CFG_ON||!UID;
+var $=function(id){ return document.getElementById(id); };
+
+$("who").textContent=(NAME?NAME+"さんの専用ページ":"あなた専用のページ");
+if(DEMO) $("demoband").style.display="block";
+/* マイページへ戻るリンク */
+(function(){ var q=UID?("?u="+encodeURIComponent(UID)+(NAME?("&name="+encodeURIComponent(NAME)):"")):(DEMO?"?demo=1":""); $("homeLink").href="index.html"+q; $("homeLink2").href="index.html"+q; })();
+
+/* ID が無いとき（デモ指定なし・DB有効）は、index.html と同じく自分のページへ戻る案内 */
+if(!UID && P.get("demo")!=="1" && CFG_ON){
+  var ov=document.createElement("div");
+  ov.style.cssText="position:fixed;inset:0;background:rgba(34,48,74,.6);display:flex;align-items:center;justify-content:center;z-index:95;padding:24px;";
+  ov.innerHTML='<div style="background:#fff;border-radius:22px;padding:26px 22px;max-width:360px;width:100%;text-align:center;">'
+    +'<h3 style="font-size:15px;color:#22304a;line-height:1.8;">あなた専用ページの鍵が<br>このリンクに入っていません</h3>'
+    +'<p style="font-size:14px;color:#8b8a9b;line-height:2;margin-top:10px;">マイページ（カルテ）の「デザイン添削」から開くと、依頼と戻りがあなたの名前で届きます。</p>'
+    +'<a href="start.html" style="display:block;margin-top:14px;background:linear-gradient(135deg,#8fa8e6,#c77fce);color:#fff;border-radius:999px;padding:13px;font-size:14px;font-weight:800;text-decoration:none;">自分のページに戻る</a></div>';
+  document.body.appendChild(ov);
+}
+
+function sb(path,opts){
+  return fetch(SUPABASE_CONFIG.url+"/rest/v1/"+path,Object.assign({
+    headers:{apikey:SUPABASE_CONFIG.anonKey,Authorization:"Bearer "+SUPABASE_CONFIG.anonKey,
+    "Content-Type":"application/json",Prefer:"return=representation"}},opts||{}));
+}
+function fmt(d){ var x=new Date(d); return (x.getMonth()+1)+"/"+x.getDate()+" "+("0"+x.getHours()).slice(-2)+":"+("0"+x.getMinutes()).slice(-2); }
+/* 本文をそのまま入れつつ、URL（https://…）だけリンクにする（生HTMLは入れない） */
+function fillText(el,s){
+  el.textContent="";
+  String(s||"").split(/(https?:\/\/[^\s<>"'）」]+)/g).forEach(function(part){
+    if(/^https?:\/\//.test(part)){
+      var a=document.createElement("a"); a.href=part; a.target="_blank"; a.rel="noopener"; a.textContent=part; el.appendChild(a);
+    } else if(part){ el.appendChild(document.createTextNode(part)); }
+  });
+}
+function isFigma(u){ return /^https:\/\/(www\.)?figma\.com\/\S+/.test(u); }
+
+/* ===== タブ ===== */
+var tabs=document.querySelectorAll(".tab");
+function openTab(pid){
+  Array.prototype.forEach.call(tabs,function(t){ t.classList.toggle("on",t.getAttribute("data-p")===pid); });
+  $("pForm").classList.toggle("on",pid==="pForm"); $("pBack").classList.toggle("on",pid==="pBack");
+}
+Array.prototype.forEach.call(tabs,function(t){ t.onclick=function(){ openTab(t.getAttribute("data-p")); }; });
+if(location.hash==="#back") openTab("pBack");
+
+/* ===== 種類 ===== */
+var KIND="";
+Array.prototype.forEach.call(document.querySelectorAll(".kind"),function(b){
+  b.onclick=function(){ KIND=b.getAttribute("data-k"); Array.prototype.forEach.call(document.querySelectorAll(".kind"),function(x){ x.classList.toggle("on",x===b); }); $("eKind").classList.remove("on"); };
+});
+$("body").addEventListener("input",function(){ $("bodyCnt").textContent=$("body").value.length; if($("body").value.trim()) $("eBody").classList.remove("on"); });
+$("fgUrl").addEventListener("input",function(){ if(isFigma($("fgUrl").value.trim())) $("eUrl").classList.remove("on"); });
+
+/* ===== 画像添付（index.html と同じ：端末内で縮小→JPEG。最大3枚） ===== */
+var IMGS=[];
+function renderThumbs(){
+  var box=$("imgPrev"); box.innerHTML="";
+  IMGS.forEach(function(d,i){
+    var t=document.createElement("div"); t.className="th";
+    t.innerHTML='<img src="'+d+'" alt=""><button type="button" aria-label="削除">×</button>';
+    t.querySelector("button").onclick=function(){ IMGS.splice(i,1); renderThumbs(); };
+    box.appendChild(t);
+  });
+  $("imgBtn").style.display=IMGS.length>=3?"none":"inline-block";
+}
+function shrink(file){
+  return new Promise(function(res,rej){
+    var fr=new FileReader();
+    fr.onload=function(){
+      var im=new Image();
+      im.onload=function(){
+        var MAX=1200, w=im.width, h=im.height, k=Math.min(1,MAX/Math.max(w,h));
+        var c=document.createElement("canvas"); c.width=Math.round(w*k); c.height=Math.round(h*k);
+        c.getContext("2d").drawImage(im,0,0,c.width,c.height);
+        var q=0.82, d=c.toDataURL("image/jpeg",q);
+        while(d.length>380000 && q>0.4){ q-=0.1; d=c.toDataURL("image/jpeg",q); }
+        res(d);
+      };
+      im.onerror=rej; im.src=fr.result;
+    };
+    fr.onerror=rej; fr.readAsDataURL(file);
+  });
+}
+$("imgBtn").onclick=function(){ $("imgIn").click(); };
+$("imgIn").onchange=function(){
+  var fs=Array.prototype.slice.call(this.files||[]).slice(0,3-IMGS.length); this.value="";
+  Promise.all(fs.map(shrink)).then(function(ds){ ds.forEach(function(d){ if(IMGS.length<3) IMGS.push(d); }); renderThumbs(); })
+    .catch(function(){ alert("画像を読み込めませんでした。別の画像でお試しください。"); });
+};
+
+/* ===== デモ用データ ===== */
+var demoSent=[];
+var demoBack=[
+{author_name:"はるか",message:"バナー、見ました。\nFVのキャッチは太さで差をつけるより、サイズを1.6倍くらいに広げると強弱がはっきりします。サブコピーは色を少し薄くして、キャッチを主役にしました。\n直したFigmaはこちらです。\nhttps://www.figma.com/design/demo123/banner-review\n配色はB案がいちばん商品の雰囲気に合っています。このまま進めて大丈夫です。",created_at:new Date(Date.now()-3600000).toISOString()}
+];
+
+/* ===== 送信 ===== */
+$("send").onclick=function(){
+  var url=$("fgUrl").value.trim(), body=$("body").value.trim(), due=$("due").value, urg=$("urgent").checked;
+  var ng=null;
+  if(!isFigma(url)){ $("eUrl").classList.add("on"); ng=ng||$("fgUrl"); }
+  if(!KIND){ $("eKind").classList.add("on"); ng=ng||$("kinds"); }
+  if(!body){ $("eBody").classList.add("on"); ng=ng||$("body"); }
+  if(ng){ try{ ng.scrollIntoView({behavior:"smooth",block:"center"}); }catch(e){} if(ng.focus) ng.focus(); return; }
+  var btn=this; btn.disabled=true;
+  var dueTxt=due?(function(){ var d=new Date(due+"T00:00:00"); return (d.getMonth()+1)+"月"+d.getDate()+"日（"+"日月火水木金土".charAt(d.getDay())+"）"; })():"指定なし";
+  var worry="【デザイン添削依頼｜"+KIND+"】\n"+body.slice(0,1000)+"\n納期："+dueTxt+(urg?"（急ぎ）":"");
+  var rec={member_id:UID||"demo",member_name:NAME,mood:(urg?"添削依頼・急ぎ":"添削依頼"),worry:worry,want:url};
+  var imgs=IMGS.slice();
+  function done(){
+    $("okmsg").classList.add("on");
+    $("fgUrl").value=""; $("body").value=""; $("bodyCnt").textContent="0"; $("due").value=""; $("urgent").checked=false;
+    KIND=""; Array.prototype.forEach.call(document.querySelectorAll(".kind"),function(x){ x.classList.remove("on"); });
+    IMGS=[]; renderThumbs(); btn.disabled=false;
+    setTimeout(function(){ $("okmsg").classList.remove("on"); },8000);
+    loadAll();
+  }
+  if(DEMO){ demoSent.unshift({mood:rec.mood,worry:rec.worry,want:rec.want,created_at:new Date().toISOString()}); done(); return; }
+  sb("ailab_notes",{method:"POST",body:JSON.stringify(rec)}).then(function(r){ if(!r.ok) throw new Error("post"); return r.json(); }).then(function(j){
+    var id=(Array.isArray(j)&&j[0]&&j[0].id)?j[0].id:null;
+    /* 画像は別行（mood「添付画像」・want に "karte:<id>#n"）。index.html と同じ保存形式 */
+    var ps=imgs.map(function(d,i){ return sb("ailab_notes",{method:"POST",body:JSON.stringify({member_id:UID,member_name:NAME,mood:"添付画像",worry:d,want:"karte:"+(id||"")+"#"+(i+1)})}).catch(function(){}); });
+    return Promise.all(ps);
+  }).then(function(){ done(); })
+    .catch(function(){ btn.disabled=false; alert("送信できませんでした。電波のよいところでもう一度お試しください。"); });
+};
+
+/* ===== 一覧 ===== */
+function renderBack(list){
+  var box=$("backList"); box.innerHTML="";
+  $("backCnt").textContent=list.length?("（"+list.length+"）"):"";
+  if(!list.length){ box.innerHTML='<div class="empty">戻りはここに届きます。依頼を送ったあと、営業日24時間以内に表示されます。</div>'; return; }
+  list.forEach(function(m){
+    var e=document.createElement("div"); e.className="item";
+    var hasFg=/figma\.com/.test(m.message||"");
+    e.innerHTML='<div class="head"><img class="av" src="assets/hk-desk.png" alt="" onerror="this.style.display=\'none\'"><div><div class="nm"></div><div class="dt"></div></div></div><div class="msg"></div>';
+    e.querySelector(".nm").textContent=(m.author_name||"はるか");
+    if(hasFg){ var t=document.createElement("span"); t.className="tag tn"; t.textContent="添削"; e.querySelector(".nm").appendChild(t); }
+    e.querySelector(".dt").textContent=fmt(m.created_at);
+    fillText(e.querySelector(".msg"),m.message);
+    box.appendChild(e);
+  });
+}
+function renderSent(list){
+  var box=$("sentList"); box.innerHTML="";
+  if(!list.length){ box.innerHTML='<div class="empty">送った依頼は、ここに一覧で表示されます。</div>'; return; }
+  list.forEach(function(n){
+    var e=document.createElement("div"); e.className="item";
+    var w=String(n.worry||""), km=w.match(/^【デザイン添削依頼｜([^】]*)】/);
+    var bodyTxt=w.replace(/^【デザイン添削依頼｜[^】]*】\n?/,"");
+    e.innerHTML='<div class="dt"></div><div class="fg">Figma：<span class="u"></span></div><div class="msg"></div>';
+    var dt=e.querySelector(".dt"); dt.textContent=fmt(n.created_at);
+    if(km){ var t=document.createElement("span"); t.className="tag kd"; t.textContent=km[1]; dt.appendChild(t); }
+    if(/急ぎ/.test(n.mood||"")){ var u=document.createElement("span"); u.className="tag ug"; u.textContent="急ぎ"; dt.appendChild(u); }
+    fillText(e.querySelector(".u"),n.want);
+    fillText(e.querySelector(".msg"),bodyTxt);
+    box.appendChild(e);
+  });
+}
+function byNew(a,b){ return new Date(b.created_at)-new Date(a.created_at); }
+function loadAll(){
+  if(DEMO){ renderBack(demoBack.slice().sort(byNew)); renderSent(demoSent.slice().sort(byNew)); return; }
+  sb("ailab_advice?target_id=eq."+encodeURIComponent(UID)+"&order=created_at.desc&limit=100").then(function(r){ return r.json(); })
+    .then(function(j){ if(Array.isArray(j)){ renderBack(j.filter(function(a){ return String(a.author_name||"").indexOf("draft")!==0; }).sort(byNew)); } })
+    .catch(function(){ $("backList").innerHTML='<div class="empty">読み込めませんでした。「更新」を押してください。</div>'; });
+  sb("ailab_notes?member_id=eq."+encodeURIComponent(UID)+"&mood=like."+encodeURIComponent("添削依頼*")+"&order=created_at.desc&limit=100").then(function(r){ return r.json(); })
+    .then(function(j){ if(Array.isArray(j)){ renderSent(j.filter(function(n){ return String(n.mood||"").indexOf("添削依頼")===0; }).sort(byNew)); } })
+    .catch(function(){ $("sentList").innerHTML='<div class="empty">読み込めませんでした。「更新」を押してください。</div>'; });
+}
+$("reload").onclick=function(){ loadAll(); };
+loadAll();
+})();
+</script>
+
+<script>
+(function(){
+var U=(typeof SUPABASE_CONFIG!=="undefined"&&SUPABASE_CONFIG.enabled)?SUPABASE_CONFIG.url+"/rest/v1/ailab_notes":"";
+var K=(typeof SUPABASE_CONFIG!=="undefined"&&SUPABASE_CONFIG.anonKey)||"";
+var M=document.getElementById("bugM");
+document.getElementById("bugL").onclick=function(){ M.classList.add("on"); };
+document.getElementById("bugC").onclick=function(){ M.classList.remove("on"); document.getElementById("bugD").style.display="none"; };
+document.getElementById("bugS").onclick=function(){
+  var t=document.getElementById("bugT").value.trim();
+  if(!t){ document.getElementById("bugT").focus(); return; }
+  var btn=this; btn.disabled=true;
+  function done(){
+    document.getElementById("bugD").style.display="block";
+    document.getElementById("bugT").value=""; btn.disabled=false;
+    setTimeout(function(){ M.classList.remove("on"); document.getElementById("bugD").style.display="none"; },1800);
+  }
+  if(!U || new URLSearchParams(location.search).get("demo")==="1"){ done(); return; }
+  fetch(U,{method:"POST",headers:{apikey:K,Authorization:"Bearer "+K,"Content-Type":"application/json"},
+    body:JSON.stringify({member_id:"bug_tensaku",member_name:"デザイン添削依頼",mood:"バグ報告",worry:t,want:location.href.slice(0,180)+" ／ "+navigator.userAgent.slice(0,140)})})
+    .then(function(){ done(); }).catch(function(){ btn.disabled=false; alert("送信できませんでした。通信環境をご確認ください。"); });
+};
+})();
+</script>
+<script src="ui-refined.js?v=20260909-icons"></script>
+<script src="ui-atelier.js?v=20260909-atelier"></script>
+
+</body></html>

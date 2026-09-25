@@ -666,7 +666,7 @@ function renderInbox(notes,advMap,drafts){
   var arr=notes.slice().sort(function(a,b){
     var da=isDone(a,advMap), db=isDone(b,advMap);
     if(da!==db) return da?1:-1;
-    var ua=(a.mood==="急ぎ")?1:0, ub=(b.mood==="急ぎ")?1:0;   /* 急ぎは未対応の中で先頭 */
+    var ua=(/急ぎ/.test(a.mood||""))?1:0, ub=(/急ぎ/.test(b.mood||""))?1:0;   /* 急ぎは未対応の中で先頭 */
     if(ua!==ub) return ub-ua;
     return new Date(b.created_at)-new Date(a.created_at);
   });
@@ -685,15 +685,15 @@ function renderInbox(notes,advMap,drafts){
     var done=isDone(n,advMap);
     if(done) e.style.opacity=".55";
     e.innerHTML='<span class="ava a'+(idx%4+1)+'"><svg viewBox="0 0 24 24"><circle cx="12" cy="8.5" r="4"/><path d="M4 20c1-4 4.2-6 8-6s7 2 8 6z"/></svg></span>'+
-      '<div class="icol"><div class="nm">'+esc(n.member_name||n.member_id)+'</div><div class="id">'+esc(n.member_id)+'</div>'+(String(n.member_id||"").indexOf("trial_")===0?'<span class="mood" style="background:#eef1fb; color:#4d5f9a; font-weight:800;">モニター（お試し1回）</span>':'')+(n.mood==="急ぎ"?'<span class="mood" style="background:#fde6ff;color:#a75da9;font-weight:800;">🔥 急ぎ（提出前）</span>':(n.mood&&n.mood!=="対応済み"?'<span class="mood">'+esc(n.mood)+'</span>':''))+'</div>'+
-      '<div class="ibody"><div class="tx">'+esc(n.worry)+'</div>'+(n.want?'<div class="wt">やってみたい：'+esc(n.want)+'</div>':'')+
+      '<div class="icol"><div class="nm">'+esc(n.member_name||n.member_id)+'</div><div class="id">'+esc(n.member_id)+'</div>'+(String(n.member_id||"").indexOf("trial_")===0?'<span class="mood" style="background:#eef1fb; color:#4d5f9a; font-weight:800;">モニター（お試し1回）</span>':'')+(n.mood==="急ぎ"?'<span class="mood" style="background:#fde6ff;color:#a75da9;font-weight:800;">🔥 急ぎ（提出前）</span>':(String(n.mood||"").indexOf("添削依頼")===0?'<span class="mood" style="background:#eef1fb;color:#4d5f9a;font-weight:800;">🎨 デザイン添削依頼'+(/急ぎ/.test(n.mood)?'・🔥急ぎ':'')+'</span>':(n.mood&&n.mood!=="対応済み"?'<span class="mood">'+esc(n.mood)+'</span>':'')))+'</div>'+
+      '<div class="ibody"><div class="tx">'+esc(n.worry)+'</div>'+(n.want?(String(n.mood||"").indexOf("添削依頼")===0?'<div class="wt">Figma：'+esc(n.want).replace(/(https?:\/\/[^\s<]+)/g,'<a href="$1" target="_blank" rel="noopener">$1</a>')+'</div>':'<div class="wt">やってみたい：'+esc(n.want)+'</div>'):'')+
         (function(){ var ims=(renderInbox._img||{})[String(n.id)]||[]; return ims.length?'<div class="wt" style="display:flex;gap:6px;flex-wrap:wrap;">'+ims.map(function(d){ return '<a href="'+d+'" target="_blank" rel="noopener"><img src="'+d+'" alt="添付画像" style="width:72px;height:72px;object-fit:cover;border-radius:8px;border:1px solid #e6e3ee;"></a>'; }).join("")+'</div>':''; })()+
         (function(){ var ls=(renderInbox._slog||{})[n.member_id]||[]; if(!ls.length) return ''; var t=0,c=0; ls.forEach(function(l){ try{ var v=JSON.parse(l.worry||"{}"); var d=new Date(l.want); if((Date.now()-d)/86400000<=7){ t+=(+v.dm||0); c++; } }catch(e){} }); return '<div class="wt">営業ログ：直近7日 DM '+t+'件（記録'+c+'日）</div>'; })()+'</div>'+
       '<div class="iright"><span class="dt">'+fmt(n.created_at)+'</span>'+
       (done?'<span class="advpill" style="background:#e8f3ee; color:#3f7d63;">完了</span>':'')+
       (advs.length?'<span class="advpill">'+advs.length+'件のアドバイス</span>':'')+'</div>'+
       (advs.length?'<div class="advsent"><b>直近のアドバイス</b>\n'+esc(advs[0].message)+'</div>':'')+
-      '<div class="reply"><textarea placeholder="'+esc(n.member_name||"")+'さんへのアドバイス（どんなAIとの付き合い方がよいか・どのAIが合うか・最初の一歩）"></textarea>'+
+      '<div class="reply"><textarea placeholder="'+(String(n.mood||"").indexOf("添削依頼")===0?esc(n.member_name||"")+'さんへ：添削したFigmaのURLと、直した点・良かった点のコメント':esc(n.member_name||"")+'さんへのアドバイス（どんなAIとの付き合い方がよいか・どのAIが合うか・最初の一歩）')+'"></textarea>'+
       '<button class="sbtn">アドバイスを送る</button><div class="sentok">送信しました。本人のページと分析に反映されます。</div></div>';
     var ta=e.querySelector("textarea"), sbtn=e.querySelector(".sbtn"), okm=e.querySelector(".sentok");
     var dft=(!done && drafts[n.member_id])||null;

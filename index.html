@@ -313,6 +313,7 @@ footer{text-align:center; font-size:14px; color:#9aa7b4; padding:34px 16px 10px;
               <div class="imgprev" id="imgPrev"></div>
               <label class="chk"><input type="checkbox" id="isResult"><span>前回のアドバイスを「やってみた結果」の報告です（合っていたか・どう変わったかも一緒に書いてください）</span></label>
               <label class="chk"><input type="checkbox" id="isUrgent"><span>急ぎです（納期が近い実案件・提出前の確認）。管理者ボードで先頭に表示され、はるかが優先して見ます</span></label>
+              <a class="subbtn" id="tensakuhref" href="tensaku.html" style="text-decoration:none; margin-top:12px;">Figmaのデザインを添削してもらう（添削依頼ページ）</a>
             </div>
             <button class="gbtn" id="send">この内容でカルテを作成する</button>
             <div class="ok" id="okmsg">カルテが届きました。はるかが読んで、アドバイスをお返ししますね。</div>
@@ -549,7 +550,7 @@ function renderAdv(list){
   list.forEach(function(m){
     var e=document.createElement("div"); e.className="adv";
     e.innerHTML='<div class="head"><img class="av" src="assets/hk-desk.png" alt="" onerror="this.style.display=\'none\'"><div><div class="nm">'+esc(m.author_name||"はるか")+'</div><div class="dt">'+fmt(m.created_at)+'</div></div></div>'+
-      '<div class="body">'+esc(m.message)+'</div>';
+      '<div class="body">'+esc(m.message).replace(/(https?:\/\/[^\s<]+)/g,'<a href="$1" target="_blank" rel="noopener">$1</a>')+'</div>';
     a.appendChild(e);
   });
 }
@@ -1013,7 +1014,8 @@ document.getElementById("slSave").onclick=function(){
   req.then(function(){ if(ex) ex.worry=JSON.stringify(v); else LOGS.push({want:v.date,worry:JSON.stringify(v),id:null}); ok(); if(!ex) loadAll(); })
     .catch(function(){ btn.disabled=false; alert("記録できませんでした。もう一度お試しください。"); });
 };
-(function(){ var a=document.getElementById("oubohref"); if(a){ a.href="oubo.html"+(UID?("?u="+encodeURIComponent(UID)+(NAME?("&name="+encodeURIComponent(NAME)):"")):(DEMO?"?demo=1":"")); } })();
+(function(){ var a=document.getElementById("oubohref"); if(a){ a.href="oubo.html"+(UID?("?u="+encodeURIComponent(UID)+(NAME?("&name="+encodeURIComponent(NAME)):"")):(DEMO?"?demo=1":"")); }
+  var t=document.getElementById("tensakuhref"); if(t){ t.href="tensaku.html"+(UID?("?u="+encodeURIComponent(UID)+(NAME?("&name="+encodeURIComponent(NAME)):"")):(DEMO?"?demo=1":"")); } })();
 document.getElementById("slIcs").onclick=function(){
   var d=new Date(); d.setDate(d.getDate()+1); var ymd=d.getFullYear()+("0"+(d.getMonth()+1)).slice(-2)+("0"+d.getDate()).slice(-2);
   var url=location.href.split("?")[0]+(UID?("?uid="+encodeURIComponent(UID)):"");

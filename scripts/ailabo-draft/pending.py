@@ -19,7 +19,7 @@ notes = get_all(env, "ailab_notes")
 adv   = get_all(env, "ailab_advice")
 me    = env["instructor"]
 
-karte = [n for n in notes if is_karte(n)]
+karte = [n for n in notes if is_karte(n) and not str(n.get("mood") or "").startswith("添削依頼")]   # Figma添削依頼は本人対応
 # 添付画像・営業ログは別行。カルテ id で引けるように整理する
 import os, base64, shutil
 images = {}
