@@ -229,6 +229,7 @@ footer{text-align:center; font-size:14px; color:#a3a2b5; margin-top:44px; line-h
   <section class="sec" id="secLock">
     <div class="eyebrow" aria-hidden="true">05</div>
     <h2>受講生が使っている機能</h2>
+    <p class="fine" style="text-align:center;">下の各カードは受講生画面の見本です。分析レポート・取扱説明書・営業ログ・実験ノート・履歴は、<a id="indexLink" href="index.html?demo=1">モニターIDで受講生画面をそのまま開く</a>と実際に触れます（応募ノート・添削依頼は各カードのボタンから）。</p>
     <div>
       <div class="card"><p>カルテは、書くほどに「あなた専用」に育っていきます。受講生の画面では、送った相談がこんな形で積み上がります。</p></div>
       <div class="lkgrid" id="lkgrid">
@@ -277,6 +278,15 @@ footer{text-align:center; font-size:14px; color:#a3a2b5; margin-top:44px; line-h
           <a class="subbtn" id="ouboLink" href="oubo.html?demo=1" style="text-decoration:none; margin-top:10px;">応募ノートを実際に開く</a>
         </div>
 
+        <div class="lk" role="button" tabindex="0" data-name="デザイン添削依頼">
+          <div class="lh">デザイン添削依頼（Figma）</div>
+          <p class="ld">制作中のFigmaのURLと相談したいことを送ると、はるかが添削して、添削したURLとコメントを戻します。実案件は何回でも、返却は営業日24時間以内。</p>
+          <div class="blur" aria-hidden="true">
+            <div class="drow"><span>美容サロンLP（FVの文字の強弱）</span><em>戻り済</em></div>
+            <div class="drow"><span>採用バナー3案（配色の迷い）</span><em>添削中</em></div>
+          </div>
+          <a class="subbtn" id="tensakuLink" href="tensaku.html?demo=1" style="text-decoration:none; margin-top:10px;">添削依頼ページを実際に開く</a>
+        </div>
         <div class="lk" role="button" tabindex="0" data-name="はるかのAI実験ノート">
           <div class="lh">はるかのAI実験ノート</div>
           <p class="ld">はるかが実際にAIを触って気づいた使い方が、ここに溜まっていきます。</p>
@@ -346,7 +356,8 @@ var UID=lsGet("ailab_trial_uid");
 if(!UID||!/^trial_[a-z0-9]{8}$/.test(UID)){ UID=newId(); lsSet("ailab_trial_uid",UID); }
 var SENT_KEY="ailab_trial_sent_"+UID;
 document.getElementById("tUid").textContent=UID;
-(function(){ var a=document.getElementById("ouboLink"); if(a&&!DEMO){ a.href="oubo.html?u="+encodeURIComponent(UID)+(NAME?("&name="+encodeURIComponent(NAME)):""); } })();
+(function(){ var q="?u="+encodeURIComponent(UID)+(NAME?("&name="+encodeURIComponent(NAME)):"");
+  [["ouboLink","oubo.html"],["tensakuLink","tensaku.html"],["indexLink","index.html"]].forEach(function(x){ var a=document.getElementById(x[0]); if(a&&!DEMO) a.href=x[1]+q; }); })();
 
 var nameEl=document.getElementById("tName");
 var NAME=(lsGet("ailab_trial_name")||"").slice(0,20);
