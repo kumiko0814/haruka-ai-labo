@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="ja"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>VS Code セットアップガイド｜AI活用ラボ</title>
+<style>
+:root{ --bg:#f0f4ff; --navy:#2c3a55; --navy2:#22304a; --pk:#a75da9; --pk2:#c77fce; --pkbg:#fde6ff; --blbg:#e2ebff; --text:#4a4440; --muted:#7c7f93; --line:#e4e2f2; --ok:#2e7d32; }
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{overflow-x:hidden;}
+body{font-family:"Yu Gothic","YuGothic","游ゴシック","Hiragino Kaku Gothic ProN","Hiragino Sans",sans-serif; background:linear-gradient(168deg,#e2ebff 0%,#fdf9ff 46%,#fde6ff 100%); color:var(--text); line-height:2; -webkit-font-smoothing:antialiased;}
+.wrap{max-width:720px; margin:0 auto; padding:0 18px 60px;}
+header{background:var(--navy2); color:#fff; padding:12px 18px; font-size:14px; letter-spacing:.06em;}
+header b{font-weight:800;}
+.hero{padding:34px 0 8px;}
+.hero .tag{display:inline-block; background:var(--navy2); color:#fff; font-size:12px; font-weight:800; border-radius:999px; padding:4px 14px; letter-spacing:.08em;}
+.hero h1{font-size:clamp(24px,6.6vw,34px); color:var(--navy2); line-height:1.55; margin-top:12px; font-weight:800;}
+.hero h1 span{color:var(--pk);}
+.hero p{font-size:15px; margin-top:12px;}
+.lead{background:#fff; border-radius:16px; padding:16px 18px; box-shadow:0 6px 20px rgba(44,58,85,.07); margin-top:16px; font-size:15px;}
+.lead b{color:var(--pk);}
+.toc{display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:16px;}
+.toc a{display:block; background:#fff; border:1px solid var(--line); border-radius:12px; padding:10px 12px; font-size:13px; font-weight:800; color:var(--navy2); text-decoration:none; line-height:1.6;}
+.toc a small{display:block; color:var(--muted); font-weight:500; font-size:11px;}
+.sec{margin-top:44px;}
+.sec .eyebrow{font-size:13px; font-weight:800; color:#8ea6e0; letter-spacing:.18em;}
+.sec h2{font-size:clamp(20px,5.6vw,24px); color:var(--navy2); line-height:1.6; margin-top:2px; font-weight:800;}
+.sec h2 em{font-style:normal; color:var(--pk);}
+.card{background:#fff; border-radius:18px; padding:20px; margin-top:16px; box-shadow:0 6px 20px rgba(44,58,85,.07);}
+.card h3{font-size:16px; color:var(--navy2); margin-bottom:6px; font-weight:800;}
+.card p{font-size:14.5px; margin-top:8px;}
+.card p:first-child{margin-top:0;}
+.card b{color:var(--navy2);}
+.note{font-size:13px; color:var(--muted); margin-top:8px; line-height:1.9;}
+.pill{display:inline-block; font-size:11px; font-weight:800; color:#fff; background:var(--pk); border-radius:6px; padding:1px 8px; margin-right:6px; vertical-align:2px;}
+.pill.b{background:#8fa8e6;}
+.pill.g{background:var(--ok);}
+.step{display:flex; gap:12px; margin-top:14px; align-items:flex-start;}
+.step .n{flex:none; width:32px; height:32px; border-radius:50%; background:var(--pk); color:#fff; font-weight:800; display:flex; align-items:center; justify-content:center; font-size:14px;}
+.step .b{flex:1;}
+.step .b b{display:block; font-size:15px; color:var(--navy2);}
+.step .b p{font-size:14px; margin-top:2px;}
+.cmd{position:relative; background:#22304a; color:#fff; border-radius:12px; padding:14px 92px 14px 16px; font-family:ui-monospace,Menlo,Consolas,monospace; font-size:13.5px; line-height:1.7; margin-top:10px; word-break:break-all; white-space:pre-wrap;}
+.cmd button{position:absolute; right:10px; top:10px; border:none; background:var(--pk2); color:#fff; font-weight:800; border-radius:8px; padding:6px 12px; font-size:13px; cursor:pointer; font-family:inherit;}
+.cmd button.done{background:var(--ok);}
+.os{display:flex; gap:8px; margin-top:14px;}
+.os button{flex:1; border:1.5px solid var(--line); background:#fff; color:var(--navy2); border-radius:12px; padding:10px; font-size:14px; font-weight:800; cursor:pointer; font-family:inherit;}
+.os button.on{background:var(--navy2); color:#fff; border-color:var(--navy2);}
+.osbody{display:none;} .osbody.on{display:block;}
+.check{list-style:none; margin-top:10px;}
+.check li{position:relative; padding-left:30px; font-size:14.5px; margin-top:8px;}
+.check li:before{content:"☐"; position:absolute; left:0; top:0; color:var(--pk); font-size:18px; line-height:1.6;}
+.grid{display:grid; grid-template-columns:1fr; gap:10px; margin-top:12px;}
+.ext{background:#fbfaff; border:1px solid var(--line); border-radius:14px; padding:12px 14px; font-size:14px; line-height:1.85;}
+.ext b{display:block; color:var(--navy2);}
+.ext i{font-style:normal; display:block; font-size:12px; color:var(--muted); font-family:ui-monospace,Menlo,monospace; word-break:break-all;}
+.ext span{display:block; margin-top:2px;}
+.try{background:var(--pkbg); border-left:4px solid var(--pk); border-radius:10px; padding:12px 14px; font-size:14px; margin-top:10px; line-height:1.9;}
+.try b{display:block; color:var(--navy2);}
+.qa{border-top:1px dashed var(--line); padding:12px 0;}
+.qa:first-of-type{border-top:none; padding-top:0;}
+.qa b{display:block; color:var(--navy2); font-size:14.5px;}
+.qa p{font-size:14px; margin-top:4px;}
+.dict{display:grid; grid-template-columns:1fr; gap:8px; margin-top:12px;}
+.dict div{background:#fbfaff; border:1px solid var(--line); border-radius:12px; padding:10px 14px; font-size:14px;}
+.dict div b{color:var(--pk);}
+.line{border-top:2px solid var(--line); margin:22px 0;}
+footer{text-align:center; font-size:13px; color:#a3a2b5; margin-top:44px; line-height:2;}
+a{color:var(--pk); font-weight:800;}
+@media(min-width:640px){ .grid{grid-template-columns:1fr 1fr;} .dict{grid-template-columns:1fr 1fr;} }
+</style>
+</head>
+<body>
+<header><b>AI活用ラボ</b>｜VS Code セットアップガイド</header>
+
+<div class="wrap">
+
+  <div class="hero">
+    <span class="tag">はるかさん専用・保存版</span>
+    <h1>VS Code に、<br><span>AIの相棒</span>を住まわせる。</h1>
+    <p>こんにちは！！ このページは、はるかさんが『 自分のパソコンで Claude Code と Codex を使えるようにする 』ための手順書です。</p>
+    <div class="lead">
+      むずかしい言葉は使いません。<b>コピーして、貼って、Enter</b>。基本はこれだけです🤍<br>
+      全部やっても 30分くらい。途中で止まっても大丈夫。同じところからやり直せます。
+    </div>
+    <div class="toc">
+      <a href="#s1">01 これで何ができる？<small>いま くみこがやっている作業環境</small></a>
+      <a href="#s2">02 準備するもの<small>契約・アカウント・所要時間</small></a>
+      <a href="#s3">03 貼るだけセットアップ<small>Mac／Windows それぞれ1行</small></a>
+      <a href="#s4">04 サインイン<small>Claude Code と Codex</small></a>
+      <a href="#s5">05 デザイナー向けセット<small>入れておくと便利な拡張機能</small></a>
+      <a href="#s6">06 Figma とつなぐ<small>デザインからコードへ</small></a>
+      <a href="#s7">07 最初にやってみること<small>3つのお試し</small></a>
+      <a href="#s8">08 困ったときは<small>よくあるつまずき・用語</small></a>
+    </div>
+  </div>
+
+  <!-- 01 -->
+  <section class="sec" id="s1">
+    <div class="eyebrow">01</div>
+    <h2>これで、<em>何ができるようになる？</em></h2>
+    <div class="card">
+      <p><b>VS Code</b>は「文章もコードも書ける、無料のメモ帳の進化版」です。ここに <b>Claude Code</b>（Anthropic）と <b>Codex</b>（OpenAI）という2人のAIを住まわせると、はるかさんが日本語で頼むだけで⇩ができます。</p>
+      <ul class="check">
+        <li>「このフォルダに、美容サロンのLPを作って」→ HTML／CSS を書いて、ブラウザで見せてくれる</li>
+        <li>「このバナー画像を見て、余白と文字の強弱を直して」→ 画像を見て、直し方を返してくれる</li>
+        <li>「Figma のこのフレームを、そのままコードにして」→ Figma とつないで書き出してくれる</li>
+        <li>「AIラボの管理画面の文言を変えて、公開して」→ 直して、インターネットに反映までしてくれる</li>
+      </ul>
+      <p class="note">ChatGPT の画面に貼り付けるのと違うのは、AIが『 はるかさんのパソコンの中のファイルを直接さわれる 』こと。だから「作って→直して→公開」が1つの会話で終わります。</p>
+    </div>
+  </section>
+
+  <!-- 02 -->
+  <section class="sec" id="s2">
+    <div class="eyebrow">02</div>
+    <h2>準備するもの</h2>
+    <div class="card">
+      <ul class="check">
+        <li><b>パソコン</b>：Mac（macOS 13 以降）か Windows 10／11。メモリ 4GB 以上</li>
+        <li><b>Claude の有料プラン</b>（Pro か Max）：Claude Code はこの契約で使えます。無料プランでは使えません</li>
+        <li><b>ChatGPT の有料プラン</b>（Plus 以上）：Codex はこの契約で使えます。無料でも制限つきで動きます</li>
+        <li><b>Figma のアカウント</b>：Figma とつなぐときに使います（デザイン用の有料席があると、VS Code の中で Figma を開く拡張機能も使えます）</li>
+        <li><b>GitHub のアカウント</b>（無料）：作ったページをインターネットに公開するときに使います。あとからでも大丈夫</li>
+      </ul>
+      <p class="note">所要時間の目安：セットアップ 15〜20分＋サインイン 5分。ネット回線が遅いと、ダウンロードにもう少しかかります。</p>
+    </div>
+  </section>
+
+  <!-- 03 -->
+  <section class="sec" id="s3">
+    <div class="eyebrow">03</div>
+    <h2><em>貼るだけ</em>セットアップ</h2>
+    <div class="card">
+      <p>ここが本題です！！ 下の1行をコピーして、貼って、Enter。あとは自動で ⇩ が全部入ります。</p>
+      <ul class="check">
+        <li>VS Code 本体（＋日本語化）</li>
+        <li>Claude Code と Codex（それぞれ公式の入れ方）</li>
+        <li>デザイナー向けの拡張機能 12個（05 で説明）</li>
+        <li>デスクトップに「AIラボ」フォルダ（作業場所）</li>
+        <li>Claude Code と Figma の接続（公式の Figma MCP）</li>
+      </ul>
+      <div class="os">
+        <button type="button" class="on" data-os="mac">Mac の人</button>
+        <button type="button" data-os="win">Windows の人</button>
+      </div>
+
+      <div class="osbody on" id="os-mac">
+        <div class="step"><div class="n">1</div><div class="b"><b>「ターミナル」を開く</b><p>キーボードの <b>⌘（コマンド）＋スペース</b> を押して、「ターミナル」と打って Enter。黒か白の四角い画面が出ます。</p></div></div>
+        <div class="step"><div class="n">2</div><div class="b"><b>下の1行をコピーして、ターミナルに貼って Enter</b>
+          <div class="cmd" id="c-mac">curl -fsSL https://kumiko0814.github.io/haruka-ai-labo/vscode-guide/setup-mac.sh | bash<button type="button" data-copy="c-mac">コピー</button></div>
+          <p>途中で「Password:」と出たら、<b>Macにログインするときのパスワード</b>を打って Enter（文字は画面に出ません。それで合っています）。</p>
+          <p>「インストール」の確認画面が出たら押して、待ちます。</p></div></div>
+        <div class="step"><div class="n">3</div><div class="b"><b>「セットアップ完了です！！」と出て、VS Code が開いたら成功</b><p>そのまま 04 のサインインへ🙌</p></div></div>
+        <p class="note">ダブルクリック派の方は <a href="setup-mac.command" download>setup-mac.command</a> をダウンロード → ファイルを<b>右クリック→「開く」</b>（初回だけ「開発元を確認できません」と出るので、右クリックから開きます）。</p>
+      </div>
+
+      <div class="osbody" id="os-win">
+        <div class="step"><div class="n">1</div><div class="b"><b>「PowerShell」を開く</b><p>画面左下の <b>スタートボタンを右クリック</b> →「ターミナル」（または「Windows PowerShell」）。青か黒の画面が出ます。</p></div></div>
+        <div class="step"><div class="n">2</div><div class="b"><b>下の1行をコピーして、貼って Enter</b>
+          <div class="cmd" id="c-win">irm https://kumiko0814.github.io/haruka-ai-labo/vscode-guide/setup-windows.ps1 | iex<button type="button" data-copy="c-win">コピー</button></div>
+          <p>「このアプリがデバイスに変更を加えることを許可しますか？」が出たら <b>はい</b>。何回か出ます。</p></div></div>
+        <div class="step"><div class="n">3</div><div class="b"><b>「セットアップ完了です！！」と出て、VS Code が開いたら成功</b><p>そのまま 04 のサインインへ🙌</p></div></div>
+        <p class="note">ダブルクリック派の方は <a href="setup-windows.bat" download>setup-windows.bat</a> をダウンロード → ダブルクリック。「WindowsによってPCが保護されました」と出たら「詳細情報」→「実行」。</p>
+      </div>
+
+      <div class="line"></div>
+      <p><span class="pill b">手動でやりたい人へ</span>自動が不安なときは、この順番で1つずつ。全部「ダウンロード→インストール→次へ」だけです。</p>
+      <ul class="check">
+        <li><a href="https://code.visualstudio.com/" target="_blank" rel="noopener">VS Code</a> を入れる → 開く</li>
+        <li>左の「四角が4つ」のアイコン（拡張機能）→ 検索欄に <b>Japanese</b> → 「Japanese Language Pack」を Install → 日本語になります</li>
+        <li>同じ検索欄で <b>Claude Code</b>（発行元 Anthropic）→ Install</li>
+        <li>同じ検索欄で <b>ChatGPT</b>（発行元 OpenAI。これが Codex です）→ Install</li>
+        <li>05 の拡張機能を、同じやり方で好きなだけ</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 04 -->
+  <section class="sec" id="s4">
+    <div class="eyebrow">04</div>
+    <h2>サインイン（<em>2人のAI</em>を起こす）</h2>
+    <div class="card">
+      <h3>Claude Code</h3>
+      <div class="step"><div class="n">1</div><div class="b"><b>VS Code の左の並びにある Claude のアイコンを押す</b><p>「Sign in」ボタンが出ます。押すとブラウザが開きます。</p></div></div>
+      <div class="step"><div class="n">2</div><div class="b"><b>Claude（Pro／Max）のアカウントでログイン → 「許可」</b><p>VS Code に戻ると、チャット欄が出ています。これで完了🤍</p></div></div>
+      <p class="note">ターミナル派の方は、ターミナルで <b>claude</b> と打って Enter でも同じことができます。ログインが切れたら、チャット欄に <b>/login</b>。</p>
+      <div class="line"></div>
+      <h3>Codex</h3>
+      <div class="step"><div class="n">1</div><div class="b"><b>左の並びにある Codex（ChatGPT）のアイコンを押す</b><p>出てこないときは、上のメニュー「表示」→「コマンドパレット」→「Codex: Open Codex Sidebar」。</p></div></div>
+      <div class="step"><div class="n">2</div><div class="b"><b>「Sign in with ChatGPT」→ ChatGPT のアカウントでログイン</b><p>これで完了です！！</p></div></div>
+    </div>
+  </section>
+
+  <!-- 05 -->
+  <section class="sec" id="s5">
+    <div class="eyebrow">05</div>
+    <h2><em>デザイナー向け</em>セット（拡張機能）</h2>
+    <div class="card">
+      <p>貼るだけセットアップで、まとめて入っています。「これ何？」を1行ずつ⇩</p>
+      <div class="grid">
+        <div class="ext"><b>Claude Code</b><i>anthropic.claude-code</i><span>Anthropic の AI。ファイルを作る・直す・公開までやってくれる相棒</span></div>
+        <div class="ext"><b>ChatGPT（Codex）</b><i>openai.chatgpt</i><span>OpenAI の AI。同じことができるもう1人。得意分野が少し違うので2人いると心強い</span></div>
+        <div class="ext"><b>Japanese Language Pack</b><i>MS-CEINTL.vscode-language-pack-ja</i><span>VS Code のメニューを日本語に</span></div>
+        <div class="ext"><b>Figma for VS Code</b><i>figma.figma-vscode-extension</i><span>VS Code の中で Figma のデザインを開いて、色や余白の値を見られる（Figma の有料席が必要）</span></div>
+        <div class="ext"><b>Live Server</b><i>ritwickdey.LiveServer</i><span>作った HTML をブラウザで即プレビュー。直すと自動で更新</span></div>
+        <div class="ext"><b>Prettier</b><i>esbenp.prettier-vscode</i><span>コードの見た目を自動で整える（インデントのズレを直してくれる）</span></div>
+        <div class="ext"><b>Auto Rename Tag</b><i>formulahendry.auto-rename-tag</i><span>HTML のタグを片方直すと、閉じタグも一緒に直る</span></div>
+        <div class="ext"><b>Color Highlight</b><i>naumovs.color-highlight</i><span>#a75da9 のような色コードに、その色が表示される</span></div>
+        <div class="ext"><b>Image preview</b><i>kisstkondoros.vscode-gutter-preview</i><span>画像のファイル名にマウスを乗せると、画像が見える</span></div>
+        <div class="ext"><b>Material Icon Theme</b><i>PKief.material-icon-theme</i><span>ファイルの種類がアイコンで分かる（見た目がかわいくなる）</span></div>
+        <div class="ext"><b>HTML CSS Support</b><i>ecmel.vscode-html-css</i><span>class 名を打つと候補が出る</span></div>
+        <div class="ext"><b>Path Intellisense</b><i>christian-kohler.path-intellisense</i><span>画像やファイルの場所を打つと候補が出る（打ち間違いが減る）</span></div>
+      </div>
+      <p class="note">あとから入れたいときは：左の「四角が4つ」のアイコン → 検索欄に上の名前 → Install。</p>
+    </div>
+  </section>
+
+  <!-- 06 -->
+  <section class="sec" id="s6">
+    <div class="eyebrow">06</div>
+    <h2><em>Figma</em> とつなぐ</h2>
+    <div class="card">
+      <p>Claude Code に「Figma のこのフレームを見て」と頼めるようにする設定です。貼るだけセットアップで済んでいますが、あとから入れるときは⇩</p>
+      <div class="cmd" id="c-figma">claude mcp add --transport http figma https://mcp.figma.com/mcp<button type="button" data-copy="c-figma">コピー</button></div>
+      <p>ターミナル（Windows は PowerShell）に貼って Enter。初めて使うときに Figma のログイン画面が出るので「許可」します。</p>
+      <div class="try"><b>使い方</b>Figma でフレームを選んで、右クリック →「Copy link to selection」。そのリンクを Claude Code に貼って「これを HTML と CSS にして」と頼むだけ✨</div>
+      <p class="note">Figma 公式の「Figma MCP」を使っています。Figma の全プラン・全席で使えます（VS Code の中で Figma を開く拡張機能とは別物です）。</p>
+    </div>
+  </section>
+
+  <!-- 07 -->
+  <section class="sec" id="s7">
+    <div class="eyebrow">07</div>
+    <h2>最初に<em>やってみること</em>（3つ）</h2>
+    <div class="card">
+      <p>VS Code の上メニュー「ファイル」→「フォルダーを開く」→ デスクトップの「AIラボ」を開いてから、Claude Code のチャット欄に⇩を貼ってみてください。</p>
+      <div class="try"><b>① ページを作ってもらう</b>「美容サロンの LP を1枚作ってください。ファーストビュー・お悩み・メニュー・料金・アクセス・予約ボタンの順で。色はベージュとゴールド、フォントは游ゴシック。作ったらブラウザで開いて見せてください」</div>
+      <div class="try"><b>② 画像を見て添削してもらう</b>「AIラボ」フォルダにバナー画像を入れて → 「このバナーを、余白・文字の強弱・配色・揃え・CTA の順で見て、直すところを教えてください」</div>
+      <div class="try"><b>③ Figma からコードにしてもらう</b>Figma のフレームのリンクを貼って → 「このデザインをそのまま HTML と CSS にしてください。スマホ幅でも崩れないように」</div>
+      <p class="note">コツは『 誰向け・何のため・どんな順番 』を先に書くこと。カルテの書き方と同じです🤍 途中で「ここ違う」と言えば、何回でも直してくれます。</p>
+    </div>
+  </section>
+
+  <!-- 08 -->
+  <section class="sec" id="s8">
+    <div class="eyebrow">08</div>
+    <h2>困ったときは</h2>
+    <div class="card">
+      <div class="qa"><b>「command not found」「claude は認識されていません」と出る</b><p>ターミナル（PowerShell）を一度閉じて、開き直してからもう一度。それでもダメなら、03 の1行をもう一度貼ります（2回やっても壊れません）。</p></div>
+      <div class="qa"><b>Mac で「開発元を確認できないため開けません」</b><p>ファイルを右クリック →「開く」→「開く」。初回だけです。</p></div>
+      <div class="qa"><b>Windows で「スクリプトの実行が無効」と出る</b><p>PowerShell に <b>Set-ExecutionPolicy -Scope CurrentUser RemoteSigned</b> と貼って Enter → もう一度 03 の1行。</p></div>
+      <div class="qa"><b>サインインしても「Sign in」に戻る</b><p>Claude の無料プランでは Claude Code が使えません。Pro／Max に変えてから、チャット欄に /login。</p></div>
+      <div class="qa"><b>いまの状態を点検したい</b><p>ターミナルで <b>claude doctor</b> と打つと、入っているか・設定が正しいかを教えてくれます。</p></div>
+      <div class="qa"><b>それでも困ったら</b><p>ターミナルの画面をスクショして、くみこに送ってください。エラーは全部「次の一歩が分かる情報」なので、怖くないです🙌</p></div>
+    </div>
+    <div class="card">
+      <h3>用語ミニ辞典</h3>
+      <div class="dict">
+        <div><b>ターミナル</b>：文字で命令する画面。「貼って Enter」だけできれば十分</div>
+        <div><b>拡張機能</b>：VS Code に足す機能。スマホのアプリと同じ感覚</div>
+        <div><b>MCP</b>：AI と他のアプリ（Figma など）をつなぐ差し込み口</div>
+        <div><b>リポジトリ</b>：GitHub に置くフォルダ。公開ページの元</div>
+        <div><b>push（プッシュ）</b>：作ったものをインターネットに反映する操作</div>
+        <div><b>Homebrew／winget</b>：アプリをまとめて入れてくれる道具。裏で動くだけ</div>
+      </div>
+    </div>
+  </section>
+
+  <footer>AI活用ラボ｜このページの手順は 2026年9月27日時点の公式ドキュメントにもとづいています</footer>
+</div>
+
+<script>
+(function(){
+  document.querySelectorAll('.os button').forEach(function(b){
+    b.addEventListener('click',function(){
+      document.querySelectorAll('.os button').forEach(function(x){ x.classList.toggle('on',x===b); });
+      document.querySelectorAll('.osbody').forEach(function(x){ x.classList.toggle('on',x.id==='os-'+b.getAttribute('data-os')); });
+    });
+  });
+  if(/Windows/i.test(navigator.userAgent)){ var w=document.querySelector('.os button[data-os="win"]'); if(w) w.click(); }
+  document.querySelectorAll('[data-copy]').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      var el=document.getElementById(btn.getAttribute('data-copy')); if(!el) return;
+      var t=el.childNodes[0].textContent.trim();
+      function done(){ btn.textContent='コピーしました'; btn.classList.add('done'); setTimeout(function(){ btn.textContent='コピー'; btn.classList.remove('done'); },1800); }
+      if(navigator.clipboard&&navigator.clipboard.writeText){ navigator.clipboard.writeText(t).then(done).catch(function(){ fallback(); }); } else { fallback(); }
+      function fallback(){ var ta=document.createElement('textarea'); ta.value=t; document.body.appendChild(ta); ta.select(); try{ document.execCommand('copy'); }catch(e){} document.body.removeChild(ta); done(); }
+    });
+  });
+})();
+</script>
+</body></html>
