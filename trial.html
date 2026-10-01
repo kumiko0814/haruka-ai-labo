@@ -337,6 +337,16 @@ footer{text-align:center; font-size:14px; color:#a3a2b5; margin-top:44px; line-h
 <script>
 (function(){
 var P=new URLSearchParams(location.search);
+/* モニター受付の締め切り（labo_config.js の trial_closed が true のとき） */
+if(window.cfg&&window.cfg("trial_closed",false)===true){
+  var mc=document.getElementById("main-content");
+  Array.prototype.forEach.call(mc.children,function(c){ c.style.display="none"; });   /* 既存の要素は残して隠す（他のスクリプトが参照するため） */
+  var cd=document.createElement("div"); mc.insertBefore(cd,mc.firstChild);
+  cd.innerHTML='<div class="hero"><h1>モニター版は、<br><span class="grad">締め切りました。</span></h1><span class="badge">受付終了</span>'+
+    '<div class="lead">AIカルテのモニター版は、受付を終了しました。たくさんのお申し込み、ありがとうございました🤍<br>カルテ・返信・応募ノート・添削依頼は、本受講でそのままお使いいただけます。</div></div>'+
+    '<section class="sec"><div class="card"><p>ご案内ページに、受講の流れ・受講料・よくあるご質問をまとめています。</p></div><a class="cta" href="lp.html">AIラボのご案内を見る</a></section>';
+  return;
+}
 var SB_ON=(typeof SUPABASE_CONFIG!=="undefined")&&SUPABASE_CONFIG.enabled;
 var DEMO=(P.get("demo")==="1")||!SB_ON;   /* ?demo=1 … 保存せずメモリ内で動く（運営の確認用） */
 if(DEMO) document.getElementById("demoband").style.display="block";

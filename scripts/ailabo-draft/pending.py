@@ -59,6 +59,18 @@ for d in drafts_used:
         pairs.append((d, s))
 pairs = pairs[-30:]
 
+# 講師の「返信フィードバック」（fb.html で入力。mood「返信FB」・want=返信(advice)のid・worry=こう返したかった）
+adv_by_id = {str(a.get("id")): a for a in adv}
+fb_pairs = []
+for n in sorted([x for x in notes if x.get("mood") == "返信FB"], key=lambda x: x["created_at"]):
+    a = adv_by_id.get(str(n.get("want") or ""))
+    if not a: continue
+    k = [x for x in karte if x["member_id"] == a.get("target_id") and x["created_at"] <= a["created_at"]]
+    k = k[-1] if k else None
+    fb_pairs.append({"karte": ((k.get("worry") or "") + ("\n" + (k.get("want") or "") if k.get("want") else "")) if k else "",
+                     "sent": a.get("message") or "", "feedback": n.get("worry") or "", "at": n["created_at"]})
+fb_pairs = fb_pairs[-30:]
+
 pending = []
 for n in karte:
     ts, mid = n["created_at"], n["member_id"]
@@ -105,6 +117,7 @@ if "--json" in sys.argv:
     out = sys.argv[sys.argv.index("--json") + 1]
     json.dump({"instructor": me, "labo_name": env["labo_name"], "corpus": [a.get("message") or "" for a in sent][-60:],
                "edit_pairs": [{"draft": d.get("message") or "", "sent": s.get("message") or ""} for d, s in pairs],
+               "fb_pairs": fb_pairs,
                "pending": merged}, open(out, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
 
 print(f"===== {me} の返信コーパス（文体学習用・直近{min(len(sent),60)}件） =====")
@@ -114,6 +127,12 @@ print(f"===== 編集差分（下書き → 実際に送った文・{len(pairs)}�
 for d, s in pairs:
     print("【下書き】", (d.get("message") or "").replace("\n", " ⏎ ")[:300])
     print("【送信文】", (s.get("message") or "").replace("\n", " ⏎ ")[:300])
+    print("---")
+print()
+print(f"===== 講師の返信フィードバック（送った返信 → こう返したかった・{len(fb_pairs)}件） =====")
+for f in fb_pairs:
+    print("【送信文】", f["sent"].replace("\n", " ⏎ ")[:200])
+    print("【FB】", f["feedback"].replace("\n", " ⏎ ")[:300])
     print("---")
 print()
 print("===== 未返信カルテ（下書きなし） =====")

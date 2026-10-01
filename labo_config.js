@@ -30,6 +30,10 @@ var LABO_CONFIG = {
   privacy_url: "https://claude.ai/artifact/1m2VKXSBENfEXoLan3WHFv#privacy",
   terms_url: "https://claude.ai/artifact/1m2VKXSBENfEXoLan3WHFv#terms",
 
+  /* ===== モニター版（trial.html）の受付 =====
+     true にすると、モニター版と「モニターIDで開く受講生画面」が「締め切りました」の表示になります。 */
+  trial_closed: true,
+
   /* ===== 管理者ボードの合言葉（本番のみ有効） =====
      ここには合言葉そのものではなく「ハッシュ（暗号化した値）」を置きます。
      合言葉を変えたいときは Claude に「管理者ボードの合言葉を〇〇に変えて」と頼んでください。 */

@@ -199,6 +199,7 @@ var P=new URLSearchParams(location.search);
 var UID=(P.get("u")||"").replace(/[^a-zA-Z0-9_\-]/g,"").slice(0,40);
 var NAME=(P.get("name")||"").slice(0,20);
 if(!UID){ try{ var my=JSON.parse(localStorage.getItem("ailab_my")||"{}"); if(my&&my.id){ UID=String(my.id).replace(/[^a-zA-Z0-9_\-]/g,"").slice(0,40); if(!NAME&&my.name) NAME=String(my.name).slice(0,20); } }catch(e){} }
+if(/^trial_/.test(UID)&&window.cfg&&window.cfg("trial_closed",false)===true){ location.replace("trial.html"); return; }   /* モニター受付終了 */
 try{ var __nm=localStorage.getItem("ailab_name_"+UID); if(__nm) NAME=__nm.slice(0,20); }catch(e){}
 var CFG_ON=(typeof SUPABASE_CONFIG!=="undefined"&&SUPABASE_CONFIG.enabled);
 var DEMO=P.get("demo")==="1"||!CFG_ON||!UID;

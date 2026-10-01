@@ -441,6 +441,7 @@ footer{text-align:center; font-size:14px; color:#9aa7b4; padding:34px 16px 10px;
 (function(){
 var P=new URLSearchParams(location.search);
 var UID=(P.get("u")||"").replace(/[^a-zA-Z0-9_\-]/g,"").slice(0,40);
+if(/^trial_/.test(UID)&&window.cfg&&window.cfg("trial_closed",false)===true){ location.replace("trial.html"); return; }   /* モニター受付終了 */
 var NAME=(P.get("name")||"").slice(0,20);
 try{ var __nm=localStorage.getItem("ailab_name_"+(P.get("u")||"")); if(__nm) NAME=__nm.slice(0,20); }catch(e){}
 var DEMO=P.get("demo")==="1"||!UID||!(typeof SUPABASE_CONFIG!=="undefined"&&SUPABASE_CONFIG.enabled);

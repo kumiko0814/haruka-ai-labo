@@ -179,6 +179,7 @@ var MY=null; try{ MY=JSON.parse(localStorage.getItem("ailab_my")||"null"); }catc
 var UID=clean(P.get("u"))||clean(P.get("uid"));
 if(!UID){ try{ UID=clean(localStorage.getItem("ailab_uid")); }catch(e){} }
 if(!UID && MY && MY.id) UID=clean(MY.id);
+if(/^trial_/.test(UID)&&window.cfg&&window.cfg("trial_closed",false)===true){ location.replace("trial.html"); UID=""; }   /* モニター受付終了 */
 var NAME=(P.get("name")||"").slice(0,20);
 try{ var __nm=localStorage.getItem("ailab_name_"+UID); if(__nm) NAME=__nm.slice(0,20); }catch(e){}
 if(!NAME && MY && clean(MY.id)===UID && MY.name) NAME=String(MY.name).slice(0,20);

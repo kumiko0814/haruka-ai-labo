@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="ja"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>返信フィードバック｜AI活用ラボ</title>
+<style>
+:root{ --bg:#f0f4ff; --navy:#2c3a55; --navy2:#22304a; --camel:#c77fce; --camel2:#a75da9; --camelbg:#fde6ff; --text:#4a4440; --muted:#8b8a9b; --line:#e4e2f2; }
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{overflow-x:hidden;}
+body{font-family:"Yu Gothic","YuGothic","游ゴシック","Hiragino Kaku Gothic ProN","Hiragino Sans",sans-serif; background:linear-gradient(168deg,#e2ebff 0%,#fdf9ff 46%,#fde6ff 100%); color:var(--text); line-height:1.95; -webkit-font-smoothing:antialiased;}
+.wrap{max-width:760px; margin:0 auto; padding:0 18px 60px;}
+header{background:var(--navy2); color:#fff; padding:12px 18px; font-size:14px; letter-spacing:.06em; display:flex; justify-content:space-between; align-items:center; gap:10px;}
+header a{color:#cfdcea; text-decoration:none; font-size:13px;}
+.demoband{background:var(--navy2); color:#cfdcea; text-align:center; font-size:13px; padding:5px 10px; letter-spacing:.08em; display:none;}
+.hero{padding:26px 0 6px;}
+.hero h1{font-size:clamp(22px,6vw,28px); color:var(--navy2); line-height:1.5; font-weight:800;}
+.hero h1 span{color:var(--camel2);}
+.lead{background:#fff; border-radius:16px; padding:14px 16px; box-shadow:0 6px 20px rgba(44,58,85,.07); margin-top:12px; font-size:14px;}
+.lead b{color:var(--camel2);}
+.tools{display:flex; gap:8px; margin-top:14px; flex-wrap:wrap; align-items:center;}
+.tools input{flex:1; min-width:160px; border:1px solid var(--line); border-radius:10px; padding:9px 12px; font-size:14px; font-family:inherit;}
+.tools select{border:1px solid var(--line); border-radius:10px; padding:9px 10px; font-size:14px; font-family:inherit; background:#fff;}
+.tools .cnt{font-size:13px; color:var(--muted);}
+.item{background:#fff; border-radius:18px; padding:16px 18px; margin-top:14px; box-shadow:0 6px 20px rgba(44,58,85,.07);}
+.item .top{display:flex; justify-content:space-between; gap:8px; align-items:baseline; flex-wrap:wrap;}
+.item .nm{font-size:15px; font-weight:800; color:var(--navy2);}
+.item .dt{font-size:12px; color:var(--muted); font-weight:700;}
+.item .tag{display:inline-block; font-size:11px; font-weight:800; color:var(--camel2); background:var(--camelbg); border-radius:999px; padding:1px 10px; margin-left:6px; vertical-align:2px;}
+.karte{margin-top:10px; background:#fbfaff; border:1px solid var(--line); border-radius:12px; padding:10px 12px; font-size:13.5px; white-space:pre-wrap; word-break:break-word;}
+.karte .lb{display:block; font-size:11px; color:var(--muted); font-weight:800; letter-spacing:.08em; margin-bottom:2px;}
+.sent{margin-top:10px; border:1px solid var(--line); border-left:4px solid var(--camel); border-radius:12px; padding:10px 12px; font-size:14px; white-space:pre-wrap; word-break:break-word;}
+.sent .lb{display:block; font-size:11px; color:var(--camel2); font-weight:800; letter-spacing:.08em; margin-bottom:2px;}
+.fbs{margin-top:8px;}
+.fb{background:var(--camelbg); border-radius:10px; padding:8px 12px; font-size:13.5px; margin-top:6px; white-space:pre-wrap; word-break:break-word;}
+.fb .d{display:block; font-size:11px; color:var(--muted); font-weight:800;}
+.chips{display:flex; gap:6px; flex-wrap:wrap; margin-top:10px;}
+.chips button{border:1px solid var(--line); background:#fff; color:var(--navy2); border-radius:999px; padding:5px 11px; font-size:12.5px; font-weight:700; cursor:pointer; font-family:inherit;}
+.chips button:hover{border-color:var(--camel2); color:var(--camel2);}
+textarea.tin{display:block; width:100%; border:1px solid var(--line); border-radius:12px; padding:11px 13px; font-size:16px; line-height:1.8; color:var(--navy2); background:#fff; min-height:92px; margin-top:8px; font-family:inherit; resize:vertical;}
+textarea.tin:focus{outline:none; border-color:var(--camel);}
+.row{display:flex; gap:8px; align-items:center; margin-top:8px; flex-wrap:wrap;}
+.sbtn{border:none; background:var(--camel2); color:#fff; border-radius:999px; padding:9px 20px; font-size:14px; font-weight:800; cursor:pointer; font-family:inherit;}
+.sbtn:disabled{background:#c9c6d8; cursor:default;}
+.ok{display:none; font-size:13px; color:#2e7d32; font-weight:800;}
+.cnt2{font-size:12px; color:var(--muted); margin-left:auto;}
+.empty{text-align:center; font-size:14px; color:var(--muted); padding:30px 0;}
+.more{display:block; margin:18px auto 0; border:1px solid var(--line); background:#fff; color:var(--navy2); border-radius:999px; padding:9px 26px; font-size:14px; font-weight:800; cursor:pointer; font-family:inherit;}
+footer{text-align:center; font-size:13px; color:#a3a2b5; margin-top:40px; line-height:2;}
+#gate .bx{background:#fff;border-radius:20px;padding:26px 22px;max-width:360px;width:100%;box-shadow:0 10px 30px rgba(44,58,85,.12);}
+#gate h3{font-size:16px;color:#22304a;margin-bottom:6px;} #gate p{font-size:13px;color:#6b6a7d;line-height:1.8;}
+#gate input{width:100%;border:1.5px solid #e0dfee;border-radius:12px;padding:11px 13px;font-size:16px;margin-top:12px;font-family:inherit;}
+#gate button{width:100%;border:none;border-radius:999px;padding:11px;font-size:14px;font-weight:800;background:#a75da9;color:#fff;margin-top:10px;cursor:pointer;font-family:inherit;}
+#gate .er{display:none;color:#b3261e;font-size:13px;font-weight:800;margin-top:8px;}
+</style>
+<script src="labo_config.js"></script>
+</head>
+<body>
+<div id="demoband" class="demoband">デモ表示（サンプルデータ・保存されません）</div>
+<header><span><b>AI活用ラボ</b>｜返信フィードバック</span><a href="kanri.html">管理者ボードへ →</a></header>
+
+<div class="wrap" id="main-content">
+  <div class="hero">
+    <h1>送った返信を見返して、<br><span>「もっとこう返したい」</span>を残す</h1>
+    <div class="lead">
+      ここは <b data-cfg="instructor_nick">はるか</b> だけが使うページです。実際に受講生へ送った返信（AI下書きを承認したものも含む）を並べています。<br>
+      気になった返信の下に「こういう返しにしたい」を書いて保存すると、<b>次からの下書きに反映</b>されます（短いひとことでも、直した全文でも大丈夫です）。
+    </div>
+    <div class="tools">
+      <input type="search" id="q" placeholder="名前や本文で探す" aria-label="検索">
+      <select id="flt" aria-label="表示の絞り込み"><option value="all">すべて</option><option value="nofb">まだ書いていない返信だけ</option><option value="fb">書いた返信だけ</option></select>
+      <span class="cnt" id="cnt"></span>
+    </div>
+  </div>
+
+  <div id="list"><div class="empty">読み込み中…</div></div>
+  <button type="button" class="more" id="more" style="display:none;">もっと見る</button>
+
+  <footer><span data-cfg="labo_name">AI活用ラボ</span>｜このページの内容は受講生には表示されません</footer>
+</div>
+
+<script src="supabase_config.js"></script>
+<script>
+(function(){
+var P=new URLSearchParams(location.search);
+var DEMO=P.get("demo")==="1"||!(typeof SUPABASE_CONFIG!=="undefined"&&SUPABASE_CONFIG.enabled);
+if(DEMO) document.getElementById("demoband").style.display="block";
+var CF=window.cfg||function(k,d){return d;};
+var ME=CF("instructor_nick","はるか");
+
+/* ===== 合言葉ゲート（管理者ボードと同じ合言葉・同じ保存先） ===== */
+var GATE_KEY="ailab_admin_ok";
+var PASS_HASH=(window.LABO_CONFIG&&window.LABO_CONFIG.admin_pass_hash)||"";
+if(P.get("logout")==="1"){ try{localStorage.removeItem(GATE_KEY);}catch(e){} }
+function gateOk(){ try{ return !!PASS_HASH && localStorage.getItem(GATE_KEY)===PASS_HASH; }catch(e){ return false; } }
+function sha256hex(str){
+  if(!(window.crypto&&window.crypto.subtle)) return Promise.reject(new Error("nocrypto"));
+  return window.crypto.subtle.digest("SHA-256",new TextEncoder().encode(str)).then(function(buf){
+    return Array.prototype.map.call(new Uint8Array(buf),function(b){ return ("0"+b.toString(16)).slice(-2); }).join("");
+  });
+}
+if((!DEMO||P.get("gate")==="1") && !gateOk()){
+  var g=document.createElement("div"); g.id="gate";
+  g.setAttribute("style","position:fixed;inset:0;z-index:9999;background:linear-gradient(168deg,#e2ebff 0%,#fdf9ff 46%,#fde6ff 100%);display:flex;align-items:center;justify-content:center;padding:24px;");
+  g.innerHTML='<div class="bx"><h3>返信フィードバック</h3><p>'+ME+'だけが開けるページです。<br>管理者ボードと同じ合言葉を入れてください（このブラウザでは次回から不要です）。</p>'+
+    '<input type="password" id="gatein" aria-label="合言葉" placeholder="合言葉" autocomplete="current-password"><button id="gatebtn">開く</button><div class="er" id="gateer"></div></div>';
+  document.body.appendChild(g);
+  var gIn=document.getElementById("gatein"), gBtn=document.getElementById("gatebtn"), gEr=document.getElementById("gateer");
+  function gErr(m){ gEr.textContent=m; gEr.style.display="block"; }
+  if(!PASS_HASH){ gErr("合言葉が設定されていません（labo_config.js の admin_pass_hash）"); gBtn.disabled=true; return; }
+  function tryOpen(){
+    var v=gIn.value.trim(); if(!v) return; gBtn.disabled=true;
+    sha256hex(v).then(function(h){
+      if(h===PASS_HASH){ try{localStorage.setItem(GATE_KEY,PASS_HASH);}catch(e){} var np=new URLSearchParams(location.search); np.delete("logout"); var q=np.toString(); location.replace(location.pathname+(q?"?"+q:"")); }
+      else{ gErr("合言葉が違います"); gBtn.disabled=false; gIn.select(); }
+    }).catch(function(){ gErr("この環境では確認できません。https のURLで開いてください"); gBtn.disabled=false; });
+  }
+  gBtn.onclick=tryOpen; gIn.addEventListener("keydown",function(e){ if(e.key==="Enter") tryOpen(); });
+  setTimeout(function(){ gIn.focus(); },50);
+  return;
+}
+
+/* ===== 接続・表示ヘルパー ===== */
+function sb(path,opts){
+  return fetch(SUPABASE_CONFIG.url+"/rest/v1/"+path,Object.assign({
+    headers:{apikey:SUPABASE_CONFIG.anonKey,Authorization:"Bearer "+SUPABASE_CONFIG.anonKey,"Content-Type":"application/json",Prefer:"return=representation"}},opts||{}));
+}
+function fmt(d){ var x=new Date(d); return (x.getMonth()+1)+"/"+x.getDate()+" "+("0"+x.getHours()).slice(-2)+":"+("0"+x.getMinutes()).slice(-2); }
+function esc(s){ var d=document.createElement("div"); d.textContent=s||""; return d.innerHTML; }
+var CHIPS=["もっと短く","絵文字を減らす","数字を入れる","次の一歩を1つだけに","寄り添いを厚く","理由を先に","私の口癖で：","こう返したかった："];
+
+/* ===== データ ===== */
+var ADV=[], NOTES=[], FBS={}, SHOWN=0, PAGE=20;
+var demoAdv=[
+ {id:901,target_id:"demo01",author_name:"はるか",created_at:new Date(Date.now()-86400000*2).toISOString(),message:"ゆきさん、カルテ読みました！\n提案文に1時間かかっているとのこと、そこはAIがいちばん得意なところです🙌\n今夜、気になる案件の募集要項をそのまま貼って「私の強みが伝わる提案文のたたき台を作って」と頼んでみてください。\n5分でたたき台ができます✨"},
+ {id:902,target_id:"demo02",author_name:"はるか",created_at:new Date(Date.now()-86400000*5).toISOString(),message:"まりこさん、DM30件すごいです！！\n返信ゼロは、まだ数が足りないだけ。私も最初の100件はほぼ無反応でした🥲\n次は、相手の投稿を1つ具体的に褒める1行を冒頭に足してみてください🤍"}
+];
+var demoNotes=[
+ {id:1,member_id:"demo01",member_name:"ゆき",worry:"提案文を書くのに毎回1時間かかって、応募が続きません。",want:"提案文のたたき台をAIで早く作れるようになりたい",created_at:new Date(Date.now()-86400000*2.1).toISOString()},
+ {id:2,member_id:"demo02",member_name:"まりこ",worry:"DMを30件送ったけど返信がゼロです。向いてないのかも。",want:"反応が取れるDMの型を知りたい",created_at:new Date(Date.now()-86400000*5.1).toISOString()},
+ {id:3,member_id:"fb_902",member_name:"はるか",mood:"返信FB",worry:"冒頭の「すごいです！！」は1回でいい。あと、具体例を1つ入れたい（例：『〇〇の投稿、素敵でした』）",want:"902",created_at:new Date(Date.now()-86400000*4).toISOString()}
+];
+
+function karteFor(a){
+  var ks=NOTES.filter(function(n){ return n.member_id===a.target_id && !n.mood && n.created_at<=a.created_at; });
+  if(!ks.length) ks=NOTES.filter(function(n){ return n.member_id===a.target_id && !n.mood; });
+  return ks.length?ks[ks.length-1]:null;
+}
+function nameFor(a){ var k=NOTES.filter(function(n){ return n.member_id===a.target_id && n.member_name; }); return k.length?k[k.length-1].member_name:a.target_id; }
+
+function render(reset){
+  var q=(document.getElementById("q").value||"").trim().toLowerCase(), flt=document.getElementById("flt").value;
+  var rows=ADV.filter(function(a){
+    var has=(FBS[String(a.id)]||[]).length>0;
+    if(flt==="nofb"&&has) return false; if(flt==="fb"&&!has) return false;
+    if(q){ var k=karteFor(a); var hay=(nameFor(a)+" "+(a.message||"")+" "+(k?(k.worry||"")+" "+(k.want||""):"")).toLowerCase(); if(hay.indexOf(q)<0) return false; }
+    return true;
+  });
+  if(reset) SHOWN=0;
+  var box=document.getElementById("list"); if(reset) box.innerHTML="";
+  var slice=rows.slice(SHOWN,SHOWN+PAGE); SHOWN+=slice.length;
+  document.getElementById("cnt").textContent=rows.length+"件（書いた："+ADV.filter(function(a){return (FBS[String(a.id)]||[]).length;}).length+"）";
+  if(!rows.length){ box.innerHTML='<div class="empty">表示する返信がありません。</div>'; }
+  slice.forEach(function(a){ box.appendChild(card(a)); });
+  document.getElementById("more").style.display=SHOWN<rows.length?"block":"none";
+}
+function card(a){
+  var k=karteFor(a), e=document.createElement("div"); e.className="item"; e.setAttribute("data-id",a.id);
+  var fbl=FBS[String(a.id)]||[];
+  e.innerHTML='<div class="top"><span class="nm"></span><span class="dt"></span></div>'+
+    '<div class="karte"><span class="lb">カルテ</span><span class="kt"></span></div>'+
+    '<div class="sent"><span class="lb">送った返信</span><span class="st"></span></div>'+
+    '<div class="fbs"></div><div class="chips"></div>'+
+    '<textarea class="tin" placeholder="もっとこういう返しにしたい（ひとことでも、直した全文でも）" maxlength="2000" aria-label="フィードバック"></textarea>'+
+    '<div class="row"><button type="button" class="sbtn">この返信へのフィードバックを保存</button><span class="ok">保存しました。次の下書きに反映されます</span><span class="cnt2"></span></div>';
+  e.querySelector(".nm").textContent=nameFor(a)+"さん";
+  if(fbl.length){ var t=document.createElement("span"); t.className="tag"; t.textContent="FB "+fbl.length+"件"; e.querySelector(".nm").appendChild(t); }
+  e.querySelector(".dt").textContent="返信 "+fmt(a.created_at);
+  e.querySelector(".kt").textContent=k?((k.worry||"")+(k.want?"\n→ "+k.want:"")):"（元のカルテが見つかりません）";
+  e.querySelector(".st").textContent=a.message||"";
+  var fb=e.querySelector(".fbs"); fbl.forEach(function(f){ var d=document.createElement("div"); d.className="fb"; d.innerHTML='<span class="d">'+esc(ME)+'のフィードバック '+fmt(f.created_at)+'</span>'; d.appendChild(document.createTextNode(f.worry||"")); fb.appendChild(d); });
+  var ta=e.querySelector("textarea"), chips=e.querySelector(".chips"), cnt=e.querySelector(".cnt2");
+  CHIPS.forEach(function(c){ var b=document.createElement("button"); b.type="button"; b.textContent=c; b.onclick=function(){ ta.value=(ta.value?ta.value.replace(/\s*$/,"")+"\n":"")+c+(/[：:]$/.test(c)?"":""); ta.focus(); cnt.textContent=ta.value.length+"/2000"; }; chips.appendChild(b); });
+  ta.addEventListener("input",function(){ cnt.textContent=ta.value.length+"/2000"; });
+  var btn=e.querySelector(".sbtn"), okm=e.querySelector(".ok");
+  btn.onclick=function(){
+    var t=ta.value.trim(); if(!t){ ta.focus(); return; }
+    btn.disabled=true;
+    var rec={member_id:"fb_"+a.id,member_name:ME,mood:"返信FB",worry:t,want:String(a.id)};
+    function done(row){ (FBS[String(a.id)]=FBS[String(a.id)]||[]).push(row||Object.assign({created_at:new Date().toISOString()},rec)); ta.value=""; cnt.textContent=""; okm.style.display="inline"; btn.disabled=false; setTimeout(function(){ okm.style.display="none"; },2500); var n=card(a); e.parentNode.replaceChild(n,e); }
+    if(DEMO){ done(); return; }
+    sb("ailab_notes",{method:"POST",body:JSON.stringify(rec)}).then(function(r){ if(!r.ok) throw new Error("post"); return r.json(); })
+      .then(function(j){ done(Array.isArray(j)&&j[0]?j[0]:null); })
+      .catch(function(){ btn.disabled=false; alert("保存できませんでした。通信環境を確認して、もう一度お試しください。"); });
+  };
+  return e;
+}
+function indexFb(){ FBS={}; NOTES.forEach(function(n){ if(n.mood==="返信FB"&&n.want){ (FBS[String(n.want)]=FBS[String(n.want)]||[]).push(n); } }); }
+function load(){
+  if(DEMO){ ADV=demoAdv.slice(); NOTES=demoNotes.slice(); indexFb(); render(true); return; }
+  Promise.all([
+    sb("ailab_advice?author_name=eq."+encodeURIComponent(ME)+"&order=created_at.desc&limit=300").then(function(r){ return r.json(); }),
+    sb("ailab_notes?order=created_at.desc&limit=3000").then(function(r){ return r.json(); })
+  ]).then(function(rs){
+    var adv=Array.isArray(rs[0])?rs[0]:[], notes=Array.isArray(rs[1])?rs[1]:[];
+    /* 同じ文を大勢に送った一斉配信は、フィードバック対象から外す */
+    var cnt={}; adv.forEach(function(a){ var m=a.message||""; cnt[m]=(cnt[m]||0)+1; });
+    ADV=adv.filter(function(a){ return cnt[a.message||""]<20; });
+    NOTES=notes.slice().reverse(); indexFb(); render(true);
+  }).catch(function(){ document.getElementById("list").innerHTML='<div class="empty">読み込めませんでした。ページを再読み込みしてください。</div>'; });
+}
+document.getElementById("q").addEventListener("input",function(){ render(true); });
+document.getElementById("flt").addEventListener("change",function(){ render(true); });
+document.getElementById("more").onclick=function(){ render(false); };
+load();
+})();
+</script>
+</body></html>

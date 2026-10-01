@@ -195,7 +195,7 @@ input[type=text]{width:100%; border:1.5px solid #e3e9f0; border-radius:12px; pad
       <div class="eyebrow"><span data-cfg="labo_name">AI活用ラボ</span></div>
       <h1>AIカルテ 管理者ボード</h1>
       <p class="sub">下書きを読んで、必要ならひとこと編集。最後に「承認して送信」で届けましょう。</p>
-<nav class="ui-tasknav" aria-label="管理メニュー"><a href="#sec-inbox">下書きを確認</a><a href="#sec-progress">学習の進捗</a><a href="#sec-invite">参加者を招待</a><a href="#sec-notice">お知らせを送る</a></nav>
+<nav class="ui-tasknav" aria-label="管理メニュー"><a href="#sec-inbox">下書きを確認</a><a href="#sec-progress">学習の進捗</a><a href="#sec-invite">参加者を招待</a><a href="#sec-notice">お知らせを送る</a><a href="fb.html">返信フィードバック</a></nav>
       <img class="char" src="assets/hk-desk.png" alt="" onerror="this.style.display='none'">
       <div class="script">今日も一緒に<br>がんばろうね</div>
     </div>
@@ -741,7 +741,7 @@ function loadInbox(){
     var lines=all.filter(function(n){ return (n.member_id||"").indexOf("line_")===0; });
     var svys=all.filter(function(n){ return (n.member_id||"").indexOf("svy_")===0 && n.mood==="AI診断"; });
     var svyClicks=all.filter(function(n){ return (n.member_id||"").indexOf("svy_")===0 && n.mood==="AI診断クリック"; });
-    var rest=all.filter(function(n){ var m=(n.member_id||""); return m.indexOf("bug_")!==0 && m.indexOf("line_")!==0 && m.indexOf("svy_")!==0 && m.indexOf("notice_")!==0 && m.indexOf("read_")!==0; });
+    var rest=all.filter(function(n){ var m=(n.member_id||""); return m.indexOf("bug_")!==0 && m.indexOf("line_")!==0 && m.indexOf("svy_")!==0 && m.indexOf("notice_")!==0 && m.indexOf("read_")!==0 && m.indexOf("fb_")!==0; });
     var apps=rest.filter(function(n){ return n.mood==="申込"; });
     var regs=rest.filter(function(n){ return n.mood==="登録"; });
     /* 添付画像（mood「添付画像」）と営業ログ（mood「営業ログ」）はカルテではないので分ける */
