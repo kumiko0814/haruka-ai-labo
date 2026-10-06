@@ -62,6 +62,10 @@ footer{text-align:center; font-size:14px; color:#a3a2b5; margin-top:44px; line-h
 #main-content .status{font-family:inherit; font-size:14px; font-weight:700; border:1px solid var(--line); background:#fff; color:var(--navy2); border-radius:10px; padding:6px 10px; min-height:40px;}
 #main-content .status.s1{background:#e8f3e9; color:#2e7d32; border-color:#cfe6d1;}
 #main-content .status.s2{background:#eeedf6; color:var(--muted);}
+#main-content .status.err{border-color:#b3261e; box-shadow:0 0 0 2px #fbe9e7;}
+#main-content .saveerr{display:none; width:100%; font-size:12px; font-weight:800; color:#b3261e; line-height:1.9; margin-top:4px;}
+#main-content .saveerr.on{display:block;}
+#main-content .saveerr button{border:1px solid #b3261e; background:#fff; color:#b3261e; border-radius:8px; padding:2px 10px; font-size:12px; font-weight:800; margin-left:8px; cursor:pointer; font-family:inherit;}
 #main-content .toggle{font-size:12px; color:var(--camel2); font-weight:700;}
 #main-content .body{display:none; border-top:1px solid var(--line); padding:14px 16px 16px;}
 #main-content .job.open .body{display:block;}
@@ -213,7 +217,7 @@ var HEADINGS={"【ご提案】":1,"【画像について】":1,"【納品形式�
 var JOBS=[], LOW=[], META={};
 var ST={};        /* id → {s:0/1/2, t:編集文 or null, rowId, updated, o:開閉} */
 var filter="all";
-function st(id){ return ST[id]||(ST[id]={s:0,t:null,rowId:null,updated:null,o:false}); }
+function st(id){ return ST[id]||(ST[id]={s:0,t:null,rowId:null,updated:null,o:false,saveFailed:false,wantedStatus:null}); }
 
 function fillName(text){ return NAME ? String(text).split("【お名前】").join(NAME) : String(text); }
 function defaultText(j){ return fillName(j.text); }
@@ -247,9 +251,10 @@ function render(){
         +'<div class="toprow"><span class="num">'+String(i+1).padStart(2,"0")+'</span><h3 class="title">'+esc(j.title)+'</h3></div>'
         +'<div class="tags">'+tags+'</div>'
         +'<div class="meta"><span class="pay">'+esc(j.pay)+'</span><span>締切 '+fmtDate(j.deadline)+'（'+dlLabel(dl)+'）</span><span>応募 '+esc(j.applied)+'人</span><span>'+esc(j.client)+'</span></div>'
-        +'<div class="ctl"><select class="status s'+s.s+'" aria-label="ステータス">'
+        +'<div class="ctl"><select class="status s'+s.s+(s.saveFailed?" err":"")+'" aria-label="ステータス">'
           +STATUS.map(function(n,k){ return '<option value="'+k+'"'+(s.s===k?" selected":"")+'>'+n+'</option>'; }).join("")
         +'</select><span class="toggle">'+(s.o?"閉じる":"応募文を見る")+'</span></div>'
+        +(s.saveFailed?'<div class="saveerr on">保存できませんでした。電波の良い場所でもう一度お試しください<button type="button" data-act="retrystatus">もう一度保存</button></div>':'')
       +'</div>'
       +'<div class="body">'
         +'<h4>案件の要点</h4><div class="summary">'+esc(j.summary)+'</div>'
@@ -277,19 +282,27 @@ function updateCounts(){
 
 /* ===== 保存（1案件1行：mood「応募ノート」・want=案件id） ===== */
 var queue={};
+function wait(ms){ return new Promise(function(r){ setTimeout(r,ms); }); }
+/* 戻り値は true=保存できた／false=保存できなかった（例外は投げない。s.saveFailed も更新する） */
 function saveNote(id){
   var s=st(id);
   var worry=JSON.stringify({status:STATUS[s.s],text:s.t!=null?s.t:"",updated:s.updated||new Date().toISOString()});
-  if(DEMO) return Promise.resolve();
-  var run=function(){
+  if(DEMO) return Promise.resolve(true);
+  var attempt=function(){
     var req=s.rowId
       ? sb("ailab_notes?id=eq."+encodeURIComponent(s.rowId),{method:"PATCH",body:JSON.stringify({member_name:NAME||null,worry:worry})})
       : sb("ailab_notes",{method:"POST",body:JSON.stringify({member_id:UID,member_name:NAME||null,mood:"応募ノート",want:id,worry:worry})});
     return req.then(function(r){ if(!r.ok) throw new Error("save "+r.status); return r.json(); })
-      .then(function(j){ if(!s.rowId && Array.isArray(j) && j[0] && j[0].id!=null) s.rowId=j[0].id; });
+      .then(function(j){ if(!s.rowId && Array.isArray(j) && j[0] && j[0].id!=null) s.rowId=j[0].id; return true; });
+  };
+  /* 1回失敗しても、1.1秒待って自動で1回だけ再試行する（電波の瞬断対策） */
+  var run=function(){
+    return attempt().catch(function(){ return wait(1100).then(attempt); })
+      .then(function(ok){ s.saveFailed=false; return ok; })
+      .catch(function(){ s.saveFailed=true; return false; });
   };
   queue[id]=(queue[id]||Promise.resolve()).catch(function(){}).then(run);
-  return queue[id].catch(function(){ toast("保存できませんでした。通信環境をご確認ください"); });
+  return queue[id];
 }
 
 /* ===== 営業ログの応募数（ap）を増減（index.html の営業ログと同じ行） ===== */
@@ -320,6 +333,11 @@ list.addEventListener("click",function(e){
   var s=st(jb.id), j=JOBS.filter(function(x){ return x.id===jb.id; })[0];
   if(e.target.closest("select")) return;
   var act=e.target.getAttribute("data-act");
+  if(act==="retrystatus"){
+    var btn=e.target; btn.disabled=true; btn.textContent="保存中…";
+    applyStatus(jb, s.wantedStatus!=null?s.wantedStatus:s.s);
+    return;
+  }
   if(act==="copy"){
     var ta=jb.el.querySelector("textarea.draft");
     var text=fillName(ta.value);
@@ -352,16 +370,30 @@ list.addEventListener("click",function(e){
 list.addEventListener("keydown",function(e){
   if((e.key==="Enter"||e.key===" ")&&e.target.classList.contains("head")){ e.preventDefault(); e.target.click(); }
 });
+/* ステータスを next に変えて保存する（変更リスナーと「もう一度保存」ボタンの両方から呼ぶ）。
+   保存に失敗したら、画面は元の状態に戻し、「次に試すべき値」を s.wantedStatus に覚えておく
+   （→ ボタンを押したとき、戻した後の値ではなく「本当は変えたかった値」を再送信できる）。 */
+function applyStatus(jb,next){
+  var s=st(jb.id), prev=s.s, prevUpd=s.updated;
+  if(prev===next){ s.saveFailed=false; render(); return; }
+  s.s=next; s.updated=new Date().toISOString(); s.saveFailed=false;
+  var bumped=0;   /* 営業ログを増減させたら、保存に失敗した時に取り消すため覚えておく */
+  if(next===1){ bumped=1; bumpLog(1).then(function(v){ if(v) toast("今日の営業ログの応募数に＋1しました（今日 "+v.ap+"件）"); }); }
+  else if(prev===1 && prevUpd && dkey(new Date(prevUpd))===todayKey()){ bumped=-1; bumpLog(-1); }  /* 今日つけた「応募済」を取り消したときだけ戻す */
+  saveNote(jb.id).then(function(ok){
+    if(ok){ s.wantedStatus=null; return; }
+    /* 保存できなかったので表示を元の状態に戻し、カードにエラーを出す（「変えたのに未応募のまま」を防ぐ） */
+    s.s=prev; s.updated=prevUpd; s.saveFailed=true; s.wantedStatus=next;
+    if(bumped===1) bumpLog(-1); else if(bumped===-1) bumpLog(1);
+    toast("保存できませんでした。通信環境をご確認のうえ、もう一度お試しください");
+    render();
+  });
+  render();
+}
 list.addEventListener("change",function(e){
   if(!e.target.classList.contains("status")) return;
   var jb=jobOf(e.target); if(!jb) return;
-  var s=st(jb.id), prev=s.s, prevUpd=s.updated, next=+e.target.value;
-  if(prev===next) return;
-  s.s=next; s.updated=new Date().toISOString();
-  saveNote(jb.id);
-  if(next===1){ bumpLog(1).then(function(v){ if(v) toast("今日の営業ログの応募数に＋1しました（今日 "+v.ap+"件）"); }); }
-  else if(prev===1 && prevUpd && dkey(new Date(prevUpd))===todayKey()){ bumpLog(-1); }  /* 今日つけた「応募済」を取り消したときだけ戻す */
-  render();
+  applyStatus(jb,+e.target.value);
 });
 var typing={};
 list.addEventListener("input",function(e){
@@ -372,7 +404,7 @@ list.addEventListener("input",function(e){
   s.updated=new Date().toISOString();
   var lab=jb.el.querySelector(".saved"); lab.textContent="保存中…";
   clearTimeout(typing[jb.id]);
-  typing[jb.id]=setTimeout(function(){ saveNote(jb.id).then(function(){ lab.textContent=s.t!=null?"編集を保存済み":""; }); },900);
+  typing[jb.id]=setTimeout(function(){ saveNote(jb.id).then(function(ok){ lab.textContent=ok?(s.t!=null?"編集を保存済み":""):"⚠ 保存できませんでした（電波の良い場所でもう一度）"; }); },900);
 });
 document.querySelectorAll(".chip[data-f]").forEach(function(b){
   b.addEventListener("click",function(){
