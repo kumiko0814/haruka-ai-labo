@@ -10,7 +10,7 @@ argument-hint: 空でOK ／ 例）下書き作って ／ チャットで1件ず�
 
 ## 手順（標準＝一括で下書き投入）
 
-1. `python3 scripts/ailabo-draft/pending.py --json pending.json` を実行する
+1. `python3 scripts/ailabo-draft/pending.py --json pending.json` を実行する（環境変数 `SUPABASE_SECRET_KEY` に秘密キーが必要。未設定だと公開キーで読みに行き、カルテが0件に見える）
    - 終了コード 2（DEMO_MODE）なら「まだ本番化されていないので、カルテは届いていません。本番化は設置ガイド（setup.html）のSTEP4です」と伝えて終了
    - 「未返信・下書きなし: 0件」なら「いま下書きが必要なカルテはありません」と伝えて終了
 2. `persona/` の人格設計資料を読む（無ければ「persona フォルダに人格資料がありません」と案内して終了）
@@ -28,7 +28,7 @@ argument-hint: 空でOK ／ 例）下書き作って ／ チャットで1件ず�
 上の3で書いた下書きを1件ずつ「相談内容 → 下書き」で見せ、
 - 「OK」→ その1件だけ `drafts.json` に入れて `post.py`（管理者ボードで承認する流れは同じ）
 - 「直して」→ 直して再提示
-- 「今すぐ送って」→ 例外として送信する：`POST /rest/v1/ailab_advice` を `author_name` = `labo_config.js` の `instructor_nick`、`PATCH /rest/v1/ailab_notes?id=eq.<id>` で `{"mood":"対応済み"}`（接続情報は `supabase_config.js`、ヘッダは CLAUDE.md の共通ヘッダ）。送信は必ず1件ずつ確認する
+- 「今すぐ送って」→ 例外として送信する：`POST /rest/v1/ailab_advice` を `author_name` = `labo_config.js` の `instructor_nick`、`PATCH /rest/v1/ailab_notes?id=eq.<id>` で `{"mood":"対応済み"}`（URLは `supabase_config.js`、キーは環境変数 `SUPABASE_SECRET_KEY`、ヘッダは CLAUDE.md の共通ヘッダ）。送信は必ず1件ずつ確認する
 
 ## してはいけないこと
 - `author_name` を講師名にして投入しない（「今すぐ送って」と明示された1件を除く）

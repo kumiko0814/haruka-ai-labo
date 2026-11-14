@@ -47,11 +47,6 @@ textarea.tin:focus{outline:none; border-color:var(--camel);}
 .empty{text-align:center; font-size:14px; color:var(--muted); padding:30px 0;}
 .more{display:block; margin:18px auto 0; border:1px solid var(--line); background:#fff; color:var(--navy2); border-radius:999px; padding:9px 26px; font-size:14px; font-weight:800; cursor:pointer; font-family:inherit;}
 footer{text-align:center; font-size:13px; color:#a3a2b5; margin-top:40px; line-height:2;}
-#gate .bx{background:#fff;border-radius:20px;padding:26px 22px;max-width:360px;width:100%;box-shadow:0 10px 30px rgba(44,58,85,.12);}
-#gate h3{font-size:16px;color:#22304a;margin-bottom:6px;} #gate p{font-size:13px;color:#6b6a7d;line-height:1.8;}
-#gate input{width:100%;border:1.5px solid #e0dfee;border-radius:12px;padding:11px 13px;font-size:16px;margin-top:12px;font-family:inherit;}
-#gate button{width:100%;border:none;border-radius:999px;padding:11px;font-size:14px;font-weight:800;background:#a75da9;color:#fff;margin-top:10px;cursor:pointer;font-family:inherit;}
-#gate .er{display:none;color:#b3261e;font-size:13px;font-weight:800;margin-top:8px;}
 </style>
 <script src="labo_config.js"></script>
 </head>
@@ -80,6 +75,7 @@ footer{text-align:center; font-size:13px; color:#a3a2b5; margin-top:40px; line-h
 </div>
 
 <script src="supabase_config.js"></script>
+<script src="https://kumiko0814.github.io/merone-auth/admin-auth.js"></script>
 <script>
 (function(){
 var P=new URLSearchParams(location.search);
@@ -88,42 +84,14 @@ if(DEMO) document.getElementById("demoband").style.display="block";
 var CF=window.cfg||function(k,d){return d;};
 var ME=CF("instructor_nick","はるか");
 
-/* ===== 合言葉ゲート（管理者ボードと同じ合言葉・同じ保存先） ===== */
-var GATE_KEY="ailab_admin_ok";
-var PASS_HASH=(window.LABO_CONFIG&&window.LABO_CONFIG.admin_pass_hash)||"";
-if(P.get("logout")==="1"){ try{localStorage.removeItem(GATE_KEY);}catch(e){} }
-function gateOk(){ try{ return !!PASS_HASH && localStorage.getItem(GATE_KEY)===PASS_HASH; }catch(e){ return false; } }
-function sha256hex(str){
-  if(!(window.crypto&&window.crypto.subtle)) return Promise.reject(new Error("nocrypto"));
-  return window.crypto.subtle.digest("SHA-256",new TextEncoder().encode(str)).then(function(buf){
-    return Array.prototype.map.call(new Uint8Array(buf),function(b){ return ("0"+b.toString(16)).slice(-2); }).join("");
-  });
-}
-if((!DEMO||P.get("gate")==="1") && !gateOk()){
-  var g=document.createElement("div"); g.id="gate";
-  g.setAttribute("style","position:fixed;inset:0;z-index:9999;background:linear-gradient(168deg,#e2ebff 0%,#fdf9ff 46%,#fde6ff 100%);display:flex;align-items:center;justify-content:center;padding:24px;");
-  g.innerHTML='<div class="bx"><h3>返信フィードバック</h3><p>'+ME+'だけが開けるページです。<br>管理者ボードと同じ合言葉を入れてください（このブラウザでは次回から不要です）。</p>'+
-    '<input type="password" id="gatein" aria-label="合言葉" placeholder="合言葉" autocomplete="current-password"><button id="gatebtn">開く</button><div class="er" id="gateer"></div></div>';
-  document.body.appendChild(g);
-  var gIn=document.getElementById("gatein"), gBtn=document.getElementById("gatebtn"), gEr=document.getElementById("gateer");
-  function gErr(m){ gEr.textContent=m; gEr.style.display="block"; }
-  if(!PASS_HASH){ gErr("合言葉が設定されていません（labo_config.js の admin_pass_hash）"); gBtn.disabled=true; return; }
-  function tryOpen(){
-    var v=gIn.value.trim(); if(!v) return; gBtn.disabled=true;
-    sha256hex(v).then(function(h){
-      if(h===PASS_HASH){ try{localStorage.setItem(GATE_KEY,PASS_HASH);}catch(e){} var np=new URLSearchParams(location.search); np.delete("logout"); var q=np.toString(); location.replace(location.pathname+(q?"?"+q:"")); }
-      else{ gErr("合言葉が違います"); gBtn.disabled=false; gIn.select(); }
-    }).catch(function(){ gErr("この環境では確認できません。https のURLで開いてください"); gBtn.disabled=false; });
-  }
-  gBtn.onclick=tryOpen; gIn.addEventListener("keydown",function(e){ if(e.key==="Enter") tryOpen(); });
-  setTimeout(function(){ gIn.focus(); },50);
-  return;
-}
+/* ===== 管理者ログイン（本番のみ。メールのログイン用リンク方式・管理者は Supabase の app_admins 表で判定。デモはログイン不要） ===== */
+if(!DEMO && !window.MeroneAdminAuth){ document.getElementById("list").innerHTML='<div class="empty">ログイン部品を読み込めませんでした。電波を確認して再読み込みしてください。</div>'; return; }
+var READY=DEMO?Promise.resolve():MeroneAdminAuth.require({url:SUPABASE_CONFIG.url,anonKey:SUPABASE_CONFIG.anonKey,title:"AIラボ 返信フィードバック"});
 
 /* ===== 接続・表示ヘルパー ===== */
 function sb(path,opts){
-  return fetch(SUPABASE_CONFIG.url+"/rest/v1/"+path,Object.assign({
-    headers:{apikey:SUPABASE_CONFIG.anonKey,Authorization:"Bearer "+SUPABASE_CONFIG.anonKey,"Content-Type":"application/json",Prefer:"return=representation"}},opts||{}));
+  return MeroneAdminAuth.fetch(SUPABASE_CONFIG.url+"/rest/v1/"+path,Object.assign({
+    headers:{"Content-Type":"application/json",Prefer:"return=representation"}},opts||{}));
 }
 function fmt(d){ var x=new Date(d); return (x.getMonth()+1)+"/"+x.getDate()+" "+("0"+x.getHours()).slice(-2)+":"+("0"+x.getMinutes()).slice(-2); }
 function esc(s){ var d=document.createElement("div"); d.textContent=s||""; return d.innerHTML; }
@@ -212,7 +180,7 @@ function load(){
 document.getElementById("q").addEventListener("input",function(){ render(true); });
 document.getElementById("flt").addEventListener("change",function(){ render(true); });
 document.getElementById("more").onclick=function(){ render(false); };
-load();
+READY.then(load);
 })();
 </script>
 </body></html>

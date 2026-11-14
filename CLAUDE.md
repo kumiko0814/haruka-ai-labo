@@ -76,7 +76,8 @@ push に失敗したら（認証エラー）、`gh auth login` の案内を平�
 接続情報は `supabase_config.js` にある（`url` と `anonKey`、`enabled` が `true` のとき本番）。
 `enabled` が `false` の間は「まだデモモードです。設置ガイド（setup.html）の手順で本番化してください」と案内し、データ操作はしない。
 
-共通ヘッダ：`-H "apikey: <anonKey>" -H "Authorization: Bearer <anonKey>" -H "Content-Type: application/json"`
+curl・scripts などサーバー側からの読み書きは、公開キー（anonKey）ではなく **秘密キー** を環境変数 `SUPABASE_SECRET_KEY` から使う（公開キーでは一覧の読み取り・返信の投入はできない。秘密キーはファイルに書かない・表示しない）。
+共通ヘッダ：`-H "apikey: $SUPABASE_SECRET_KEY" -H "Authorization: Bearer $SUPABASE_SECRET_KEY" -H "Content-Type: application/json"`
 
 | 目的 | テーブル | 操作 |
 |---|---|---|
@@ -106,18 +107,11 @@ push に失敗したら（認証エラー）、`gh auth login` の案内を平�
 - 添える文例は、責めない・急かさない・ひとりにしない内容にとどめ、相談窓口（よりそいホットライン 0120-279-338／こころの健康相談統一ダイヤル 0570-064-556）を案内に含める
 - 医療的な判断や助言はしない
 
-## 管理者ボードの合言葉
+## 管理者ボードのログイン
 
-本番の `kanri.html` は合言葉で守られている（デモモードでは出ない。`?gate=1` で強制表示、`?logout=1` で解除）。
-合言葉の平文はどのファイルにも書かない。`labo_config.js` の `admin_pass_hash` に SHA-256 のハッシュだけを置く。
-
-「合言葉を〇〇に変えて」と頼まれたら：
-1. `python3 -c "import hashlib;print(hashlib.sha256('〇〇'.encode()).hexdigest())"` でハッシュを作る（会話に合言葉を残さないよう、確認後は復唱しない）
-2. `labo_config.js` の `admin_pass_hash` をその64文字に書き換え、`node --check labo_config.js`
-3. 公開手順どおり push → 反映確認
-4. 「変更しました。全員のブラウザでもう一度合言葉の入力が必要になります」と伝える
-
-合言葉が分からなくなった、と言われたら：新しい合言葉を決めてもらい、上の手順で置き換える（元の合言葉は復元できない）。
+本番の `kanri.html` と `fb.html` は、メールのログイン用リンクで開く（デモモードではログイン不要）。
+入れるのは Supabase の `app_admins` 表に載っているメールアドレスだけ（判定はデータベース側）。合言葉・パスワードはどのファイルにも置かない。
+「管理者を追加／変更して」と頼まれたら、`app_admins` 表の編集が必要なので Merone に依頼するよう案内する。
 
 ## 別の会社・別の講師で使うとき
 

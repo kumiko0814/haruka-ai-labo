@@ -26,8 +26,6 @@ const output = path.resolve('guide-captures');
     async function snap(name, target = page) {
       await target.screenshot({ path: path.join(output, name + '.jpg'), type: 'jpeg', quality: 88, animations: 'disabled' });
     }
-    await go('kanri.html?demo=1&gate=1');
-    await snap('01_gate');
     await go('kanri.html?demo=1');
     await snap('02_kanri_full');
     await page.locator('#sec-inbox').evaluate(el => el.scrollIntoView({ block: 'start' }));

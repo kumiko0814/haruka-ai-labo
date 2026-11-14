@@ -172,7 +172,7 @@ footer{text-align:center; font-size:14px; color:var(--muted); margin:30px 0 10px
     <div class="glist">
       <div class="row"><span class="num">1</span><span class="tx"><b>Supabase（無料のデータ保管庫）を作る　約10分</b><span>設置ガイドの <a href="setup.html#step4">STEP4</a> の「4-1」「4-2」「4-3」までを進めてください。アカウント作成 → SQLを1回貼って実行 → 接続テスト、です。4-4以降は Merone が行うので不要です。</span></span></div>
       <div class="row"><span class="num">2</span><span class="tx"><b>できた「URL」と「anon キー」の2つを Merone に送る</b><span>Supabase の画面（Project Settings → API）に表示される <code>Project URL</code> と <code>anon public</code> の2つです。LINE やメールでそのまま送ってください。受け取り次第、Merone 側で本番のスイッチを入れ、自動下書きと自動パトロールが動き始めます。</span></span></div>
-      <div class="row"><span class="num">3</span><span class="tx"><b>管理者ボードを開いて、合言葉で入れることを確かめる</b><span><a href="kanri.html" target="_blank">管理者ボード</a> を開くと合言葉を聞かれます（合言葉は個別にお伝えします）。入れたら準備完了です。スマホでも開けます。</span></span></div>
+      <div class="row"><span class="num">3</span><span class="tx"><b>管理者ボードを開いて、メールのログイン用リンクで入れることを確かめる</b><span><a href="kanri.html" target="_blank">管理者ボード</a> を開くとメールアドレスを聞かれ、ログイン用リンクがメールで届きます（登録済みのメールアドレスだけが入れます）。入れたら準備完了です。スマホでも開けます。</span></span></div>
     </div>
     <div class="note" style="margin-top:12px;"><b>これ以外の設定（人格の登録・自動化の登録・公開の設定）はすべて Merone 側で済んでいます。</b>はるかさんが GitHub や Claude を触る必要はありません。</div>
   </div>
@@ -199,7 +199,7 @@ footer{text-align:center; font-size:14px; color:var(--muted); margin:30px 0 10px
     <div class="lvl">
       <div class="hd"><span class="tag l0">レベル0</span><h3>毎日の運用</h3><span class="freq">管理者ボードだけ・Claude不要</span></div>
       <ul>
-        <li>管理者ボード（ブラウザで開き、合言葉でログインします）を開きます</li>
+        <li>管理者ボード（ブラウザで開き、メールのログイン用リンクでログインします）を開きます</li>
         <li>「カルテ受信ボックス」を開き、返信欄に自動で入っている下書きを読みます</li>
         <li>そのまま送ってよければそのまま、直したいところがあれば直してから、「承認して送信」を押します。押すまでは受講生に届きません</li>
         <li>招待リンクの発行、進捗の確認、バグ報告の確認も、同じ管理者ボードで行えます</li>
@@ -465,7 +465,7 @@ weeks          日程が決まった週から、順番に書き換え</code></pr
   <div class="sec">
     <div class="st"><span class="no">8</span><h2>トラブル対応Q&amp;A</h2></div>
     <div class="qa">
-      <div class="item"><div class="q"><span class="m">Q.</span>管理者ボードを開いたら「合言葉」を聞かれました</div><div class="a">本番の管理者ボードは、運営者だけが開けるように合言葉で守られています（受講生の相談内容が入っているためです）。合言葉は引き継ぎの時に個別にお伝えします。一度入れれば、そのブラウザでは次回から聞かれません。別のスマホやパソコンで開く時は、もう一度入力してください。合言葉を変えたい時は、Claudeに「管理者ボードの合言葉を〇〇に変えて」と話しかけるだけで変更できます（変えた後は、全員がもう一度入力する形になります）。</div></div>
+      <div class="item"><div class="q"><span class="m">Q.</span>管理者ボードを開いたら「ログイン」を求められました</div><div class="a">本番の管理者ボードは、運営者だけが開けるようにメールのログイン用リンクで守られています（受講生の相談内容が入っているためです）。メールアドレスを入れると、ログイン用のリンクが届きます。入れるのは、Supabaseの app_admins 表に管理者として登録されたメールアドレスだけです（判定はデータベース側で行います）。別のスマホやパソコンで開く時は、もう一度メールのリンクでログインしてください。管理者を追加・変更したい時は、Meroneまでご連絡ください。</div></div>
       <div class="item"><div class="q"><span class="m">Q.</span>画面が表示されません</div><div class="a">GitHub Pagesは、ファイルを更新してから反映まで1〜2分ほどかかることがあります。少し待ってから再読み込みしてください。それでも直らない時は、URLのつづりが正しいかをご確認ください。</div></div>
       <div class="item"><div class="q"><span class="m">Q.</span>カルテの内容が管理者ボードに届きません</div><div class="a"><code>supabase_config.js</code> を開き、<code>enabled</code> が <code>true</code> になっているかをご確認ください。<code>false</code> のままだと、送信内容が保存されない確認用の状態のままになります。あわせて、Supabaseが休止していないかもご確認ください。</div></div>
       <div class="item"><div class="q"><span class="m">Q.</span>下書きが入っていません</div><div class="a">下書きは2時間おき（毎日7:40〜21:40）にしか作られないので、まずは少し待ってみてください。それでも入らない時は、本番化されているか（<code>supabase_config.js</code>の<code>enabled</code>）、Supabaseが休止していないか、自動下書きルーティンが登録されているかの順にご確認ください。それでも解決しない時はMeroneまでご連絡ください。</div></div>
@@ -503,7 +503,7 @@ weeks          日程が決まった週から、順番に書き換え</code></pr
       <div class="row"><span class="bx"></span><span class="tx">supabase_config.js の本番化（enabled を true にし、接続情報を設定）</span></div>
       <div class="row"><span class="bx"></span><span class="tx">自動下書きルーティンの登録（Merone側で登録済み／またはご自身で登録）</span></div>
       <div class="row"><span class="bx"></span><span class="tx">バグ自動修正パトロールへの登録</span></div>
-      <div class="row"><span class="bx"></span><span class="tx">管理者ボードの合言葉を受け取り、実際に開けることを確認した（合言葉は書面に残さず口頭・個別で）</span></div>
+      <div class="row"><span class="bx"></span><span class="tx">管理者のメールアドレスを app_admins 表に登録し、メールのログイン用リンクで実際に開けることを確認した</span></div>
       <div class="row"><span class="bx"></span><span class="tx">UnivaPay決済リンクの動作確認</span></div>
       <div class="row"><span class="bx"></span><span class="tx">特定商取引法・プライバシーポリシー・利用規約の設置（<span data-cfg="company">合同会社Li-Li</span>側で対応）</span></div>
       <div class="row"><span class="bx"></span><span class="tx">labo_config.js の内容確認</span></div>
