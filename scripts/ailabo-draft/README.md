@@ -23,7 +23,7 @@ post.py     … author_name="draft" で保存（安全装置つき）
 
 | ファイル | 役割 |
 |---|---|
-| `labo_env.py` | `supabase_config.js` と `labo_config.js` から接続情報・講師名を読む共通部品（コードに埋め込まない） |
+| `labo_env.py` | `supabase_config.js` と `labo_config.js` から接続情報・講師名を読む共通部品（コードに埋め込まない）。キーは環境変数 `SUPABASE_SECRET_KEY`（秘密キー）を優先、無ければ `SUPABASE_KEY` → 公開キー |
 | `pending.py` | 未返信カルテ＋講師の返信コーパス＋編集差分（下書き→送信文）を出力。`--json 出力先` で機械可読にも保存 |
 | `post.py` | `drafts.json` を下書きとして投入。承認待ちがある相手には二重投入しない。保証表現・設定NG語を含むと中止 |
 | `ROUTINE.md` | クラウド定期ジョブ（Claude Code ルーティン）に登録するプロンプト雛形 |

@@ -379,9 +379,10 @@ nameEl.addEventListener("change",function(){
 
 /* ===== index.html と同じ接続・表示ヘルパー ===== */
 function sb(path,opts){
-  return fetch(SUPABASE_CONFIG.url+"/rest/v1/"+path,Object.assign({
-    headers:{apikey:SUPABASE_CONFIG.anonKey,Authorization:"Bearer "+SUPABASE_CONFIG.anonKey,
-    "Content-Type":"application/json",Prefer:"return=representation"}},opts||{}));
+  opts=opts||{};
+  return fetch(SUPABASE_CONFIG.url+"/rest/v1/"+path,Object.assign({},opts,{
+    headers:Object.assign({apikey:SUPABASE_CONFIG.anonKey,Authorization:"Bearer "+SUPABASE_CONFIG.anonKey,
+    "Content-Type":"application/json",Prefer:"return=representation","x-member-id":UID},opts.headers||{})}));
 }
 function fmt(d){ var x=new Date(d); return (x.getMonth()+1)+"/"+x.getDate()+" "+("0"+x.getHours()).slice(-2)+":"+("0"+x.getMinutes()).slice(-2); }
 function esc(s){ var d=document.createElement("div"); d.textContent=s||""; return d.innerHTML; }

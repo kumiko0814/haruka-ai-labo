@@ -201,9 +201,10 @@ if(!UID && P.get("demo")!=="1" && CFG_ON) document.getElementById("lostkey").sty
 })();
 
 function sb(path,opts){
-  return fetch(SUPABASE_CONFIG.url+"/rest/v1/"+path,Object.assign({
-    headers:{apikey:SUPABASE_CONFIG.anonKey,Authorization:"Bearer "+SUPABASE_CONFIG.anonKey,
-    "Content-Type":"application/json",Prefer:"return=representation"}},opts||{}));
+  opts=opts||{};
+  return fetch(SUPABASE_CONFIG.url+"/rest/v1/"+path,Object.assign({},opts,{
+    headers:Object.assign({apikey:SUPABASE_CONFIG.anonKey,Authorization:"Bearer "+SUPABASE_CONFIG.anonKey,
+    "Content-Type":"application/json",Prefer:"return=representation","x-member-id":UID},opts.headers||{})}));
 }
 function esc(s){ return String(s==null?"":s).replace(/[&<>"']/g,function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]; }); }
 function dkey(d){ return d.getFullYear()+"-"+("0"+(d.getMonth()+1)).slice(-2)+"-"+("0"+d.getDate()).slice(-2); }

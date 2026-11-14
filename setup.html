@@ -121,7 +121,6 @@ a{color:var(--navy);}
       <tr><td>apply_label</td><td>お申込みボタンの文言。</td></tr>
       <tr><td>tokutei_url</td><td>特定商取引法に基づく表記のURL。</td></tr>
       <tr><td>weeks</td><td>カリキュラム各週の日程（第1週から順に6つ）。</td></tr>
-      <tr><td>admin_pass_hash</td><td>管理者ボードの合言葉（本番のみ有効）。合言葉そのものではなく暗号化した値を置きます。変える時はClaudeに「管理者ボードの合言葉を〇〇に変えて」と頼んでください。自分で作る場合は、パソコンのターミナルで <code>echo -n "新しい合言葉" | shasum -a 256</code> を実行して出た64文字を貼ります。</td></tr>
     </table>
     </div>
 
@@ -199,12 +198,7 @@ create table if not exists ailab_advice (
 );
 alter table ailab_notes enable row level security;
 alter table ailab_advice enable row level security;
-drop policy if exists ailab_notes_all on ailab_notes;
-create policy ailab_notes_all on ailab_notes
-  for all to anon using (true) with check (true);
-drop policy if exists ailab_advice_all on ailab_advice;
-create policy ailab_advice_all on ailab_advice
-  for all to anon using (true) with check (true);</pre>
+-- 読み書きのルール（誰が読めるか）は、後の手順のSQLで設定します。</pre>
     <button class="btn" id="copysql">SQLをコピー</button>
 
     <h4>4-3　接続テスト</h4>
@@ -216,25 +210,70 @@ create policy ailab_advice_all on ailab_advice
     <p>Supabaseの左メニュー「Settings」→「API」を開き、<b>Project URL</b> と <b>anon（publishable）キー</b> をコピーします。<br>
     このサイトのファイル <b>supabase_config.js</b> を開いて、URLとキーを貼り付け、<b>enabled を true</b> にして保存してください。これで全ページが本番モードになります（それまでは安全なデモモードです）。</p>
 
-    <h4>4-5　データ保護（削除ブロック・1回だけ／おすすめ）</h4>
-    <p>このSQLを実行すると、サイトで使っている公開キーからは<b>データを消すことが不可能</b>になります（書く・読む・返信はこれまで通りできます）。消せるのはSupabaseの管理画面を開ける方だけになります。</p>
-    <pre id="sql2">drop policy if exists ailab_notes_all on ailab_notes;
-drop policy if exists ailab_advice_all on ailab_advice;
-drop policy if exists ailab_notes_sel on ailab_notes;
-drop policy if exists ailab_notes_ins on ailab_notes;
-drop policy if exists ailab_notes_upd on ailab_notes;
-drop policy if exists ailab_advice_sel on ailab_advice;
-drop policy if exists ailab_advice_ins on ailab_advice;
-create policy ailab_notes_sel on ailab_notes
-  for select to anon using (true);
-create policy ailab_notes_ins on ailab_notes
-  for insert to anon with check (true);
-create policy ailab_notes_upd on ailab_notes
-  for update to anon using (true) with check (true);
-create policy ailab_advice_sel on ailab_advice
-  for select to anon using (true);
-create policy ailab_advice_ins on ailab_advice
-  for insert to anon with check (true);</pre>
+    <h4>4-5　読み書きのルール（必須・1回だけ）</h4>
+    <p>このSQLを実行すると、受講生は<b>自分のカルテだけ</b>、管理画面は<b>ログインした運営だけ</b>が読めるようになります（公開キーで全員分を読むことはできません）。実行後、最後の行の例にならって運営のメールアドレスを登録してください。</p>
+    <pre id="sql2">-- ============================================================
+-- AIラボ 読み書きのルール（会員は自分の分だけ・管理画面はログインした運営だけ）
+-- 何度実行しても安全（再実行OK）
+-- ============================================================
+create table if not exists public.app_admins (
+  email      text primary key,
+  note       text,
+  created_at timestamptz default now()
+);
+alter table public.app_admins enable row level security;
+revoke all on public.app_admins from anon, authenticated;
+
+create or replace function public.is_app_admin()
+returns boolean language sql stable security definer set search_path = public, auth as $$
+  select exists (
+    select 1 from auth.users u
+    join public.app_admins a on lower(a.email) = lower(u.email)
+    where u.id = auth.uid() and u.email_confirmed_at is not null
+  );
+$$;
+revoke all on function public.is_app_admin() from public;
+grant execute on function public.is_app_admin() to anon, authenticated;
+
+-- 会員ID（m+英数字 または trial_+8文字）として正しい形のときだけ有効
+create or replace function public.ailab_mid()
+returns text language sql stable as $$
+  select case when h ~ '^(m[a-z0-9]{8,12}|trial_[a-z0-9]{8})$' then h end
+  from (select coalesce(current_setting('request.headers', true)::json -&gt;&gt; 'x-member-id', '') as h) s
+$$;
+grant execute on function public.ailab_mid() to anon, authenticated;
+
+do $$
+declare r record;
+begin
+  for r in select policyname, tablename from pg_policies
+           where schemaname = 'public' and tablename in ('ailab_notes','ailab_advice') loop
+    execute format('drop policy %I on public.%I', r.policyname, r.tablename);
+  end loop;
+end $$;
+alter table public.ailab_notes  enable row level security;
+alter table public.ailab_advice enable row level security;
+
+create policy ailab_notes_admin_all  on public.ailab_notes  for all to authenticated using (public.is_app_admin()) with check (public.is_app_admin());
+create policy ailab_advice_admin_all on public.ailab_advice for all to authenticated using (public.is_app_admin()) with check (public.is_app_admin());
+
+create policy ailab_notes_member_select on public.ailab_notes for select to anon, authenticated using (
+     (member_id = 'notice_all' and mood = 'おしらせ')
+  or  member_id = public.ailab_mid()
+);
+create policy ailab_notes_public_insert on public.ailab_notes for insert to anon, authenticated with check (
+  member_id not like 'notice\_%' and coalesce(mood, '') &lt;&gt; '期限'
+);
+create policy ailab_notes_member_update on public.ailab_notes for update to anon, authenticated
+  using      (member_id = public.ailab_mid() and coalesce(mood, '') &lt;&gt; '期限')
+  with check (member_id = public.ailab_mid() and coalesce(mood, '') &lt;&gt; '期限');
+
+create policy ailab_advice_member_select on public.ailab_advice for select to anon, authenticated using (
+  target_id = public.ailab_mid() and coalesce(author_name, '') not like 'draft%'
+);
+
+-- 運営のメールを登録（管理画面にログインできる人）。メールを書き換えて Run：
+-- insert into public.app_admins(email, note) values ('you@example.com', '運営') on conflict (email) do nothing;</pre>
     <button class="btn" id="copysql2">保護SQLをコピー</button>
 
     <div class="note">無料プランは、1週間ほどアクセスがないと自動的に一時停止します。週に1回は管理者ボード（kanri.html）を開くようにしてください。もし停止してしまった場合は、Supabaseのダッシュボードを開き、「Restore」を押すと再開できます。</div>
@@ -283,7 +322,7 @@ create policy ailab_advice_ins on ailab_advice
     ☐ lp.htmlの講師プロフィール文章を書き換えた<br>
     ☐ supabase_config.jsのenabledがtrueになっている<br>
     ☐ 決済リンク（apply_url）を実際に押して開くことを確認した<br>
-    ☐ 管理者ボードの合言葉（admin_pass_hash）を自社用に変え、本番URLで合言葉画面が出ることを確認した（<code>kanri.html?gate=1</code> でデモ中も確認できます）<br>
+    ☐ 管理者のメールアドレスを Supabase の app_admins 表に登録し、本番URLの管理者ボードにメールのログイン用リンクで入れることを確認した<br>
     ☐ 特定商取引法に基づく表記のリンク（tokutei_url）が正しいページに繋がっている<br>
     ☐ スマートフォンでLP（lp.html）の見え方を確認した<br>
     ☐ 実際に登録・入力してみて、管理者ボード（kanri.html）にカルテが届くことを確認した<br>

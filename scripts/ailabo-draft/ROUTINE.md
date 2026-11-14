@@ -23,6 +23,7 @@
 - 下書きは運営者が承認するまで受講生に届きません
 - 人格資料は中継リポジトリ（非公開）の `persona/` に置きます。公開リポジトリには含めません
 - 中継リポジトリの Secrets（`SUPABASE_URL` / `SUPABASE_KEY`）を登録するまでは、全て「DEMO_MODE」として何もせず成功します
+- キーは公開キーではなく Supabase の **秘密キー**（secret key）を使う。`labo_env.py` は環境変数 `SUPABASE_SECRET_KEY` を最優先で読み、無ければ `SUPABASE_KEY` を読む（データ保護後は公開キーではカルテを読めない）
 
 ## 中継リポジトリの中身
 

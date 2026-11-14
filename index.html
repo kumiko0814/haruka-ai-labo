@@ -469,9 +469,10 @@ if(DEMO) document.getElementById("demoband").style.display="block";
 if(UID&&P.get("demo")!=="1"){ try{ localStorage.setItem("ailab_my",JSON.stringify({id:UID,name:NAME,url:location.href.split("#")[0],t:Date.now()})); }catch(e){} }
 
 function sb(path,opts){
-  return fetch(SUPABASE_CONFIG.url+"/rest/v1/"+path,Object.assign({
-    headers:{apikey:SUPABASE_CONFIG.anonKey,Authorization:"Bearer "+SUPABASE_CONFIG.anonKey,
-    "Content-Type":"application/json",Prefer:"return=representation"}},opts||{}));
+  opts=opts||{};
+  return fetch(SUPABASE_CONFIG.url+"/rest/v1/"+path,Object.assign({},opts,{
+    headers:Object.assign({apikey:SUPABASE_CONFIG.anonKey,Authorization:"Bearer "+SUPABASE_CONFIG.anonKey,
+    "Content-Type":"application/json",Prefer:"return=representation","x-member-id":UID},opts.headers||{})}));
 }
 function fmt(d){ var x=new Date(d); return (x.getMonth()+1)+"/"+x.getDate()+" "+("0"+x.getHours()).slice(-2)+":"+("0"+x.getMinutes()).slice(-2); }
 function esc(s){ var d=document.createElement("div"); d.textContent=s||""; return d.innerHTML; }
@@ -678,7 +679,7 @@ function loadAll(){
       if(!Array.isArray(j)||!j.length) return;
       var n=j[0], key="ailab_seen_ntc_"+n.id;
       try{ if(localStorage.getItem(key)) return; localStorage.setItem(key,"1"); }catch(e){}
-      try{ sb("ailab_notes",{method:"POST",body:JSON.stringify({member_id:"read_"+n.id,member_name:(NAME||UID).slice(0,30),mood:"既読",worry:"おしらせ"+n.id+"を表示",want:UID})}); }catch(e){}
+      try{ sb("ailab_notes",{method:"POST",headers:{Prefer:"return=minimal"},body:JSON.stringify({member_id:"read_"+n.id,member_name:(NAME||UID).slice(0,30),mood:"既読",worry:"おしらせ"+n.id+"を表示",want:UID})}); }catch(e){}
       setTimeout(function(){ show(n.worry||""); },700);
     }).catch(function(){});
   }
@@ -1054,7 +1055,7 @@ function switchView(id){
     try{
       if(!DEMO && UID && !localStorage.getItem("ailab_cur_seen_"+UID)){
         localStorage.setItem("ailab_cur_seen_"+UID,"1");
-        sb("ailab_notes",{method:"POST",body:JSON.stringify({member_id:"read_cur",member_name:(NAME||UID).slice(0,30),mood:"既読",worry:"カリキュラムを開いた",want:UID})});
+        sb("ailab_notes",{method:"POST",headers:{Prefer:"return=minimal"},body:JSON.stringify({member_id:"read_cur",member_name:(NAME||UID).slice(0,30),mood:"既読",worry:"カリキュラムを開いた",want:UID})});
       }
     }catch(e){}
   }

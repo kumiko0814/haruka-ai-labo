@@ -118,7 +118,7 @@ var SB_K=(typeof SUPABASE_CONFIG!=="undefined"&&SUPABASE_CONFIG.anonKey)||"";
 function regTouroku(id,nm){
   try{
     if(localStorage.getItem("ailab_reg_"+id)) return;
-    if(SB_U) fetch(SB_U,{method:"POST",headers:{apikey:SB_K,Authorization:"Bearer "+SB_K,"Content-Type":"application/json"},
+    if(SB_U) fetch(SB_U,{method:"POST",headers:{apikey:SB_K,Authorization:"Bearer "+SB_K,"Content-Type":"application/json","x-member-id":id},
       body:JSON.stringify({member_id:id,member_name:nm,mood:"登録",worry:"",want:"入口ページで専用URLを発行"})})
       .then(function(r){ if(r.ok){ try{localStorage.setItem("ailab_reg_"+id,"1");}catch(e){} } })
       .catch(function(){});
